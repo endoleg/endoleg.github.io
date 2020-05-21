@@ -1,8 +1,8 @@
-# Automatic app-install-scripts - quick and silently
+# Automatic app-install - quick and silently
 compilation by Thorsten Enderlein - https://twitter.com/endi24
 
 
-# Chocolatey
+# Chocolatey scripts / oneliner
 Package manager and installer for software packages
 
 https://chocolatey.org 
@@ -11,7 +11,13 @@ https://twitter.com/chocolateynuget
 
 See packages at https://chocolatey.org/packages/
 
-Chocolatey Easy Installer Builder: http://pmify.com/choco/
+# Chocolatey Easy Installer Builder: 
+
+http://pmify.com/choco/
+
+# Chocolatey GUI
+
+https://chocolatey.org/packages/ChocolateyGUI
 
 # Boxstarter
 Repeatable, reboot resilient windows environment installations made easy using Chocolatey packages.
@@ -25,14 +31,8 @@ https://github.com/chocolatey/boxstarter
 
 
 
-# Ninite 
+# Ninite scripts / oneliner
 Ninite is a package management system offering that enables users automatically install and update popular applications.
-
---> Use Sharpapp https://github.com/mirinsoft/sharpapp and go to > Navigation > packages > Install software packages
-
---> Optional you can also include a PowerShell GUI package for Ninite. Just hit "Add more packages" and select Ninite PowerShellGUI
-
-or https://ninite.com/ directly
 
 --> https://github.com/MinersWin/Ninite
 
@@ -40,8 +40,15 @@ or Invoke-WebRequest -Uri https://ninite.com/chrome/ninite.exe -OutFile ninite.e
 
 https://github.com/LukaszWasko/Install-NiniteUpdates/wiki
 
-# Winget 
-App-Installer (Windows Package Manager) from MS Store for Win10 1709 and later (so support for Win2016/Win2019)
+# Ninite GUI
+--> Use Sharpapp https://github.com/mirinsoft/sharpapp and go to > Navigation > packages > Install software packages
+
+--> Optional you can also include a PowerShell GUI package for Ninite. Just hit "Add more packages" and select Ninite PowerShellGUI
+
+or https://ninite.com/ directly
+
+# Windows Package Manager (winget) scripts / oneliner
+App-Installer from MS Store for Win10 1709 and later (so support for Win2016/Win2019)
 
 Install initial preview release from here: 
 
@@ -55,8 +62,11 @@ https://github.com/microsoft/winget-pkgs
 
 You can use winget in Windows Terminal, command line, or PowerShell: https://docs.microsoft.com/en-us/windows/package-manager
 
+# Windows Package Manager (winget) GUI
 
-# Evergreen
+https://github.com/goranalkovic/WinGetGui
+
+# Evergreen scripts
 
 Evergreen is a simple PowerShell module to get latest version numbers and download URLs for various software products. The module consists of Get commands to use in scripts when performing software management tasks.
 
