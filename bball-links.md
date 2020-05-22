@@ -90,6 +90,8 @@ https://pickandpop.net/
 
 https://www.mensbasketballhoopscoop.com/
 
+https://nothingbutsets.weebly.com/clinics--notes.html
+
 # Podcasts
 
 https://basketballimmersion.com/podcast/
