@@ -14,6 +14,10 @@
 
 24 hours: shutdown /r /t 86400	
 
+# monitor-timeout --> never
+
+powercfg -change -monitor-timeout-ac 0
+
 # hibernate off
 powercfg.exe /hibernate off 
 
