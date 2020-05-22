@@ -22,3 +22,9 @@ PC wird nach einem Tag neu gestartet.
 
 # hibernate off
 powercfg.exe /hibernate off 
+
+# Set computer to never sleep
+cmd /c "powercfg.exe /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"
+
+# ScreenSaveTimeOut
+Set-ItemProperty -Path ‘HKCU:\Software\Policies\Microsoft\Windows\Control Panel\Desktop\’ -Name ScreenSaveTimeOut -Value 0
