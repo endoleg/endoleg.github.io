@@ -1,24 +1,18 @@
-# shutdown
+# shutdown (seconds)
 
-shutdown /r /t 60	
+1 minute: shutdown /r /t 60	
 
-PC wird nach 60 Sekunden neu gestartet.
+15 minute: shutdown /s /t 900	
 
-shutdown /s /t 90	
+1 hour: shutdown /r /t 3600	
 
-PC wird nach 15 Minuten heruntergefahren.
+2 hours: shutdown /r /t 7200	
 
-shutdown /r /t 3600	
+3 hours: shutdown /r /t 10800	
 
-PC wird nach 1 Stunde neu gestartet.
+12 hours: shutdown /s /t 43200	
 
-shutdown /s /t 43200	
-
-PC wird nach 12 Stunden heruntergefahren.
-
-shutdown /r /t 86400	
-
-PC wird nach einem Tag neu gestartet.
+24 hours: shutdown /r /t 86400	
 
 # hibernate off
 powercfg.exe /hibernate off 
