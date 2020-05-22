@@ -1,3 +1,10 @@
+# Coach Clinics
+
+https://cross-canada-coaches-clinic.heysummit.com/
+
+https://tbe.coachesclinic.com/replays/
+
+
 # Offense: Baseline Einwurf – Jay Wright
 https://www.youtube.com/watch?v=NwT3J8FsQ6c
 
