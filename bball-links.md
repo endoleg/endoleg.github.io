@@ -40,3 +40,58 @@ https://www.youtube.com/watch?v=7Rul-_dFVMk&feature=youtu.be
 
 # Sonstige Taktiken
 http://www.hoopsplaybook.ca
+
+# Podcasts
+
+https://basketballimmersion.com/podcast/
+
+# Videos
+
+https://www.youtube.com/user/basketballimmersion
+
+https://www.youtube.com/channel/UCpWevDSy-jSMFkZj1dcjO5A
+
+https://www.youtube.com/user/bryanman8
+
+# Jordan
+
+Chicago Bulls 1984-85 Partial Regular Season Recap (Rookie Michael Jordan, Age 21)
+
+https://www.youtube.com/watch?v=BL3X6EhhkWk&feature=youtu.be
+
+Michael Jordan (Age 21-27): Before The Rings (1984-1990)
+
+https://www.youtube.com/watch?v=VPxOD6Xll8o&feature=youtu.be
+
+Michael Jordan (Age 28): Entire 1991 Playoff Run, Bulls Win 1st Championship!
+
+https://www.youtube.com/watch?v=NpsJ1wE_sZw&feature=youtu.be
+
+Michael Jordan (Age 29): Entire 1992 Playoff Run, Bulls Repeat As Champions!
+
+https://www.youtube.com/watch?v=Uxsz0sqKjH0&feature=youtu.be
+
+Michael Jordan (Age 30): Entire 1993 Playoff Run, Bulls 3-Peat, Jordan's Abrupt 1st Retirement!
+
+https://www.youtube.com/watch?v=kEFVZFw9UB8&feature=youtu.be
+
+Michael Jordan (Age 33): Entire 1996 Playoff Run, Bulls 4th Championship, The Greatest Team Ever!
+
+https://www.youtube.com/watch?v=kNQBJ9gGWPI&feature=youtu.be
+
+Michael Jordan (Age 34): Entire 1997 Playoff Run, 5th Championship, The Drive For Five!
+
+https://www.youtube.com/watch?v=iz-uO21gM4I&feature=youtu.be
+
+Michael Jordan (Age 35): Entire 1998 Playoff Run, The Last Dance!
+
+https://www.youtube.com/watch?v=TOcuipihkcU&feature=youtu.be
+
+Michael Jordan: All NBA Finals Interviews, Highlights & Title Celebrations (1991-93, 1996-98)
+
+https://www.youtube.com/watch?v=C6oGIQraRRI&feature=youtu.be
+
+# Technik
+
+https://www.youtube.com/watch?v=oGEBAJ5VW7s
+
