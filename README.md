@@ -7,6 +7,29 @@ https://www.it-swarm.dev/de/github-pages/
 
 # TV
 
+NBA on demand und ustv now auf Windows
+- Download von kodi:
+https://www.heise.de/download/product/kodi-ehemals-xbmc-media-center-55082/download
+- Nach Download installieren und kodi starten
+- Konfiguration von Kodi:
+- Options - Appeareance - Sprache auf german stellen
+- Optionen - Dateimanager: Quelle hinzufügen 
+- "Durchsuchen" anklicken
+- Netzwerkfreigabe hinzufügen 
+- Webserver-Freigabe HTTP 
+- srp.nu
+- Ok
+- Addons aus zip-Datei installieren
+- Krypton - Category - Programs - SuperRepo
+- Optionen Einstellungen Addons Video 
+- Addon installer
+
+Addon installer unter Programme öffnen
+Folgende Addons installieren:
+NBA on-demand
+USTV NOW
+
+
 # XBMC - Kodi
 Sprache auf deutsch stellen
 Dienste 
