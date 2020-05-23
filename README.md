@@ -99,5 +99,40 @@ http://techgeeks.de/raspberry-pi-ohne-monitor
 https://github.com/recalbox/recalbox-os/wiki/Dual-Boot-einrichten%3A-Archlinux---recalboxOS-mit-NOOBS-lite-%28DE%29
 https://github.com/recalbox/recalbox-os/wiki/Dual-Boot-einrichten%3A-Raspbian---recalboxOS-%28DE%29
 
+# Videobearbeitung
+
+freemake Video converter
+
+avidemux:
+kopien speichern als MPEG PS A+V
+
+media converter:
+wmv in mp4 umwandeln
+320x240
+audio 8 bit
+video 198 bit
+
+free video flip and rotate:
+drehen
+
+windows movie maker
+speichern als wmv  
+
+handbrake:
+- Reiter Video Qualität auf 25 stellen
+Eine niedrigere RF Zahl resultiert in einer höheren, und eine höhere RF Zahl in einer niedrigeren Videoqualität. Du kannst dir den RF Regler in HandBrake wie einen Qualitätsregler vorstellen. Um die Videoqualität zu erhöhen schiebe den Regler nach rechts, zum Verringern nach Links.
+Empfohlene Einstellungen für x264 und x265 Kodierer:
+
+RF 18-22 für 480p/576p Standard Definition1
+RF 19-23 für 720p High Definition2
+RF 20-24 für 1080p Full High Definition3
+RF 22-28 für 2160p 4K Ultra High Definition4
+SD Video hat eine Auflösung von 720x480 oder weniger Pixel (720x576 für PAL). DVDs, kleine Web Videos, und viele Analoge Quellen sind SD.↩
+
+720p HD Video hat eine Auflösung von 1280x720 Pixel. Mit einer drei mal so großen Auflösung als SD und circa die Hälfte von 1080p, ist 720p HD weit verbreitet bei Videokameras, Web Videos und TV Sendungen.↩
+
+- Bildgröße anpassen
+- https://handbrake.fr/docs/de/1.3.0/workflow/adjust-quality.html
 
 
+OBS
