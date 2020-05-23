@@ -7,13 +7,13 @@ Win + .
 
 Win + T
 
-Win + E
+Win + E (Explorer)
 
-Win + L
+Win + L (lock)
 
 Win + R
 
-Win + D
+Win + D (Desktop)
 
 Win + I
 
@@ -21,13 +21,15 @@ Win + V
 
 Win + P
 
+Win + K (Miracast)
+
 Win + Left/Right  Arrow Key
 
-Ctrl + C
+Ctrl + C (copy)
 
-Ctrl + V
+Ctrl + V (paste)
 
-Ctrl + X
+Ctrl + X (cut)
 
 # My favorite MS Outlook Shortcuts
 
