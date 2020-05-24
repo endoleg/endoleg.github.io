@@ -1,0 +1,16 @@
+<h1>shutdown (seconds)</h1>
+<p>1 minute: shutdown /r /t 60</p>
+<p>15 minute: shutdown /s /t 900</p>
+<p>1 hour: shutdown /r /t 3600</p>
+<p>2 hours: shutdown /r /t 7200</p>
+<p>3 hours: shutdown /r /t 10800</p>
+<p>12 hours: shutdown /s /t 43200</p>
+<p>24 hours: shutdown /r /t 86400</p>
+<h1><a id="user-content-monitor-timeout----never" class="anchor" href="https://github.com/endoleg/endoleg.github.io/blob/master/powershell-etc-snippets.md#monitor-timeout----never" aria-hidden="true"></a>monitor-timeout --&gt; never</h1>
+<p>powercfg -change -monitor-timeout-ac 0</p>
+<h1><a id="user-content-hibernate-off" class="anchor" href="https://github.com/endoleg/endoleg.github.io/blob/master/powershell-etc-snippets.md#hibernate-off" aria-hidden="true"></a>hibernate off</h1>
+<p>powercfg.exe /hibernate off</p>
+<h1><a id="user-content-set-computer-to-never-sleep" class="anchor" href="https://github.com/endoleg/endoleg.github.io/blob/master/powershell-etc-snippets.md#set-computer-to-never-sleep" aria-hidden="true"></a>Set computer to never sleep</h1>
+<p>cmd /c "powercfg.exe /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"</p>
+<h1><a id="user-content-screensavetimeout" class="anchor" href="https://github.com/endoleg/endoleg.github.io/blob/master/powershell-etc-snippets.md#screensavetimeout" aria-hidden="true"></a>ScreenSaveTimeOut</h1>
+<p>Set-ItemProperty -Path &lsquo;HKCU:\Software\Policies\Microsoft\Windows\Control Panel\Desktop\&rsquo; -Name ScreenSaveTimeOut -Value 0</p>
