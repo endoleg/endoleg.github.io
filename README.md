@@ -30,42 +30,6 @@ NBA on-demand
 USTV NOW
 
 
-# XBMC - Kodi
-Sprache auf deutsch stellen
-Dienste 
-- Fernbedienung, Webserver, Zeroconf, AirPlay 
-Repositories:
-- Optionen Dateimamager Quelle hinzufügen
-- http://srp.nu/
-- http://fusion.tvaddons.ag/
-- Addons danach aus zip installieren
-Video-Addons: 
-- Optionen Einstellungen Addons Video 
-- Zattoo
-- Mediathek
-- 7TV
-- YouTube
-- Vimeo
-- Myspass
-Aus anderen Repos
-- Navi-X (superrepo)
-- Veetle (superrepo)
-- DisneyChannel (superrepo)
-- Nba (superrepo)
-- AAA (noch zu klären wo)
-Programm-Addons:
-- Rom Collection Browser
-Live-TV:
-- Optionen LiveTV aktivieren
-- Er meckert, das kein PVR - Addon aktiviert ist.
-- PVR IPTV Simple Client - Addon installieren
-- Addon Konfigurieren.
-- http://dl.gmlblog.de/DeutscheSender.m3u
-- Im Menü Live-TV - Allgemein noch oben auf aktivieren gehen. Ging bei mir nicht aufs erste mal
-- PVR- Datenbank zurücksetzen.
-- Kodi schließen - bzw. Neu starten.
-
-
 https://forum.mediathekview.de/topic/2546/anleitung-einstellungen-f%C3%BCr-orf-download
 
 https://winxperts4all.at/index.php/software/2145-mediathekview-version-13-5-1-verfuegbar
