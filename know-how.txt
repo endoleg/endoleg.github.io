@@ -271,6 +271,50 @@ https://support.microsoft.com/de-de/help/929833/use-the-system-file-checker-tool
 Mit ftp://terabyteunlimited.com/tbiview_en.zip kann man WIM-Dateien mounten
 https://www.deskmodder.de/blog/2019/07/23/windows-server-2008-r2-per-inplace-upgrade-auf-die-windows-server-2019-in-mehreren-schritten/
 ----------------------------------------------------
+Systems repair
+
+Sometimes a system needs repair. Try the following commands to check and fix the integrity of your system files.
+
+Start Command Prompt in privileged mode
+•Press ⊞ (Windows logo) in the taskbar, and type cmd.
+•Right-click Command Prompt, and press Run as administrator.
+•Press Yes in case of User Account Control (UAC) pop-up.
+
+SFC
+•Type in sfc /scannow and press Enter to initiate the integrity check and fix.
+•Wait for it to finish and reboot.
+
+MDSCHED
+•Type in mdsched.exe and press Enter to initiate Windows Memory Diagnostic.
+•Reboot to execute the test.
+
+DISM
+
+Find and fix corruptions
+
+•Type in Dism.exe /online /Cleanup-Image /CheckHealth and press Enter to check for known corruptions.
+
+
+•Type in Dism.exe /online /Cleanup-Image /ScanHealth and press Enter to scan for new corruptions.
+
+
+•Type in Dism.exe /online /Cleanup-Image /RestoreHealth and press Enter to fix the known corruptions.
+
+
+•Wait for it to finish and reboot.
+
+
+Clean-up the component store (WinSxS folder)
+
+•Type in Dism.exe /online /Cleanup-Image /StartComponentCleanup clean-up (immediately delete) previous versions of updated components (without a 30 day grace period).
+
+
+•Type in Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase to remove all superseded versions of every component in the component store.
+
+
+•Wait for it to finish and reboot.
+
+
 ----------------------------------------------------
 ----------------------------------------------------
 ----------------------------------------------------
