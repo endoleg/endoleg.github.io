@@ -1,0 +1,23 @@
+.net-Framework (Version rausfinden, Reparatur)
+Powershell:
+(Get-ItemProperty "HKLM:SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full").Release
+
+<#
+.NET Framework 4.5 378389
+.NET Framework 4.5.1 installed with Windows 8.1 378675
+.NET Framework 4.5.1 installed on Windows 8, Windows 7 SP1, or Windows Vista SP2 378758
+.NET Framework 4.5.2 379893
+.NET Framework 4.6 installed with Windows 10 393295
+.NET Framework 4.6 installed on all other Windows OS versions 393297
+.NET Framework 4.6.1 installed on Windows 10 394254
+.NET Framework 4.6.1 installed on all other Windows OS versions 394271
+.NET Framework 4.6.2 installed on Windows 10 Anniversary Update 394802
+.NET Framework 4.6.2 installed on all other Windows OS versions 394806
+.NET Framework 4.7 installed on Windows 10 Creators Update 460798
+.NET Framework 4.7 installed on all other Windows OS versions 460805
+.NET Framework 4.7.1 installed on Windows 10 Fall Creators Update 461308
+.NET Framework 4.7.1 installed on all other Windows OS versions 461310
+              .NET Framework 4.7.2 installed on Windows 10 April 2018 Update 461808
+              .NET Framework 4.7.2 installed on all other Windows OS versions 461814
+              .NET Framework 4.7.8 528040
+#>
