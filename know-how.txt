@@ -261,6 +261,15 @@ Mein erstes Paket
 -          Aufruf der Datei mit Silent-Parameter einbauen
 -          Paket kompilieren
 ----------------------------------------------------
+Betriebssystem mit dism uns sfc reparieren: 
+https://www.tenforums.com/tutorials/7808-use-dism-repair-windows-10-image.html
+https://www.borncity.com/blog/2011/02/28/win-7-defekte-packages-dateien-reparieren/
+https://www.borncity.com/blog/2011/03/05/cbs-store-durch-updates-defekt-wie-reparieren/
+https://www.borncity.com/blog/2011/03/08/service-pack-1-fehlerdiagnose-package-store-mum-cat-reparatur/
+https://www.borncity.com/blog/2011/02/26/sp1-installation-hngt-error-c0000034c000009a/
+https://support.microsoft.com/de-de/help/929833/use-the-system-file-checker-tool-to-repair-missing-or-corrupted-system#CBS%20log
+Mit ftp://terabyteunlimited.com/tbiview_en.zip kann man WIM-Dateien mounten
+https://www.deskmodder.de/blog/2019/07/23/windows-server-2008-r2-per-inplace-upgrade-auf-die-windows-server-2019-in-mehreren-schritten/
 ----------------------------------------------------
 ----------------------------------------------------
 ----------------------------------------------------
