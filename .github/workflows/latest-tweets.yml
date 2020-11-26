@@ -11,16 +11,4 @@ jobs:
       - uses: actions/checkout@v2
       - uses: gautamkrishnar/blog-post-workflow@master
         with:
-          # created from twitter search string:
-          #   from:nil0x42 min_faves:5 min_retweets:2 -filter:retweets -filter:replies -filter:quote
           feed_list: "https://www.spox.com/pub/rss/us-sport-nba.xml"
-          #https://rss.app/embed/v1/9irYxz6qh1aHVBXB
-          #comment_tag_name: LATEST-TWEETS
-          #item_exec: "post.title = post.title.replace(/(?:\\r\\n|\\r|\\n)/g,' ')"
-          #title_max_length: 80
-          #date_format: "mmm dd HH:MM"
-          #template: "<li>$date <a href='$url'>$title</a></li>$newline"
-          #tag_post_pre_newline: true
-          #commit_message: "blog-post-workflow/latest-tweets: update"
-          #committer_username: latest-tweets
-          #committer_email: latest-tweets@notamail.co
