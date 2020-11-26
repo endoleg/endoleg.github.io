@@ -6,7 +6,7 @@
 <!-- LATEST-TWEETS:END -->
 </ul>
 
-<iframe width="600" height="700" src="https://rss.app/embed/v1/Qcs9N13AG69prDj7" frameBorder="0"></iframe>
+<rssapp-wall id="Qcs9N13AG69prDj7"></rssapp-wall><script src="https://widget.rss.app/v1/wall.js" type="text/javascript" async></script>
 
 
 # https://endoleg.github.io/
