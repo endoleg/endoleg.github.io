@@ -1,8 +1,5 @@
-### Hi there <a href="https://www.gautamkrishnar.com/"><img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="25px"></a>
+<h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
-- 📫 How to reach me: [@endi24](https://twitter.com/endi24)
-
-📕 **Latest Tweets**
 <!-- BLOG-POST-LIST:START -->
 - [Show your latest StackOverflow activity along with your latest blog posts in the Github profile or project readme](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adade6cf3a46c75d81c0a9563d06be3ca)
 - [Privilege Escalation Enumeration Script for Windows by @itm4n 
