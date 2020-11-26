@@ -4,9 +4,9 @@
 
 📕 **Latest Blog Posts**
 <!-- BLOG-POST-LIST:START -->
-- [Answer by Gautam Krishna R for Delete files under S3 bucket recursively without deleting folders using python](https://stackoverflow.com/questions/63991288/delete-files-under-s3-bucket-recursively-without-deleting-folders-using-python/63991362#63991362)
-- [Answer by Gautam Krishna R for How to remove files previously added with ng add schematic command](https://stackoverflow.com/questions/57654689/how-to-remove-files-previously-added-with-ng-add-schematic-command/57655411#57655411)
-- [Is it okay to use puppeteer to pre render SPAs?](https://stackoverflow.com/questions/50207220/is-it-okay-to-use-puppeteer-to-pre-render-spas)
-- [Answer by Gautam Krishna R for Send event when time runs out Angular5](https://stackoverflow.com/questions/50190382/send-event-when-time-runs-out-angular5/50190962#50190962)
-- [Answer by Gautam Krishna R for Angular 5 - Main bundle file is too large on the development server](https://stackoverflow.com/questions/49687569/angular-5-main-bundle-file-is-too-large-on-the-development-server/49687624#49687624)
+- [@endi24: Show your latest StackOverflow activity along with your latest blog posts in the Github profile or project readme](https://twitter.com/endi24/status/1332040668785635328)
+- [@endi24: Privilege Escalation Enumeration Script for Windows by @itm4n ... aims to enumerate common Windows security misconfigurations that can be leveraged for privilege escalation. It also gathers information for exploitation and/or post-exploitation.](https://twitter.com/endi24/status/1331989611694985217)
+- [@endi24: Useful commands for Windows administrators](https://twitter.com/endi24/status/1331971378300542976)
+- [@endi24: Powershell Priv Escalation Tools](https://twitter.com/endi24/status/1331966824943136770)
+- [@endi24: Citrix Workspace App for HTML5 2012 - Tech PreviewHighlights:- Improved soft keyboard performance- This release addresses a number of issues that help to improve overall performance and stability.](https://twitter.com/endi24/status/1331955889176186880)
 <!-- BLOG-POST-LIST:END -->
