@@ -1,6 +1,6 @@
-<!-- LATEST-TWEETS:START -->
+<!-- BLOG-POST-LIST::START -->
 
-<!-- LATEST-TWEETS:END -->
+<!-- BLOG-POST-LIST::END -->
 
 
 https://rss.app/embed/v1/9irYxz6qh1aHVBXB
