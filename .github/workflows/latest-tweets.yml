@@ -15,4 +15,6 @@ jobs:
         with:
           comment_tag_name: "BLOG-POST-LIST"
           commit_message: "Updated readme with the latest endi24 data"
-          feed_list: "https://www.youtube.com/feeds/videos.xml?playlist_id=PLbrnMEdPVDPUB5gX3be8qmRdrhSjqwSb_"
+          feed_list: "https://stackoverflow.com/feeds/user/4214976"
+          # feed_list: "https://www.youtube.com/feeds/videos.xml?playlist_id=PLbrnMEdPVDPUB5gX3be8qmRdrhSjqwSb_"
+          # feed_list: "https://twitrss.me/twitter_search_to_rss/?term=endi24"
