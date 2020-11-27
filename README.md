@@ -1,15 +1,9 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [Show your latest StackOverflow activity along with your latest blog posts in the Github profile or project readme](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adade6cf3a46c75d81c0a9563d06be3ca)
-- [Privilege Escalation Enumeration Script for Windows by @itm4n 
-
-... aims to enumerate common Windows security misconfigurations that can be leveraged for privilege escalation. It also gathers information for exploitation and/or post-exploitation.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ad9d760faa46b7cd91d0b9a68d06ae0c5)
-- [Useful commands for Windows administrators](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ad9d76ff2a16d75dc140f9664d761e6c4)
-- [Powershell Priv Escalation Tools](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ad9d76ef5aa6879d6100c9263d36fe6c2)
-- [Citrix Workspace App for HTML5 2012 - Tech Preview
-
-Highlights:
-- Improved soft keyboard performance
-- This release addresses a number of issues that help to improve overall performance and stability.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ad9d76df6aa6274de13099268d360e9c2)
+- [Presentations about „Active Directory Security“⁦by @PyroTek3⁩Sean Metcalf, founder and Principal Consultant for Trimarc, has presented on security attack and defense at several major security conferences. Have a look !](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adadd6efbaa697bda13079a67dc60e5c2)
+- [Get-GPPPassword.ps1Get-GPPPassword searches a domain controller for groups.xml, scheduledtasks.xml, services.xml and datasources.xml and returns plaintext passwords.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adadd6df0ab6f7cda17069065d46de4c1)
+- [Great scripts to configure/customize a the default user profile of a Windows image at deployment timeby ⁦@stealthpuppy⁩](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adadd68fba26979d8120e9160d66fe0c0)
+- [The recording of my @E2EVC session "Writing Robust #PowerShell Code" is now available. Please subscribe to my @Youtube channel for similar content.Slides also with links, tips, etc](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e182aabf3cee782198dc974d3e30bb04f76d9dd6bf1a06f74db1c0f9666d76fe7cb1b7815)
+- [Turn on automatic backup the system registry to System32\config\RegBack folder (disabled since Win10 1803)New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Configuration Manager" -Name EnablePeriodicBackup -PropertyType DWord -Value 1 -Force](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adade61f0a16875df120d9563d368e2c1)
 <!-- BLOG-POST-LIST:END -->
