@@ -1,9 +1,9 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [Have you tried using #Nitter instead of Twitter frontend?#Privacy focused #OpenSource alternative for #Twitter?  JS Analytics & IP Tracking & is lighterSupports RSS feeds!- search an account- click on it - the RSS feed is on the top right](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adad86bfbaa6879da14099166dc6ee8c4)
-- [New Study: Sleep Is Literally a Deep Clean for Your Brain](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adad86af6ab6f75d713089264d269e2cb)
-- [Great Podcast and Videos by @5bytespodcast Subscribe now !!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adada6ff6a66d74d911099763d06fe0c7)
-- [No title](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adada6efaab6c79d6150b9165d660e3c6)
-- ["You should remember that removing admin rights is not just about security. Removing admin rights will also allow your computers to run faster, better and longer. My bigger customers have also measured 75% reduction in the amount of Helpdesk tickets“](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adada6efaa3627ddd1c0e9669d660e4ca)
+- [No title](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adbdf6ef6ab637adf110b9b68dc61e9c4)
+- [Thanks to @samilaiho and @PaulaCqure for report, tweets and sessions about this!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adbdf6cf7a06f79d7120f9b64dc69e4c1)
+- [Few months ago I wrote a Blog post on how to Setup an Active Directory Lab ( )Today I'm releasing this tool I wrote in #PowerShell to automate that process. Enjoy!!!Active Directory Lab Setup Tool  #PowerShell #PenTest #RedTeam](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1d2dbdf6cceb891c8a9562c4e50abc132a9c8f2cb6e1757cdc170c9262dd69e9c21b78138f3dc06b84c4)
+- [RSS is not dead.This is a list of RSS related stuff.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adbdf6af2a26c7ddb130c9366dc6de7cb)
+- [I also love Windows logo key + shift + Sto take a screenshot of part of your screen.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adbdf68f6ab6f7fd6120c9065dd6fe3c2)
 <!-- BLOG-POST-LIST:END -->
