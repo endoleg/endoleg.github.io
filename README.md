@@ -1,22 +1,16 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [RT @HelgeKlein: Gmail & Google Workspace get one-click MS Office file-format editing capabilities.
-This should reduce the need for a full-b…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adfdf6cf1aa6874df110e9466d16fe2cb)
-- [RT @xenappblog: Automated Windows Patching with @pdqdeploy Get the script here:](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adfde60f7a6697bd8110d9668d16fe1ca)
-- [The Browser Summit 
-29th Jan.
+- [For Nintendo Switch sale stuff use  to see if a game goes on sale.
 
-Managing Chrome - C. Kibble
+It has other sites than just the eshop too so can see stuff cheaper sometimes. @dekudeals 
 
-GPO Implementation for Edge + Legacy Edge - C. Brower
-
-Managing + Deploying Edge with MEMCM + Intune
-⁦@TheNotoriousDRR⁩
-
-Browser Compatibility: Saying Goodbye to IE 
-⁦@jandreacola⁩](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adfde60f3aa627fdb1c099461d56ae6c6)
-- [RT @OVDamn:  Here's #Powershell based fix to deal with out-of-date pinned icons in a non #WEM #Citrix #VDI environme…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adfde6df4aa6f78d91d0f9564d46ce0c2)
-- [RT @xenappblog: I automatically run Windows Update and Drive Deployment as part of #MSIntune deployments. Get the script here
-…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adfde6cf0a76879de160c9362d06ce0c2)
+Input games.
+Receive notice when on sale.
+Compare to history of sales.
+Buy when best price.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adfdb69f6a56f74de17099b69d560e9c3)
+- [SetupDiag Result in SCCM Inventory during a Windows 10 Feature Update](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adfda6cf6a26d79df15099065dd6ce1c0)
+- [Youtube RSS-Feed Extractor by jeffkeeling](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adfda68f4ab687dd612089a62d46ee7c7)
+- [RT @james____rankin: AppVentiX + FSLogix – super slick application delivery](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adfdd61f4ab627edd120a9364d76ce2c1)
+- [RT @MDowst: #PowerShell Weekly is out now!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adfdd60f4a76e74d9140d9666d369e5c4)
 <!-- BLOG-POST-LIST:END -->
