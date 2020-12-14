@@ -1,16 +1,9 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [For Nintendo Switch sale stuff use  to see if a game goes on sale.
-
-It has other sites than just the eshop too so can see stuff cheaper sometimes. @dekudeals 
-
-Input games.
-Receive notice when on sale.
-Compare to history of sales.
-Buy when best price.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adfdb69f6a56f74de17099b69d560e9c3)
-- [SetupDiag Result in SCCM Inventory during a Windows 10 Feature Update](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adfda6cf6a26d79df15099065dd6ce1c0)
-- [Youtube RSS-Feed Extractor by jeffkeeling](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adfda68f4ab687dd612089a62d46ee7c7)
-- [RT @james____rankin: AppVentiX + FSLogix – super slick application delivery](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adfdd61f4ab627edd120a9364d76ce2c1)
-- [RT @MDowst: #PowerShell Weekly is out now!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6adfdd60f4a76e74d9140d9666d369e5c4)
+- [Reuters: A sophisticated hacking group backed by a foreign government stole information from the US Treasury Department and a US agency responsible for deciding policy around the internet and telecommunications, according to people familiar with the matter](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e2d30a4e4d0bad543ca9573c6f60ab61368dbdd60f1a26b74da16079a61d36de9c01679)
+- [Container up your applications: Fast, secure & efficient with MSIX App Attach ⁦Great blog post by @WVDLOGIX⁩](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ad0de60f3ab6979db130f9667d168e9c2)
+- [Adding MSIX App Attach apps via the Portal - it's coming folks!  Thanks for the demo @stg3orgi! #WVD](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e0936a0f5d7e38b1784886488f10ba4482c9bc169f0a1627dd9130f9662d260e9c3107213823f)
+- [LOL, just saw Chrome reading / writing to "C:\Users\<User>\AppData\Local\Google\Chrome\User Data\ZxcvbnData\1\passwords.txt" - presumably a list of common passwords it warns if you attempt to use.This file is NOT poetry, that's for sure.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e333ab7deeaed8b17809528d4f61eb1492ac7df6bf0a56378d812079063dc6ee0c4177d178c)
+- [I'm very pleased to announce the December 2020 update to my #Microsoft365 licensing diagrams is now on GitHub. This is a large update to the previous diagrams so please read the Change Log for further details. Future updates will be smaller & more regular.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e3e3ea0eeccc68e148b8760c2ad0cb15d2d9d9d77f2a1697ad6170d9067d461e5c31578128f3fcd)
 <!-- BLOG-POST-LIST:END -->
