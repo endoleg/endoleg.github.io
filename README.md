@@ -1,9 +1,13 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [Great thread by @ItsReallyNick](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ad0db6cf4a26279d81c099562d36de7c3)
-- [Great thread by @PyroTek3](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ad0db6cf7a36d74d7150e9669d16ae5c2)
-- [Customer Guidance on Recent Nation-State Cyber Attacks – Microsoft Security Response CenterSummary of techniques that are part of the toolkit of this actor.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ad0db6cf0a76d79d717089466d568e1c3)
-- [U.S. Treasury, Commerce Depts. Hacked Through SolarWinds CompromiseSolarWinds’ comprehensive products and services are used by more than 300,000 customers worldwide, including military, Fortune 500 companies, government agencies, and education institutions](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ad0db6cf2a66278dc17099165d76ce3c1)
-- [Hey! Look what just dropped, right before the holidays! @citrix Virtual Apps and Desktops 2012!What's new:- Windows Image Acquisition scanner redirection- Rendezvous proxy support- Drag and then drop files between a Citrix session and a local endpoint](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e2d0099eed1f18214ca9573c6f60ab61368dbdd60f6a1627dd615099160d56ae9c61372)
+- [Notes on PowerShell App Deployment Toolkit by @rakheshster](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ad0d761f2a46974d715079064d76ce1c7)
+- [RT @xenadmin: I summarized my findings in a new blog post:
+Caution: FSLogix 2009 (2.9.7621.30127) profiles won’t logoff completely
+https://…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ad0d76ef0a56c7ad9150e9163d76ae7c2)
+- [RT @ControlUp: SWEET SCRIPT GOODNESS: Don't miss the latest addition to the ControlUp Script Library (courtesy of @mcalef): Geolocate HDX s…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ad0d76af7a06a74d7160a9b66d46ee5c2)
+- [runas.exe /netonly /user:DOMAN\login "notepad.exe"
+
+That rocks!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ad0d66cfba16f7cdb100d9069d468e5c3)
+- [RT @mohrpheus78: @anthony_ctx Attention if you update your @Citrix VDA to version 2012 and #WEM agent is already installed. Use at least th…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ad0d961f3aa6f7bda1c0e9565d36de6c5)
 <!-- BLOG-POST-LIST:END -->
