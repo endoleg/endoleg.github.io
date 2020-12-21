@@ -1,24 +1,22 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [Windows 10 PowerToys: 
-How to use and configure FancyZones](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6dd8da6af1a3687cd81c0a9065d36ae8c1)
-- [How to pin App to Taskbar
+- [Hey @shanekleinert + @VirtualOzzy
 
-„Microsoft Edge (Chromium) sets a bad and good example: 
-The case of Taskbar pinning“
+Does this mean, that Cisco Jabber Client (latest: 12.9.3) + JVDI Agent (latest: 12.9.2 - they could not match!) on Citrix Server have to be „nearly“ same version? 
 
-Full code available. Deep dive article by @geelaw95 
+JVDI Client on Client OD could be 12.7.3 and higher with 12.9.2/3 on Server?](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6dd8d969f2aa6274dc1d0e9469d769e2c0)
+- ["ACBR Comic Book Reader"
 
+Read AND convert cbr, cbz, pdf and epub (images only) files! 
+Open source on GitHub!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6dd8d86ff5a46c7cd7160d9660d560e7c4)
+- [Firefox 84's Best New Features on Desktop and Android](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6dd8d86bf0a26e7edd10099160d361e6c5)
+- [RT @MSEdgeDev: Password Autofill 🤝 Password Sync
 
-————————-
+Now available on mobile devices 🔐 
 
-Other great command line tool to pin Apps to taskbar:](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6dd8dd60f1a56975d7120b9664dc60e9cb)
-- [wumgr
+Learn more 👇](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6dd8d86bf1a26d7bdc100e9568d769e6c4)
+- [3 million users hit with infected Google Chrome and Microsoft Edge extensions
 
-Windows update management tool is a tool to manage updates of Microsoft products on the Win operating system. 
-
-It uses the "WU Agent API" to identify, download + install missing updates + check the recently installed updated with a graphical UI.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6dd8dd69f1ab6e79d7130f9260d068e8c3)
-- [Speccy - Advanced System Information tool for your PC](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6dd8dd68f3a06b74de15099b66d66ce9cb)
-- [RT @ManuelBieh: I have just discovered  and WOW, this is exactly how casual gaming should be like! So lovely!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6dd8dc6ff7a06279dc11069662d56ae4ca)
+“Users should also pay close attention to the permissions and extension requests“...](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6dd8d86bf2ab6d74df110b9b62d46be6c4)
 <!-- BLOG-POST-LIST:END -->
