@@ -1,12 +1,9 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [RT @AskWoody: The end-of-the-year patching all-clear    from the #AskWoody Patch Lady on Computerworld](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddbdb6ff1aa627cdb1c099061d06de3c2)
-- [RT @guyrleech: Return codes from robocopy.exe. 1 is good, everything else is not so good with different levels of badness
-…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddbdd6af3aa6f7adc160d9568d56be3c3)
-- [RT @guyrleech: Slide deck from yesterday's "Automating @Citrix" session at @CUGC_Chicago @mycugc is now available. I'll put a video of it o…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddbdc60f4a26378d616099b66d460e3c7)
-- [RT @menschab: EvergreenAdmx updated to 2012.5 ()
-Added Admx automation for BIS-F and MDOP, and updated some cleanup…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddbdc6df2a76c74dc16069360d16de4c2)
-- [How-To: Deploy PSADT with Workspace ONE as System breaking through Session 0
-By ⁦@_askin_alex_⁩](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddbdf6df5a76d7fd91c0b9660dc69e9c7)
+- [Text Grab - Microsoft StoreA quick app to grab any text using OCR via the Windows APIs.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddbd76ffaa06c7ade140e9464dc6ae4c2)
+- [Ping @AskWoody](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddbd76af6a06f75dc13079464d660e0c2)
+- [@ericlaw writes here: „1. This issue in Win affects only a comparatively small number of users with S4U tasks.2. This issue is fixed in the latest Win10 insider channel.3. This issue is slated to be fixed in an upcoming update for all Win10 users.“](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddbd76af6a36275de130f9168d068e4c5)
+- [Microsoft is fixing a bug that deletes your passwords in Windows 10](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddbd76af2ab6a79df110a9761d16fe9c7)
+- [New blostpost #citrix #netscaler #adc DDoS attack and deep-dive DTLS protocol and countermeasures](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e122cb3efc6e09255969266d3f70cea0d6adcdd61f3a06e7cd7130f9061d261e6c51a)
 <!-- BLOG-POST-LIST:END -->
