@@ -38,7 +38,14 @@ https://github.com/builtbybel/privatezilla
 
 ---------------------------------------------------------
 
+Reset-Windows-Update-Tool
+This tool was developed to support system repair options. It is possible to reset the Windows Update components. It is also possible to delete temporary files, scan, detect and repair damage with the Windows system image, scan all protected system files and replace damaged files, change invalid values in the Windows registry, reset Winsock settings and much more.
+https://github.com/ManuelGil/Reset-Windows-Update-Tool/blob/master/docs/wiki/de/Home.md
+CMD-Version: https://github.com/ManuelGil/Script-Reset-Windows-Update-Tool
+
 ---------------------------------------------------------
+
+
 
 ---------------------------------------------------------
 
