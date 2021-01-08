@@ -45,6 +45,12 @@ CMD-Version: https://github.com/ManuelGil/Script-Reset-Windows-Update-Tool
 
 ---------------------------------------------------------
 
+Tools to perform Offline Servicing to a Windows Operating System Image
+WIMWITCH
+https://msendpointmgr.com/2019/10/04/wim-witch-a-gui-driven-solution-for-image-customization/
+
+OSDBUILDER
+https://www.moderndeployment.com/quick-start-guide-windows-10-waas-servicing-updates-via-osdbuilder/
 
 
 ---------------------------------------------------------
