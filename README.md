@@ -1,9 +1,13 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [Microsoft Office 365 Home6 User, 1 Year 51,99€ instead 99€- Windows, macOS, iOS + Android- Premium Office-Apps: Word, Excel, PowerPoint, OneNote, Outlook- 1 TB OneDrive spaceExtending license early should be possible!@MicrosoftDE Great Offer!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddfdc61f3a76c7adb12099464d46fe7c2)
-- [City tours - from homeThis site lets you drive digitally through major cities around the world while listening to the local radio. Even when it's already dark outside.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddfdc6bf2a26e7adb1d0e9269d160e9c7)
-- [Understanding Citrix Latency Metrics To Troubleshoot Remote Worker Issues  via @JGSpiers](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddfdc69f5a16f78d716069a63d369e3ca)
-- [Nice found!LinkKlipper - Browser extension for Chromium based browsers to export all links from a website and export them to a file. You can:- Extract all links- Store as a CSV- Drag a area on the webpage from which all the links will be extracted](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddfdc68f0a4627ddd1d069063d46de9c4)
-- [Google is not out when watching videos via Invidious. As soon as a video is displayed, the (video) material is reloaded from . Google knows your IP - but no other data. You can specify in the settings that a proxy is used -->](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddfdf6ff1a76f7cdb13069765dc60e5c2)
+- [Permanent suspension of @realDonaldTrump and reasons...](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddfd861f7a06879d91d0e9565d16ee7c5)
+- [RT @TrententTye: Perhaps one of the best tools to troubleshoot native #RDS is FREE! It's @guyrleech Event Aggregator script. 
+
+…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddfd86ff7a06f7cdb170d9466d66be8c1)
+- [RT @jepayneMSFT: Windows Event ID 4624 displays a numerical value for the type of login that was attempted. These numbers are important fro…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddfd86ff7a36378dc160e9066d16ce9c2)
+- [RT @spoofedpacket: 41% reduction in traffic to the root nameservers following various DNS redirection test changes in google chrome:
+
+https…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddfdb6df7aa6e7ad717069460d269e2ca)
+- [unfortunately already expired](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6ddfda6cf6a56d7ade14089069dd6ee4ca)
 <!-- BLOG-POST-LIST:END -->
