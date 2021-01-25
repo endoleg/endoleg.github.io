@@ -1,17 +1,14 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [RT @Deyda84: — New Blog Post —
+- [RT @PrzemyslawKlys: So after ~6 months, Invoke-GPOZaurr is kind of ready. I've prepared a small blog post about it …](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbda68f3aa6a7ad815069066d76de7c3)
+- [Microsoft Tech Community - January 22nd 2021 Weekly Roundup](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbdd60f0ab6c75dd100d9a67d16fe3c2)
+- [Do not want to switch from WhatsApp to Signal? 
 
-Installing Workspace Environment Management Version 2012
+Ok, but check this:
 
-WEM optimizes @Citrix workers for the best possib…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdad96df3a16c7edd140f9760d46ce1cb)
-- [Blog post is new, but checked software versions in the picture are very old... Edge and PDF-XChange Versions are old... I don’t know if the vulnerabilities are solved now...](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdad96cfba6687bd91c0e9469d56ce7c6)
-- [Thanks @Bo_Datenschutz for the hint!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdad96cf6a3627cde14079068d66fe5c7)
-- [Insecure Features in PDFs:
-
-Systematic analysis of all possible dangerous features supported by PDFs.
-
-26 of 28 popular PDF processing applications are vulnerable to at least one attack.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdad96cf7ab6375de170e9a63d669e9c6)
-- [RT @DenelonMs: Here's a little preview of `winget uninstall`. It will be released soon in our next preview after localization of some new s…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdad860f5a56d74de14089b66d16de9c1)
+WhatsApp FAQ - How to manage two-step verification settings](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbdd6ff1a66374d9120a9761d369e8c0)
+- [Thank you @Rorymon](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbdf6bf7a26c7fdd170d9063d16be2c4)
+- [RT @Enno_Insinuator: Updated @ncsc_nl "IT Security Guidelines for Transport Layer Security (TLS)"
+ [PDF] …](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbdf68f2a4627ed7150e9b68d068e4c4)
 <!-- BLOG-POST-LIST:END -->
