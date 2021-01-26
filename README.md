@@ -1,14 +1,9 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [RT @PrzemyslawKlys: So after ~6 months, Invoke-GPOZaurr is kind of ready. I've prepared a small blog post about it …](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbda68f3aa6a7ad815069066d76de7c3)
-- [Microsoft Tech Community - January 22nd 2021 Weekly Roundup](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbdd60f0ab6c75dd100d9a67d16fe3c2)
-- [Do not want to switch from WhatsApp to Signal? 
-
-Ok, but check this:
-
-WhatsApp FAQ - How to manage two-step verification settings](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbdd6ff1a66374d9120a9761d369e8c0)
-- [Thank you @Rorymon](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbdf6bf7a26c7fdd170d9063d16be2c4)
-- [RT @Enno_Insinuator: Updated @ncsc_nl "IT Security Guidelines for Transport Layer Security (TLS)"
- [PDF] …](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbdf68f2a4627ed7150e9b68d068e4c4)
+- [PShot is a PowerShell Module by @SeguraOSD to take screenshots that works in Windows 10 and WinPE 10. Great!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbd961fba56a7bdb110b9166d46fe7c0)
+- [Windows 10 NTFS corruption bug gets unofficial temporary fix - @LawrenceAbrams](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e3d33b7e4d2eb89398a8b77d2f61ab7132a9c8f2cb6e1757cdc110c9469dd6be9c51573138338c66085c7)
+- [The need for a GPU in VDI/SBC environments](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbd960f7a26b7fdb100f9363d06be2c2)
+- [Security baseline for Microsoft Edge, version 88](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbd96ef6a16e75de1d079164d16be4c0)
+- [Mozilla Firefox 85.0 and 78.7.0esr](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbd96ef1a26b7ad7160f9160d068e7cb)
 <!-- BLOG-POST-LIST:END -->
