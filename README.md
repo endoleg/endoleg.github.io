@@ -1,9 +1,9 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [PShot is a PowerShell Module by @SeguraOSD to take screenshots that works in Windows 10 and WinPE 10. Great!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbd961fba56a7bdb110b9166d46fe7c0)
-- [Windows 10 NTFS corruption bug gets unofficial temporary fix - @LawrenceAbrams](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e3d33b7e4d2eb89398a8b77d2f61ab7132a9c8f2cb6e1757cdc110c9469dd6be9c51573138338c66085c7)
-- [The need for a GPU in VDI/SBC environments](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbd960f7a26b7fdb100f9363d06be2c2)
-- [Security baseline for Microsoft Edge, version 88](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbd96ef6a16e75de1d079164d16be4c0)
-- [Mozilla Firefox 85.0 and 78.7.0esr](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdbd96ef1a26b7ad7160f9160d068e7cb)
+- [„The case against Signal“Is the Signal messenger a good solution?](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdcdc69fbaa627ddc110c9069d56de8c0)
+- [Microsoft Edge Version 88.0.705.53 (stable)Fixed various bugs and performance issues](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdcdc69f5a56b7ad9150a9363dd6ce7c4)
+- [1) Create a new .txt file2) Type .LOG in the file3) Save & close the fileNow, every time you open the file in Notepad a timestamp will be added to the file ✨](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e353abcccd1e49355969266d3f70cea0d6addda6af3a16c7ade130c9264d568e6c214)
+- [Firefox 85 introduces a fundamental change in the browser’s network architecture: it partitions network connections and caches by the website being visited.< great news for privacy!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e373abee6c7c98b1f8c8828d4f61eb1492ac7df6bf6a66b78d912089465d261e2c410781589)
+- [Chrome Browser Cloud Management comes at no additional cost for existing Google Workspace, Chrome Enterprise, Cloud Identity, and Chrome Browser Enterprise Support customersIt offers the same controls as Group Policy.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e373abee6c7c98b1f8c8828d4f61eb1492ac7df6bf6a66b78da11079a64d56ce8c3157c128a)
 <!-- BLOG-POST-LIST:END -->
