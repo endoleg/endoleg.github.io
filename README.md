@@ -1,9 +1,14 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [To stop WhatsApp from collecting data you have to send them a lot of data 😜👇🏻👇🏻👇🏻](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdcd76cf4a16a7fd9150d9761d16ce7ca)
-- [Local Privilege Escalation 0day in PsExec Gets a MicropatchSince the publication of micropatch for PsExec version 2.2, PsExec has been updated to versions 2.30, 2.31 and finally 2.32. where it still resides today.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdcd660f7a36279dc1d0c9b67d46be7c2)
-- [Windows Package Manager v0.2.10191 Preview wingetRelease includes experimental uninstall command. Any application in Add/Remove Programs can be uninstalled. The experimental list feature also needs to be enabled to use winget uninstall.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdcd66ff4a06b7cd7150d9165d26fe8c1)
-- [windbgtreeA command tree based on commands and extensions for Windows Kernel Debugging.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdcd66bfaa26b7ad8170c9764d66de9c6)
-- [Creating Intune Win32 Apps - EUC365](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdcd66bf0a06378da110c9664dd6ae8c1)
+- [RT @CKsTechNews: MS Edgeium adds a flag to block insecure private network requests
+
+Official description:
+Prevents non-secure contexts from…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdddc60f5a4627fd61c079069d76ce5cb)
+- [RT @ControlUp: Did you know? 💡 The ControlUp Stress Settings calculator lets you use your own historical data to determine how to set your…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdddc60f6a6637ddf1d0b9468dd6ee0c2)
+- [RT @asyrewicze: Browser Task Manager has to be one of my favorite items in @MicrosoftEdge. Super useful when you're looking for those resou…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdddc6afba6627fd7130d9160d06be0c1)
+- [RT @ClintRutkas: Cutting #powerToys 0.31.0 off Stable right now.  
+
+Pending any last second bugs, ETA 2021.02.1 for release …](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdddc68f1a06e74d817099160d16ae8c0)
+- [RT @cstalhood: #Citrix GSLB: Secure option for all RPC nodes turned on by default from build 13.0 64.x and 12.1 build 61.xonwards and it us…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdddc68f1a36c7ddc1c0f9b63d66fe8c0)
 <!-- BLOG-POST-LIST:END -->
