@@ -1,18 +1,23 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [RT @JenMsft: BTW, did you know you can get to this screen by holding Shift when you reboot using the Power button in the Start menu or the…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdeda68f3a66f75d9160e9a67d76ce9c2)
-- [RT @cl: @alphaf0x1 I created a lil page to help with getting started resources](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdedd61f3a7637ede10069161d56ee3c7)
-- [RT @arjantaal: #Azure hosting connections in #Citrix Virtual Apps and Desktops Service #DeepDive 
+- [RT @CKsTechNews: RSS search engine like Google - Dato.rss
 
-Wow, this is an i…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdedd60f6a16975d614099b63d361e8c0)
-- [Register now for a great Microsoft event on the 9th of April !
-
-#WVD #MSIX #FSLogix #AppV](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdedd6af0a26a75da13069b62dc6fe7c3)
-- [(18/x)
-PSExcel by @psCookieMonster 
+Source Code:
 
 
+Website:
+ https://t…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cded861fba2637fda1d0a9160dd69e8c0)
+- [RT @CKsTechNews: Best Firefox Privacy Extensions in 2021
 
-Thanks @AkosBatorfi for the hint!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cdedd68f5a36a79d9110c9463d660e8c6)
+Snowflake
+
+
+uBlock Origin
+
+
+uMatrix…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cded861fba26b75de15089361d66de1c7)
+- [RT @ClintRutkas: Today we release our #PowerToys 0.31.1. We've overhauled the FancyZone editor and addressed most of our top feedback items…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cded861f6a76c79dd17069765dd6be1cb)
+- [RT @Brinkhoff_C: Learn about #Office and #FSLogix Apps Rule Editor. ”This article explains the process to take a VM with Office installed.…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cded861f1a5687adf150f9b68d06ee5c2)
+- [The top 21 tech conferences to attend in 2021](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6cded860f7a4637bdc1d0a9368d260e6c1)
 <!-- BLOG-POST-LIST:END -->
