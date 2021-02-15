@@ -1,9 +1,11 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [New Version (0.7) of my #Evergreen Install Script.Changes: Add Download & Install Citrix Hypervisor Tools, Greenshot, Firefox, Foxit Reader & Filezilla / Add CleanUp UtilityThx to @stealthpuppy @xenappblog @TimothyMangan  #PowerShell](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e3b3aabe5c3bad355969266d3f70cea0d6adede6bf6a6697dde150d9568d368e9c217)
-- [New post: Windows 2016 Deduplication on FSLogix Containers and ODFC Part 2](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e0b3eb0f4cee3951b96873694ba50b648389c9b2beca3697bdf16079563dc60e9c1127e128838c660)
-- [lossless-cutThe swiss army knife of lossless video/audio editing](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd8dc6ff5a76a7cda13089663d06ce8c0)
-- [ShareX is a free + open source program that lets you capture or record any area of your screen + share it with a single press of a key. It also allows uploading images, text or other types of files to many supported destinations you can choose from.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd8dc6ff2ab6c78db17089461d16ce2ca)
-- [When using #PowerShell scripts in scheduled tasks use the -noninteractive argument so any Read-Host calls to prompt for interactive user input do not hang the script. Check if interactive via Read-Host in a try catch block and only call Read-Host again if no exception thrown.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e182aabf3cee782198dc974d3e30bb04f76d9dd6ef3a06f74d7110d9165dd6ce7c1157f10)
+- [RT @JGSpiers: #Citrix ADC may experience a hard crash due to memory corruption when using HTTP/2. Affected builds:
+- 13.0 prior to 70.14
+-…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd9dc68fba46b7fdd160b9764d76be6c2)
+- [Feature matrix for Citrix Workspace App (for different platforms)](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd9df60f4a76b7bda160c9568d261e5c2)
+- [Citrix Virtual Apps & Desktops 7 2012 Unlocking Potential with What’s New](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd9df60f5a6637bdd140b9462d769e6c4)
+- [RT @GlennF: Want guidance in presenting within Zoom from PowerPoint, Keynote, apps, and more? I adapter part of my Zoom book for this @tidb…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd9df60f7a1697fdb14069066d16ce9c0)
+- [RT @james____rankin: Microsoft Teams on Citrix Virtual Apps and Desktops, part #2 – default settings and JSON wrangling …](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd9df6df7a46f74d7170a9367d36ee0c0)
 <!-- BLOG-POST-LIST:END -->
