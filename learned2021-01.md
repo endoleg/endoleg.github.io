@@ -65,19 +65,104 @@ https://blog.archive.org/2020/11/19/flash-animations-live-forever-at-the-interne
 
 https://www.howtogeek.com/706932/how-to-enable-picture-in-picture-in-firefox/
 
+#IEFO Image File Execution Options to easily disabling access to any exe
+More background know how about #IEFO: https://blog.malwarebytes.com/101/2015/12/an-introduction-to-image-file-execution-options/
+https://attack.mitre.org/techniques/T1546/012/
+https://docs.microsoft.com/en-us/archive/blogs/mithuns/image-file-execution-options-ifeo
+https://oddvar.moe/2018/04/10/persistence-using-globalflags-in-image-file-execution-options-hidden-from-autoruns-exe/
+https://guyrleech.wordpress.com/2017/06/28/petya-easily-disabling-access-to-psexec/
+https://wikileaks.org/ciav7p1/cms/page_2621770.html
+
+You can use the Silent Process Exit tab in GFlags to enter the name of a process that you want to monitor for silent exit.
+Gflags
+https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/gflags
+is part of the Win10 SDK debugging Tools
+https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk/
+Monitoring Silent Process Exit:
+https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/registry-entries-for-silent-process-exit
+
+https://www.controlup.com/using-iperf-to-baseline-network-performance/
+
+https://github.com/nsacyber/Mitigating-Obsolete-TLS
+
+http://TextAnalysisTool.NET by 
+@DavidAns
+can view, search and navigate large files quickly and efficiently. It can easily manipulate to display exactly the information you need and has straight forward regex filtering, color coding of text files
+https://textanalysistool.github.io
+
+hardenize.com
+Enter domain name, discover possible weakness
+
+https://github.com/crazy-max/WindowsSpyBlocker
+
+https://invidious.snopyta.org
+plays the Youtube video you want to see
+
+- No disabled downloads
+- Source is on GitHub
+- No ads
+- No Google account needed for subscriptions
+- Incredibly lightweight 
+- JavaScript is not required
+- No use of YouTube API
+Google is not out when watching videos via Invidious. As soon as a video is displayed, the (video) material is reloaded from http://googlevideo.com. Google knows your IP - but no other data. 
+You can specify in the settings that a proxy is used --> https://invidious.snopyta.org/preferences
+
+3 - Security Scanners - check your environment for security vulnerabilities
+
+Mozilla Observatory
+https://observatory.mozilla.org
+
+SSL Labs
+https://ssllabs.com/ssltest/
+
+https://www.davidwilkinson.co.uk/2021/01/07/citrix-wem-privileged-elevation/
+
+https://www.thomasmaurer.ch/2021/01/install-apps-from-the-microsoft-store-using-winget/
+
+LinkKlipper - Browser extension for Chromium based browsers to export all links from a website and export them to a file. 
+You can:
+- Extract all links
+- Store as a CSV
+- Drag a area on the webpage from which all the links will be extracted
+https://chrome.google.com/webstore/detail/link-klipper-extract-all/fahollcgofmpnehocdgofnhkkchiekoo?hl=en
 
 
+https://driveandlisten.herokuapp.com/
 
+https://github.com/builtbybel/CleanmgrPlus/releases
 
+https://www.alitajran.com/exchange-server-health-check-powershell-script/
 
+https://www.controlup.com/logon-duration-research-appx-packages/
 
+Perform OCR (Optical Character Recognition) with OneNote
+Perform a capture in OneNote
+Right-click pictures and select copy text
 
+Windows Event ID 4624 displays a numerical value for the type of login that was attempted. These numbers are important from a forensic standpoint but also for understanding credential exposure and mitigating risks. Descriptions in replies.
 
+https://github.com/guyrleech/Microsoft/blob/master/event%20aggregator.ps1
 
+https://www.thomaspreischl.de/citrix-published-content/
 
+https://github.com/TobiasPSP/GetEncoding
 
+If you use iOS, check out this totally free app...an efficient ad blocker -- BlockBear | Welcome https://blockbear.com
 
+Blocking Unwanted Connections with a Hosts File
+https://winhelp2002.mvps.org/hosts.htm
+Extending and consolidating hosts files from several well-curated sources...
+Copy to /etc/hosts and you're golden (will overwrite existing entries)
+https://github.com/StevenBlack/hosts 
+@SteveBlack turning many sources of hosts files into a simple one
+someonewhocares.org/hosts/zero/ 
 
+https://adamtheautomator.com/powershell-export-gpo/
 
+https://4sysops.com/archives/set-up-delegation-for-group-policy-management/
 
-
+Audit Windows Security with best Practice
+Some #Powershell scripts for auditing security with CIS BEST Practices Windows 10 and Window Server 2016.
+You just need to run the script, it will create a directory named : AUDIT_CONF_%DATE%
+https://github.com/Sneakysecdoggo/Wynis
