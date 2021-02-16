@@ -1,11 +1,11 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [RT @JGSpiers: #Citrix ADC may experience a hard crash due to memory corruption when using HTTP/2. Affected builds:
-- 13.0 prior to 70.14
--…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd9dc68fba46b7fdd160b9764d76be6c2)
-- [Feature matrix for Citrix Workspace App (for different platforms)](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd9df60f4a76b7bda160c9568d261e5c2)
-- [Citrix Virtual Apps & Desktops 7 2012 Unlocking Potential with What’s New](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd9df60f5a6637bdd140b9462d769e6c4)
-- [RT @GlennF: Want guidance in presenting within Zoom from PowerPoint, Keynote, apps, and more? I adapter part of my Zoom book for this @tidb…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd9df60f7a1697fdb14069066d16ce9c0)
-- [RT @james____rankin: Microsoft Teams on Citrix Virtual Apps and Desktops, part #2 – default settings and JSON wrangling …](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd9df6df7a46f74d7170a9367d36ee0c0)
+- [No title](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd9da69f2a76a7adf1d0e9b62d16ee5c1)
+- [Microsoft recommended block rules](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd9da69f3a36e7bdd1c0c9660d26fe0c6)
+- [RT @JimMoyle: Both Evergreen and BIS-F in the latest video. @stealthpuppy @MatthiasSchlimm @xenappblog](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd9dd6ff6a76c7bdb13079069d26ce5c2)
+- [Great session @samilaiho 
+
+Could you get in detail about your applocker (executable) rules on your own computer you talked about? Is there already a blog post or session video about them available?](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd9dd6bf5ab6378d81d089266d168e2c0)
+- [Alert! Gmail, Linkedin account credentials leaked? 3 billion passwords reportedly hacked](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd9dd6bf0a76978da1d089368dd6fe7cb)
 <!-- BLOG-POST-LIST:END -->
