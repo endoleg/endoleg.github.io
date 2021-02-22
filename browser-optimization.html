@@ -1,0 +1,50 @@
+---
+layout: default
+---
+
+<p>Browser-Optimierung: Diverse Einstellungen</p>
+<p>Nützliche Seiten um Server und Clients auf bestimmte Funktionalitäten zu prüfen:
+<a href="https://caniuse.com/">https://caniuse.com/</a>
+<a href="https://browserleaks.com/ssl">https://browserleaks.com/ssl</a>
+<a href="https://www.ssllabs.com/ssltest/">https://www.ssllabs.com/ssltest/</a>
+<a href="https://clienttest.ssllabs.com:8443/ssltest/viewMyClient.html">https://clienttest.ssllabs.com:8443/ssltest/viewMyClient.html</a></p>
+<p>A continuous global dashboard for monitoring the quality of SSL/TLS support based on a list of the most popular sites in the world:
+<a href="https://ssllabs.com/ssl-pulse/">https://ssllabs.com/ssl-pulse/</a></p>
+<p>Sometimes, administrative templates from other products are required to configure the behavior of Citrix Workspace app.</p>
+<p>Warning: the following configurations might allow malicious websites to launch a session silently to their malicious VDAs without any prompts.</p>
+<p>For example, when the prompt Open Citrix Workspace Launcher is displayed in Google Chrome and Microsoft Edge on Chromium each time a user launches a StoreFront resource, configure the following settings:</p>
+<p>User Configuration \ Administrative Templates \ Google \ Google Chrome
+Policy setting: Allow access to a list of URLs -&gt; enable
+Policy value: receiver://<em>
+User Configuration \ Administrative Templates \ Microsoft Edge
+Policy setting: Define a list of allowed URLs -&gt; enable
+Policy value: receiver://</em>
+Folgende Optimierungen wurden umgesetzt oder sind angedacht:</p>
+<p>Internet Explorer:
+Internet Explorer Tracking-Schutz ist eine gute Sache. Der Internet Explorer (IE) verfügt über ein Feature namens &quot;Tracking Protection&quot;. Das Feature ist ein alt bekanntes, welches durch zusätzliche Mechanismen erweitert wurde. Dieses alt bekannte Feature ist bekannt als &quot;InPrivate Filtering&quot;.
+Der IE bringt die Funktion des Tracking-Schutzes im Menü unter Extras --&gt; Tracking-Schutz mit. Dabei handelt es sich um einen (sehr simplen) AdBlocker, der anhand von TPLs (Tracking Protection List, die eigentlich nur mit dem IE kompatible AdBlock Listen sind) Werbung blockt, wie es auch Add-ons wie AdBlock Plus oder uBlock tun. Auf den 500 deutschsprachigen Internet-Seiten mit den meisten Besuchern haben Forscher des Frauenhofer-Instituts 360 verschiedene Tracker gefunden. Tracking mit Third-Party-Cookies macht hierbei den Löwenanteil aus. In vielen Angeboten sind mehr als 30 verschiedene Tracker eingebaut. Bei Webbrowsern gelangen Viren und Schadsoftware meist über Werbebanner und infizierte Webseiten, auf die man beim Anklicken von Links weitergeleitet wird, auf den Computer. Vieles wird von Antiviren-Software und Firewalls geblockt. Aber auch Browsererweiterungen (Add-Ons) können Schwachstellen für Angreifer enthalten. Eine Aktion als Schutz vor drive-by Crypto-Locker-Infektionen ( wie hier bei heise.de beschrieben: <a href="http://www.heise.de/newsticker/meldung/Malvertising-Kampagne-Webseiten-von-AOL-BBC-und-MSN-verteilten-Erpressungs-Trojaner-3139150.html">http://www.heise.de/newsticker/meldung/Malvertising-Kampagne-Webseiten-von-AOL-BBC-und-MSN-verteilten-Erpressungs-Trojaner-3139150.html</a> ) wäre hier zum Beispiel, die Tracking-Protection anzuschalten. Auf unserer Citrixfarm beansprucht der Internet-Explorer neben UVDMS, UVDS und diversen anderen Java-Applikationen den größten RAM- und CPU-Bedarf. Einzelne Anwender kommen auch mal auf 1-2 GB RAM oder weit mehr als 50% CPU durch mehrere Tabs (Reiter) im Browser.
+Die Tracking Protection kann uns nun dabei helfen, sicherer zu werden und gleichzeitig Performance zu sparen auf der Citrixfarm. Eine Website mit Tracking-Werbung ( Beispiel <a href="http://www.n24.de">http://www.n24.de</a> oder <a href="http://www.cnn.com">http://www.cnn.com</a> ) kann bereits 150-600 MB und eine hohe Prozessorlast erzeugen ohne (!), dass man irgendetwas angeklickt hat oder tut auf der Website. Auch nach 30 Minuten &quot;Nichts-Tun&quot; wird diese Seite weiterhin einige % CPU verbrauchen. Bei mehreren Reitern summiert sich das sehr schnell. Hat man die Tracking Protection aktiviert, verhält sich das System anders: Der RAM-Bedarf sinkt extrem und die CPU-Last springt auf 0-1%, sobald man sich nicht mehr auf der Website bewegt. Anwender können den Tracking-Schutz in der laufenden Session deaktivieren - nach Neustart wird dieser aber wieder aktiviert sein. Somit sind Zugriffe auf Inhalte, die der Tracking-Schutz z.B. versehentlich sperrt, per manuellem Eingriff grundsätzlich weiterhin möglich. 
+<a href="http://www.jgspiers.com/how-internet-explorer-is-impacting-your-citrix-environment/">http://www.jgspiers.com/how-internet-explorer-is-impacting-your-citrix-environment/</a>
+Citrix Browser Content Redirection ist aktiviert worden, womit dann Video- und Nachrichtenseiten gezielt an den Client ausgelastet werden können.</p>
+<p>Google Chrome:
+Extension &quot;The great Suspender&quot; wird eingesetzt (seit September 2019)
+<a href="https://chrome.google.com/webstore/detail/the-great-suspender/klbibkeccnjlkjkiokjodocebajanakg?hl=de">https://chrome.google.com/webstore/detail/the-great-suspender/klbibkeccnjlkjkiokjodocebajanakg?hl=de</a> - </p>
+<p>Konfigurations-Optionen:</p>
+<p>➤ Whitelist specific urls or domains that you do not want to suspend
+➤ Optionally show screen capture of tab before it was suspended
+➤ Vastly improves performance when restarting chrome with a large number of open tabs
+➤ Detects tabs playing audio and can prevent them from suspending
+➤ Detects tabs that contain forms with user input and can prevent them from suspending
+➤ Configurable behaviour when browsing offline or on battery power
+➤ Built from open source code for full transparency</p>
+<p>Google Chrome Links:
+Chrome Enterprise – Der Download des Chrome Enterprise Paket enthält ADMX-Vorlagen mit mehr als 300 Nutzer- und Geräterichtlinien.
+Google Updater – Kann auf der Chrome Enterprise Seite zusätzlich heruntergeladen werden, ist aber auch Teil des Paketes.
+Chromium Projects – Chromium ist der Open Source Anteil des Chromes. Die Richtlinien hierfür funktionieren auch mit dem Chrome. Ich würde trotzdem eher zu Chrome Enterprise greifen.
+<a href="https://chromiumdash.appspot.com/schedule">https://chromiumdash.appspot.com/schedule</a></p>
+<p>Mozilla Firefox ESR:
+Mit Firefox ESR 68 kam die Möglichkeit dazu, den Browser auf 4 gleichzeitige Prozesse zu limitieren und über ein Addon lange ungenutzte Tabs zu &quot;suspenden&quot;
+und somit CPU und RAm zu sparen. </p>
+<p>Mozilla Links: 
+Gruppenrichtlinien Vorlagen: Mozilla Firefox – Auch der FireFox hat mittlerweile Gruppenrichtlinien ohne eine zusätzliche Erweiterung zu brauchen
+<a href="https://www.soeren-hentzschel.at/">https://www.soeren-hentzschel.at/</a></p>
