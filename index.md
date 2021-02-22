@@ -1,3 +1,6 @@
+---
+layout: default
+---
 # Github-Pages von Thorsten Enderlein
 
 # https://twitter.com/endi24
