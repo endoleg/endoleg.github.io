@@ -1,19 +1,14 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [RT @CKsTechNews: Maybe interesting for Chromium Users - Export History/Bookmarks to JSON/CSV*/XLS*
+- [RT @guyrleech: I want to go to bed but cleanmgr is still running & I wanted to reboot the VM when it finished but not before so #PowerShell…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdbd960f1ab697cd61c0c9366d561e8c1)
+- [RT @secnhack: PowerShell script in the pixels of a PNG file                 #pentest #PowerShell #redteam #bugbounty…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdbd960f1a56e78d913099165d06ae2c0)
+- [RT @jamesmgarnett: For those returning to online teaching on Monday with @MicrosoftTeams you will probably find Reactions are now available…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdbd960f1a4697ede100c9368d668e0c1)
+- [RT @bradwilson: I just updated my "Anatomy of a Prompt (PowerShell)" blog post with my latest customizations:
 
- …](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdbde6ef3a76e7cd612089468d460e9ca)
-- [RT @CKsTechNews: Yet Another Firefox Hardening Guide](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdbde6ef3a16f7fdc140e9065d068e0c3)
-- [RT @HeikoBrenn: Make #PowerShell accessible to non-IT experts. 
-How? I will show you the answer in my session "Make PowerShell A Real Solut…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdad668fba46879de140f9067d76ce9c3)
-- [RT @adeekshith: I made an auto reply app for WhatsApp so users can break away from it.  
+- Shows .NET SDK version
+- H…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdbd960f1a66c7fdf1d069066d46fe8c1)
+- [RT @FiloSottile: These checklists from Apple are gold.
 
-#Android #androidapp #andr…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdad961f6a16978d810079165dc60e5c6)
-- [FREE Training ! #WVD
-Windows Virtual Desktop Master Class (on demand)
-
-Great job by @deployjeremy and @KamVedBrat 
-
-Take a technical deep dive into how to deploy and scale virtual desktops and apps with Windows Virtual Desktop.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdad961f0a56c7cde15079661dc6ae8c5)
+If you want to see if anyone else has access to your device or accounts: https://t.…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdbda6ef3a56878da1d0e9462dd69e3ca)
 <!-- BLOG-POST-LIST:END -->
