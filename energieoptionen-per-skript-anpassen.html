@@ -1,0 +1,74 @@
+---
+layout: default
+---
+
+<h1 id="mit-powercfg-exe-query-bekommt-man-sehr-viele-infos-">Mit powercfg.exe /query bekommt man sehr viele Infos!</h1>
+<h1 id="oder-hier-http-ss64-com-nt-powercfg-html">Oder hier: <a href="http://ss64.com/nt/powercfg.html">http://ss64.com/nt/powercfg.html</a></h1>
+<h1 id="set-the-power-management-to-balanced">Set the &#39;Power Management&#39; to Balanced</h1>
+<p>powercfg.exe -SETACTIVE SCHEME_BALANCED</p>
+<h1 id="setzt-die-einstellung-dass-der-monitor-im-sperrbildschirm-erst-nach-18000-sek-300-min-5-stunden-ausschaltet">Setzt die Einstellung, dass der Monitor im Sperrbildschirm erst nach 18000 Sek / 300 Min / 5 Stunden ausschaltet</h1>
+<p>powercfg.exe -setacvalueindex SCHEME_BALANCED SUB_VIDEO VIDEOCONLOCK 18000
+powercfg.exe -setdcvalueindex SCHEME_BALANCED SUB_VIDEO VIDEOCONLOCK 18000</p>
+<h1 id="set-the-lid-close-action-power-setting-to-do-nothing">Set the Lid Close Action power setting to do Nothing</h1>
+<p>powercfg.exe -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936 000
+powercfg.exe -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936 000</p>
+<h1 id="apply-changes-without-restart-by-re-setting-current-power-scheme-after-doing-changes-powercfg-exe-setactive-scheme_balanced">Apply changes without restart by &quot;re-setting&quot; current power scheme after doing changes ;-) powercfg.exe -SETACTIVE SCHEME_BALANCED</h1>
+<p>Invoke-Expression (&quot;reg add &#39;HKCU\Software\IWC&#39; /v SkriptEnergieoptionenNEW /t REG_DWORD /d 0x3 /f&quot;)</p>
+<hr>
+<p>GUIS:</p>
+<p>{381b4222-f694-41f0-9685-ff5bb260df2e} = GUID of &quot;Balanced&quot; power plan</p>
+<p>{4f971e89-eebd-4455-a8de-9e59040e7347} = GUID of system power control buttons subgroup</p>
+<p>{5ca83367-6e45-459f-a27b-476b1d01c936} = GUID of Lid Close Action power setting</p>
+<p>Setting 0=Do Nothing</p>
+<p>Setting 1=Sleep</p>
+<p>Setting 2=Hibernate</p>
+<p>Setting 3=Shutdown</p>
+<p>:: overview</p>
+<p>powercfg -aliases</p>
+<p>powercfg /query</p>
+<p>::Set the &#39;Power Management&#39; to Balanced</p>
+<p>powercfg -SETACTIVE 381b4222-f694-41f0-9685-ff5bb260df2e</p>
+<p>powercfg.exe -S SCHEME_BALANCED</p>
+<p>::I&#39;ve managed to apply changes without restart by &quot;re-setting&quot; current power scheme after doing changes.</p>
+<p>powercfg.exe -S SCHEME_CURRENT</p>
+<p>::Set the Lid Close Action power setting to do nothing</p>
+<p>C:\Windows\System32\powercfg.exe -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936 000</p>
+<p>C:\Windows\System32\powercfg.exe -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936 000</p>
+<p>Source of Reference: <a href="http://ss64.com/nt/powercfg.html">http://ss64.com/nt/powercfg.html</a></p>
+<p>a1841308-3541-4fab-bc81-f71556f20b4a  SCHEME_MAX</p>
+<p>8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c  SCHEME_MIN</p>
+<p>381b4222-f694-41f0-9685-ff5bb260df2e  SCHEME_BALANCED</p>
+<p>e73a048d-bf27-4f12-9731-8b2076e8891f  SUB_BATTERY</p>
+<p>637ea02f-bbcb-4015-8e2c-a1c7b9c0b546    BATACTIONCRIT</p>
+<p>d8742dcb-3e6a-4b3c-b3fe-374623cdcf06    BATACTIONLOW</p>
+<p>5dbb7c9f-38e9-40d2-9749-4f8a0e9f640f    BATFLAGSCRIT</p>
+<p>bcded951-187b-4d05-bccc-f7e51960c258    BATFLAGSLOW</p>
+<p>9a66d8d7-4ff7-4ef9-b5a2-5a326ca2a469    BATLEVELCRIT</p>
+<p>8183ba9a-e910-48da-8769-14ae6dc1170a    BATLEVELLOW</p>
+<p>4f971e89-eebd-4455-a8de-9e59040e7347  SUB_BUTTONS</p>
+<p>5ca83367-6e45-459f-a27b-476b1d01c936    LIDACTION</p>
+<p>7648efa3-dd9c-4e3e-b566-50f929386280    PBUTTONACTION</p>
+<p>96996bc0-ad50-47ec-923b-6f41874dd9eb    SBUTTONACTION</p>
+<p>a7066653-8d6c-40a8-910e-a1f54b84c7e5    UIBUTTON_ACTION</p>
+<p>0012ee47-9041-4b5d-9b77-535fba8b1442  SUB_DISK</p>
+<p>6738e2c4-e8a5-4a42-b16a-e040e769756e    DISKIDLE</p>
+<p>5fb4938d-1ee8-4b0f-9a3c-5036b0ab995c  SUB_GRAPHICS</p>
+<p>48672f38-7a9a-4bb2-8bf8-3d85be19de4e  SUB_INTSTEER</p>
+<p>2e601130-5351-4d9d-8e04-252966bad054  SUB_IR</p>
+<p>fea3413e-7e05-4911-9a71-700331f1c294  SUB_NONE</p>
+<p>501a4d13-42af-4429-9fd1-a8218c268e20  SUB_PCIEXPRESS</p>
+<p>ee12f906-d277-404b-b6da-e5fa1a576df5    ASPM</p>
+<p>8619b916-e004-4dd8-9b66-dae86f806698  SUB_PRESENCE</p>
+<p>54533251-82be-4824-96c1-47b60b740d00  SUB_PROCESSOR</p>
+<p>bc5038f7-23e0-4960-96da-33abaf5935ec    PROCTHROTTLEMAX</p>
+<p>893dee8e-2bef-41e0-89c6-b55d0929964c    PROCTHROTTLEMIN</p>
+<p>94d3a615-a899-4ac5-ae2b-e4d8f634367f    SYSCOOLPOL</p>
+<p>238c9fa8-0aad-41ed-83f4-97be242c8f20  SUB_SLEEP</p>
+<p>9d7815a6-7ee4-497e-8888-515a05f02364    HIBERNATEIDLE</p>
+<p>94ac6d29-73ce-41a6-809f-6363ba21b47e    HYBRIDSLEEP</p>
+<p>bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d    RTCWAKE</p>
+<p>29f6c1db-86da-48c5-9fdb-f2b67b1f44da    STANDBYIDLE</p>
+<p>7516b95f-f776-4464-8c53-06167f40cc99  SUB_VIDEO</p>
+<p>fbd9aa66-9553-4097-ba44-ed6e9d65eab8    ADAPTBRIGHT</p>
+<p>8ec4b3a5-6868-48c2-be75-4f3044be88a7    VIDEOCONLOCK</p>
+<p>3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e    VIDEOIDLE</p>
