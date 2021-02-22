@@ -1,0 +1,224 @@
+---
+layout: default
+---
+
+<p>.net-Framework (Version rausfinden, Reparatur)
+Powershell:
+(Get-ItemProperty &quot;HKLM:SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full&quot;).Release</p>
+<p>&lt;#
+.NET Framework 4.5 378389
+.NET Framework 4.5.1 installed with Windows 8.1 378675
+.NET Framework 4.5.1 installed on Windows 8, Windows 7 SP1, or Windows Vista SP2 378758
+.NET Framework 4.5.2 379893
+.NET Framework 4.6 installed with Windows 10 393295
+.NET Framework 4.6 installed on all other Windows OS versions 393297
+.NET Framework 4.6.1 installed on Windows 10 394254
+.NET Framework 4.6.1 installed on all other Windows OS versions 394271
+.NET Framework 4.6.2 installed on Windows 10 Anniversary Update 394802
+.NET Framework 4.6.2 installed on all other Windows OS versions 394806
+.NET Framework 4.7 installed on Windows 10 Creators Update 460798
+.NET Framework 4.7 installed on all other Windows OS versions 460805
+.NET Framework 4.7.1 installed on Windows 10 Fall Creators Update 461308
+.NET Framework 4.7.1 installed on all other Windows OS versions 461310
+              .NET Framework 4.7.2 installed on Windows 10 April 2018 Update 461808
+              .NET Framework 4.7.2 installed on all other Windows OS versions 461814
+              .NET Framework 4.7.8 528040</p>
+<p>#&gt;</p>
+<hr>
+<p>Windows-Remoteunterstützung - msra.exe bzw. msra.exe /email ( Optionen über msra.exe /? )</p>
+<p>Problemrekorder - psr.exe</p>
+<hr>
+<p>#Log-Dateien in den Mail-Body einfügen (-Raw -Encoding UTF8)
+[String] $Log = Get-Content -Raw -Encoding UTF8 -Path $Logfile
+Send-MailMessage -from &quot;noreply@mail.de&quot; -to &quot;Nachname.Vorname@mail.de&quot; -Subject &quot;Citrix-Session-Statistik von $zeit&quot; -Body $log -SmtpServer &quot;smtp.local&quot; -Encoding UTF8</p>
+<hr>
+<p>Powershell-Logging mit Start-Transcript</p>
+<p>Ablaufverfolgung und Protokollierung von Skripts per Scriptblock-Logging
+Im Gegensatz zur Transkription werden beim Scriptblock-Logging die ausgeführten Befehle in die Ereignisanzeige unter Anwendungs- und Dienstprotokolle – Microsoft – Windows – Powershell -Operational geschrieben.</p>
+<p><a href="https://docs.microsoft.com/de-de/powershell/scripting/wmf/whats-new/script-logging?view=powershell-7">https://docs.microsoft.com/de-de/powershell/scripting/wmf/whats-new/script-logging?view=powershell-7</a></p>
+<p><a href="https://www.windowspro.de/wolfgang-sommergut/powershell-kommandos-eventlog-aufzeichnen">https://www.windowspro.de/wolfgang-sommergut/powershell-kommandos-eventlog-aufzeichnen</a></p>
+<p>Protokollierung von Skripts per Over the Shoulder Transcription
+Die Over the Shoulder Transcription erstellt für das Powershell-Skript ein Transkript (eine Klartext-Logdatei), das alle ausgeführten Befehle und Ausgaben protokolliert. </p>
+<p>Mit</p>
+<p>start-transscript </p>
+<p>startet man das Protokoll</p>
+<p>Mit</p>
+<p>stop-transcript</p>
+<p>beendet man das Protokoll</p>
+<p>Achtung: Das Transkript speichert nicht alle Ausgaben. Write-Host z.B. wird nicht immer abgebildet. 
+Man benutzt hier:</p>
+<p>write-verbose -message &quot;Text&quot; -verbose</p>
+<p>Sie können es als Gruppenrichtlinie sowohl für Benutzer als auch für Computer aktivieren, und zwar in den administrativen Einstellungen unter Windows-Komponenten – Powershell. Hier finden Sie sowohl die Transkription unter dem Namen Powershell-Aufzeichnung aktivieren als auch das Skriptblock-Logging unter Protokollierung von PowerShell-Skriptblöcken aktivieren. Aktivieren Sie die Powershell-Aufzeichnung, legt Windows die Sitzungsprotokolle standardmäßig im Dokumente-Ordner des Benutzers ab. Die Protokolle werden jeden Tag in einem neuen Ordner abgelegt, der nach dem Schema JahrMonatTag erstellt wird, also z.B. 20190110 für den 10.1.2019. Innerhalb des Ordners wird pro Powershell-Sitzung ein Protokoll mit dem Namen Powershell_transcript.<Computername>.JahrMonatTagStundeMinuteSekunde.<8stelliger Zufallsstring>.txt erzeugt.
+Der Zielordner kann über die Gruppenrichtlinie angepasst werden. Geben Sie dafür den Pfad in das Feld Verzeichnis der Aufzeichnungsausgabe an.</p>
+<h1 id="trick-to-force-verbose-because-write-output-doesn-t-look-well-in-transcript-files">Trick: To force verbose because Write-Output doesn&#39;t look well in transcript files</h1>
+<p>$VerbosePreference = &quot;Continue&quot;</p>
+<hr>
+<p>Powershell: SID eines Users herausfinden bzw. Usernamen in SID umwandeln
+Zum Ende der Metadaten springen
+Erstellt von Enderlein, Thorsten am 2020, Mär 02Zum Anfang der Metadaten</p>
+<p>#Domain User to SID
+$objUser = New-Object System.Security.Principal.NTAccount(&#39;domainname&#39;, &#39;username&#39;)
+$SID = $objUser.Translate([System.Security.Principal.SecurityIdentifier])
+$SID.Value</p>
+<p>#Local User to SID
+$objUser = New-Object System.Security.Principal.NTAccount(&#39;<local username>&#39;)
+$SID = $objUser.Translate([System.Security.Principal.SecurityIdentifier])
+$SID.Value</p>
+<p>#SID to (Domain)User
+$objSID = New-Object System.Security.Principal.SecurityIdentifier (&#39;<SID>&#39;)
+$objUser = $objSID.Translate( [System.Security.Principal.NTAccount])
+$objUser.Value</p>
+<p>#List all Domainusers (Groups) with SIDs
+Get-ADUser -Filter <em> | Select-Object -Property Name, SID | Sort-Object -Property Name
+Get-ADGroup -Filter </em> | Select-Object -Property Name, SID | Sort-Object -Property Name</p>
+<p>#List all local Users (Groups) with SIDs
+Get-LocalUser | Select-Object -Property Name, SID | Sort-Object -Property Name
+Get-LocalGroup | Select-Object -Property Name, SID | Sort-Object -Property Name</p>
+<p>#Have a SID but no idea if it&#39;s a user, group or computer? Try this:
+$SID = &#39;<SID>&#39;
+Get-ADObject -Filter &quot;objectSid -eq &#39;$SID&#39;&quot; | Select-Object Name, ObjectClass</p>
+<hr>
+<p>PS2EXE
+Variante1: Umwandlung mit Visual Studio
+<a href="https://ironmansoftware.com/obfuscating-powershell-scripts-in-packaged-executables/">https://ironmansoftware.com/obfuscating-powershell-scripts-in-packaged-executables/</a></p>
+<p>Variante2: Diverse Skripte
+PS2EXE</p>
+<p><a href="https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5">https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5</a></p>
+<p><a href="https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5/view/Discussions">https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5/view/Discussions</a></p>
+<p><a href="https://www.addictivetips.com/windows-tips/convert-powershell-script-to-exe-on-windows-10/">https://www.addictivetips.com/windows-tips/convert-powershell-script-to-exe-on-windows-10/</a></p>
+<p><a href="https://gallery.technet.microsoft.com/PS2EXE-Convert-PowerShell-9e4e07f1">https://gallery.technet.microsoft.com/PS2EXE-Convert-PowerShell-9e4e07f1</a></p>
+<h2 id="https-github-com-thomasliddledba-kubenswin-tree-master-ps2exe-gui"><a href="https://github.com/thomasliddledba/kubenswin/tree/master/PS2EXE-GUI">https://github.com/thomasliddledba/kubenswin/tree/master/PS2EXE-GUI</a></h2>
+<p>MSI: MSI-Datei bearbeiten
+Mit mit dem Orca MSI Editor (Microsoft Developer Tool) - <a href="https://4sysops.com/archives/edit-an-msi-file-with-the-orca-msi-editor/">https://4sysops.com/archives/edit-an-msi-file-with-the-orca-msi-editor/</a> kann man msi-Dateien bearbeiten.</p>
+<h2 id="beispiel-https-oofhours-com-2020-02-10-deploying-the-new-microsoft-edge-without-a-desktop-shortcut-">Beispiel: <a href="https://oofhours.com/2020/02/10/deploying-the-new-microsoft-edge-without-a-desktop-shortcut/">https://oofhours.com/2020/02/10/deploying-the-new-microsoft-edge-without-a-desktop-shortcut/</a></h2>
+<p>Powershell: GUIs mit Visual Studio erstellen</p>
+<h2 id="https-foxdeploy-com-series-learning-gui-toolmaking-series-"><a href="https://foxdeploy.com/series/learning-gui-toolmaking-series/">https://foxdeploy.com/series/learning-gui-toolmaking-series/</a></h2>
+<p>CPU- und IO-Priorität für einen Prozess dauerhaft (!) beibehalten
+Manchmal ist es sinnvoll oder notwendig, die CPU- und IO-Priorität einiger Prozesse zu senken, damit andere Prozesse, ihre Arbeit tun können.</p>
+<p>Es gibt viele Tools, wie z.B. Controlup und Citrix-WEM um die Prioritäten der laufenden Prozesse zu ändern, aber es gibt nur sehr wenige Tools, die die Priorität automatisch beibehalten, sobald ein Prozess einmal gestartet wird. Process Hacker kann sich beispielsweise für einen bestimmten Prozess die Einstellungen merken und sie erneut anwenden, wenn er läuft. Aber während des Bootvorgangs z.B. läuft kein Tool wie der Process Hacker.</p>
+<p>Diese Funktionalität ist bereits in Windows integriert! Man muss nur einen Registrierungsschlüssel wie z.B.</p>
+<p>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\tiworker.exe\PerfOptions
+anlegen.</p>
+<p>Im Beispiel möchte ich für tiworker.exe die CPU- und IO-Priorität festlegen. Dazu muss ich zwei DWORD-Werte namens CpuPriorityClass und IoPriority unter dem Schlüssel PerfOptions setzen.</p>
+<p>Folgende Werte sind möglich:</p>
+<p>&quot;CpuPriorityClass&quot;=dword
+00000001 = Idle
+00000002 = Normal
+00000003 = High
+00000004 = RealTime (n.a.)
+00000005 = Below Normal
+00000006 = Above Normal
+Alle anderen Werte setzen die Priorität wieder auf normal.</p>
+<p>&quot;IoPriority&quot;=dword
+00000000 = Very Low
+00000001 = Low
+00000002 = Normal
+00000003 = High
+00000004 = Critical (only for memory io)</p>
+<p>&quot;PagePriority&quot;=dword
+00000000 = Idle
+00000001 = Very Low
+00000002 = Low
+00000003 = Background
+00000004 = Background
+00000005 = Normal</p>
+<p>&quot;WorkingSetLimitInKB&quot;=dword</p>
+<p>00008000</p>
+<p>Alle anderen Werte setzen die Priorität wieder auf normal.</p>
+<p>Achtung:
+Microsoft hat diese Einstellungen nicht dokumentiert! Wie üblich ist es gefährlich, an Prioritäten zu basteln, da der OS-Scheduler möglicherweise nie eine IO- oder CPU-Zeitscheibe für einen Prozess plant, wenn andere Prozesse mit höheren Prioritäten ständig ausgeführt werden. Außerdem wird es schnell nutzlos, wenn zu viele Prozesse diese Funktion nutzen, was der Hauptgrund dafür sein könnte, sie nicht zu dokumentieren. Man sollte sich der Tatsache bewusst sein, dass die Prozesse möglichwerweise nie laufen, wenn die Maschine ständig mit wichtigeren Aufgaben belastet wird!</p>
+<p>Beispiel-Reg-Inhalt (Empfehlung ist aber, die Werte manuell zu erstellen und zu exportieren):</p>
+<p>Windows Registry Editor Version 5.00</p>
+<p>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\tiworker.exe\PerfOptions]
+&quot;CpuPriorityClass&quot;=dword:00000001
+&quot;IoPriority&quot;=dword:00000000</p>
+<hr>
+<p>Hintergrundinfos zu Image File Execution Options:</p>
+<p>Blocking programs from starting</p>
+<p>There is an option to debug programs you start in windows. You can use this to block any program from starting.
+The text value is called debugger. Just give it the value of another windows exe file that does nothing like: consent.exe</p>
+<p>[HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\PROGRAM1.exe]
+&quot;Debugger&quot;=&quot;consent.exe&quot;</p>
+<hr>
+<h2 id="https-docs-microsoft-com-en-us-previous-versions-visualstudio-visual-studio-2010-a329t4ed-v-vs-100-redirectedfrom-msdn"><a href="https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2010/a329t4ed(v=vs.100)?redirectedfrom=MSDN">https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2010/a329t4ed(v=vs.100)?redirectedfrom=MSDN</a></h2>
+<p>Powershell: Tasten senden per Skript</p>
+<h2 id="https-ss64-com-vb-sendkeys-html"><a href="https://ss64.com/vb/sendkeys.html">https://ss64.com/vb/sendkeys.html</a></h2>
+<p>AutoIT-Paketierung
+1.1. Womit wird paketiert?
+Wir nutzen die Software AutoIt - <a href="http://www.autoitscript.com/site/autoit/downloads/">http://www.autoitscript.com/site/autoit/downloads/</a>
+Software am besten auf dem eigenen Notebook installieren</p>
+<p>1.2. Warum? Und was ist ein Paket?
+Mit AutoIt kann man aus verschiedene Skript-Aktionen ein Paket schnüren. Ein Paket ist in unserem Sprachverständnis eine per Autoit kompilierte exe-Datei, die sich per Doppelklick vollautomatisch installiert.</p>
+<p>1.3. AutoIt-„Tricks“
+Möglichkeiten von Autoit</p>
+<ul>
+<li><p>Windows / DOS-Dateien ausführen</p>
+</li>
+<li><p>Tastenanschläge simulieren</p>
+</li>
+<li><p>Mausbewegungen/ -Klicks simulieren</p>
+</li>
+<li><p>Fenster manipulieren</p>
+</li>
+<li><p>mit Fensterinhalten interagieren</p>
+</li>
+<li><p>mit Zwischenspeicher arbeiten</p>
+</li>
+<li><p>Windows-Systemregistrierung editieren</p>
+</li>
+</ul>
+<p>Beispiel für AutIt-Programmteile:</p>
+<p>Wie starte ich?</p>
+<ul>
+<li>AutoIt installieren</li>
+<li>AutoIt-Tricks und fertige Pakete anschauen (bitte niemals ändern!)</li>
+<li>AutoIt-Doku lesen – z.B.
+<a href="http://www.autoit.de/dokumentation/">http://www.autoit.de/dokumentation/</a>
+<a href="http://translation.autoit.de/onlinehilfe/">http://translation.autoit.de/onlinehilfe/</a>
+<a href="http://www.technibble.com/automation-with-autoit-tutorial-part-1/">http://www.technibble.com/automation-with-autoit-tutorial-part-1/</a>
+<a href="http://autoit-script.ru/autoit_rv_ua/files/Other/AutoIt_v3-_Your_Quick_Guide.pdf">http://autoit-script.ru/autoit_rv_ua/files/Other/AutoIt_v3-_Your_Quick_Guide.pdf</a>
+<a href="http://home.arcor.de/peethebee/files/tuts/autoit_teil_1.pdf">http://home.arcor.de/peethebee/files/tuts/autoit_teil_1.pdf</a>
+<a href="http://home.arcor.de/peethebee/files/tuts/autoit_teil_2.pdf">http://home.arcor.de/peethebee/files/tuts/autoit_teil_2.pdf</a>
+<a href="http://web.slzm.de/blog/wp-content/uploads/AutoIt_leicht_gemacht_web_20120406.pdf">http://web.slzm.de/blog/wp-content/uploads/AutoIt_leicht_gemacht_web_20120406.pdf</a></li>
+</ul>
+<p>Mein erstes Paket</p>
+<ul>
+<li>Ein einfaches bereits bestehendes Paket kopieren</li>
+<li>Silent-Parameter der Software herausfinden (google oder Aufruf der exe mit /?)</li>
+<li>Aufruf der Datei mit Silent-Parameter einbauen</li>
+<li>Paket kompilieren</li>
+</ul>
+<hr>
+<p>Betriebssystem mit dism uns sfc reparieren: 
+<a href="https://www.tenforums.com/tutorials/7808-use-dism-repair-windows-10-image.html">https://www.tenforums.com/tutorials/7808-use-dism-repair-windows-10-image.html</a>
+<a href="https://www.borncity.com/blog/2011/02/28/win-7-defekte-packages-dateien-reparieren/">https://www.borncity.com/blog/2011/02/28/win-7-defekte-packages-dateien-reparieren/</a>
+<a href="https://www.borncity.com/blog/2011/03/05/cbs-store-durch-updates-defekt-wie-reparieren/">https://www.borncity.com/blog/2011/03/05/cbs-store-durch-updates-defekt-wie-reparieren/</a>
+<a href="https://www.borncity.com/blog/2011/03/08/service-pack-1-fehlerdiagnose-package-store-mum-cat-reparatur/">https://www.borncity.com/blog/2011/03/08/service-pack-1-fehlerdiagnose-package-store-mum-cat-reparatur/</a>
+<a href="https://www.borncity.com/blog/2011/02/26/sp1-installation-hngt-error-c0000034c000009a/">https://www.borncity.com/blog/2011/02/26/sp1-installation-hngt-error-c0000034c000009a/</a>
+<a href="https://support.microsoft.com/de-de/help/929833/use-the-system-file-checker-tool-to-repair-missing-or-corrupted-system#CBS%20log">https://support.microsoft.com/de-de/help/929833/use-the-system-file-checker-tool-to-repair-missing-or-corrupted-system#CBS%20log</a>
+Mit ftp://terabyteunlimited.com/tbiview_en.zip kann man WIM-Dateien mounten</p>
+<h2 id="https-www-deskmodder-de-blog-2019-07-23-windows-server-2008-r2-per-inplace-upgrade-auf-die-windows-server-2019-in-mehreren-schritten-"><a href="https://www.deskmodder.de/blog/2019/07/23/windows-server-2008-r2-per-inplace-upgrade-auf-die-windows-server-2019-in-mehreren-schritten/">https://www.deskmodder.de/blog/2019/07/23/windows-server-2008-r2-per-inplace-upgrade-auf-die-windows-server-2019-in-mehreren-schritten/</a></h2>
+<p>Systems repair</p>
+<p>Sometimes a system needs repair. Try the following commands to check and fix the integrity of your system files.</p>
+<p>Start Command Prompt in privileged mode
+•Press ⊞ (Windows logo) in the taskbar, and type cmd.
+•Right-click Command Prompt, and press Run as administrator.
+•Press Yes in case of User Account Control (UAC) pop-up.</p>
+<p>SFC
+•Type in sfc /scannow and press Enter to initiate the integrity check and fix.
+•Wait for it to finish and reboot.</p>
+<p>MDSCHED
+•Type in mdsched.exe and press Enter to initiate Windows Memory Diagnostic.
+•Reboot to execute the test.</p>
+<p>DISM</p>
+<p>Find and fix corruptions</p>
+<p>•Type in Dism.exe /online /Cleanup-Image /CheckHealth and press Enter to check for known corruptions.</p>
+<p>•Type in Dism.exe /online /Cleanup-Image /ScanHealth and press Enter to scan for new corruptions.</p>
+<p>•Type in Dism.exe /online /Cleanup-Image /RestoreHealth and press Enter to fix the known corruptions.</p>
+<p>•Wait for it to finish and reboot.</p>
+<p>Clean-up the component store (WinSxS folder)</p>
+<p>•Type in Dism.exe /online /Cleanup-Image /StartComponentCleanup clean-up (immediately delete) previous versions of updated components (without a 30 day grace period).</p>
+<p>•Type in Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase to remove all superseded versions of every component in the component store.</p>
+<p>•Wait for it to finish and reboot.</p>
+<h2 id="-">----------------------------------------------------</h2>
+<hr>
