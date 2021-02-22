@@ -1,18 +1,17 @@
 GitHub Pages supports the following themes:
-Architect
-Cayman
-Dinky
-Hacker
-
-Leap day
-Merlot
-Midnight
-Minima
-Minimal
-Modernist
-Slate
-Tactile
-Time machine
+Cayman (ok)
+Architect (naja)
+Dinky (ok, aber linksbündig)
+Hacker (komische Farben)
+Leap day (ok, aber linksbündig)
+Merlot (naja)
+Midnight (cool, aber linksbündig)
+Minimal (naja)
+Modernist (ok, aber zu kleine Schrift)
+Slate (nix)
+Tactile (cool, aber linksbündig)
+Time machine (naja)
+Minima ???
 
 theme: jekyll-theme-architect
 theme: jekyll-theme-cayman
@@ -20,16 +19,22 @@ theme: jekyll-theme-dinky
 theme: jekyll-theme-hacker
 theme: jekyll-theme-leap-day
 theme: jekyll-theme-merlot
-theme: jekyll-theme-minima
 theme: jekyll-theme-minimal
 theme: jekyll-theme-modernist
 theme: jekyll-theme-slate
 theme: jekyll-theme-tactile
 theme: jekyll-theme-time-machine
 
+theme: jekyll-theme-minima
 theme: jekyll-theme-primer
 
 https://docs.github.com/en/github/working-with-github-pages/adding-a-theme-to-your-github-pages-site-using-jekyll
 
 https://github.blog/
+
+https://docs.github.com/en/github/working-with-github-pages/adding-a-theme-to-your-github-pages-site-using-jekyll
+
+https://jekyllrb.com/docs/themes/
+https://github.com/topics/jekyll-theme
+
 
