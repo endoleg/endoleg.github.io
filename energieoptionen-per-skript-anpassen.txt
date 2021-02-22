@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 
 # Mit powercfg.exe /query bekommt man sehr viele Infos!
 # Oder hier: http://ss64.com/nt/powercfg.html
