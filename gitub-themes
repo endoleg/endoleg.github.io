@@ -1,0 +1,35 @@
+GitHub Pages supports the following themes:
+Architect
+Cayman
+Dinky
+Hacker
+
+Leap day
+Merlot
+Midnight
+Minima
+Minimal
+Modernist
+Slate
+Tactile
+Time machine
+
+theme: jekyll-theme-architect
+theme: jekyll-theme-cayman
+theme: jekyll-theme-dinky
+theme: jekyll-theme-hacker
+theme: jekyll-theme-leap-day
+theme: jekyll-theme-merlot
+theme: jekyll-theme-minima
+theme: jekyll-theme-minimal
+theme: jekyll-theme-modernist
+theme: jekyll-theme-slate
+theme: jekyll-theme-tactile
+theme: jekyll-theme-time-machine
+
+theme: jekyll-theme-primer
+
+https://docs.github.com/en/github/working-with-github-pages/adding-a-theme-to-your-github-pages-site-using-jekyll
+
+https://github.blog/
+
