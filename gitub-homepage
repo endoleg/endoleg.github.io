@@ -1,3 +1,10 @@
+1. githb account anlegen
+
+2. Repository anlegen mit %username%.github.io
+
+3. index.md und readme.md anlegen
+
+4. Theme wählen
 GitHub Pages supports the following themes:
 Cayman (ok)
 Architect (naja)
@@ -28,13 +35,19 @@ theme: jekyll-theme-time-machine
 theme: jekyll-theme-minima
 theme: jekyll-theme-primer
 
-https://docs.github.com/en/github/working-with-github-pages/adding-a-theme-to-your-github-pages-site-using-jekyll
+5.
+Für mehr Themes und comport:
+https://jekyllrb.com/docs/installation/windows/
 
+
+X.
+Sonstiges:
+https://jekyllrb.com/docs/installation/windows/
+https://docs.github.com/en/github/working-with-github-pages/adding-a-theme-to-your-github-pages-site-using-jekyll
 https://github.blog/
 http://www.5202.de/2014/01/tutorialgithubindex3.html
 https://jamstackthemes.dev/ssg/jekyll/
 https://docs.github.com/en/github/working-with-github-pages/adding-a-theme-to-your-github-pages-site-using-jekyll
-
 https://jekyllrb.com/docs/themes/
 https://github.com/topics/jekyll-theme
 https://voneff.de/de/erste-schritte-mit-jekyll-und-github-pages/
