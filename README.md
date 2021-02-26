@@ -1,9 +1,11 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [Great #Powershell script with GUI for environments where users are restricted to change any display settings but need to change the Session Scale or Font smoothing.Good job @inetbeat !!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdcd86ff3ab6b7cd7120e9a61d06ee4c0)
-- [Found the info I needed - thanks @lazywinadmin I have learnt a valuable lesson today, especially to be careful when using %temp% in paths in scripts for some operations](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e182aabf3cee782198dc974d3e30bb04f76d9dd6ef7a46879d817069463dd60e1ca117911)
-- [RT @syst_and_deploy: You can block keyboard shortcut combinations like "Windows +R" or any combinations you want by using the Windows featu…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdcdb6ef1a1687adc140b9364d16de5c5)
-- [RT @_qwertzu: I wonder if anyone else using #Fslogix Containers with #AppV on a #Citrix TS ever encountered a ACL issue on the c:\users dir…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdcdb6ef1a36d74de17099260d36ce8c4)
-- [I wonder if anyone else using #Fslogix Containers with #AppV on a #Citrix TS ever encountered a ACL issue on the c:\users directory. Looks like under special conditions users can access other users profiles. MS does not respond to our support case so i start asking around now.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e202ea5e4d0f69d0fca9573c6f60ab61368dbd86cf6a06f7ade130a9564dd6ce0cb1a7e)
+- [RT @bad_packets: We've detected mass scanning activity targeting vulnerable VMware vCenter servers ().
+
+Query our AP…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fddde6bf5a4627cd817089762dd61e8c0)
+- [Microsoft Security Community Webinars (and recordings)](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fddde6bf7a06278dc170b9767d16fe7c3)
+- [RT @james____rankin: QuickPost – triggering actions after process starts in Windows](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fddde6af2aa637ddf110b9567d76be9c7)
+- [Making accounts more secure with multi factor authentication](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fddde69f5ab6874d9150b9a60dc6ce5c0)
+- [RT @NTFAQGuy: Little bit of a milestone hit. The first lesson in my PowerShell Master Class just hit 200,000 views. Hope it helps if trying…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fddde68f5a0697dda14089764d36ae6c4)
 <!-- BLOG-POST-LIST:END -->
