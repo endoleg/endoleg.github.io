@@ -1,9 +1,19 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [You can download Visual Studio Community for free to write, compile and run your open source projects:](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdfda6cf0a3627ed917069265d16ee8c3)
-- [Automate tasks with Power Automate Desktop for Windows 10- no additional costStart automating everyday tasks - no coding required](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdfdc69f0a5687ddc17079b64dc60e1c2)
-- [Its time to get you custom @azure Image Builder going and distribute to your SIG. Thx to @JimMoyle for making this so easy.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e073abce0d2f285168a8128d4f61eb1492ac7df6bf5a56b75d61c069b60d660e4c410731582)
-- [Useful function if you want to copy a function into a remote #PowerShell session, once, & call it multiple times rather than defining it every time you need to call it](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e182aabf3cee782198dc974d3e30bb04f76d9dd6ef4a3697ddb1d069266dc6be5c3167f14)
-- [Join @KamVedBrat, @deployjeremy and other #WindowsVirtualDesktop experts and community leads from #Microsoft at this 19th March digital event for best practices to optimise your virtual desktop and apps in Azure. Register now:](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e0b30bfe9cbe18c168c886088f10ba4482c9bc169f0a46d7cdd150c9664d06fe4c51b7f15833c)
+- [RT @Deyda84: Please all download the latest version of the Evergreen script. The customization of merge #122 (Get-AdobeAcrobatReader) are n…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdfd668f5ab6b75dd15099361d060e9c1)
+- [Security baseline for Microsoft Edge, version 89](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdfd668f5a06a79d9110e9565d468e6c0)
+- [RT @mbp_netscaler: In the newest ADC v13 firmware, bot management got a nice enhancement, where you can add a log expression. So it will ha…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdfd668f6a66b75dc130b9b68dc6ce6c1)
+- [Windows #PowerShell Pocket Reference is written by @Lee_Holmes](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdfd96ff3a7627ed6160a9269d16fe4c0)
+- [$1 Humble Book Bundle
+Pocket Reference Guides by O'Reilly 
+
+
+
+Including:
+- Windows #PowerShell Pocket Reference
+- SQL Pocket Guide
+- vi and Vim Editors Pocket Reference
+- grep Pocket Reference
+- sed and awk Pocket Reference](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdfd96efaa5697ad91c099562d76ae0c5)
 <!-- BLOG-POST-LIST:END -->
