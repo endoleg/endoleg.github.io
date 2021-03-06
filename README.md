@@ -1,19 +1,11 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [RT @Deyda84: Please all download the latest version of the Evergreen script. The customization of merge #122 (Get-AdobeAcrobatReader) are n…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdfd668f5ab6b75dd15099361d060e9c1)
-- [Security baseline for Microsoft Edge, version 89](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdfd668f5a06a79d9110e9565d468e6c0)
-- [RT @mbp_netscaler: In the newest ADC v13 firmware, bot management got a nice enhancement, where you can add a log expression. So it will ha…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdfd668f6a66b75dc130b9b68dc6ce6c1)
-- [Windows #PowerShell Pocket Reference is written by @Lee_Holmes](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdfd96ff3a7627ed6160a9269d16fe4c0)
-- [$1 Humble Book Bundle
-Pocket Reference Guides by O'Reilly 
+- [RT @guyrleech: Dug out & polished some 2017 #PowerShell code to watch for changes to a specified registry key (non-polling) & alert or dele…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd0df6ff4a2687adf1d0f9561d36be3c0)
+- [RT @wongmjane: Twitter is working on “Undo Send” timer for tweets](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd0df6bfba3637ede160b9562d76be2ca)
+- [RT @IoanPopovici: @manelrodero @guyrleech @endi24 Interesting @guyrleech, I didn’t know about registry watcher. @manelrodero I have a file…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd0df6bf6ab6e75dc100a9567d06fe9c0)
+- [RT @WindowsDocs: MSIX is the Windows app package format that combines the best features of MSI, .appx, App-V, and ClickOnce.
 
-
-
-Including:
-- Windows #PowerShell Pocket Reference
-- SQL Pocket Guide
-- vi and Vim Editors Pocket Reference
-- grep Pocket Reference
-- sed and awk Pocket Reference](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fdfd96efaa5697ad91c099562d76ae0c5)
+We made a vid…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd0df6af1a06878dc160e9167d46ae8ca)
+- [RT @nirsoft: AdvancedRun - Added /WaitProcess command-line option.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd0df6af3a66a78d810079163d36ae9cb)
 <!-- BLOG-POST-LIST:END -->
