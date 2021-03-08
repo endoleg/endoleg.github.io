@@ -1,11 +1,16 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [RT @guyrleech: Dug out & polished some 2017 #PowerShell code to watch for changes to a specified registry key (non-polling) & alert or dele…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd0df6ff4a2687adf1d0f9561d36be3c0)
-- [RT @wongmjane: Twitter is working on “Undo Send” timer for tweets](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd0df6bfba3637ede160b9562d76be2ca)
-- [RT @IoanPopovici: @manelrodero @guyrleech @endi24 Interesting @guyrleech, I didn’t know about registry watcher. @manelrodero I have a file…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd0df6bf6ab6e75dc100a9567d06fe9c0)
-- [RT @WindowsDocs: MSIX is the Windows app package format that combines the best features of MSI, .appx, App-V, and ClickOnce.
+- [The @ANZPSUG user group hosted the session 
 
-We made a vid…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd0df6af1a06878dc160e9167d46ae8ca)
-- [RT @nirsoft: AdvancedRun - Added /WaitProcess command-line option.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd0df6af3a66a78d810079163d36ae9cb)
+"Mythbusting #PowerShell Security"
+
+by @PowerShellMich1
+
+Here is the recording:](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd0d76af1aa6b78db130e9163d068e6c0)
+- [RT @CKsTechNews: How Do Browsers Handle Revoked SSL/TLS Certificates?](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd0d76af3ab637dd717069a63d560e9c7)
+- [The latest Windows 10 update is causing new issues for some users](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd0d76af3a56d7bdf17089365d76ce0c4)
+- [RT @MMelkersen: New #blogpost! 💡🤓
+We have been learning #MSIX the last 4 weeks and here is part 4. You can also be part of it, so welcome a…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd0d769faa2627ad916079067dd69e0c1)
+- [RT @syst_and_deploy: You can easily disable right-click context menu on Start menu, Task Bar, Windows Explorer and Desktop with PowerShell…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6fd0d769f4a16f78dd110f9b60d76ee9ca)
 <!-- BLOG-POST-LIST:END -->
