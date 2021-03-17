@@ -1,9 +1,21 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [Enhancement to keyboard layout configuration, Option to disable storing of authentication tokens and Microsoft Teams enhancements - Upgrade to #Citrix Workspace app 2103 for Windows](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1b2db7e0c6fbd049ca9573c6f60ab61368dbd969f4ab6878da170e9a67d56fe7c61a79)
-- [Download #Citrix Workspace app 2103 for Windows](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1c2ca6e0ceea881581c974d3e30bb04f76d9dd6ff2a56d7ddc11069165d06de4c412721d)
-- [One-Click Microsoft Exchange On-Premises Mitigation Tool – March 2021 – Microsoft Security Response Center](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e0c3ebfe8cee38e128ac974d3e30bb04f76d9dd6ff2a5697bda14089566dc6fe2c5167c16)
-- [Update your Google Chrome ASAP!A vulnerability has already been exploited by malefactors. All users need to update to version 89.0.4389.90. 👉](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a00b9e0d1f28208968d7e88f10ba4482c9bc169f0a56b7ade110c9b69d06ae4c0157b11883b)
-- [New Post | Guide to Deploy Zoom Client Using #ConfigMgr #MEMCM -](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e2f2db3ebd5e38b3e809566cead0cb15d2d9d9d77f2a16d7cd8140d9062d16ee3c6157a1d833cc2)
+- [RT @cstalhood: Download #Citrix ADC Release 13.0 Build 76.31 < replaces 76.29](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6edadf61f0a66c7dd715099564d369e5c6)
+- [RT @BeyondTrust: Download the new Microsoft Vulnerabilities Report to read @SamiLaiho's expert commentary and discover why removing #adminr…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6edadf6df4a76c7bd915089062dc6ee7c6)
+- [RT @NickInformation: Why is it so hard to get a test Account for #CVAD and the @Citrix Cloud? Take Azure and Microsoft's test accounts as a…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6edadf6df5a06d75d6160b9360dc6ce6c1)
+- [@guyrleech 
+Thank you for this great script!
+
+Two questions:
+1. 
+I have a much text in the message part of the event log. out-gridview shows only the first 9-10 lines. Do you know a solution for showing everything? 
+
+2.
+Can you give an example for the parameter "message" ?](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6edadf6df7a36e75db150b9464d36ee2c3)
+- [The Event Aggregator script by @guyrleech is amazing!
+
+
+
+Get all events from all event logs in a given time window and output to grid view or csv](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6edadf6df0a26f7fd8120e9b63d66ce6c1)
 <!-- BLOG-POST-LIST:END -->
