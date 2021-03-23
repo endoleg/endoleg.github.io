@@ -1,13 +1,9 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [I like this script by ⁦@AttilaKrick⁩ to get RSS-News (Atom) with Powershell](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6edcde69f2a76c7cdf1d0f9563d66fe2c6)
-- [RT @mdjxkln: @MalwareTechBlog PowerShell one liner to check for it:
-
-"C:\Users","D:","I:","E:" | % {Resolve-Path "$_\*\ReadMe.txt" -ErrorAc…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6edbd76ffbab6374d9110e9467d56be7ca)
-- [RT @Badgerati: Released #Pode v2.2.0! 🎉 This release greatly improves the performance of parsing form data for file uploading, adds signal…](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6edbd76ffba66d7adb100b9263d760e7c4)
-- [Very interested @guyrleech](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6edbd76ff5a16e7adf110d9161d36be3c1)
-- [Free alternative for TeamViewer:
-
-Distant Desktop](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6edbd76df5a06a7fdd1d0d9766d46de6c2)
+- [Thanks @deyda and @mohrpheus78 for publishing of @stealthpuppy Evergreen based Software-Installation GUIs to the community!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6edcdd6ef4a26f7dde110d9067d16ae9c0)
+- [When has explorer crashed in last 30 days? #PowerShellGet-WinEvent -FilterHashtable @{'providername' = 'Windows Error Reporting';starttime=(Get-Date).AddDays(-30);Id=1001 } | Select TimeCreated,@{n='App';e={$_.Properties[5].value}}|Where app -eq 'explorer.exe'](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e182aabf3cee782198dc974d3e30bb04f76d9dd6ff7a16f75da1d099460dd60e9c616731d)
+- [New Version (1.0) of the Evergreen Script !!!- Add Microsoft Teams Developer Ring- Add IrfanView- GUI selection option for Microsoft Teams autostart- Adding advanced logging- Fix Silent Installation of Foxit Reader  #PowerShell #CitrixCTP](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e3b3aabe5c3bad355969266d3f70cea0d6adfda6bf6a06e7bd8150e9662d369e8c710)
+- [Playing around with a Windows desktop tool for triggering #PowerShell script blocks. I'm calling it PSCommander. Toolbar icon and global key bindings. Thinking about integrating with file associations and shortcuts.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1e3bb3ecc6f08e0986896bcbad0cb15d2d9d9d77f2a16d79de1c079365dc6be6ca167911833ec2)
+- [PSScriptAnalyzeris integrated into the PowerShell extension for Visual Studio @Code You can see all messages for the current file in Problems view (Ctrl-Shift-M or, via menus, View > Problems), which incidentally, will show you that PSSA found additional potential problems.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f6edcde60f1a6627fdf150f9463dd6ee8c2)
 <!-- BLOG-POST-LIST:END -->
