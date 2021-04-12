@@ -1,9 +1,9 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [Process explorer tips and tricks](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61d8d76ef3a06b7cd8140b9067d66ae4c6)
-- [Clean Windows system drive - ControlUp Script Library](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61d8d76af7a06f75d611099b60dd69e8c6)
-- [Automating Disk Cleanup on Windows 10by ⁦@mniehaus⁩](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61d8d76af7a36f7cd8150d9561d76be4c7)
-- [Sysinternals PSToolsIntroduction  PSTools Suite](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61d8d661faa36e7bdf110d9169d36fe1c5)
-- [How to Know If You Are Under DDoS Attack  via @sucurisecurity](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61d8d66ff6a26279de150b9562d16de0c6)
+- [Kostenloser PowerShell Einsteigerworkshop am 04.05.202109:00 - 17:00 Uhr / Online Training](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61d9d86cfba16f7edd160d9561d561e5ca)
+- [New Version (1.3) of the Evergreen Script !!- Change to new faster download method- Change color scheme of the messages in Download & Install section- Implement new central MSI Install Function  #CitrixCTP #PowerShell #MicrosoftTeams](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e3b3aabe5c3bad355969266d3f70cea0d6ad0df6bf7a66c75d813089060dd69e7c210)
+- [Working on new version on About my PC systray tool:- Add actions menu (HTML reports: services, process...)- Add info about onedrive storage (main size and size on disk, report about 10 largest file...)#powershell #XAML #WPF #PS1WPF @DanielSjoegren @ChristophFeiker](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e0c26a1f5fde3891eba8262d7ee10bc132a9c8f2cb6e1757cdc1c0e9166d16ae1cb12791c893dc66a82c4)
+- [Break into cybersecurity and IT with 114 hours of training for $39](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e3d33b7e4d2eb89398a8b77d2f61ab7132a9c8f2cb6e1757cdc1c0e9161dc6de3c2177d108d38c66581c7)
+- [On Friday 16th we're releasing a FREE BTL1 demo course, allowing potential students to make an informed decision. Includes:🔹 Mental Health in Cybersecurity🔹 CMD & PowerShell For IR🔹 Sigma Rules (+ activity)🔹 Volatility (+ activity)🔹 Windows Forensic Artifacts🔹 + more!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e2c3ab1c3cef7822e80876a88f10ba4482c9bc169f0aa6b7cd61d069b68d16ce4ca1473148839)
 <!-- BLOG-POST-LIST:END -->
