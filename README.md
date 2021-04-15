@@ -1,9 +1,9 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [Twitter Trending Hashtags and Topics Trendsmap](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61dada69fbaa6f74da11069762dd69e1c7)
-- [Top 10 IT Security Tips for Individual Users by Helge Klein ⁦@HelgeKlein⁩](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61dada69fba26d7edc1c0c9167d76ce4c2)
-- [Up next the speaker that wins everything he speaks at Mr @samilaiho. I'm pretty sure he is a #Finnish Super Hero. Maybe they will put a statue of him up in the town square. Until then you can catch Sami live now @MVPDays Endpoint Day.  #Security](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e3b3ea4e4e9e3900f898728d4f61eb1492ac7df6bfba06978d81c0a9b63d46ce8c2157d1083)
-- [Windows Package Manager (winget)Roadmap / Timeline](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61dadd6df7a16874d613079767d56ce1c6)
-- [If you have an on-prem @citrixappdesktp deployment, you can add your site to Citrix Workspace to make your existing on-prem apps & desktops available to workspace subscribers. This process is called site aggregation. Learn more about it here.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e3c36a6f3cbfab015978d74d7e31ca0132a9c8f2cb6e1757cdc1c0d9065d46fe2c21273148f3ac06485cb)
+- [MS Edge release schedule](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61dad96ef0a36378de15069563d36ce9c2)
+- [Next release dates:](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61dad96ef1a46e7fdb100b9667dd60e0cb)
+- [Microsoft is rolling out Edge v90 in stable channel.What's new in Microsoft Edge 90 for Windows and macOS](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61dad96ef3a46d7cdb11089161d16ce6c3)
+- [Allow arbitrary URLs, expect arbitrary code execution1-click code execution vulnerabilities in popular software including Telegram, Nextcloud, VLC, Libre-/OpenOffice, Bitcoin/Dogecoin Wallets, Wireshark and Mumble](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61dad96df4a36374dc100a9169d46ae6c7)
+- [[Blog Archive] Creating Graphical Prompts Inside PowerShellWhile PowerShell is typically interacted with in the shell, you can create a graphical prompt using .NET controls and methods.#powershell](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e353ab4e7f5c09515928828d4f61eb1492ac7df6bfba06d79df110b9364d261e8c41579178d)
 <!-- BLOG-POST-LIST:END -->
