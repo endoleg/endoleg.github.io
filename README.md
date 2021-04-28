@@ -1,9 +1,9 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [15 open source GitHub projects for security pros](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61dfdf68f4a66b75dc12089061d061e6ca)
-- [FRESH POST! @OVDamn shares some insights and lessons learned in "Sustainable Citrix Implementations" at #myCUGC! Plus - click the link at the end to register for Owen's User Share webinar to talk about this topic more! Read it now:](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e122691d4e5c1c809918773d2f150f40f61dfde61f5aa6a7ade140e9365dc68e6c1)
-- [I will be presenting a webinar tomorrow at 9am PDT w/ my buddy @vdoppler on the topic:Troubleshoot Common Horizon Desktop Issues Using ControlUpWe will have a lot of great demos so come along! You can register here:](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e2d30a0f8cfed8955969266d3f70cea0d6ad0d968f3ab687adf12079365dd60e3cb12)
-- [List of all internal Microsoft Edge URLs edge://edge-urlsAnd for debugging the following pages are made for simulating web page errors. Because they crash or hang the renderer, you can copy and paste them into the address bar if you need them:](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61ded76cf3a7637bd712089267d16ce1c6)
-- [You can send feedback and bug reports directly by pressing Alt+Shift+I in your Microsoft Edge browser.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61ded669f7a26c7fde1d0b9364d560e2c1)
+- [Are there still plans to release some „security“ templates for Citrix Optimizer? Is there a timetable?I would love to see something like this.@MartinZugec](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61dfdb6af3a06975df120a9a64d36ee2c0)
+- [No title](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61dfdb68f6ab6f75df1c079161d36de9c0)
+- [No title](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e3e31bdefece79009a1a328d4f61eb1492ac7df6bfba56e7ad6130d9a62dd6ce9c5127a108e)
+- [I also like this script:  will try to transfer this WLAN signal information or battery status information to the Citrix VDA.](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61dfda6df5a46c7fdd120a9664d16fe0c3)
+- [netsh wlan show interfaces… to determine WLAN …- Signal strength %- Name (SSID)- WiFi standard radio type (e.g., IEEE 802.11n)- Receive rate (Mbps)- Transmit rate (Mbps)- Authentication type (e.g. WPA2-Personal)](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61dfda6df7a26d7dd8100c9560d06ae4c6)
 <!-- BLOG-POST-LIST:END -->
