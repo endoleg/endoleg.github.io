@@ -1,4 +1,4 @@
-# Visual Studio Code
+# Visual Studio Code (forked by Attila Kirk!)
 
 The Windows PowerShell ISE is no longer developed by Microsoft and is no longer part of PowerShell 7. The official successor is Microsoft Visual Studio Code. Therefore, an overview of everything you should know about the combination of PowerShell and Visual Studio Code.
 
@@ -134,46 +134,45 @@ For example:
 ]
 ```
 
-### **Shortcuts**-Befehle
+### **Shortcuts**
 
-Mit **F1** Kommandopalette geöffnet. Das erste Zeichen steuert die Auflistung, z.B. steht das "**>**" für den **Kommando-Modus** **ohne Zeichen** für den **Navigations-Modus** und mit "**?**" erhalten Sie eine Übersich welche Modis es noch gibt.
-
-| Aktuelle Zeile oder Selektion **ausführen**         | F8                             |
-
-| **Online-Hilfe** zum akt. Cmdlet                    | CTRL + F1                      |
-
-| Übersicht der **Tastaturbelegung**                  | CTRL + K, CTRL + S             |
-
-| Visual Studio Code **Kommandozeile**                | F1                             |
-
-| Nur Regionen **einklappen** (.PS1)                  | CTRL + K, CTRL + 8             |
-
-| ALLES **einklappen** (.MD)                          | CTRL + K, CTRL + 0             |
-
-| ALLES **aufklappen**                                | CTRL + K, CTRL + J             |
-
-| PS1-Datei **ausführen** / DEBUGGER starten          | F5                             |
-
-| **Snipping** einfügen                               | CTRL + ALT + J                 |
-
-| **Autovervollständigung** öffnen                    | CTRL + Space                   |
-
-| Dateien schnell **öffnen**                          | CTRL + P                       |
-
-| Zeile nach unten **kopieren**                       | SHIFT + ALT + DOWN             |
-
-| Zeile nach* unten **verschieben**                   | ALT + DOWN                     |
-
-| **Zeilenumbruch** umschalten                        | ALT + Z                        |
-
-| Zwischen zuletzt verwendeten **Dateien navigieren** | CTRL + TAB                     |
-
-| Zeile(n) ein- oder aus**kommentieren**              | CTRL + #                       |
-
-| Mehrere Eingabemasken erstellen                     | ALT + Maus-Klick               |
-
-| Zeile **verschieben**                               | ALT + PFEIL OBEN/UNTEN         |
-
-| Zeile **duplizieren**                               | SHIFT + ALT + PFEIL OBEN/UNTEN |
+**F1** 
 
 
+| **Execute** current line or selection | F8 |
+
+| **Online Help** for the current cmdlet | CTRL + F1 |
+
+| Overview of **Keyboard Layout** | CTRL + K, CTRL + S |
+
+| Visual Studio Code **Command Line** | F1 |
+
+| Collapse Regions Only** (.PS1) | CTRL + K, CTRL + 8 |
+
+| Collapse ALL** (.MD) | CTRL + K, CTRL + 0 |
+
+| ALL **expand** | CTRL + K, CTRL + J |
+
+| Run ** PS1 file** / Start DEBUGGER | F5 |
+
+| Insert **Snipping** | CTRL + ALT + J |
+
+| **Open AutoComplete** | CTRL + Space |
+
+| Quickly **open** files | CTRL + P |
+
+**copy line down** | SHIFT + ALT + DOWN |
+
+| Move Line Down** | ALT + DOWN |
+
+| **Toggle line break** | ALT + Z |
+
+| Navigate between recently used **files** | CTRL + TAB |
+
+| Comment in or out line(s)** | CTRL + # |
+
+| Create multiple input masks | ALT + mouse click |
+
+| Move line **move** | ALT + UP/DOWN ARROW |
+
+| Line **duplicate** | SHIFT + ALT + UP/DOWN ARROW |
