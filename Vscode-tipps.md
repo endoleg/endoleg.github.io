@@ -176,3 +176,97 @@ For example:
 | Move line **move** | ALT + UP/DOWN ARROW |
 
 | Line **duplicate** | SHIFT + ALT + UP/DOWN ARROW |
+
+----------------------------------------
+
+First Up: Removing the activity bar
+What is the activity bar you ask? Well, think of it like a sidebar for your sidebar. Because who wouldn’t want more sidebars taking up space?
+
+
+
+Let’s kill it.
+
+Open the “Command Palette” (press Cmd+Shift+P)
+Search and click “Toggle Activity Bar”
+
+
+Ah, that feels better.
+
+Before we move on, let’s look at what that did to our settings.json file, and make sure we don’t let that file get too messy:
+
+Open the command palette (Cmd+Shift+P)
+Type “settings json” and select “Preferences: Open Settings (JSON)”
+
+
+You should see something like this:
+
+
+
+Over time, as we configure VS Code, this settings file will get out of hand quickly. It’s really important that we keep it somewhat organized. We’ll start by adding a heading to this setting called “Silence The Noise“:
+
+
+
+As we hide unnecessary things in our editor, we’ll add those settings under this heading.
+
+Now that we’ve hidden the activity bar, your next question might be: “But wait, didn’t we need that bar?”
+
+Great question. The answer is: No, use shortcut keys.
+
+The shortcut keys
+
+Cmd+K+E (E for Explorer)
+Cmd+K+V (V for Version Control)
+Cmd+K+D (D for Debugger)
+Cmd+K+X (X for eXtensions)
+Unfortunately, these are NOT the keybindings that come out-of-the-box with VS Code. We will have to configure them ourselves. Here’s how:
+
+Open the “Command Palette” (press Cmd+Shift+P)
+Search “keyboard json” and select “Preferences: Open Keyboard Shortcuts (JSON)”
+
+
+Now, add the following snippet to that file:
+
+/**
+* Activity Bar
+**/
+{
+    "key": "cmd+k cmd+e",
+    "command": "workbench.view.explorer"
+},
+{
+    "key": "cmd+k cmd+v",
+    "command": "workbench.view.scm"
+},
+{
+    "key": "cmd+k cmd+d",
+    "command": "workbench.view.debug"
+},
+{
+    "key": "cmd+k cmd+x",
+    "command": "workbench.extensions.action.showInstalledExtensions"
+},
+
+Now, give it a test drive. While holding the Cmd key, press K and then V, you should see the “version control” panel. Now if you press Cmd+K+E, you should be back to the file explorer.
+
+
+
+I switch between the version control panel and my explorer panel most often. I imagine the same will be true for you.
+
+The logic behind these decisions
+First, we are removing the “Activity Bar” to clear up space in the editor. All space is valuable. Not because you need more room for your code, but because your code needs to breathe and be the central focus of the editor.
+
+Also, the less our fingers leave the keyboard the better, so this makes it an easy decision.
+
+Let’s talk about the logic behind these shortcut keys.
+
+If keyboard shortcuts were a computer program, CMD+ would be the “global scope”. More plainly, because CMD+ shortcut keys are the easiest to remember and type, your computer already has a bunch reserved. Some examples you are likely already familiar with: CMD+C, CMD+V, and CMD+Q.
+
+As a consequence, if we started adding new CMD+ shortcuts, we would quickly run into collisions, or run out of available letters. Therefore, it’s easier if we have a blank slate, with no reserved keys yet. A new “scope” or “layer” if you will. Introducing: CMD+K
+
+Why “K”? It’s a convention already established in Sublime Text, and I just took the cue from there. It also doesn’t hurt that it’s in a handy location on the keyboard (the home row).
+
+As we go, we will be adding more CMD+K shortcuts where it makes sense.
+
+Sure beats something like ^+⇧+⌥. Not only do you have to remember what those symbols mean, but you have to contort your fingers in impossible ways to hold them all at once.
+
+It’s a hard enough life.
