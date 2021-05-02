@@ -5,6 +5,9 @@ The Windows PowerShell ISE is no longer developed by Microsoft and is no longer 
 # Shortcuts
 https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf
 
+# PowerShell Extension Release History
+https://marketplace.visualstudio.com/items/ms-vscode.PowerShell/changelog
+
 ## Microsoft Visual Studio **Code vs. VSCodium**
 
 [VS Codium](https://github.com/VSCodium/vscodium) ist Visual Studio Code nur **ohne** Microsoft Branding, Telemetry und Licensing.
