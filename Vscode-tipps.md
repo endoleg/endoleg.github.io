@@ -351,3 +351,245 @@ Add the following to your settings.json file:
 Mini-map setting
 
 Cleared mini-map
+
+
+----------------------------------------------------
+
+
+Press Cmd+K+E to open up your file explorer, and let’s get started!
+
+Setting Up The File Explorer
+Before we learn the new workflow, let’s first set up our environment.
+
+Step 1: Clearing The Clutter
+VS Code has a few unnecessary widgets in the explorer that we’ll want to remove right away:
+
+
+
+To remove them, right-click on one of their headings and deselect all of them to make them go away.
+
+
+
+
+
+Ah, much better.
+
+Optional Tip
+
+By default VS Code adds graphical file icons. At first, I liked the extra icons, but now they feel noisy to me. If you feel the same way, you can add the following setting to settings.json to remove them:
+
+"workbench.iconTheme": null,
+
+
+Now things are even more serene:
+
+
+
+Step 2: Installing A Helpful Extension
+VS Code cannot duplicate files on its own. Fortunately, there’s a handy extension that solves the problem perfectly. Once installed, you won’t think about it again.
+
+To install it:
+
+Open your extensions panel using Cmd+K+X (from the first email)
+Search “duplicate”
+Find “Duplicate action” and click “Install”
+
+
+That’s it, now if you right-click on a file in the sidebar, you should see the “Duplicate file or directory” item listed at the bottom.
+
+
+
+Step 3: Add Keybindings
+By now you should notice a recurring theme in this course: bringing order to the chaos that is keyboard shortcuts.
+
+Here’s my general approach to thinking about adopting a new keyboard shortcut:
+
+Is there an existing convention? (Cmd+T means “new tab” in Chrome, Safari, Finder, iTerm, and Hyper). Yes? Great, use it!
+Will it be used often enough to deserve a letter in the root Cmd+? namespace?
+If not, is there a logical letter for it in the custom Cmd+K+? namespace?
+If not, arbitrary shortcut with some weak justification it is!
+For the file explorer shortcuts, we’ll be leveraging the conventions of the Finder app on the Mac.
+
+
+
+Here are the keyboard shortcuts we’ll be using from “Finder”:
+
+Cmd+D for “Duplicate”
+Cmd+Shift+N for “New Folder”
+Cmd+Backspace for “Move To Trash”
+Enter for “Rename“
+To add these shortcuts open up your keybindings.json file and add the following snippet:
+
+/**
+* File Explorer
+**/
+{
+    "key": "cmd+d",
+    "command": "duplicate.execute",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+},
+{
+    "key": "cmd+n",
+    "command": "explorer.newFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+},
+{
+    "key": "shift+cmd+n",
+    "command": "explorer.newFolder",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+},
+{
+    "key": "cmd+r",
+    "command": "workbench.files.action.refreshFilesExplorer",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+},
+
+
+Notice the “when” conditions on each shortcut. Because of these conditions, we can use Cmd+D for “Duplicate” in the file explorer, but still, use it for “Select next occurrence” (Multi-cursor) in the text editor. We now can focus on using the most appropriate shortcuts, without worrying about collisions from other existing ones in the app.
+Great, now our environment is all set up. Let’s look at some common file operations.
+
+Using The File Explorer (Well)
+Rather than listing out everything the file explorer is capable of, I’ve decided to walk through the things I most commonly use it for.
+
+Here we go.
+
+Traversing Files
+Whether you’re renaming, duplicating, or deleting a file, you need to first be able to navigate to it.
+
+Often, it’s faster to just use your mouse (this is one of the few allowable use cases for a mouse). However, it’s useful to know the keyboard shortcuts:
+
+Up/Down Arrow: Move around the file list
+Right Arrow: Open folder
+Left Arrow: Close folder
+Cmd+Left Arrow: Close ALL folders
+Moving Files
+This is another instance where using the mouse is advantageous. In VS Code, to move a file from one folder to another, simply drag and drop the file.
+
+This is a fantastic feature I really missed when I was using Sublime.
+
+Creating A New File
+This is the most common action I perform in the file explorer. Occasionally, I open up the terminal and use the touch command to create a new file, but generally, I do the following:
+
+Open the file explorer Cmd+K+E (This is the last time I’ll list this step)
+Press Cmd+N to create a new file
+Type the new filename
+Press Enter
+Close the file explorer Cmd+K+B (Also the last time I’ll list this)
+If I need to create the file in a different folder, it’s much faster to right-click on a folder and select "New File”.
+
+Creating A Folder
+This is the same as creating a file, except instead of Cmd+N it’s Cmd+Shift+N.
+
+Renaming A File
+I love how quick and simple it is to rename a file (same behavior as in Finder):
+
+Press Enter on the file name
+Type the new name
+Press Enter to commit the new name
+Alternatively press Escape to back out of the rename
+Deleting A File
+To delete a file:
+
+Select the file
+Press Cmd+Backspace
+Press Enter for the confirmation prompt
+Adding Files From Other Applications
+A nifty feature of VS Code is the ability to drag a file from another app into VS Code’s sidebar.
+
+I use this often for dragging new image assets into my projects. Whether I downloaded the asset from the internet or exported it from Sketch, it’s as simple as dragging and dropping the file into the folder I want.
+
+
+
+----------------
+
+
+
+VS Code has a nifty little version control panel you can open by pressing Cmd+K Cmd+V (Remember that shortcut from the first email?).
+
+
+
+There are a few things this panel is GREAT for, and plenty more I would never use it for.
+
+Here’s my best summary of what I WOULDN’T use this panel for:
+
+Branch Management
+
+If it has to do with branches, I’m not using VS code for it. Merging, pushing, pulling, checking out, etc… are all operations I’d rather do straight in the command line. (You might prefer some Git GUI like Sourcetree or GitHub Desktop)
+
+For me, command-line Git is the “source of truth”. I use it for most major operations.
+
+As powerful as Git is on the command line, it sucks at a handful of things. VS Code makes these experiences much nicer. Let’s see em’.
+
+Committing Code
+This is THE most common Git operation I perform daily, and VS Code is much better at it than the command line is. Yeah, I said it.
+
+Here’s how I commit code using the version control panel:
+
+Open the version control panel Cmd+K Cmd+V
+Sometimes click through various files to get a beautiful diff of the changes
+Type a message
+Press Cmd+Enter
+
+
+IF I only want to commit certain unstaged files, I click the little “plus” icon on the files I want to be included in the commit. Too easy.
+
+The only customization needed for this is the following keybinding in your keybindings.json file:
+
+
+
+{
+    "command": "git.commit",
+    "when": "activeViewlet == 'workbench.view.scm'",
+    "key": "cmd+enter"
+},
+To me, Cmd+Enter is the keybinding convention for “sending” or “submitting” something that you are currently typing (When the Enter key needs to still be able to add a line-break). My email client does this, Twitter does this, we’re doing this.
+
+Undo Last Commit
+Here is the entire list of Git operations VS Code offers:
+
+
+
+I only ever use one 😎. And it is GLORIOUS: Undo Last Commit.
+
+
+
+A common operation that previously required googling, stack overflowing, and breaking your entire Git setup, is now just a mouse click.
+
+What. A. Rush.
+
+Resolving Merge Conflicts
+When you encounter merge conflicts in your command line (or GUI), you can open this panel and easily browse the conflicts, edit them inline, and resolve them easily. (Git GUI users are not impressed)
+
+
+
+The interface is pretty self-explanatory, but it’s worth noting one operation that is much easier than it’s command-line alternative:
+
+Resolving an entire file’s conflicts at once (by choosing which set of changes you want).
+
+Normally, on the command line, I type something like git checkout some/file/that/takes/a/long/time/to/type.php —ours (or —theirs).
+
+In VS Code, I can just select “accept all current/incoming” in the right-click dropdown of the file I want, and VS Code will remove the conflict. I can now click the “plus” icon to stage the conflict.
+
+
+----
+
+Toggling The Terminal
+I don’t even know what the default keyboard shortcut for opening the terminal in VS Code is because I made this keybinding on day one.
+
+Here it is: Cmd+T
+
+
+
+Copy and paste this bad-boy into your keybindings.json file.
+
+/**
+* Terminal
+/*
+{
+    "key": "cmd+t",
+    "command": "workbench.action.terminal.toggleTerminal"
+},
+Now, when you’re editing code and you hit Cmd+T, your terminal will open (if it’s already open, it will focus). When you are already in the terminal and you want to close it, hit… Cmd+T!
+
+I have to change my “T” keycap out every couple of days because I use this shortcut so much.
+
