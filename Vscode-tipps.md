@@ -2,6 +2,9 @@
 
 The Windows PowerShell ISE is no longer developed by Microsoft and is no longer part of PowerShell 7. The official successor is Microsoft Visual Studio Code. Therefore, an overview of everything you should know about the combination of PowerShell and Visual Studio Code.
 
+# Shortcuts
+https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf
+
 ## Microsoft Visual Studio **Code vs. VSCodium**
 
 [VS Codium](https://github.com/VSCodium/vscodium) ist Visual Studio Code nur **ohne** Microsoft Branding, Telemetry und Licensing.
