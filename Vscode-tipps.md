@@ -2,6 +2,12 @@
 
 The Windows PowerShell ISE is no longer developed by Microsoft and is no longer part of PowerShell 7. The official successor is Microsoft Visual Studio Code. Therefore, an overview of everything you should know about the combination of PowerShell and Visual Studio Code.
 
+# Links
+https://www.thomasmaurer.ch/2020/03/how-to-use-powershell-ise-mode-in-visual-studio-code/
+https://www.linkedin.com/pulse/inside-powershell-ise-vs-visual-studio-code-heinrich-ulbricht
+https://docs.microsoft.com/en-us/powershell/scripting/dev-cross-plat/vscode/how-to-replicate-the-ise-experience-in-vscode?view=powershell-7.1&viewFallbackFrom=powershell-6
+
+
 # Shortcuts
 https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf
 
