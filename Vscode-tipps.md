@@ -1,62 +1,57 @@
 # Visual Studio Code
 
-Die Windows PowerShell ISE wird seitens Microsoft nicht weiter entwickelt und ist auch nicht mehr Bestandteil der PowerShell 7. Der offiziell Nachfolger laut hiermit Microsoft Visual Studio Code. Daher eine Übersicht über alles was man über die Kombination von PowerShell und Visual Studio Code wissen sollte.
-
-- **Hashtags** VSCode Shortcut Extension setting VSCodium
-
-- **Version** 2021.2.22
+The Windows PowerShell ISE is no longer developed by Microsoft and is no longer part of PowerShell 7. The official successor is Microsoft Visual Studio Code. Therefore, an overview of everything you should know about the combination of PowerShell and Visual Studio Code.
 
 ## Microsoft Visual Studio **Code vs. VSCodium**
 
 [VS Codium](https://github.com/VSCodium/vscodium) ist Visual Studio Code nur **ohne** Microsoft Branding, Telemetry und Licensing.
 
-## Erweiterungen
+## Extensions
 
-Die Visual Studio Code Erweiterungen (Extensions) werden an folgendem Ort installiert:
+installed at:
 
 ```powershell
 Join-Path -Path $env:USERPROFILE -ChildPath \.vscode\extensions
 ```
 
+### Best Extension Pack for Powershell
+
+https://marketplace.visualstudio.com/items?itemName=justin-grote.powershell-extension-pack
+
 ### **Obligatorische** Extensions
 
-| TITEL                       | ID                                           | BESCHREIBUNG                          |
-| :-------------------------- | :------------------------------------------- | :------------------------------------ |
-| PowerShell                  | ms-vscode.powershell                         | PowerShell (.PS1) Integration         |
-| Better Comments             | aaron-bond.better-comments                   | Kommentar-Inhalt farblicher gestalten |
-| Markdown All in One         | yzhang.markdown-all-in-one                   | Markdown (.md) Integration            |
-| XML Tools                   | dotjoshjohnson.xml                           | XML Integration                       |
-| Code Spell Checker          | streetsidesoftware.code-spell-checker        | Wortkorrektur für Englich             |
-| German - Code Spell Checker | streetsidesoftware.code-spell-checker-german | Zusatz Wortkorrektur für Deutsch      |
+| :-------------------------- | :------------------------------------------- |
+| PowerShell                  | ms-vscode.powershell                         |
+| Better Comments             | aaron-bond.better-comments                   |
+| Markdown All in One         | yzhang.markdown-all-in-one                   |
+| XML Tools                   | dotjoshjohnson.xml                           |
+| Code Spell Checker          | streetsidesoftware.code-spell-checker        |
+| German - Code Spell Checker | streetsidesoftware.code-spell-checker-german |
+| Auto Rename Tag         | formulahendry.auto-rename-tag     | 
+| Chat                    | karigari.chat                     | 
+| Bookmarks               | alefragnani.bookmarks             | 
+| Draw.io Integration     | hediet.vscode-drawio              | 
+| Live Share              | ms-vsliveshare.vsliveshare        | 
+| Live Share Whiteboard   | lostintangent.vsls-whiteboard     | 
+| Markdown PDF            | yzane.markdown-pdf                | 
+| MarkdownLint            | davidanson.vscode-markdownlint    | 
+| Material Icon Theme     | pkief.material-icon-theme         | 
+| PolaCode                | pnp.polacode                      | 
+| Project Manager         | alefragnani.project-manager       | 
+| SQL Server (mssql)      | ms-mssql.mssql                    | 
+| vscode-reveal           | evilz.vscode-reveal               | 
+| Vscode Google Translate | funkyremi.vscode-google-translate |                        |
 
-### **Optionale** Extensions
+## Settings
 
-| TITEL                   | ID                                | BESCHREIBUNG                                       |
-| :---------------------- | :-------------------------------- | :------------------------------------------------- |
-| Auto Rename Tag         | formulahendry.auto-rename-tag     | (XML)-Tags automatische umbenenne                  |
-| Chat                    | karigari.chat                     | Remote-Zusammenarbeit - Chat                       |
-| Bookmarks               | alefragnani.bookmarks             | Lesezeichen setzen & verwalten                     |
-| Draw.io Integration     | hediet.vscode-drawio              | Für technische Zeichnungen wie FLussdiagramm, etc. |
-| Live Share              | ms-vsliveshare.vsliveshare        | Remote-Zusammenarbeit - Code                       |
-| Live Share Whiteboard   | lostintangent.vsls-whiteboard     | Remote-Zusammenarbeit - Zeichnen                   |
-| Markdown PDF            | yzane.markdown-pdf                | Konvertiert Markdown zu PDF                        |
-| MarkdownLint            | davidanson.vscode-markdownlint    | Markdown Style checking                            |
-| Material Icon Theme     | pkief.material-icon-theme         | Icons für Dateien und Ordner in VSCode             |
-| PolaCode                | pnp.polacode                      | Code-Fragment als Bild erstellen                   |
-| Project Manager         | alefragnani.project-manager       | VSCode Projekte verwalten                          |
-| SQL Server (mssql)      | ms-mssql.mssql                    | MS SQL Server Integration                          |
-| vscode-reveal           | evilz.vscode-reveal               | Bildschirmpräsentation mittels Markdown            |
-| Vscode Google Translate | funkyremi.vscode-google-translate | Übersetzungstool für Sprache                       |
-
-## Einstellungen
-
-Sämtlich vorgenommenen Einstellungen werden in die Datei ```settings.json``` geschrieben. Diese finden Sie hier:
+```settings.json``` 
 
 ```powershell
 Join-Path -Path $env:APPDATA -ChildPath \Code\User\settings.json
 ```
 
-Nach einer frischen Installation von VSCode ist diese leer und es greifen die Default-Einstellungen. Für den Umgang mit PowerShell und den Einstieg zu erleichtern sollten folgende **Empfehlungen** vorgenommen werden:
+On a new VSCode installation the file is emtpy and default-settings are used. 
+**Recommendations** :
 
 ```json
 {
@@ -96,17 +91,19 @@ Nach einer frischen Installation von VSCode ist diese leer und es greifen die De
 }
 ```
 
-## Tastaturbefehle
+## Keyboard shortcuts
 
 ### Keybinding VSCode (keybindings.json)
 
-Über die Tastenkombination `{CTRL}`+`{K}` `{CTRL}`+`{S}` können Sie die aktuelle Belegung einsehen und ändern. Diese Änderungen werden in folgender Datei abgelegt:
+With Shortcut `{CTRL}`+`{K}` `{CTRL}`+`{S}` you get and change actual settings. 
+
+File:
 
 ```powershell
 Join-Path -Path $env:APPDATA -ChildPath \Code\User\keybindings.json
 ```
 
-Zum Beispiel würde folgender Tastaturbefehl das PowerShell-Terminal-Fenster tatsächlich leeren:
+For example:
 
 ```json
 // Place your key bindings in this file to override the defaults
@@ -119,7 +116,7 @@ Zum Beispiel würde folgender Tastaturbefehl das PowerShell-Terminal-Fenster tat
 ]
 ```
 
-### **Tastatur**-Befehle
+### **Shortcuts**-Befehle
 
 Mit **F1** Kommandopalette geöffnet. Das erste Zeichen steuert die Auflistung, z.B. steht das "**>**" für den **Kommando-Modus** **ohne Zeichen** für den **Navigations-Modus** und mit "**?**" erhalten Sie eine Übersich welche Modis es noch gibt.
 
