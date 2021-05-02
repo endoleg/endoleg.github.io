@@ -270,3 +270,84 @@ As we go, we will be adding more CMD+K shortcuts where it makes sense.
 Sure beats something like ^+⇧+⌥. Not only do you have to remember what those symbols mean, but you have to contort your fingers in impossible ways to hold them all at once.
 
 It’s a hard enough life.
+
+--------------------------------------------------------------------
+
+Pro Tip #1: Move The Sidebar To The Right
+This is another big change for you. Your entire coding career, the sidebar has been on the left.
+
+However, now that you are emphasizing focus over whizbangs and doodads, your sidebar isn’t always visible.
+
+As a consequence, your code will be pushed to the right every time you toggle the sidebar.
+
+This behavior is jarring, and unacceptable.
+
+Your code is THE most important thing in the editor. Why are you letting it get pushed around by the sidebar? Have some dignity.
+
+If we move the sidebar to the RIGHT side of the screen, we can toggle it without interruption. This preference communicates that the sidebar is secondary and our code is primary.
+
+Add the following snippet to your settings.json file:
+
+”workbench.sideBar.location”: “right”,
+The setting to hide the sidebar in settings.json
+
+Pic of sidebar on right
+
+Much better.
+
+Pro Tip #2: Make The Sidebar Ridiculously Big
+As you become more attached to a clean workspace, you will naturally hide the sidebar when you’re done with it. It will feel good to you.
+
+Right now you haven’t developed this habit yet, so you’ll constantly forget, leaving the sidebar visible most of the time.
+
+I believe in changing your environment to change your behavior, so here’s a brief anecdote from when I was a wee-lad:
+
+In high school, I wanted dearly to get better at typing without looking at the keyboard. Over and over I failed using will power alone, so I scribbled on all the keys with a Sharpie marker. After a week or two I was typing just as fast as I was before, but now without looking at the keyboard at all! (Look Mom, no eyes!)
+
+The “Sharpie marker” of our habit will be a GIANT sidebar. A sidebar so big you will be forced to hide it when you’re not using it.
+
+This might seem silly to you, but if it’s the habit you’re after, it would be silly NOT to.
+
+Screenshot of the editor with a giant sidebar on the right
+
+Hiding The Status Bar
+The status bar is the thin, yet still obnoxious blue bar at the bottom of your editor.
+
+Consider for a moment the times you’ve gotten value out of it:
+
+A screenshot of the status bar
+
+I only ever use it for one thing: Changing the “Language Mode” of a file.
+
+The Problem: You open a file in VS Code with an odd extension like .php_cs.dist, but want it to be interpreted as a specific language (In this case “PHP”).
+
+The Solution: Instead of toggling the status bar just to set the language mode, open the command palette (Cmd+Shift+P) and search/select “Change Language Mode”.
+
+The command palette is the junk drawer of VS Code affordances. Open it and dig through when you need that seldom-used functionality.
+
+To kill the little blue bar of annoyance, add the following snippet to your settings.json file:
+
+“workbench.statusBar.visible": false,
+settings.json file for the status bar
+
+Mmmm, that feels good. Now our code is full-bleed on the bottom.
+
+Screenshot of bottom bar being gone
+
+Hiding The Mini-Map
+Here’s your editor’s mini-map:
+
+A picture of the editor mini-map
+
+This one is a no-brainer. It’s useless. I bet you can count on one hand the number of times you’ve used it.
+
+It’s just a novelty. As “fun” as novelties are, they have no place disturbing our peace and quiet.
+
+Let’s kill it.
+
+Add the following to your settings.json file:
+
+“editor.minimap.enabled": false,
+Mini-map setting
+
+Cleared mini-map
