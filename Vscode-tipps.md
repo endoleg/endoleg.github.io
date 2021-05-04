@@ -4,6 +4,7 @@ The Windows PowerShell ISE is no longer developed by Microsoft and is no longer 
 
 # Links
 https://www.thomasmaurer.ch/2020/03/how-to-use-powershell-ise-mode-in-visual-studio-code/
+https://mikefrobbins.com/2017/08/24/how-to-install-visual-studio-code-and-configure-it-as-a-replacement-for-the-powershell-ise/
 https://www.linkedin.com/pulse/inside-powershell-ise-vs-visual-studio-code-heinrich-ulbricht
 https://docs.microsoft.com/en-us/powershell/scripting/dev-cross-plat/vscode/how-to-replicate-the-ise-experience-in-vscode?view=powershell-7.1&viewFallbackFrom=powershell-6
 
