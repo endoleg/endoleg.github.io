@@ -1,4 +1,4 @@
-# Visual Studio Code (forked by Attila Kirk and Caleb Porzio!)
+# Visual Studio Code - compilation (forked by Attila Kirk, Roman Stadlmair, Caleb Porzio, etc)
 
 The Windows PowerShell ISE is no longer developed by Microsoft and is no longer part of PowerShell 7. The official successor is Microsoft Visual Studio Code. Therefore, an overview of everything you should know about the combination of PowerShell and Visual Studio Code.
 
