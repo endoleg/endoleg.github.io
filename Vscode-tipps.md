@@ -77,6 +77,59 @@ https://marketplace.visualstudio.com/items?itemName=justin-grote.powershell-exte
 
 | Vscode Google Translate | funkyremi.vscode-google-translate |                        |
 
+## Tricks
+$a = 0
+while ($a -ne 5)
+    {
+        $a++
+        Wait-Debugger
+    }
+    
+# Editing Features
+    
+<#Zeile(n) auf und ab schieben mit [ALT]
+PowerShell
+Text
+text
+text
+#>
+
+# Multi Line Edit
+dir
+dir
+dir
+dir
+
+# Breadcrumbs
+Function Level1 {
+    function Level2 {
+        Function Level3 {
+            Function Level4 {
+                Write-Host "Level 4"
+            }
+        }
+    }
+}
+
+# Ursprung (Defintion) finden
+# [Alt]+[F12] oder
+# [F12]
+$a
+
+#Automatische Klammern
+$t = "Hans","Karl","Susi","Lisa"
+$t
+{}  []
+
+
+# Fenster verschieben [Maus]
+
+# Zen Mode [F11]
+
+# Snippets [Ctrl]+[Shift]+[P]
+"Snippets"
+
+
 ## Settings
 
 ```settings.json``` 
