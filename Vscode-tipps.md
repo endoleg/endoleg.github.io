@@ -10,6 +10,7 @@ https://docs.microsoft.com/en-us/powershell/scripting/dev-cross-plat/vscode/how-
 
 # Debugging PowerShell Script with Visual Studio Code
 https://code.visualstudio.com/docs/editor/debugging
+
 https://rkeithhill.wordpress.com/2015/12/27/debugging-powershell-script-with-visual-studio-code/
 
 # Shortcuts
