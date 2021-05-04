@@ -8,6 +8,9 @@ https://mikefrobbins.com/2017/08/24/how-to-install-visual-studio-code-and-config
 https://www.linkedin.com/pulse/inside-powershell-ise-vs-visual-studio-code-heinrich-ulbricht
 https://docs.microsoft.com/en-us/powershell/scripting/dev-cross-plat/vscode/how-to-replicate-the-ise-experience-in-vscode?view=powershell-7.1&viewFallbackFrom=powershell-6
 
+# Debugging PowerShell Script with Visual Studio Code
+https://code.visualstudio.com/docs/editor/debugging
+https://rkeithhill.wordpress.com/2015/12/27/debugging-powershell-script-with-visual-studio-code/
 
 # Shortcuts
 https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf
