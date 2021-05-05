@@ -1,9 +1,9 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [[COMING SOON] @ControlUp will be launching something big on May 13th! You MUST join us! Register today:  #remoteworking #eucchallenges](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e3c30bcf5d0ed8b2f95c974d3e30bb04f76d9dd60faa46275d8140a9460d66ee0c0167a13)
-- [No title](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61d1d86ff0a16f7fdd15079a63dc6ce1c3)
-- [Imagine how great it would be if all you had to do to get secure TLS settings on your box were running:Set-TlsConfiguration -EnableSecure -DisableInsecureFortunately it IS that simple with the new #powershell module TlsConfig:](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e392db7e5f5e78e14888769c9ad0cb15d2d9d9d77f2a16274d916089a66d56de4c71272108b3acc)
-- [Happy star wars day](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e353abcccd1e49355969266d3f70cea0d6ad0d76ef1a66b79d9160a9769d46fe7c111)
-- [#Powershell and winget to get the latest download URL of Apps (example):$A=(winget show 7zip.7zip)$R1="Download.Url:.*"$R2="https\:\/\/.*"$1 = $A | Select-String -Pattern $R1 -AllMatches | % {$_.Matches.Value}$1 | Select-String -Pattern $R2 -AllMatches | % {$_.Matches.Value}](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f61d1db61f7a66f74dc140d9463d46fe9c6)
+- [Recording:](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f60d8de60f1a76f74d7150d9764d568e7c6)
+- [How to search files, registry and certificates, with Powershell](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f60d8de60f1a36978de170a9368d56ce4c3)
+- [Create offline backups of the NetScaler configby @johnbillekens](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f60d8de6ef4a06c7adb14069662d76ee9ca)
+- [Visual Studio Code April 2021 v1.56Release Notes:](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e3c14a1d5c7e18f3480917488f10ba4482c9bc169f0ab6a7dd915069565dd6ee2c5177e138c32)
+- [May 13th @hogancg will be hosting a Virtual Lunch & Learn with @citrix to introduce Citrix Secure Internet Access (SIA) and Secure Access Server Edge (SASE). Register at the link below with your work email and you’ll receive lunch on us via GrubHub!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e0c3bbdefcce78b09ca9573c6f60ab61368dbd661faab6b75d61d0d9065d76ce7c21a7c)
 <!-- BLOG-POST-LIST:END -->
