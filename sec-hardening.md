@@ -18,3 +18,7 @@ https://learn.cisecurity.org/cis-cat-lite
 
 
 https://t.co/IGZwRokr56
+
+
+https://github.com/Sneakysecdoggo/Wynis
+
