@@ -10,3 +10,4 @@ https://nvd.nist.gov/ncp/repository
 
 https://www.cisecurity.org/cis-benchmarks/
 
+https://downloads.cisecurity.org/#/
