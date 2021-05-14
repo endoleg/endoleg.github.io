@@ -1,9 +1,9 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [Amazing software installation script repo by @xenappblog !Thank you, Trond !!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f60dad668f6a16d7edf17099760d16fe2c4)
-- [We Checked 250 iPhone Apps—This Is How They’re Tracking You](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f60dad96ef2aa6b7dda150d9466d560e2c1)
-- [The group policy for multisession has disappeared from the ADMX of the current version #FSLogix 2009. But it can still be activated by RegKey. This has its reasons. There is a KB article why you should rather use this feature with CPM:](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e3136b1eaebec8115978b66d3eb10ab132a9c8f2cb6e1757cdc1d0d9465d469e3c013781c8f3cc36684c2)
-- [Learn how to implement a Proof-of-Concept environment consisting of nFactor for Citrix Gateway Authentication with Device Certificates with the latest #TechZone POC guide by @tweetmattbrooks](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1230b0e8cee7950f8c9c28d4f61eb1492ac7df6bfaa06f7dda1c089565d16ce6c115791c83)
-- [Download #Citrix Virtual Apps and Desktops 7 1912 LTSR, Cumulative Update 3 – All Editions](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1c2ca6e0ceea881581c974d3e30bb04f76d9dd61f1a66d74d81c089766d769e0c3107816)
+- [Pode.Web 0.4.1 released](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f60dbdd6af4a06c7fdd170b9169d76ae3c7)
+- [Pode.Web by ⁦@Badgerati⁩has a documentation now! Great job!](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f60dbdd6af1a3637ed8160c9a68d061e3c7)
+- [Microsoft Teams on Citrix Virtual Apps and Desktops, part #3 – 18 tips for optimizing performance](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e153ebfe4d1ddb825ba9466c9e916ab132a9c8f2cb6e1757cdc1d0c9168d768e2c3157f1d8b3bcc6781ca)
+- [CIS @CISecurity Videoconferencing security guidance to mitigate common videoconferencing attacks for a wide variety of videoconferencing systems:  #Zoom #CiscoWebexMeetings #Bluejeans](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f60dbdc6ef4aa6a7bd7120c9666d56fe1ca)
+- [It really is about time that @Citrix developed an x64 version of the Workspace App. I'm developing a virtual channel dll with C code shared between the Citrix & RDSH/WVD variants but have had to make changes for it to compile & link for both x86 & x64 targets☹️](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e182aabf3cee782198dc974d3e30bb04f76d9dd61f0a06f78de17079568d06de4c614731c)
 <!-- BLOG-POST-LIST:END -->
