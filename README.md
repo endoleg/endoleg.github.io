@@ -1,9 +1,9 @@
 <h3><a href="https://twitter.com/endi24"><img height=16 src="https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg"></a> Latest Tweets</h3>
 
 <!-- BLOG-POST-LIST:START -->
-- [Cleanmgr+ 1.38.1200 is out with optimized support for the Windows 10, version 1809 LTSC](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1d2abbedd6e09e18808a28d4f61eb1492ac7df6bfaa6697bdb150a9365d768e8ca117e118f)
-- [For Windows users, tips on fighting ransomware attacks  from the #AskWoody Patch Lady on Computerworld](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e3e2cb9d6cded8303ca9573c6f60ab61368dbd76cf0a06e7fdb13099168d46ee0c2107e)
-- [Did you miss @matrixsurfer128 's outstanding demo on #PowerShell object formatting? Well now, you can catch the replay on YouTube! There's so many great tips in this demo! Add this to your shortlist of must watch demos! @rtpsug](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e3236b9e4e9e3891b8e897488f10ba4482c9bc169f0ab6e7edd170f9466d060e7ca137e108239)
-- [PowerShell module tippThe PackageUpdateInfo module helps you staying up to date with you installed modules. It checks all your local installed powershell modules and output a table with module names and version informationInstall-Module PackageUpdateInfo](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f60dcdd68fba56b7fd61d0a9462d06be0c7)
-- [Malware per Script-Programm „AutoHotKey“:](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e3d308dc5c3f6821496856fd2f605ea4f2d899a2db0bd6b7ed6100d9b61d06fe3c21372108f32cd6582)
+- [MSFT: „No new 21H1 policy settings meet the criteria for inclusion in the security baseline“](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e4f27e4e594bbd149d38428d4f61eb1492ac7df6bfaa66d7eda130b9163d46ae6c31a781783)
+- [Citrix Tech Paper: Deploying Google Chrome](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e1a31b6e890b6c809918773d2f150f40f60dcd969f6a2697fda14079a63d369e8c1)
+- [New Nirsoft tool for managing wireless networks:](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e373abee6c7c98b1f8c8828d4f61eb1492ac7df6bfaa66d7cdb16099268d16fe5ca147f1283)
+- [Recent #Trickbot discovery activity:➡️ipconfig /all➡️net config workstation➡️net view /all➡️net view /all /domain➡️nltest /domain_trusts➡️nltest /domain_trusts /all_trusts](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e2b37b7c5e4cbb528809668d5f650b648389c9b2beca36974db130f9060d26ee2c6157e14893ecc65)
+- [Blogged: I contributed a blog covering What's New in @ControlUp v8.5. This post and the video will give you a quick glimpse at what is coming:](https://rss.app/articles/cb4e791f6f6d729c074351566bd3a7c508111d6e2d30a0f8cfed8955969266d3f70cea0d6ad1da6ef6a7627ed71c089a64d768e5c013)
 <!-- BLOG-POST-LIST:END -->
