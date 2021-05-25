@@ -1,12 +1,18 @@
 #https://github.com/brandontylerstevens/BrandonTylerStevens-PowerShell/tree/Main/Windows%20Updates
 
-Function Build-CVEReport {### Install the module from the PowerShell Gallery (must be run as Admin)
+# Stolen by Brandon Stevens
+Function Build-CVEReport {
+### Install the module from the PowerShell Gallery (must be run as Admin)
 Install-Module -Name msrcsecurityupdates -force
 Import-module msrcsecurityupdates
 Set-MSRCApiKey -ApiKey "1bd79db501ce49a5ae1a117a2de252c8" -Verbose
 
-Get-MsrcCvrfDocument -ID "$((get-date).Year)-May" | Get-MsrcSecurityBulletinHtml -Verbose | Out-File C:\Windows\Temp\MSRCSecurityUpdates.html
+$culture = New-Object system.globalization.cultureinfo(“en-US”)
+Get-MsrcCvrfDocument -ID "$((get-date).Year)-$(($culture).DateTimeFormat.GetAbbreviatedMonthName(((get-date).Month)))" | Get-MsrcSecurityBulletinHtml -Verbose | Out-File C:\Windows\Temp\MSRCSecurityUpdates-$(($culture).DateTimeFormat.GetAbbreviatedMonthName(((get-date).Month))).html
+#Get-MsrcCvrfDocument -ID "$((get-date).Year)-Jun" | Get-MsrcSecurityBulletinHtml -Verbose | Out-File C:\Windows\Temp\MSRCSecurityUpdates.html
+
 }
+Build-CVEReport
 
 
 
