@@ -18,6 +18,8 @@
 <li><a href="https://www.basketball-bund.de/wp-content/uploads/1.2-Spielvorgaben-TmP.pdf" target="_blank" rel="noopener noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://www.basketball-bund.de/wp-content/uploads/1.2-Spielvorgaben-TmP.pdf&amp;source=gmail&amp;ust=1622235016971000&amp;usg=AFQjCNHhzJVXo_y2lsfXeqS73NA60Z0mpw">DBB Spielvorgaben TmP</a></li>
 <li><a href="https://www.basketball-bund.de/teams/trainerkader-athleteneltern" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?q=https://www.basketball-bund.de/teams/trainerkader-athleteneltern&amp;source=gmail&amp;ust=1622235016971000&amp;usg=AFQjCNEom1teCLPwuxn0VmwOk-yW2YYJOA">DBB-Linkliste</a></li>
 <li><a href="https://web.archive.org/web/20201129093755/https://www.basketball-bund.de/wp-content/uploads/M%C3%A4dchenbasketball_2013_WEB.pdf">Engagement und Training im M&auml;dchenbasketball</a></li>
+<li><a href="https://www.basketball-bund.de/wp-content/uploads/1.4b-Leitlinien-Bundesjugendlager-m%C3%A4nnlich.pdf">https://www.basketball-bund.de/wp-content/uploads/1.4b-Leitlinien-Bundesjugendlager-m%C3%A4nnlich.pdf</a></li>
+<li><a href="https://www.basketball-bund.de/wp-content/uploads/Leitlinien-BJL-wbl-2019.pdf">https://www.basketball-bund.de/wp-content/uploads/Leitlinien-BJL-wbl-2019.pdf</a></li>
 </ul>
 <p>&nbsp;</p>
 <p>Hier findet ihr Teile meiner archivierte Homepage zum Thema Kinderbasketball:</p>
