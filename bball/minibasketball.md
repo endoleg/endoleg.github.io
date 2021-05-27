@@ -20,7 +20,11 @@
 <li><a href="http://www.basketball-bund.de/wp-content/uploads/M%C3%A4dchenbasketball_2013_WEB.pdf" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?q=http://www.basketball-bund.de/wp-content/uploads/M%25C3%25A4dchenbasketball_2013_WEB.pdf&amp;source=gmail&amp;ust=1622235016971000&amp;usg=AFQjCNH6duOOfRMFCQORMAAZ6fUbv9piIg">Engagement und Training im M&auml;dchenbasketball</a></li>
 </ul>
 <p>&nbsp;</p>
-<p>Hier findet ihr meine archivierte Homepage zum Thema Kinderbasketball:</p>
-<p><a href="https://web.archive.org/web/20161004145905/http://kinderbasketball.de/">kinderbasketball.de</a></p>
+<p>Hier findet ihr Teile meiner archivierte Homepage zum Thema Kinderbasketball:</p>
 </div>
+<div class="gmail_quote"><a href="https://web.archive.org/web/20110410160327/http://home.arcor.de/enderlein/basket/koordination.html">https://web.archive.org/web/20110410160327/http://home.arcor.de/enderlein/basket/koordination.html</a></div>
+<div class="gmail_quote">&nbsp;</div>
+<div class="gmail_quote"><a href="https://web.archive.org/web/20120103235751/http://home.arcor.de/enderlein/basket/spielesammlung.html">https://web.archive.org/web/20120103235751/http://home.arcor.de/enderlein/basket/spielesammlung.html</a></div>
+<div class="gmail_quote">&nbsp;</div>
+<div class="gmail_quote"><a href="https://web.archive.org/web/20150707171437/http://home.arcor.de/enderlein/basket/bewegungswissenschaft.html">https://web.archive.org/web/20150707171437/http://home.arcor.de/enderlein/basket/bewegungswissenschaft.html</a></div>
 <div class="gmail_quote">&nbsp;</div>
