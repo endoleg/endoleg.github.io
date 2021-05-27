@@ -2,7 +2,21 @@
 <div class="gmail_quote">&nbsp;</div>
 <div class="gmail_quote">hier findet ihr einige sehr interesannte Brosch&uuml;ren zum Thema Training, vor allem zum Technikbereich (Achtung, einige Links die auf PDF-Dateien von web.archive.org verweisen, k&ouml;nnen nicht auf jedem Smartphone angezeigt bekommen. Die m&uuml;sst ihr dann nochmal auf einem PC aufrufen):</div>
 <div class="gmail_quote">&nbsp;</div>
-<div class="gmail_quote">Grundlagen-Technik-Know-How:&nbsp;<br /><a href="http://sport.freepage.de/lksport/basketballaktuell.pdf" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?q=http://sport.freepage.de/lksport/basketballaktuell.pdf&amp;source=gmail&amp;ust=1622235016971000&amp;usg=AFQjCNGmk-FvUW1tuRvw6HojzW9ugBklUg">h<wbr />ttp://sport.freepage.de/<u></u>lkspor<wbr />t/basketballaktuell.pdf</a></div>
+<div class="gmail_quote">
+<div class="gs">
+<div class="">
+<div id=":25t" class="ii gt">
+<div id=":25u" class="a3s aiL ">
+<div dir="ltr"><a href="https://www.basketball-bund.de/wp-content/uploads/Alternative-Jugend-Wettkampfformen-unter-Hygieneregeln.pdf" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?q=https://www.basketball-bund.de/wp-content/uploads/Alternative-Jugend-Wettkampfformen-unter-Hygieneregeln.pdf&amp;source=gmail&amp;ust=1622240292652000&amp;usg=AFQjCNGbb3_y6rGgoyf63Aas32ckbZAzfg">Alternative Jugend Wettkampfformen unter Hygieneregeln</a>
+<div class="yj6qo">&nbsp;</div>
+<div class="adL">Grundlagen-Technik-Know-How:&nbsp;</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="gmail_quote"><a href="http://sport.freepage.de/lksport/basketballaktuell.pdf" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?q=http://sport.freepage.de/lksport/basketballaktuell.pdf&amp;source=gmail&amp;ust=1622235016971000&amp;usg=AFQjCNGmk-FvUW1tuRvw6HojzW9ugBklUg">h<wbr />ttp://sport.freepage.de/<u></u>lkspor<wbr />t/basketballaktuell.pdf</a></div>
 <div class="gmail_quote">&nbsp;</div>
 <div class="gmail_quote">Grundlagen-Technik-&Uuml;bungen:&nbsp;<br /><a href="https://web.archive.org/web/20140211080625/http://www.otto-hahn-schule.hanau.de/fileadmin/downloads/sport/sport_fortbildung_basket_Jugendtrainer-Grundtechniken.pdf" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?q=https://web.archive.org/web/20140211080625/http://www.otto-hahn-schule.hanau.de/fileadmin/downloads/sport/sport_fortbildung_basket_Jugendtrainer-Grundtechniken.pdf&amp;source=gmail&amp;ust=1622235016971000&amp;usg=AFQjCNH1-yiRiNWPNw49Z9ZxzgcvzzyLdg">ht<wbr />tps://web.archive.org/web/<wbr />20140211080625/http://www.<wbr />otto-hahn-schule.hanau.de/<wbr />fileadmin/downloads/sport/<wbr />sport_fortbildung_basket_<wbr />Jugendtrainer-Grundtechniken.<wbr />pdf</a></div>
 <div class="gmail_quote">&nbsp;</div>
@@ -18,7 +32,7 @@
 <li><a href="https://www.nbbl-basketball.de/download/coaching/Be_like_Dirk_Stundenbilder_klein.pdf" target="_blank" rel="noopener noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://www.nbbl-basketball.de/download/coaching/Be_like_Dirk_Stundenbilder_klein.pdf&amp;source=gmail&amp;ust=1622235016971000&amp;usg=AFQjCNFiLl8XTp2hqrGFUe8wVGnXi0mHMQ">NBBL/JBBL Be Like Dirk Stundenbilder (Trainingseinheiten)</a></li>
 <li><a href="https://www.basketball-bund.de/wp-content/uploads/1.2-Spielvorgaben-TmP.pdf" target="_blank" rel="noopener noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://www.basketball-bund.de/wp-content/uploads/1.2-Spielvorgaben-TmP.pdf&amp;source=gmail&amp;ust=1622235016971000&amp;usg=AFQjCNHhzJVXo_y2lsfXeqS73NA60Z0mpw">DBB Spielvorgaben TmP</a></li>
 <li><a href="https://www.basketball-bund.de/teams/trainerkader-athleteneltern" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?q=https://www.basketball-bund.de/teams/trainerkader-athleteneltern&amp;source=gmail&amp;ust=1622235016971000&amp;usg=AFQjCNEom1teCLPwuxn0VmwOk-yW2YYJOA">DBB-Linkliste</a></li>
-<li><a href="https://web.archive.org/web/20201129093755/https://www.basketball-bund.de/wp-content/uploads/M%C3%A4dchenbasketball_2013_WEB.pdf">Engagement und Training im M&auml;dchenbasketball</a></li>
+<li><a href="https://www.basketball-bund.de/wp-content/uploads/DBB_Maedchenbasketball_2020_WEB-2.pdf">Engagement und Training im M&auml;dchenbasketball</a></li>
 <li><a href="https://www.basketball-bund.de/wp-content/uploads/1.4b-Leitlinien-Bundesjugendlager-m%C3%A4nnlich.pdf">Leitlinien Bundesjugendlager m&auml;nnlich</a></li>
 <li><a href="https://www.basketball-bund.de/wp-content/uploads/Leitlinien-BJL-wbl-2019.pdf">Leitlinien Bundesjugendlager weiblich</a></li>
 </ul>
