@@ -1,12 +1,13 @@
 <div class="gmail_quote">Liebe Mini-Coaches,</div>
 <div class="gmail_quote">&nbsp;</div>
-<div class="gmail_quote">hier findet ihr einige sehr interesannte Brosch&uuml;ren zum Thema Training, vor allem zum Technikbereich:</div>
+<div class="gmail_quote">hier findet ihr einige sehr interesannte Brosch&uuml;ren zum Thema Training, vor allem zum Technikbereich (Achtung, einige Links die auf PDF-Dateien von web.archive.org verweisen, k&ouml;nnen nicht auf jedem Smartphone angezeigt bekommen. Die m&uuml;sst ihr dann nochmal auf einem PC aufrufen):</div>
 <div class="gmail_quote">&nbsp;</div>
-<div class="gmail_quote">Grundlagen-Technik-Know-How:&nbsp;<a href="http://sport.freepage.de/lksport/basketballaktuell.pdf" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?q=http://sport.freepage.de/lksport/basketballaktuell.pdf&amp;source=gmail&amp;ust=1622235016971000&amp;usg=AFQjCNGmk-FvUW1tuRvw6HojzW9ugBklUg">h<wbr />ttp://sport.freepage.de/<u></u>lkspor<wbr />t/basketballaktuell.pdf</a></div>
-<div class="gmail_quote">Grundlagen-Technik-&Uuml;bungen:&nbsp;<a href="https://web.archive.org/web/20140211080625/http://www.otto-hahn-schule.hanau.de/fileadmin/downloads/sport/sport_fortbildung_basket_Jugendtrainer-Grundtechniken.pdf" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?q=https://web.archive.org/web/20140211080625/http://www.otto-hahn-schule.hanau.de/fileadmin/downloads/sport/sport_fortbildung_basket_Jugendtrainer-Grundtechniken.pdf&amp;source=gmail&amp;ust=1622235016971000&amp;usg=AFQjCNH1-yiRiNWPNw49Z9ZxzgcvzzyLdg">ht<wbr />tps://web.archive.org/web/<wbr />20140211080625/http://www.<wbr />otto-hahn-schule.hanau.de/<wbr />fileadmin/downloads/sport/<wbr />sport_fortbildung_basket_<wbr />Jugendtrainer-Grundtechniken.<wbr />pdf</a></div>
+<div class="gmail_quote">Grundlagen-Technik-Know-How:&nbsp;<br /><a href="http://sport.freepage.de/lksport/basketballaktuell.pdf" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?q=http://sport.freepage.de/lksport/basketballaktuell.pdf&amp;source=gmail&amp;ust=1622235016971000&amp;usg=AFQjCNGmk-FvUW1tuRvw6HojzW9ugBklUg">h<wbr />ttp://sport.freepage.de/<u></u>lkspor<wbr />t/basketballaktuell.pdf</a></div>
+<div class="gmail_quote">&nbsp;</div>
+<div class="gmail_quote">Grundlagen-Technik-&Uuml;bungen:&nbsp;<br /><a href="https://web.archive.org/web/20140211080625/http://www.otto-hahn-schule.hanau.de/fileadmin/downloads/sport/sport_fortbildung_basket_Jugendtrainer-Grundtechniken.pdf" target="_blank" rel="noopener" data-saferedirecturl="https://www.google.com/url?q=https://web.archive.org/web/20140211080625/http://www.otto-hahn-schule.hanau.de/fileadmin/downloads/sport/sport_fortbildung_basket_Jugendtrainer-Grundtechniken.pdf&amp;source=gmail&amp;ust=1622235016971000&amp;usg=AFQjCNH1-yiRiNWPNw49Z9ZxzgcvzzyLdg">ht<wbr />tps://web.archive.org/web/<wbr />20140211080625/http://www.<wbr />otto-hahn-schule.hanau.de/<wbr />fileadmin/downloads/sport/<wbr />sport_fortbildung_basket_<wbr />Jugendtrainer-Grundtechniken.<wbr />pdf</a></div>
 <div class="gmail_quote">&nbsp;</div>
 <div class="gmail_quote">
-<p><strong>Weitere fachliche Tipps (</strong><strong>Informationsmaterial)</strong></p>
+<p><strong>Weitere fachliche Tipps (</strong><strong>Informationsmaterial des DBB)</strong></p>
 <ul>
 <li><a href="https://www.basketball-bund.de/wp-content/uploads/Brosch%C3%BCre-Basketball-Talent-%C3%9Cbungs%C3%BCbersicht-zum-psychologischen-Training-im-BB-Final.pdf" target="_blank" rel="noopener noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://www.basketball-bund.de/wp-content/uploads/Brosch%25C3%25BCre-Basketball-Talent-%25C3%259Cbungs%25C3%25BCbersicht-zum-psychologischen-Training-im-BB-Final.pdf&amp;source=gmail&amp;ust=1622235016971000&amp;usg=AFQjCNGJfqA_JB4mQy5h8wROmvKuywQkjA">Brosch&uuml;re Basketball Talente &ndash; Pers&ouml;nlichkeits- und Teamentwicklung im BB</a></li>
 <li><a href="https://www.basketball-bund.de/wp-content/uploads/Athletikkonzeption-DBB.pdf" target="_blank" rel="noopener noreferrer" data-saferedirecturl="https://www.google.com/url?q=https://www.basketball-bund.de/wp-content/uploads/Athletikkonzeption-DBB.pdf&amp;source=gmail&amp;ust=1622235016971000&amp;usg=AFQjCNEqSvEq9xOV1ITWIWAnckoR0h8mRA">DBB Athletikkonzeption</a></li>
@@ -22,7 +23,7 @@
 <li><a href="https://www.basketball-bund.de/wp-content/uploads/Leitlinien-BJL-wbl-2019.pdf">https://www.basketball-bund.de/wp-content/uploads/Leitlinien-BJL-wbl-2019.pdf</a></li>
 </ul>
 <p>&nbsp;</p>
-<p>Hier findet ihr Teile meiner archivierte Homepage zum Thema Kinderbasketball:</p>
+<p>Hier findet ihr au&szlig;erdem Teile meiner archivierte Homepage zum Thema Kinderbasketball:</p>
 </div>
 <div class="gmail_quote"><a href="https://web.archive.org/web/20110410160327/http://home.arcor.de/enderlein/basket/koordination.html">https://web.archive.org/web/20110410160327/http://home.arcor.de/enderlein/basket/koordination.html</a></div>
 <div class="gmail_quote">&nbsp;</div>
