@@ -45,3 +45,8 @@
 <div class="gmail_quote">&nbsp;</div>
 <div class="gmail_quote"><a href="https://web.archive.org/web/20150707171437/http://home.arcor.de/enderlein/basket/bewegungswissenschaft.html">https://web.archive.org/web/20150707171437/http://home.arcor.de/enderlein/basket/bewegungswissenschaft.html</a></div>
 <div class="gmail_quote">&nbsp;</div>
+
+https://endoleg.github.io/bball/anpassungen.html
+
+https://endoleg.github.io/bball/entwicklungstipps.html
+
