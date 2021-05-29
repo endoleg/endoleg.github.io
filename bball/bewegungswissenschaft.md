@@ -1,46 +1,11 @@
-<p>&nbsp;&nbsp;</p>
-<table>
-<tbody>
-<tr>
-<td colspan="2">&nbsp;</td>
-<td rowspan="2">JUL072015
-<table>
-<tbody>
-<tr>
-<td><strong><a href="https://web.archive.org/web/20150102074016/http://home.arcor.de:80/enderlein/basket/bewegungswissenschaft.html">JAN</a></strong></td>
-<td>AUG</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><strong><a href="https://web.archive.org/web/20130523182650/http://home.arcor.de:80/enderlein/basket/bewegungswissenschaft.html">2013</a></strong></td>
-<td>2016</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr>
-<td>
-<p><strong><a href="https://web.archive.org/web/*/http://home.arcor.de/enderlein/basket/bewegungswissenschaft.html">5 captures</a></strong></p>
-<p>1 Mar 2013 - 7 Jul 2015</p>
-</td>
-<td>&nbsp;</td>
-</tr>
-</tbody>
-</table>
-<p><a href="https://web.archive.org/web/20150707171437/http://home.arcor.de/enderlein/basket/bewegungswissenschaft.html#expand">&nbsp;About this capture</a></p>
+<p>&nbsp;</p>
 <table width="100%">
 <tbody>
 <tr>
 <td>
 <p>&nbsp;</p>
 </td>
-<td>
-<p><strong><u>&nbsp;</u></strong></p>
-</td>
+<td>&nbsp;</td>
 </tr>
 <tr>
 <td>
