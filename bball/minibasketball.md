@@ -37,13 +37,11 @@
 <li><a href="https://www.basketball-bund.de/wp-content/uploads/Leitlinien-BJL-wbl-2019.pdf">Leitlinien Bundesjugendlager weiblich</a></li>
 </ul>
 <p>&nbsp;</p>
-<p>Hier findet ihr au&szlig;erdem Teile meiner archivierte Homepage zum Thema Kinderbasketball:</p>
+<p>Hier findet ihr au&szlig;erdem weitere interessante Infos zum Thema Kinderbasketball:</p>
 </div>
-<div class="gmail_quote"><a href="https://web.archive.org/web/20150707171437/http://home.arcor.de/enderlein/basket/bewegungswissenschaft.html">https://web.archive.org/web/20150707171437/http://home.arcor.de/enderlein/basket/bewegungswissenschaft.html</a></div>
-<div class="gmail_quote">&nbsp;</div>
-
 <p><a href="https://endoleg.github.io/bball/anpassungen.html">https://endoleg.github.io/bball/anpassungen.html</a></p>
 <p><a href="https://endoleg.github.io/bball/entwicklungstipps.html">https://endoleg.github.io/bball/entwicklungstipps.html</a></p>
 <p><a href="https://endoleg.github.io/bball/koordination.html">https://endoleg.github.io/bball/koordination.html</a></p>
 <p><a href="https://endoleg.github.io/bball/spielesammlung.html">https://endoleg.github.io/bball/spielesammlung.html</a></p>
-
+<p><a href="https://endoleg.github.io/bball/bewegungswissenschaft.html">https://endoleg.github.io/bball/bewegungswissenschaft.html</a></p>
+<p>&nbsp;</p>
