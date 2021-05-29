@@ -39,17 +39,16 @@
 <p>&nbsp;</p>
 <p>Hier findet ihr au&szlig;erdem Teile meiner archivierte Homepage zum Thema Kinderbasketball:</p>
 </div>
-<div class="gmail_quote"><a href="https://web.archive.org/web/20110410160327/http://home.arcor.de/enderlein/basket/koordination.html">https://web.archive.org/web/20110410160327/http://home.arcor.de/enderlein/basket/koordination.html</a></div>
-<div class="gmail_quote">&nbsp;</div>
 <div class="gmail_quote"><a href="https://web.archive.org/web/20120103235751/http://home.arcor.de/enderlein/basket/spielesammlung.html">https://web.archive.org/web/20120103235751/http://home.arcor.de/enderlein/basket/spielesammlung.html</a></div>
 <div class="gmail_quote">&nbsp;</div>
 <div class="gmail_quote"><a href="https://web.archive.org/web/20150707171437/http://home.arcor.de/enderlein/basket/bewegungswissenschaft.html">https://web.archive.org/web/20150707171437/http://home.arcor.de/enderlein/basket/bewegungswissenschaft.html</a></div>
 <div class="gmail_quote">&nbsp;</div>
 
-https://endoleg.github.io/bball/anpassungen.html
-
-https://endoleg.github.io/bball/entwicklungstipps.html
-
-https://endoleg.github.io/bball/koordination.html
-
+<p><a href="https://endoleg.github.io/bball/anpassungen.html">https://endoleg.github.io/bball/anpassungen.html</a></p>
+<p>&nbsp;</p>
+<p><a href="https://endoleg.github.io/bball/entwicklungstipps.html">https://endoleg.github.io/bball/entwicklungstipps.html</a></p>
+<p>&nbsp;</p>
+<p><a href="https://endoleg.github.io/bball/koordination.html">https://endoleg.github.io/bball/koordination.html</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
