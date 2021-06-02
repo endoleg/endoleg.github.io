@@ -13,3 +13,5 @@ https://github.com/WiredPulse/PoSh-R2
 https://github.com/securycore/Get-Baseline/blob/master/Get-Baseline.ps1
 
 https://github.com/Infocyte/PSHunt
+
+https://github.com/A-mIn3/WINspect
