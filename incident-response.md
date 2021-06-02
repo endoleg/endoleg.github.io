@@ -15,3 +15,5 @@ https://github.com/securycore/Get-Baseline/blob/master/Get-Baseline.ps1
 https://github.com/Infocyte/PSHunt
 
 https://github.com/A-mIn3/WINspect
+
+https://github.com/gfoss/PSRecon
