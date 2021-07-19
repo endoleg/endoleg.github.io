@@ -4,10 +4,32 @@ https://github.com/0x6d69636b/windows_hardening
 
 https://nvd.nist.gov/ncp/repository
 
-
 https://t.co/IGZwRokr56
 
 https://github.com/Sneakysecdoggo/Wynis
+----------------------------------------------------------------------------------------------
+Canada
+
+https://cyber.gc.ca/en/guidance/guidance-hardening-microsoft-windows-10-enterprise-itsp70012
+
+----------------------------------------------------------------------------------------------
+ACSC Australia
+----------
+
+
+https://www.cyber.gov.au/acsc/view-all-content/advice/guidelines-system-hardening
+
+https://www.cyber.gov.au/acsc/view-all-content/publications/hardening-microsoft-windows-10-version-1909-workstations
+
+
+----------------------------------------------------------------------------------------------
+
+
+
+Windows security baselines
+---------------
+
+https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-security-baselines
 
 -----------------------------------------------------------------------------------------------
 
