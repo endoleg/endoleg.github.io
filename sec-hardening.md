@@ -2,15 +2,27 @@ https://github.com/decalage2/awesome-security-hardening
 
 https://github.com/0x6d69636b/windows_hardening
 
-https://nvd.nist.gov/ncp/repository
-
 https://t.co/IGZwRokr56
 
+https://www.newnettechnologies.com/cis-benchmark.html
+
+https://www.tenable.com/downloads/configuration-audit-policies
+
 https://github.com/Sneakysecdoggo/Wynis
+
+----------------------------------------------------------------------------------------------
+NIST
+----------
+
+
+https://nvd.nist.gov/ncp/repository
+
+
 ----------------------------------------------------------------------------------------------
 Canada
 
 https://cyber.gc.ca/en/guidance/guidance-hardening-microsoft-windows-10-enterprise-itsp70012
+https://open.canada.ca/data/en/dataset/14431692-83f4-4ad3-983d-d73cb136528c
 
 ----------------------------------------------------------------------------------------------
 ACSC Australia
@@ -18,7 +30,7 @@ ACSC Australia
 
 
 https://www.cyber.gov.au/acsc/view-all-content/advice/guidelines-system-hardening
-
+https://www.cyber.gov.au/acsc/view-all-content/publications/windows-event-logging-and-forwarding
 https://www.cyber.gov.au/acsc/view-all-content/publications/hardening-microsoft-windows-10-version-1909-workstations
 
 
@@ -30,6 +42,7 @@ Windows security baselines
 ---------------
 
 https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-security-baselines
+https://4sysops.com/archives/windows-server-2016-2019-group-policy-security-settings/
 
 -----------------------------------------------------------------------------------------------
 
@@ -39,7 +52,7 @@ DISA STIGs
 
 https://public.cyber.mil/stigs/
 https://public.cyber.mil/stigs/downloads/
-
+https://public.cyber.mil/stigs/gpo/
 
 ------------------------------------------------------------------------------------------------
 
@@ -48,9 +61,7 @@ CIS:
 -----
 
 https://www.cisecurity.org/cis-benchmarks/
-
 https://downloads.cisecurity.org/#/
-
 https://learn.cisecurity.org/cis-cat-lite
 
 ------------------------------------------------------------------------------------------------
@@ -61,11 +72,8 @@ BSI:
 --------
 
 https://www.bsi.bund.de/EN/Topics/Cyber-Security/Recommendations/SiSyPHuS_Win10/AP11/SiSyPHuS_AP11.html
-
 https://www.bsi.bund.de/DE/Service-Navi/Presse/Pressemitteilungen/Presse2021/210503_SiSyPHuS.html
-
 https://www.bsi.bund.de/DE/Service-Navi/Publikationen/Studien/SiSyPHuS_Win10/SiSyPHuS_node.html
-
 https://www.bsi.bund.de/DE/Service-Navi/Publikationen/Studien/SiSyPHuS_Win10/AP12/SiSyPHuS_AP12_node.html
 
 ---------------------------------------------------------------------------------------------------
