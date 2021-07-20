@@ -99,3 +99,5 @@ https://nsacyber.github.io/publications.html
 https://pages.nist.gov/800-63-3/
 
 https://github.com/cottinghamd/HardeningAuditor
+
+https://github.com/simeononsecurity/Windows-Optimize-Harden-Debloat
