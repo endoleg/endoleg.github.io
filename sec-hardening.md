@@ -2,11 +2,12 @@ https://github.com/decalage2/awesome-security-hardening
 
 https://github.com/0x6d69636b/windows_hardening
 
-https://t.co/IGZwRokr56
-
 https://www.newnettechnologies.com/cis-benchmark.html
 
 https://www.tenable.com/downloads/configuration-audit-policies
+
+---------------------------------------------------------------------------------------------
+CIS BEST Practices Windows 10 and Window Server 2016 :
 
 https://github.com/Sneakysecdoggo/Wynis
 
