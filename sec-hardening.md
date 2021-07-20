@@ -3,6 +3,7 @@ https://github.com/decalage2/awesome-security-hardening
 https://github.com/0x6d69636b/windows_hardening
 
 https://www.newnettechnologies.com/cis-benchmark.html
+https://www.newnettechnologies.com/downloads/NNT-Audit-Policy-for-Compliance-V1-1.pdf
 
 https://www.tenable.com/downloads/configuration-audit-policies
 
