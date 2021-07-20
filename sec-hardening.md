@@ -10,23 +10,26 @@ https://www.tenable.com/downloads/configuration-audit-policies
 
 https://github.com/Sneakysecdoggo/Wynis
 
+
+
 ----------------------------------------------------------------------------------------------
-NIST
-----------
+NIST (National Institute of Standards and Technology - USA)
+------------------------------------------------------------
 
 
 https://nvd.nist.gov/ncp/repository
 
 
 ----------------------------------------------------------------------------------------------
-Canada
+Canadian Centre for Cyber Security
+----------------------------------
 
 https://cyber.gc.ca/en/guidance/guidance-hardening-microsoft-windows-10-enterprise-itsp70012
 https://open.canada.ca/data/en/dataset/14431692-83f4-4ad3-983d-d73cb136528c
 
 ----------------------------------------------------------------------------------------------
-ACSC Australia
-----------
+ACSC (Australian Cyber Security Centre)
+---------------------------------------
 
 
 https://www.cyber.gov.au/acsc/view-all-content/advice/guidelines-system-hardening
@@ -38,8 +41,8 @@ https://www.cyber.gov.au/acsc/view-all-content/publications/hardening-microsoft-
 
 
 
-Windows security baselines
----------------
+Microsoft Windows security baselines
+-------------------------------------
 
 https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-security-baselines
 https://4sysops.com/archives/windows-server-2016-2019-group-policy-security-settings/
@@ -47,8 +50,8 @@ https://4sysops.com/archives/windows-server-2016-2019-group-policy-security-sett
 -----------------------------------------------------------------------------------------------
 
 
-DISA STIGs
--------
+DISA STIGs (Defense Information Systems Agency - USA)
+-----------------------------------------------------
 
 https://public.cyber.mil/stigs/
 https://public.cyber.mil/stigs/downloads/
@@ -57,8 +60,8 @@ https://public.cyber.mil/stigs/gpo/
 ------------------------------------------------------------------------------------------------
 
 
-CIS:
------
+CIS (CIS Center for Internet Security - USA)
+-------------------------------------------
 
 https://www.cisecurity.org/cis-benchmarks/
 https://downloads.cisecurity.org/#/
@@ -68,8 +71,8 @@ https://learn.cisecurity.org/cis-cat-lite
 
 
  
-BSI:
---------
+BSI (Bundesamt für Sicherheit in der Informationstechnik - Germany)
+-------------------------------------------------------------------
 
 https://www.bsi.bund.de/EN/Topics/Cyber-Security/Recommendations/SiSyPHuS_Win10/AP11/SiSyPHuS_AP11.html
 https://www.bsi.bund.de/DE/Service-Navi/Presse/Pressemitteilungen/Presse2021/210503_SiSyPHuS.html
@@ -80,6 +83,6 @@ https://www.bsi.bund.de/DE/Service-Navi/Publikationen/Studien/SiSyPHuS_Win10/AP1
 
 
 Audit Test Automation Package
---------------
+----------------------------
 https://github.com/fbprogmbh/Audit-Test-Automation
 
