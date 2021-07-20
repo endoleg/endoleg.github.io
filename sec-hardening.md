@@ -1,13 +1,3 @@
-https://github.com/decalage2/awesome-security-hardening
-
-https://github.com/0x6d69636b/windows_hardening
-
-https://www.newnettechnologies.com/cis-benchmark.html
-https://www.newnettechnologies.com/downloads/NNT-Audit-Policy-for-Compliance-V1-1.pdf
-
-https://www.tenable.com/downloads/configuration-audit-policies
-
----------------------------------------------------------------------------------------------
 CIS BEST Practices Windows 10 and Window Server 2016 :
 
 https://github.com/Sneakysecdoggo/Wynis
@@ -88,3 +78,24 @@ Audit Test Automation Package
 ----------------------------
 https://github.com/fbprogmbh/Audit-Test-Automation
 
+
+----------------------------------------------------------------------------------------------------
+
+https://github.com/decalage2/awesome-security-hardening
+
+https://github.com/0x6d69636b/windows_hardening
+
+https://www.newnettechnologies.com/cis-benchmark.html
+https://www.newnettechnologies.com/downloads/NNT-Audit-Policy-for-Compliance-V1-1.pdf
+
+https://www.tenable.com/downloads/configuration-audit-policies
+
+https://github.com/nsacyber/AppLocker-Guidance
+
+https://www.ssi.gouv.fr/en/best-practices/
+
+https://nsacyber.github.io/publications.html
+
+https://pages.nist.gov/800-63-3/
+
+https://github.com/cottinghamd/HardeningAuditor
