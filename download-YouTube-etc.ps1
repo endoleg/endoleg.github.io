@@ -9,3 +9,5 @@ https://www.y2mate.com/
 https://en.savefrom.net/ 
 
 https://en.savefrom.net/12-how-to-download-soundcloud-audio.html
+
+https://github.com/iv-org/documentation/blob/master/Invidious-Instances.md
