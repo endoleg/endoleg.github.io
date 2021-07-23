@@ -55,7 +55,7 @@ https://github.com/giMini/NOAH
 https://github.com/securycore/ThreatHunting
 
 
-
+ 
 Check Event Logs:
 https://github.com/high101bro/PoSh-EasyWin/blob/9a88a63683fa2c4eb7fd014c2d189ee7faeb6603/Dependencies/Code/Main%20Body/Invoke-DeepBlue24Hours.ps1
 
