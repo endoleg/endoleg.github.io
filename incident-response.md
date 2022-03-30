@@ -3,6 +3,11 @@ Collection of PowerShell modules designed for artifact gathering and reconnaisan
 https://github.com/TonyPhipps/Meerkat
 
 
+Live-Forensicator
+
+https://github.com/Johnng007/Live-Forensicator
+
+
 Malware Analysis, Threat Hunting, Incident Response, Threat Intelligence: 
 
 https://github.com/ShilpeshTrivedi/Malware-IR-TH-TI-Resources/blob/main/Malware-IR-TH-TI-Resources.md
