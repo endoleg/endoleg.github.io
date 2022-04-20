@@ -49,7 +49,7 @@
 </div>
 <p><a href="https://ozswoosh.com/wp-content/uploads/2017/09/Bball-WA-Teach-Shooting-Manual.pdf">Basketball Shooting Fundamentals Wurftechnik</a></p>
 <p><a href="http://static1.1.sqspcdn.com/static/f/1477050/23367782/1377216317917/How+to+Shoot+a+Basketball.pdf?token=pSTwy2rQurJXfot83a6ogjYq9is%3D">How to shoot a basketball</a></p>
-<p><a href="http://static1.1.sqspcdn.com/static/f/1477050/23367782/1377216317917/How+to+Shoot+a+Basketball.pdf?token=pSTwy2rQurJXfot83a6ogjYq9is%3D">How to shoot a basketball</a></p>
+<p><a href="https://proskillsbasketball.com/wp-content/uploads/2019/11/psb-shooting-program-ebook.pdf">PSB Sshooting program ebook</a></p>
 <p><a href="http://static1.1.sqspcdn.com/static/f/1477050/23367782/1377216317917/How+to+Shoot+a+Basketball.pdf?token=pSTwy2rQurJXfot83a6ogjYq9is%3D">How to shoot a basketball</a></p>
 <p><a href="http://static1.1.sqspcdn.com/static/f/1477050/23367782/1377216317917/How+to+Shoot+a+Basketball.pdf?token=pSTwy2rQurJXfot83a6ogjYq9is%3D">How to shoot a basketball</a></p>
 
