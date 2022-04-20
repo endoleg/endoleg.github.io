@@ -1,6 +1,6 @@
 <div class="gmail_quote">Liebe Jugend-Coaches,</div>
 <div class="gmail_quote">&nbsp;</div>
-<div class="gmail_quote">hier findet ihr einige sehr interesannte Brosch&uuml;ren zum Thema Training, vor allem zum Technikbereich (Achtung, einige Links die auf PDF-Dateien von web.archive.org, k&ouml;nnen leider nicht auf jedem Smartphone angezeigt werden - da müsst ihr dann auf einen OPC ausweichen. Die m&uuml;sst ihr dann nochmal auf einem PC aufrufen):</div>
+<div class="gmail_quote">hier findet ihr einige sehr interesannte Brosch&uuml;ren zum Thema Training, vor allem zum Technikbereich (Achtung, einige Links die auf PDF-Dateien von web.archive.org, k&ouml;nnen leider nicht auf jedem Smartphone angezeigt werden. Die m&uuml;sst ihr dann nochmal auf einem PC aufrufen):</div>
 <div class="gmail_quote">&nbsp;</div>
 <div class="gmail_quote">
 <div class="gs">
