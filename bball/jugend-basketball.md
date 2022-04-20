@@ -55,3 +55,9 @@
 <p><a href="https://endoleg.github.io/bball/Tom-Amberry.html">Tom Amberry - Freiwurfexperte</a></p>
 <p><a href="https://github.com/endoleg/endoleg.github.io/raw/master/bball/Tom-Amberry-7-steps-free-throw.pdf">Tom Amberry - Freiwurfexperte - 7-steps-free-throw.pdf</a></p>
 
+<p>Infos zum Thema Post-Up-Moves:</p>
+Hakeem Olajuwon - Scoring Skills: https://www.youtube.com/watch?v=22O2lApCBBs&feature=youtu.be 
+
+Kevin McHale - Scoring Skills: https://www.youtube.com/watch?v=wdtgUOiWHJg  
+
+NBA Post Move Highlights HD: https://www.youtube.com/watch?v=mcULJMJFuNs
