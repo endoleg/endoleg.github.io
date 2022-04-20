@@ -46,9 +46,10 @@
 <p><a href="https://endoleg.github.io/bball/bewegungswissenschaft.html">https://endoleg.github.io/bball/bewegungswissenschaft.html</a></p>
 <p>&nbsp;</p>
 <p>Infos zum Thema Wurftechnik:</p>
-</div>
+
 <p><a href="https://ozswoosh.com/wp-content/uploads/2017/09/Bball-WA-Teach-Shooting-Manual.pdf">Basketball Shooting Fundamentals Wurftechnik</a></p>
 <p><a href="http://static1.1.sqspcdn.com/static/f/1477050/23367782/1377216317917/How+to+Shoot+a+Basketball.pdf?token=pSTwy2rQurJXfot83a6ogjYq9is%3D">How to shoot a basketball</a></p>
 <p><a href="https://proskillsbasketball.com/wp-content/uploads/2019/11/psb-shooting-program-ebook.pdf">PSB shooting program ebook</a></p>
 <p><a href="https://endoleg.github.io/bball/shootingdoctors.html">Bekannte Wurfexperten und Ihre Philosophien</a></p>
+<p><a href="https://endoleg.github.io/bball/dave-hopla.html">Dave Hopla - der beste Werfer der Welt</a></p>
 
