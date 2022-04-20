@@ -45,3 +45,7 @@
 <p><a href="https://endoleg.github.io/bball/spielesammlung.html">https://endoleg.github.io/bball/spielesammlung.html</a></p>
 <p><a href="https://endoleg.github.io/bball/bewegungswissenschaft.html">https://endoleg.github.io/bball/bewegungswissenschaft.html</a></p>
 <p>&nbsp;</p>
+<p>Infos zum Thema Wurftechnik:</p>
+</div>
+<p><a href="https://ozswoosh.com/wp-content/uploads/2017/09/Bball-WA-Teach-Shooting-Manual.pdf">Grundlagen Wurftechnik</a></p>
+
