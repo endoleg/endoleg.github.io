@@ -52,4 +52,5 @@
 <p><a href="https://proskillsbasketball.com/wp-content/uploads/2019/11/psb-shooting-program-ebook.pdf">PSB shooting program ebook</a></p>
 <p><a href="https://endoleg.github.io/bball/shootingdoctors.html">Bekannte Wurfexperten und Ihre Philosophien</a></p>
 <p><a href="https://endoleg.github.io/bball/dave-hopla.html">Dave Hopla - der beste Werfer der Welt</a></p>
+<p><a href="https://github.com/endoleg/endoleg.github.io/raw/master/bball/Tom-Amberry-7-steps-free-throw.pdf">Tom Amberry - Freiwurfexperte</a></p>
 
