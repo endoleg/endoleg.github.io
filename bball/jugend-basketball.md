@@ -57,6 +57,9 @@
 <p><a href="http://docplayer.org/38926040-Westdeutscher-basketball-verband-e-v-minifortbildung-in-montabaur.html
 ">http://docplayer.org/38926040-Westdeutscher-basketball-verband-e-v-minifortbildung-in-montabaur.html
 </a></p>
+<p><a href="https://www.basketball-bund.de/wp-content/uploads/U12-DBB-Fortbildung-2013-Frankfurt-Skript-Huth.pdf">https://www.basketball-bund.de/wp-content/uploads/U12-DBB-Fortbildung-2013-Frankfurt-Skript-Huth.pdf</a></p>
+<p><a href="https://www.basketball-bund.de/wp-content/uploads/U12-DBB-Fortbildung-Hagen-Skript-Kr%C3%BCger.pdf">https://www.basketball-bund.de/wp-content/uploads/U12-DBB-Fortbildung-Hagen-Skript-Kr%C3%BCger.pdf</a></p>
+<p><a href="https://www.basketball-bund.de/wp-content/uploads/U12-DBB-Fortbildung-Hagen-Skript-Lindner.pdf">https://www.basketball-bund.de/wp-content/uploads/U12-DBB-Fortbildung-Hagen-Skript-Lindner.pdf</a></p>
 
 <p>Infos zum Thema Wurftechnik:</p>
 
