@@ -35,8 +35,8 @@
 <li><a href="https://www.basketball-bund.de/wp-content/uploads/DBB_Maedchenbasketball_2020_WEB-2.pdf">Engagement und Training im M&auml;dchenbasketball</a></li>
 <li><a href="https://www.basketball-bund.de/wp-content/uploads/1.4b-Leitlinien-Bundesjugendlager-m%C3%A4nnlich.pdf">Leitlinien Bundesjugendlager m&auml;nnlich</a></li>
 <li><a href="https://www.basketball-bund.de/wp-content/uploads/Leitlinien-BJL-wbl-2019.pdf">Leitlinien Bundesjugendlager weiblich</a></li>
-<li><a href="https://www.basketball-bund.de/wp-content/uploads/Spielvorgaben-BJL-2016-1.pdf">Spielvorgaben Bundesjugendlager 2016</a></li>
 <li><a href="https://www.basketball-bund.de/wp-content/uploads/3x3-Stundenbilder_web_19.pdf">3x3-Stundenbilder</a></li>
+<li><a href="https://www.basketball-bund.de/media/downloads/?filter_type=all">DBB weitere downloads</a></li>
   
 </ul>
 <p>&nbsp;</p>
