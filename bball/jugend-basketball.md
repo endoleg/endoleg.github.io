@@ -50,6 +50,9 @@
 <p><a href="https://endoleg.github.io/bball/spielesammlung.html">https://endoleg.github.io/bball/spielesammlung.html</a></p>
 <p><a href="https://endoleg.github.io/bball/bewegungswissenschaft.html">https://endoleg.github.io/bball/bewegungswissenschaft.html</a></p>
 <p>&nbsp;</p>
+http://docplayer.org/54722779-Junior-franken-uebungskatalog.html
+http://docplayer.org/8485905-Modul-2-mini-und-kinderbasketball-handouts-komplett.html
+http://docplayer.org/38926040-Westdeutscher-basketball-verband-e-v-minifortbildung-in-montabaur.html
 <p>Infos zum Thema Wurftechnik:</p>
 
 <p><a href="https://ozswoosh.com/wp-content/uploads/2017/09/Bball-WA-Teach-Shooting-Manual.pdf">Basketball Shooting Fundamentals Wurftechnik</a></p>
