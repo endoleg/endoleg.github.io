@@ -63,6 +63,21 @@
 
 <p>Infos zum Thema Wurftechnik:</p>
 
+https://www.wired.com/2011/03/physics-basketball-shots/ 
+
+https://www.researchgate.net/publication/227378877_Optimal_Targets_for_the_Bank_Shot_in_Menas_Basketball 
+https://www.researchgate.net/publication/270258336_The_anatomy_of_the_bank_shot_in_men's_basketball 
+https://www.science20.com/news_articles/time_march_madness_physics_basketball_bank_shot-77077 
+https://www.dailymail.co.uk/news/article-2177278/Revealed-The-magic-formula-shooting-winning-basketball-shots--thanks-science.html
+https://web.archive.org/web/20200809092331/https://2xu.com/us/basketball-shot.html
+https://www.sciencebuddies.org/blog/basketball-science-experiments 
+https://www.sciencedaily.com/releases/2011/03/110310151224.htm 
+https://i.dailymail.co.uk/i/pix/2012/07/22/article-2177278-142B30E4000005DC-224_634x318.jpg
+https://www.sciencebuddies.org/science-fair-projects/project-ideas/Sports_p024/sports-science/basketball-bank-shot?from=Blog 
+https://www.sciencebuddies.org/science-fair-projects/project-ideas/Sports_p010/sports-science/shooting-hoops?from=Blog 
+https://www.sciencebuddies.org/science-fair-projects/project-ideas/Sports_p064/sports-science/basketball-the-geometry-of-banking-a-basket?from=Blog
+
+
 <p><a href="https://ozswoosh.com/wp-content/uploads/2017/09/Bball-WA-Teach-Shooting-Manual.pdf">Basketball Shooting Fundamentals Wurftechnik</a></p>
 <p><a href="http://static1.1.sqspcdn.com/static/f/1477050/23367782/1377216317917/How+to+Shoot+a+Basketball.pdf?token=pSTwy2rQurJXfot83a6ogjYq9is%3D">How to shoot a basketball</a></p>
 <p><a href="https://proskillsbasketball.com/wp-content/uploads/2019/11/psb-shooting-program-ebook.pdf">PSB shooting program ebook</a></p>
