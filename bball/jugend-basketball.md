@@ -102,3 +102,14 @@ Hakeem Olajuwon - Scoring Skills: https://www.youtube.com/watch?v=22O2lApCBBs&fe
 Kevin McHale - Scoring Skills: https://www.youtube.com/watch?v=wdtgUOiWHJg  
 
 NBA Post Move Highlights HD: https://www.youtube.com/watch?v=mcULJMJFuNs
+
+<p>Infos zum Thema Movement-Preps:</p>
+Dr Dean Kriellaars - Movement Prep for Basketball: https://www.youtube.com/watch?v=WTSS8Sel3Go  
+
+Roots 11 - a dynamic basketball warm up routine: https://www.youtube.com/watch?v=jKsnNE7M0Kw
+
+Dynamic Warmup and Stretches for Basketball Players (Practice & Games) https://www.youtube.com/watch?v=wX9RmYxL2W8
+
+Übungen1: https://www.basketballforcoaches.com/basketball-warm-ups/
+
+Übungen2: https://tusli-basketball.de/wp-content/uploads/2020/03/%C3%9Cbungsauswahl-Movement-Prep-1.pdf
