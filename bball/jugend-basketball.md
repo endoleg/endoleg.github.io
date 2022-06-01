@@ -108,6 +108,8 @@ Dr Dean Kriellaars - Movement Prep for Basketball: https://www.youtube.com/watch
 
 Roots 11 - a dynamic basketball warm up routine: https://www.youtube.com/watch?v=jKsnNE7M0Kw
 
+The Perfect Basketball PRE-GAME Routine with Coach Alan Stein https://www.youtube.com/watch?v=WPALeyX9J6Q
+
 Dynamic Warmup and Stretches for Basketball Players (Practice & Games) https://www.youtube.com/watch?v=wX9RmYxL2W8
 
 Übungen1: https://www.basketballforcoaches.com/basketball-warm-ups/
