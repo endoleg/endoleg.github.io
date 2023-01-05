@@ -133,3 +133,26 @@ https://www.bisp.de/SharedDocs/Downloads/Publikationen/sonstige_Publikationen_Ra
 bzw.
 http://www.bisp.de/SharedDocs/Downloads/Publikationen/sonstige_Publikationen_Ratgeber/BB_Fundamentals/handbuch_Fundamentals.pdf?__blob=publicationFile
 
+Didaktisch – Methodische Aspekte im Basketballtraining für Kinder und Jugendliche
+https://unipub.uni-graz.at/obvugrhs/download/pdf/217058?originalFilename=true
+
+Taktiktraining im Kindes- und Jugendalter am Beispiel Basketball 
+https://www.bbcoach.de/TaktiktrainingSS99.pdf
+
+AUSBILDUNGSHANDBUCH für die Entwicklung von Basketball-Talenten
+https://www.zweite-basketball-bundesliga.de/wp-content/uploads/2018/11/Ausbildungshandbuch2018.pdf
+
+Womit fange ich an:
+https://www.sportjugend-hessen.de/fileadmin/media/sportverein_schule/Programm_3-_Sportarten_im_Ganztag/downloads/Basketball-Orientierungsplan.pdf
+
+ATHLETIKTRAINING IM JUGENDBASKETBALL - Leistungssteigerung und Verletzungsprävention
+https://uni-goettingen.de/de/document/download/abb263e9dd2c315f94c8b6a22dd5730a.pdf/Athletiktraining%20im%20Jugendbasketball%20-%20Leistungssteigerung%20und%20Verletzungspr%C3%A4vention.pdf
+
+Stiftung SICHERHEIT IM SPORT: Informationsbox Basketball Zur Unterstützung von Vereinen, Trainer*innen, Übungsleiter*innen, Sportler*innen & Eltern
+https://www.sicherheit.sport/app/uploads/2022/04/Infobox-Basketball.pdf
+
+Koordination Volltext:
+https://www.verlagdrkovac.de/volltexte/1067
+
+Kindergerechte	Basketballspiele - Spiel- und	Übungsformen	für	Primarschüler
+https://www.grbb.ch/wp-content/uploads/2016/11/Kinderbasketball.pdf
