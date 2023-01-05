@@ -117,3 +117,13 @@ Dynamic Warmup and Stretches for Basketball Players (Practice & Games) https://w
 Übungen2: https://tusli-basketball.de/wp-content/uploads/2020/03/%C3%9Cbungsauswahl-Movement-Prep-1.pdf
 
 Pre Game Warmup Drills: https://teachhoops.com/basketball-pre-game-warm-up-drills/
+
+
+
+Neu hinzugefügt:
+Rahmentrainingskonzeption Basketball für Kinder und Jugendliche im Leistungssport (2.Auflage, 4. Entwurf) :
+https://www.basketball-kreis-bonn.de/Dokumente/projekte/Rahmentrainingskonzeption.pdf
+
+https://www.basketball-kreis-bonn.de/Dokumente/projekte/RTK%20Basketball.pdf
+
+
