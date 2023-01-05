@@ -156,3 +156,25 @@ https://www.verlagdrkovac.de/volltexte/1067
 
 Kindergerechte	Basketballspiele - Spiel- und	Übungsformen	für	Primarschüler
 https://www.grbb.ch/wp-content/uploads/2016/11/Kinderbasketball.pdf
+
+BEST-OF-TRAININGSTIPPS: KOORDINATIVE FÄHIGKEITEN IM FOKUS - DLV
+https://www.leichtathletik.de/fileadmin/user_upload/09_Jugend/01_Kinderleichtathletik/PDF-2_Trainingstipps_Koordination.pdf
+
+Koordinationstraining
+http://basketball-visuell.de/Koordinationstraining.pdf
+
+Arbeitsfeld Ganztagsschule - Handreichung für Basketballvereine zur Mitgestaltung und Zusammenarbeit beim Ganztagsangebot von Schulen
+http://www.bbw-bezirk3.de/content/formulare/dbb_ganztagsschule_2010.pdf
+https://www.basketball-bund.de/content/uploads/2022/03/DBB-Ganztagsschule_2022.pdf
+https://www.basketball-bund.de/wp-content/uploads/DBB-Ganztagsschule_2019_WEB.pdf
+
+Liegestütze richtig machen:
+https://sport-id.de/liegestuetzen-richtig-machen/
+https://sport-id.de/100-liegestuetze-pro-tag/
+
+
+Prüfen:
+https://www.bisp-surf.de/Record/PU201703001896#availability
+https://www.bisp-surf.de/Record/PU201109007581/HierarchyTree#tabnav
+https://www.bisp-surf.de/Record/PU201204002769/HierarchyTree?recordID=PU201204002769#tree-PU201204002769
+
