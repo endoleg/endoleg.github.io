@@ -123,7 +123,13 @@ Pre Game Warmup Drills: https://teachhoops.com/basketball-pre-game-warm-up-drill
 Neu hinzugefügt:
 Rahmentrainingskonzeption Basketball für Kinder und Jugendliche im Leistungssport (2.Auflage, 4. Entwurf) :
 https://www.basketball-kreis-bonn.de/Dokumente/projekte/Rahmentrainingskonzeption.pdf
-
 https://www.basketball-kreis-bonn.de/Dokumente/projekte/RTK%20Basketball.pdf
 
+Minibasketball:
+https://s3.eu-central-1.amazonaws.com/swiss.basketball/downloads/mini-basket/concept-sport-pour-les-enfants/de/swbm_sport_enfants_de.pdf
+
+FundaMentales Training im Basketball:
+https://www.bisp.de/SharedDocs/Downloads/Publikationen/sonstige_Publikationen_Ratgeber/BB_Fundamentals/handbuch_Fundamentals.html
+bzw.
+http://www.bisp.de/SharedDocs/Downloads/Publikationen/sonstige_Publikationen_Ratgeber/BB_Fundamentals/handbuch_Fundamentals.pdf?__blob=publicationFile
 
