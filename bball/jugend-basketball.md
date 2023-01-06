@@ -38,7 +38,7 @@
 <li><a href="https://www.basketball-bund.de/wp-content/uploads/3x3-Stundenbilder_web_19.pdf">3x3-Stundenbilder</a></li>
 <li><a href="https://www.basketball-bund.de/media/downloads/?filter_type=all">DBB weitere downloads</a></li>
 <li><a href="http://basketball-bund-media.de/wp-content/uploads/Spielkonzeption-m%C3%A4nnlich-2016.pdf">Spielkonzeption-maennlich-2016</a></li>
-<li><a href="  http://basketball-bund-media.de/wp-content/uploads/1.3a-Spielkonzeption-weiblich-2013_CEWE-final.pdf">Spielkonzeption-weiblich-2013</a></li>
+<li><a href="http://basketball-bund-media.de/wp-content/uploads/1.3a-Spielkonzeption-weiblich-2013_CEWE-final.pdf">Spielkonzeption-weiblich-2013</a></li>
     
 </ul>
 <p>&nbsp;</p>
