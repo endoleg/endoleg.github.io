@@ -178,3 +178,33 @@ https://www.bisp-surf.de/Record/PU201703001896#availability
 https://www.bisp-surf.de/Record/PU201109007581/HierarchyTree#tabnav
 https://www.bisp-surf.de/Record/PU201204002769/HierarchyTree?recordID=PU201204002769#tree-PU201204002769
 
+Handbuch Basketball
+https://books.google.de/books?hl=de&lr=&id=Yh1iu7wAODIC&oi=fnd&pg=PA12&dq=Basketball&ots=OhWphtstlk&sig=6mrTKYzp_Uaq0BEeRLvESEPXXVw#v=onepage&q=Basketball&f=false
+
+
+https://scholar.google.de/
+
+https://books.google.de/
+
+How Sleep Affects Recovery and Performance in Basketball: A Systematic Review
+https://www.mdpi.com/2076-3425/12/11/1570/pdf
+
+Research of visual attention
+in basketball shooting: A systematic
+review with meta-analysis
+https://journals.sagepub.com/doi/pdf/10.1177/17479541221075740
+
+
+A physiotherapeutic view on the main injuries in basketball: literature review
+https://rsdjournal.org/index.php/rsd/article/view/24770
+https://rsdjournal.org/index.php/rsd/article/view/24770/25540
+
+Psychological preparation at basketball-review study
+https://theses.cz/id/60ajyd/BP_Markova.pdf
+
+
+Practical Nutrition Strategies to Support Basketball Performance during International Short-Term Tournaments: A Narrative Review
+https://www.mdpi.com/2072-6643/14/22/4909
+
+
+
