@@ -15,11 +15,9 @@ Um mit Bokeh zu fotografieren, musst du am iPhone den Porträt-Modus nutzen. Dab
 
 Mit Apps wie Snapseed kannst du diese Unschärfe im Nachhinein hinzufügen. Unter Tools -> Fokuseffekt. Allerdings erkennt Snapseed nicht dein Objekt. Ich verzichte auf ein nachträgliches hinzufügen und nutze direkt den Porträt-Modus.
 
-## ** Tricks **
-
-
-
-## ** Links  **
+## ** Tricks und Links  **
+- https://www.samsung.com/de/support/mobile-devices/tipps-und-tricks-fuer-optimale-fotos/
+- https://viel-unterwegs.de/smartphone-fotografie/
 - https://lifestyletravelguide.com/iphone-kamera-einstellungen/
 - https://www.macwelt.de/article/962548/fotografieren-mit-der-iphone-kamera.html
 - https://www.spiegel.de/fotostrecke/snapseed-die-besten-tricks-der-foto-app-fotostrecke-162893.html
