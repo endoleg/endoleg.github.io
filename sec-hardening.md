@@ -103,3 +103,8 @@ https://pages.nist.gov/800-63-3/
 https://github.com/cottinghamd/HardeningAuditor
 
 https://github.com/simeononsecurity/Windows-Optimize-Harden-Debloat
+
+https://github.com/gjyoung1974/hardened-windows-server/tree/master/windows-packer/scripts
+
+https://github.com/paulveillard/cybersecurity-security-harderning
+
