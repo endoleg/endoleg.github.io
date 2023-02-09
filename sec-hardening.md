@@ -8,7 +8,6 @@ https://github.com/Sneakysecdoggo/Wynis
 ## NIST (National Institute of Standards and Technology - USA)
 ------------------------------------------------------------
 
-
 https://nvd.nist.gov/ncp/repository
 
 
@@ -82,6 +81,26 @@ https://github.com/fbprogmbh/Audit-Test-Automation
 ## HardeningKitty
 https://github.com/0x6d69636b/windows_hardening
 
+## Security-ADMX - Custom ADMX template focused on hardening Windows systems
+https://github.com/Harvester57/Security-ADMX/
+
+## Sophia-Script-for-Windows
+https://github.com/farag2/Sophia-Script-for-Windows
+
+## Windows10Debloater
+https://github.com/Sycnex/Windows10Debloater
+
+## ChrisTitusTech/win10script
+https://github.com/ChrisTitusTech/win10script
+
+## ChrisTitusTech/winutil
+https://github.com/ChrisTitusTech/winutil
+
+
+https://github.com/EUCweb/BIS-F/releases
+
+https://github.com/raandree/NTFSSecurity
+
 ----------------------------------------------------------------------------------------------------
 
 https://github.com/decalage2/awesome-security-hardening
@@ -93,6 +112,8 @@ https://www.newnettechnologies.com/downloads/NNT-Audit-Policy-for-Compliance-V1-
 https://www.tenable.com/downloads/configuration-audit-policies
 
 https://github.com/nsacyber/AppLocker-Guidance
+
+https://github.com/vipersniper0501/CP_Scripts2
 
 https://www.ssi.gouv.fr/en/best-practices/
 
