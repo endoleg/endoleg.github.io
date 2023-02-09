@@ -83,6 +83,7 @@ https://github.com/fbprogmbh/Audit-Test-Automation
 
 https://github.com/decalage2/awesome-security-hardening
 
+## HardeningKitty
 https://github.com/0x6d69636b/windows_hardening
 
 https://www.newnettechnologies.com/cis-benchmark.html
