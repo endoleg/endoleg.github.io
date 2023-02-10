@@ -74,3 +74,12 @@ https://github.com/jennifergates/PowerShell-Scripting/blob/f045da02df7a2f465a37b
 https://github.com/oneoffdallas/check_ioc/blob/98c99d814b91cba39ffa459f1a3b632fe7f1e6ed/check_ioc.ps1
 
 https://github.com/r3p3r/sans-blue-team-DeepBlueCLI/blob/a98ef0e4025929418f1bbccf8329961106a0ca9c/DeepBlue.ps1
+
+
+
+
+
+## https://github.com/nettitude/PoshC2/tree/master/resources/modules
+
+
+
