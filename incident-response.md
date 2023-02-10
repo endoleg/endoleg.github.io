@@ -81,5 +81,5 @@ https://github.com/r3p3r/sans-blue-team-DeepBlueCLI/blob/a98ef0e4025929418f1bbcc
 
 ## https://github.com/nettitude/PoshC2/tree/master/resources/modules
 
-
+## https://github.com/PowerShellEmpire/PowerTools/blob/master/PowerUp/PowerUp.ps1
 
