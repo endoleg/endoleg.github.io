@@ -19,10 +19,10 @@ www.iask.ai
 www.perplexity.ai
 
 You can generate fun quizzes using just a single prompt with this free and no signup required tool -
-futurepedia.io/tool/booom.ai
+https://futurepedia.io/tool/booom.ai
 
 Ask your question to the collective wisdom of >100,000 books
-books.google.com/talktobooks/
+https://books.google.com/talktobooks/
 • Ask it a question
 • It searches all its books
 • It gives you quotes that answer your question
@@ -31,7 +31,7 @@ A curated book search.
 
 Edit out parts of photos with Magic Eraser. Have a great photo but with something annoying in the background?
 Remove it easily:
-Magiceraser.io
+www.Magiceraser.io
 • Upload the photo
 • Select the part you don't want
 • Press 'erase'
