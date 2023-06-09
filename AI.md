@@ -16,6 +16,8 @@ www.noowai.com
 
 www.iask.ai
 
+https://you.com/search?q=who+are+you&tbm=youchat&cfr=chat
+
 www.perplexity.ai
 
 You can generate fun quizzes using just a single prompt with this free and no signup required tool -
