@@ -83,9 +83,11 @@ https://github.com/giMini/NOAH
 -------------------------------------------------------------------------------------------
 
 ## **ThreatHunting-Module**
+ThreatHunting-Module
 https://github.com/securycore/ThreatHunting
 
 ## **Powerless batch file**
+Powerless batch file
 https://raw.githubusercontent.com/gladiatx0r/Powerless/master/Powerless.bat
 
 -------------------------------------------------------------------------------------------
