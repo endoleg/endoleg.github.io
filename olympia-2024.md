@@ -9,8 +9,11 @@ Auch die Mediatheken werden gefüllt sein mit Übertragungen:
 https://www.ardmediathek.de/programm/heute und https://www.zdf.de/sport/sport-im-zdf-livestream-live-100.html und https://www.sportschau.de/streams
 
 ARD: Die Spiele, die die ARD überträgt, können Sie von Ihrem Handy aus über zwei verschiedene Weisen verfolgen. Entweder laden Sie sich die Sportschau-App herunter, oder Sie nutzen die ARD Mediathek. Beide Apps werden von den gängigen Betriebssystemen Android und iOS unterstützt. Alternativ steht Ihnen auch Streaming im Browser zur Verfügung.
+
 ZDF: Für alle vom ZDF übertragenen Spiele greifen Sie zur ZDF Mediathek. Die App können Sie bei allen gängigen Betriebssystemen problemlos herunterladen und nutzen. Auch das ZDF bietet es an, über den Internet-Browser zu streamen.
+
 Zattoo ist schon länger auf dem Markt und bietet zumindest die Streams der öffentlich-rechtlichen Programme kostenlos an. Sie können die Streams nicht nur im Internet anschauen, sondern dank passender Apps auch auf Ihrem Smartphone verfolgen. „Zattoo Live TV“ ist sowohl für iOS als auch Android kostenlos im jeweiligen App-Store erhältlich.
+
 Eine weitere Möglichkeit, alternativ zu Zattoo ist Waipu. Auch diese Alternative bietet eine App für iOS und Android an, mit der Sie die Streams von ARD und ZDF kostenlos auf Ihrem Handy ansehen können.
 OFFIZIELLE APP DER OLYMPISCHEN SPIELE – PARIS 2024
 
@@ -21,11 +24,17 @@ https://olympics.com/de/paris-2024/download-olympics-mobile-app
 Zeitplan – Gesamtübersicht:
 
 https://olympics.com/de/news/olympische-spiele-2024-in-paris-alle-basketballspieltermine
+
 https://m.liveonsat.com/usa-nba-basketball GMT +01:00
+
 https://www.flashscore.de/basketball/usa/ncaa/#/8vWesRfo/draw
+
 https://www.fiba.basketball/olympics/men/2024/news/final-schedule-of-olympic-basketball-tournaments-paris-2024-confirmed
+
 https://olympics.com/de/paris-2024/zeitplan/basketball
+
 https://www.eurosport.de/basketball/olympische-spiele/
+
 https://www.discoveryplus.com/de
  
 
@@ -39,6 +48,7 @@ https://en.wikipedia.org/wiki/Basketball_at_the_2024_Summer_Olympics
 
  
 5×5 Damen
+
 https://en.wikipedia.org/wiki/Basketball_at_the_2024_Summer_Olympics_%E2%80%93_Women%27s_tournament
 
 Montag, 29. Juli 2024
@@ -57,6 +67,7 @@ Sonntag, 04. August 2024
  
 
 5×5 Herren
+
 https://en.wikipedia.org/wiki/Basketball_at_the_2024_Summer_Olympics_%E2%80%93_Men%27s_tournament
 
 Samstag, 27. Juli 2024
@@ -74,6 +85,7 @@ Freitag, 02. August 2024
 
  
 3×3 Herren
+
 Quali-Entscheidung fällt zwischen 16. und 19. Mai 2024
 
 The sixteen highest-ranked eligible NOCs based on the FIBA global standings, including the tournament host, will participate in the FIBA OQT with the top three securing the remaining berths for Paris 2024. 
@@ -94,6 +106,7 @@ https://en.wikipedia.org/wiki/Basketball_at_the_2024_Summer_Olympics_%E2%80%93_M
 
  
 3×3 Damen
+
 Quali-Entscheidung fällt zwischen 16. und 19. Mai 2024.
 
 The sixteen highest-ranked eligible NOCs based on the FIBA global standings, including the tournament host will participate in the FIBA OQT with the top three securing the remaining berths for Paris 2024.
