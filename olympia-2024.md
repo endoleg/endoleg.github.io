@@ -15,6 +15,15 @@ ZDF: Für alle vom ZDF übertragenen Spiele greifen Sie zur ZDF Mediathek. Die A
 Zattoo ist schon länger auf dem Markt und bietet zumindest die Streams der öffentlich-rechtlichen Programme kostenlos an. Sie können die Streams nicht nur im Internet anschauen, sondern dank passender Apps auch auf Ihrem Smartphone verfolgen. „Zattoo Live TV“ ist sowohl für iOS als auch Android kostenlos im jeweiligen App-Store erhältlich.
 
 Eine weitere Möglichkeit, alternativ zu Zattoo ist Waipu. Auch diese Alternative bietet eine App für iOS und Android an, mit der Sie die Streams von ARD und ZDF kostenlos auf Ihrem Handy ansehen können.
+
+www.joyn.de
+Mit der Joyn-App schauen Sie online Fernsehsender wie ARD, ZDF, Privatsender wie ProSieben und Sat.1 sowie viele Regionalsender und Eurosport – kostenlos. In der Gratis-Version bietet Joyn mehr als 60 Live-Sender. Hinweis: Für einige Sender ist eine kostenlose Registrierung bei Joyn erforderlich. Laut Anbieter gelingt die in weniger als zwei Minuten.
+
+
+
+
+
+
 OFFIZIELLE APP DER OLYMPISCHEN SPIELE – PARIS 2024
 
 https://olympics.com/de/paris-2024/download-olympics-mobile-app
