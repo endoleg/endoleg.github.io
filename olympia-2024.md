@@ -20,8 +20,13 @@ www.joyn.de
 Mit der Joyn-App schauen Sie online Fernsehsender wie ARD, ZDF, Privatsender wie ProSieben und Sat.1 sowie viele Regionalsender und Eurosport – kostenlos. In der Gratis-Version bietet Joyn mehr als 60 Live-Sender. Hinweis: Für einige Sender ist eine kostenlose Registrierung bei Joyn erforderlich. Laut Anbieter gelingt die in weniger als zwei Minuten.
 
 
+EM 2024 live bei ServusTV, ORF, SRF Auch die Nachbarländer Österreich und Schweiz übertragen die EM 2024 kostenlos im Free-TV und Live-Stream. ServusTV und ORF zeigen alle Spiele, allerdings im Wechsel. ServusTV überträgt 31 Spiele, die restlichen 20 Partien liefert der ORF. In der Schweiz ist die Situation einfacher: Das SRF sendet alle 51 EM-Matches im frei empfangbaren Fernsehen und im Live-Stream.
 
+https://www.livestreamde.com/servus-tv/
 
+https://www.2ix2.com/servus-tv/
+
+-------------------------------------------------------------------------------------------------------
 
 
 OFFIZIELLE APP DER OLYMPISCHEN SPIELE – PARIS 2024
@@ -95,17 +100,10 @@ Freitag, 02. August 2024
  
 3×3 Herren
 
-Quali-Entscheidung fällt zwischen 16. und 19. Mai 2024
-
-The sixteen highest-ranked eligible NOCs based on the FIBA global standings, including the tournament host, will participate in the FIBA OQT with the top three securing the remaining berths for Paris 2024. 
-
-https://fiba3x3.com/2024/oqt/games
+D nicht dabei
 
 https://www.youtube.com/@FIBA3x3/streams
 
-May 18, 2024
-
-4:05 PM: Germany – Lithuania
 
 https://en.wikipedia.org/wiki/Basketball_at_the_2024_Summer_Olympics_%E2%80%93_Men%27s_3x3_qualification
 
@@ -116,21 +114,8 @@ https://en.wikipedia.org/wiki/Basketball_at_the_2024_Summer_Olympics_%E2%80%93_M
  
 3×3 Damen
 
-Quali-Entscheidung fällt zwischen 16. und 19. Mai 2024.
-
-The sixteen highest-ranked eligible NOCs based on the FIBA global standings, including the tournament host will participate in the FIBA OQT with the top three securing the remaining berths for Paris 2024.
-
-Schedule
-May 17, 2024
-5:05 PM: Germany – Ukraine
-
-May 18, 2024
-3:15 PM: Poland – Germany
+D qualifiziert!
 
 https://www.youtube.com/@FIBA3x3/streams
- 
-https://fiba3x3.com/2024/OQT
- 
-https://fiba3x3.com/2024/oqt/standings/women/brackets
- 
+
 https://en.wikipedia.org/wiki/Basketball_at_the_2024_Summer_Olympics_%E2%80%93_Women%27s_3x3_qualification
