@@ -75,7 +75,39 @@ https://endoleg.github.io/bball/bewegungswissenschaft.html
 **Warum man mit Minis Seilspringen üben sollte:**
 https://endoleg.github.io/bball/seilspringen.html
 
+**Grundsätzliches:**  
+- Das Training besteht aus sehr viel Offense-Grundlagen-Technik (Ballhandling, Offense-Moves)  
+- Anfänger, die in mein Training kommen, lernen am 1. Tag den Korbleger  
+- Die Wurftechnik wird bei mir ständig korrigiert. Kinder die eine gute Wurftechnik (Kobra) haben, dürfen ihre freien Würfe auch aus der Distanz immer nehmen.  
+- Bei Anfängern wird auch sofort auf eine Mann-Mann-Zuordnung geachtet. Sobald die Kinder das können, ist das schon die halbe Miete, um im Spiel den eigenen Mann zu kontrollieren.  
+- Gute Verteidiger spielen bei mir sehr lange, da ich mit Ihnen teilweise die besten Gegenspieler komplett ausschalten kann.
 
+  
+**Teamtaktik:**  
+- Mein Ziel ist es, dass wir so viele Korbleger wie möglich bekommen. Spieler, die gut im 1-1 sind, sollen wann immer möglich den Korb attackieren  
+- Anfänger: Beim Baselineeinwurf stelle ich alle Kinder auf die Dreipunktelinie. Dann rennt derjenige zum Ball, dessen Gegenspieler falsch steht oder schwächer ist. Also ein 1-1 ohne Ball. Das gibt viele einfache Punkte.  
+- Profis: Ich isoliere einen Spieler mit körberlichem Vorteil, indem er an der Brettkante "aufpostet". Das gibt viele einfache Punkte.  
+- Wir versuchen die Zone immer frei zu halten, damit freie Korbleger möglich sind.  
+- Ich würde gerne über das ganze Feld verteidigen. Im Anfängerbereich ist das sehr erfolgreich (deshalb machen wir das da immer), aber bei den Fortgeschrittenen werden wir häufig geschlagen oder haben nicht die Kraft das 40 Minuten durchzuhalten.  
+- Fastbreak geht natürlich vor Setplay  
+- Das Angriffspiel ist so strukturiert, dass wir gerne von der Aufbauposition (Aufbauspieler) attackieren. Ich spiele noch eine Art Achterlauf, um auch die Flügelspieler auf die Aufbauposition zu bekommen. Anonsten ist es Ziel, den Ball auf 45 Grad zu bekommen und von dort zu attackieren. Unsere großen Spieler spiele ich natürlich auch mal gerne unter dem Korb an.  
+- In der Offense ist leider nicht so viel Bewegung. Mir fällt es schwer, eine Cut and Fill Offense einzuführen. Man hat nicht immer 10 Kinder, die gleich ausgebildet sind und technische Schwächen führen dann dazu, dass das nicht soo gut klappt. Deshalb hab ich das noch nicht durchgezogen.  
+- Die Defense am Ball ist zwar in Ordnung, wir schaffen es aber nicht immer, den Mann vor uns zu halten. Wenn das klappen würde, würde ich 40 Minuten pressen um einfache Korbleger zu generieren. Prinzipiell hab ich Probleme den Kids die aggressive Verteidigung nahe zu bringen.  
+- Außerdem pfeiff ich im Training ganz oft ab - und alle müssen stehenbleiben, wo sie gerade sind. Dann kann ich sie neu verteilen und ihnen wunderbar deutlich machen, wo sie nicht stehen sollten.
+
+  
+**Sonstiges:**  
+Techniktraining - was zuerst ? (dribbling/korbleger/wurf)  
+Ich fange bei Neulingen immer mit dem Korbleger ohne Gegenspieler an, um ein erstes Erfolgserlebnis zu schaffen - später müssen natürlich Wurf, abstoppen und Ballhandling dazu genommen werden.
+
+**Spiel ohne Dribbeln:**  
+Ich spiele auch gerne ohne dribbeln oder verbiete das "fischen" des Verteidigers nach dem Ball, um die Spielübersicht zu verbessern.
+
+**Kleingruppenspiele:**  
+Ich spiele viel 2-2 und 3-3 im Training. Das Ganzfeldspiel lasse ich manchmal (!) auch ganz weg. Meinst du, das ist kritisch? Ich möchte, dass viele Balkontakte für jeden Spieler da sind.
+
+**Wurf mit Brett wird bevorzugt**  
+... weil die Kids das Zielviereck kennen lernen sollen und man auch bei ungenauen Würfen eine gute Trefferquote hat, da der Ball oft in einem optimalen Winkel vom Brett herunterfällt.
 
 Diese Seite wurde erstellt mit https://stackedit.io/
 
