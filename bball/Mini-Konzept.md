@@ -81,6 +81,8 @@ https://endoleg.github.io/bball/spielesammlung.html
 Wertvolle Infos zum Thema Bewegungswissenschaft:
 https://endoleg.github.io/bball/bewegungswissenschaft.html
 
+Diese Seite wurde erstellt mit https://stackedit.io/
+
 Warum man mit Minis Seilspringen üben sollte:
 https://endoleg.github.io/bball/seilspringen.html
 
