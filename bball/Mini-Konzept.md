@@ -75,3 +75,23 @@ ca. 40 % Techniktraining
 ca. 20 % spielerische und taktische Grundlagen
 
 
+Anpassungen des Spiels, die zur besseren Entwicklung der Minis beitragen:
+https://endoleg.github.io/bball/anpassungen.html
+
+
+Sonstige Tipps zur besseren Entwicklung der Minis:
+https://endoleg.github.io/bball/entwicklungstipps.html
+
+
+Kondition und Koordination:
+https://endoleg.github.io/bball/koordination.html
+
+
+Spielesammlung für euer Minitraining:
+https://endoleg.github.io/bball/spielesammlung.html
+
+
+Wertvolle Infos zum Thema Bewegungswissenschaft:
+https://endoleg.github.io/bball/bewegungswissenschaft.html
+
+
