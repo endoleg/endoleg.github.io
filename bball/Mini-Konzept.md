@@ -59,3 +59,19 @@ Sobald die Spieler halbwegs verteidigen können sollten die Spieler dazu hingef�
 Positionsangriff 1-2-2 mit 5 Außenspielern
 
 Im Positionsangriff müssen alle Spieler alle Positionen spielen können. Die Angreifer agieren alle mit dem Gesicht zum Korb, nicht mit dem Rücken d.h. es gibt keine Center-Position. Im 1-2-2 sollen die Spieler sämtliche individual- und gruppentaktischen Maßnahmen anwenden. Kreativität und Entscheidungshandeln sollen gefördert werden. Die Spieler sollen sich am besten nicht auf dem gesamten Feld freilaufen, sondern in einem eigenen "home-spot". Es sollten vom Coach 3 Bereiche vorgegeben werden: 2 Spieler "unten" (unterhalb der Freiwurflinie), 2 Spieler "oben" (oberhalb der Freiwurflinie - Flügelposition) und Aufbau. Bei jedem Spielerwechsel müssen dann Gegenspieler und Position (oben/unten/Aufbau) mit übergeben werden. Der "home-spot" soll erst einmal den Grundbereich festlegen, in dem sich freigelaufen wird. Jeder Spieler soll in jedem "home-spot" eingesetzt werden.
+
+
+Vorschlag zur zeitlichen Einteilung des Trainings
+U10
+ca. 10 % konditionelle Fähigkeiten
+ca. 40 % koordinative Fähigkeiten
+ca. 20 % basketballorientierte Grundschule
+ca. 30 % allgemeine spielorientierte Ballschule
+
+U12
+ca. 15 % konditionelle Fähigkeiten
+ca. 25 % koordinative Fähigkeiten
+ca. 40 % Techniktraining
+ca. 20 % spielerische und taktische Grundlagen
+
+
