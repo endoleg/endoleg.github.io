@@ -44,11 +44,6 @@
 <p>&nbsp;</p>
 <p>Hier findet ihr au&szlig;erdem weitere interessante Infos zum Thema Kinderbasketball:</p>
 </div>
-<p><a href="https://endoleg.github.io/bball/anpassungen.html">https://endoleg.github.io/bball/anpassungen.html</a></p>
-<p><a href="https://endoleg.github.io/bball/entwicklungstipps.html">https://endoleg.github.io/bball/entwicklungstipps.html</a></p>
-<p><a href="https://endoleg.github.io/bball/koordination.html">https://endoleg.github.io/bball/koordination.html</a></p>
-<p><a href="https://endoleg.github.io/bball/spielesammlung.html">https://endoleg.github.io/bball/spielesammlung.html</a></p>
-<p><a href="https://endoleg.github.io/bball/bewegungswissenschaft.html">https://endoleg.github.io/bball/bewegungswissenschaft.html</a></p>
 <p>&nbsp;</p>
 <p><a href="http://docplayer.org/54722779-Junior-franken-uebungskatalog.html">http://docplayer.org/54722779-Junior-franken-uebungskatalog.html</a></p>
 <p><a href="http://docplayer.org/8485905-Modul-2-mini-und-kinderbasketball-handouts-komplett.html
