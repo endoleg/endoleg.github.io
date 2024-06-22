@@ -1,30 +1,17 @@
-
 Trainingskonzeption für U12 und U14
+---------------------------------------
+
 Methodische Grundsätze:
-
-Vom Einfachen zum Komplexen
-
-Vom Leichten zum Schweren
-
-Vom Bekannten zum Unbekannten
+- Vom Einfachen zum Komplexen
+- Vom Leichten zum Schweren
+- Vom Bekannten zum Unbekannten
 
 Die Trainingsinhalte werden in drei Bereiche unterteilt:
-
 1. Schulung der motorischen Grundeigenschaften (Kondition)
-- keine isolierte Konditionsschulung
-- vorzugsweise in Übungs- oder Spielformen.
+Schnelligkeit, Ausdauer, Kraft (KSÜ / Seil usw.), Beweglichkeit (z.B. Stretching), Koordination
+Wichtig: keine isolierte Konditionsschulung, vorzugsweise in Übungs- oder Spielformen!
 
-Schnelligkeit
-
-Ausdauer
-
-Kraft (KSÜ / Seil usw.)
-
-Beweglichkeit (z.B. Stretching)
-
-Koordination
-
-2. Technik
+3. Technik
 
 sämtliche Techniken sollten präzise ausgeführt werden.
 
@@ -93,5 +80,8 @@ https://endoleg.github.io/bball/spielesammlung.html
 
 Wertvolle Infos zum Thema Bewegungswissenschaft:
 https://endoleg.github.io/bball/bewegungswissenschaft.html
+
+Warum man mit Minis Seilspringen üben sollte:
+https://endoleg.github.io/bball/seilspringen.html
 
 
