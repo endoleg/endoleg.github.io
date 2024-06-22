@@ -1,6 +1,34 @@
 
-Trainingskonzeption für U12 und U14
+Trainingskonzeption für Minis
 ---------------------------------------
+
+Im ersten Jahr wird sehr viel Offense gecoacht, der Spaß am Basketball spielen steht klar im Vordergrund.
+Neben der technischen Ausbildung sollen die Spieler "richtig trainieren lernen".
+
+
+**Coaching A-B-C**  
+Trainingszeit so effektiv wie möglich nutzen; Die Spieler sollten so wenig herumstehen wie möglich; Hohe Wiederholungszahlen bei Techniktraining durch möglichst kleine Gruppen an einem Korb;	  
+Keine zu langen Vorträge halten. Immer max. Tempo und bestmögliche Ausführung erwarten.  
+
+ **Coachen heißt korrigieren, auch bei großen Gruppen**  
+Es ist wichtig ein gesundes Maß zwischen Einzel – und Gruppenkorrektur zu finden, Übungen werden auch im Kader nicht einfach „laufen gelassen“. Be a Coach – not a Cheerleader!  
+
+**Offense ausbilden, Offense ausbilden, Offense ausbilden**  
+Die Ausbildung stabiler Angriffstechniken braucht sehr viel Zeit und Wiederholungen. Im ersten Jahr wird größtenteils an der Offense gearbeitet. Vorgaben für die Verteidigung (Ball an der gegnerischen Freiwurflinie aufnehmen, Druck am Ball machen) werden über das Spiel 5-5 umgesetzt.  
+
+**Gleichzahlspiele sind der Schlüssel zum Erfolg (1-1; 2-2;3-3)**  
+Wer Gleichzahlspiele beherrscht kann Basketball spielen! Hier sehr viel Zeit investieren. 
+
+**Kontinuierliche Anwesenheit ist ein wichtiges Kriterium für junge Basketballer**  
+Es fällt kein Training aus. Bist du verhindert suche dir Ersatz aus dem Trainerteam.  
+Gerade im jungen Alter der Spieler müssen die Spieler lernen, dass regelmäßige Anwesenheit eine Voraussetzung für die sportliche Weiterentwicklung ist. Die Kinder sollen lernen pünktlich zu sein, abzusagen wenn sie verhindert sind und sich an Regeln zu halten.  
+
+**Aufmerksamkeitsspanne der Kinder erkennen und langsam steigern**  
+Gerade bei Kindern im Alter von 10-12 Jahren ist es wichtig die Aufmerksamkeitsspanne einzelner Kinder sowie der  Gruppe zu erkennen und zu lenken. Zu Beginn sind vielleicht nur konzentriert ausgeführte Übungen von 10 Minuten möglich, und es müssen immer wieder Spiele eingebaut werden, um die Jungs „wach und interessiert“ zu halten.   
+
+**Kommunikation ist der Schlüssel zum Erfolg!**   
+Kadertrainer > Vereine > Trainer > Eltern  Spieler  
+Ein erfolgreicher Trainer arbeitet verantwortungsvoll mit allen Beteiligten zusammen.
 
 **Methodische Grundsätze:**
 - Vom Einfachen zum Komplexen
