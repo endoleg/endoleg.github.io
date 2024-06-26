@@ -21,7 +21,7 @@ An Bedeutung gewinnen auch für das Basketball spielende Kind turnerische Übung
 • **[Die Wirkungen des Seilspringens](https://endoleg.github.io/bball/seilspringen.html)**  
 • **[Interessantes zur Körpergröße](https://github.com/endoleg/endoleg.github.io/blob/master/bball/koerpergroesse.md)**  
 • **[Übungen für die Koordinationsleiter](https://github.com/endoleg/endoleg.github.io/blob/master/bball/koordinationsleiter.md)**  
-• **[Die wichtigsten Zitate d. Buches zum Koordinationstraining von G. Glasauer](https://web.archive.org/web/20110410160327/http://home.arcor.de/enderlein/basket/glasauer.html)**  
+• **[Die wichtigsten Zitate d. Buches zum Koordinationstraining von G. Glasauer](https://github.com/endoleg/endoleg.github.io/blob/master/bball/glasauer-koordination.md)**  
 • **[Volltext d. Buches zum Koordinationstraining von G. Glasauer (pdf-Archiv)](https://web.archive.org/web/20110412011858/http://www.verlagdrkovac.de/volltexte/3-8300-1067-2)**  
 • **[Volltext d. Buches zum Koordinationstraining von G. Glasauer (pdf-Version2)](https://www.verlagdrkovac.de/volltexte/978-3-8300-1067-8.htm)**  
 • **[Bereich Kondition von bbcoach.de](https://web.archive.org/web/20110410160327/http://www.bbcoach.de/element.php?name=Content&pa=list_pages_categories&cid=6)**  
