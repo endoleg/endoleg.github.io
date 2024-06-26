@@ -17,9 +17,7 @@ An Bedeutung gewinnen auch für das Basketball spielende Kind turnerische Übung
 -   Rhythmusfähigkeit
 -   Umstellungsfähigkeit
 
-**  
-Interessante Links zum Thema:  
-**  
+**Interessante Links zum Thema:**  
 • **[Die Wirkungen des Seilspringens](https://web.archive.org/web/20110410160327/http://home.arcor.de/enderlein/basket/seilspringen.html)**  
 • **[Interessantes zur Körpergröße](https://web.archive.org/web/20110410160327/http://home.arcor.de/enderlein/basket/koerpergroesse.html)**  
 • **[Übungen für die Koordinationsleiter](https://web.archive.org/web/20110410160327/http://home.arcor.de/enderlein/basket/koordinationsleiter.html)**  
@@ -53,10 +51,10 @@ Zimmer, R./Volkamer, M. (1987): MOT 4-6. Motoriktest für vier- bis sechsjährig
 
 **Stretching** **/ Warmup / Cool down**
 
-• **[Neue Erkenntnisse zum Thema Stretching](https://web.archive.org/web/20110410160327/http://www.sportunterricht.de/lksport/neueerk.pdf)**  
-• **[Stretchingübungen und wozu benötigt man Stretching?](https://web.archive.org/web/20110410160327/http://www.sportunterricht.de/lksport/stretch.html)**  
-• **[Cool down](https://web.archive.org/web/20110410160327/http://home.arcor.de/enderlein/basket/cooldown.html)**  
-• **[Allgemeines zum aufwärmen](https://web.archive.org/web/20110410160327/http://www.netschool.de/spo/skript/sskript1.htm)**  
-• **[http://www.dr-moosburger.at/pub/pub046.pdf](https://web.archive.org/web/20110410160327/http://www.dr-moosburger.at/pub/pub046.pdf)  
-**• **[http://www.physio-team.com/INFO-Allgemein/Dehnen/Aufwaermen.pdf.pdf](https://web.archive.org/web/20110410160327/http://www.physio-team.com/INFO-Allgemein/Dehnen/Aufwaermen.pdf.pdf)  
-**• **[http://www2.uni-wuppertal.de/FB3/sport/bewegungslehre/klee/dehnaufw.pdf](https://web.archive.org/web/20110410160327/http://www2.uni-wuppertal.de/FB3/sport/bewegungslehre/klee/dehnaufw.pdf)**
+**•[Erkenntnisse zum Thema Stretching]**(https://web.archive.org/web/20110410160327/http://www.sportunterricht.de/lksport/neueerk.pdf)**  
+**•[Stretchingübungen und wozu benötigt man Stretching?]**(https://web.archive.org/web/20110410160327/http://www.sportunterricht.de/lksport/stretch.html)**  
+**•[Cool down]**(https://web.archive.org/web/20110410160327/http://home.arcor.de/enderlein/basket/cooldown.html)**  
+**•[Allgemeines zum aufwärmen]**(https://web.archive.org/web/20110410160327/http://www.netschool.de/spo/skript/sskript1.htm)**  
+**•[http://www.dr-moosburger.at/pub/pub046.pdf]**(https://web.archive.org/web/20110410160327/http://www.dr-moosburger.at/pub/pub046.pdf)  
+**•[http://www.physio-team.com/INFO-Allgemein/Dehnen/Aufwaermen.pdf.pdf]**(https://web.archive.org/web/20110410160327/http://www.physio-team.com/INFO-Allgemein/Dehnen/Aufwaermen.pdf.pdf)  
+**•[http://www2.uni-wuppertal.de/FB3/sport/bewegungslehre/klee/dehnaufw.pdf]**(https://web.archive.org/web/20110410160327/http://www2.uni-wuppertal.de/FB3/sport/bewegungslehre/klee/dehnaufw.pdf)**
