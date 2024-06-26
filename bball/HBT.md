@@ -1,5 +1,5 @@
 
-**Der Heidelberger-Basketball-****Test** **(HBT, BÖS  u.a. 1987)**
+**Der Heidelberger-Basketball-Test (HBT, BÖS  u.a. 1987)**
 
 Der Heidelberger-Basketball-Test (HBT, BÖS  u.a. 1987) wurde am Institut für Sport und Sportwissenschaften Heidelberg in ständiger Kooperation zwischen Basketballtrainern und Sportwissenschaftlern entwickelt. Der Test besteht in seiner ursprünglichen Fassung aus zwei Subtests für Kondition (K1-K5 - Aufgaben: Linienlauf, Sternschritt, Rebound, Beinarbeit, Liegestütz) und elementare Technikfaktoren (T1-T4 - Aufgaben: Korbleger, Würfe außerhalb der Zone, Slalomdribbling, Passen). Der HBT ist also ein Leistungstest zur Messung von Konditions- und elementaren Technikfaktoren im Sportspiel Basketball.
 
