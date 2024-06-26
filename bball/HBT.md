@@ -62,13 +62,13 @@ Nötige Materialien: 1 Basketballbrett (Oberkante 3,95 m), 1 schwerer Basketball
 
 **Orientierungsnormen**
 
-![](https://web.archive.org/web/20110412012319im_/http://home.arcor.de/enderlein/basket/hbt-Dateien/image001.jpg)
+![](https://github.com/endoleg/endoleg.github.io/blob/master/bball/hbt-image001.jpg)
 
 Ein Minuszeichen (-) vor dem Testwert bedeutet, dass die Klassifikationsstufen auch für schlechtere Ergebnisse gilt. Analog bedeutet ein Pluszeichen (+) den  Einschluß  besserer Werte. So gilt für die Anzahl der Korbleger, dass alle Ergebnisse von 12 und schlechter schwach sind, 13-14 Korbleger ein mittleres und 15 oder mehr Korbleger ein gutes Testresultat.
 
 **Bestwerte**
 
-**![](https://web.archive.org/web/20110412012319im_/http://home.arcor.de/enderlein/basket/hbt-Dateien/image002.jpg)**
+**![](https://github.com/endoleg/endoleg.github.io/blob/master/bball/hbt-image002.jpg)**
 
 **Quellen:  
 Leistungssport 2 / März 1988, 18. Jahrgang (Original  HBT-****Test** **von Klaus Bös)  
