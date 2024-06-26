@@ -18,8 +18,8 @@ An Bedeutung gewinnen auch für das Basketball spielende Kind turnerische Übung
 -   Umstellungsfähigkeit
 
 **Interessante Links zum Thema:**  
-• **[Die Wirkungen des Seilspringens](https://web.archive.org/web/20110410160327/http://home.arcor.de/enderlein/basket/seilspringen.html)**  
-• **[Interessantes zur Körpergröße](https://web.archive.org/web/20110410160327/http://home.arcor.de/enderlein/basket/koerpergroesse.html)**  
+• **[Die Wirkungen des Seilspringens](https://endoleg.github.io/bball/seilspringen.html)**  
+• **[Interessantes zur Körpergröße](https://github.com/endoleg/endoleg.github.io/blob/master/bball/koerpergroesse.md)**  
 • **[Übungen für die Koordinationsleiter](https://web.archive.org/web/20110410160327/http://home.arcor.de/enderlein/basket/koordinationsleiter.html)**  
 • **[Die wichtigsten Zitate d. Buches zum Koordinationstraining von G. Glasauer](https://web.archive.org/web/20110410160327/http://home.arcor.de/enderlein/basket/glasauer.html)**  
 • **[Volltext d. Buches zum Koordinationstraining von G. Glasauer (pdf-Archiv)](https://web.archive.org/web/20110412011858/http://www.verlagdrkovac.de/volltexte/3-8300-1067-2)**  
