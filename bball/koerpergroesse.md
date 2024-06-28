@@ -14,9 +14,8 @@ In den vergangenen Jahren konnten die Forscher beweisen, dass selbst wirtschaftl
 Hier kann man durch Eingabe der Daten testen, ob die Körpergröße von der Norm abweicht:
 https://www.kinderaerzte-im-netz.de/mediathek/koerpergroessen-rechner/
 
-Andere Interessante Seiten:  [**http://crescnet.org**](https://web.archive.org/web/20110412013203/http://crescnet.org/) 
-
-https://www.nutricia.de/services/risiko-tests/perzentilenrechner.html
+Andere Interessante Seiten:
+https://crescnet.org/wachstumsrechner.php und https://apps.crescnet.org/growth-js/
 
 Bei Kleinkindern kann in bestimmten Altersabschnitten durch anthropometrische Vermessung die endgültige Körpergröße mit äußerst geringen Abweichungen ermittelt werden.
 
