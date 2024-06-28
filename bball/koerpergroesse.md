@@ -11,7 +11,8 @@ In den vergangenen Jahren konnten die Forscher beweisen, dass selbst wirtschaftl
 
 **Schätzung der endgültigen Körpergröße**
 
-Hier kann man durch Eingabe der Daten testen, ob die Körpergröße von der Norm abweicht:  [**http://84.16.224.207/wcheck.html**](https://web.archive.org/web/20110412013203/http://84.16.224.207/wcheck.html)
+Hier kann man durch Eingabe der Daten testen, ob die Körpergröße von der Norm abweicht:
+https://www.kinderaerzte-im-netz.de/mediathek/koerpergroessen-rechner/
 
 Andere Interessante Seiten:  [**http://crescnet.org**](https://web.archive.org/web/20110412013203/http://crescnet.org/) 
 
