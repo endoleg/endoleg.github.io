@@ -13,7 +13,7 @@ In den vergangenen Jahren konnten die Forscher beweisen, dass selbst wirtschaftl
 
 Hier kann man durch Eingabe der Daten testen, ob die Körpergröße von der Norm abweicht:  [**http://84.16.224.207/wcheck.html**](https://web.archive.org/web/20110412013203/http://84.16.224.207/wcheck.html)
 
-Andere Interessante Seiten:  [**http://crescnet.org**](https://web.archive.org/web/20110412013203/http://crescnet.org/)  - [**http://www.fwiegleb.de/normwert.htm**](https://web.archive.org/web/20110412013203/http://www.fwiegleb.de/normwert.htm)  
+Andere Interessante Seiten:  [**http://crescnet.org**](https://web.archive.org/web/20110412013203/http://crescnet.org/) 
 
 https://www.nutricia.de/services/risiko-tests/perzentilenrechner.html
 
