@@ -51,3 +51,28 @@ Körperhöhen von Kindern gleicher Eltern sind unterschiedlich. Das einzig wahre
 Sportliche Auffälligkeiten sind nicht selten auf eine Diskrepanz zwischen kalendarischem und biologischem Alter zurückzuführen, da nicht selten insbesondere im juvenilen Entwicklungsalter ("Pubeszenz") das biologische Alter dem kalendarischem Alter um bis zu drei Jahren vorauseilen kann. Kalendarisch Dreizehnjährige können somit biologisch durchaus sechzehn, oftmals aber auch erst zehn Jahre alt sein.  
   
 Erläuterung: Erst ab dem 17. Lebensjahr ist eine zuverlässige Vorhersage der endgültigen Körperlänge möglich! Zwischen dem 11. und dem 16. Lebensjahr ist die Prognose drastisch verschlechtert. Daher die Forderung, Spieler nicht frühzeitig auf eine Position festzulegen
+
+----------------------------------------------------------------------------------
+
+**Mirwald-Methode**
+Die Mirwald-Methode wird nicht primär zur Bestimmung der voraussichtlichen Endgröße eines Kindes verwendet, sondern zur Einschätzung des biologischen Entwicklungsstands in der Pubertät.
+Die Methode nutzt folgende Parameter:
+- Chronologisches Alter
+- Gewicht
+- Verhältnis von Sitz- zur Stehgröße
+
+Mit diesen Daten wird das Alter beim Wachstumsspurt geschätzt, was Rückschlüsse auf den biologischen Entwicklungsstand erlaubt. 
+Die Mirwald-Methode teilt Kinder in drei Kategorien ein:
+- Spät entwickelt
+- Normal entwickelt
+- Früh entwickelt
+
+Diese nicht-invasive Methode kann bei Mädchen im Alter von 10 bis 14 Jahren und bei Jungen von 12 bis 16 Jahren angewendet werden. Sie ist besonders nützlich in Sportarten, wo der biologische Entwicklungsstand eine wichtige Rolle bei der Talentidentifikation und -selektion spielt. Es ist wichtig zu beachten, dass die Mirwald-Methode nicht direkt die voraussichtliche Endgröße prognostiziert. Für Wachstumsprognosen und die Bestimmung der erwarteten Endgröße werden in der Regel andere Methoden verwendet, wie zum Beispiel die Bestimmung des Knochenalters durch Röntgenaufnahmen.
+
+MIRWALD Methode Erklärvideo: 
+https://www.youtube.com/watch?v=wPV9A2Gnzpc&t=4s 
+https://www.football.ch/sfv/nachwuchsfoerderung/biologisches-alter/mirwald.aspx 
+https://www.swissolympic.ch/dam/jcr:8198b513-cfee-494d-9d8c-4d43bc8fa84d/01_PISTE_Merkblatt_Biologischer_Entwicklungsstand_DE.pdf 
+https://assets01.sdd1.ch/assets/lbwp-cdn/mobilesport/files/2011/02/Manual_Talentidentifikation_und_-selektion_DE_LOW_Neu.pdf
+https://orthinform.de/lexikon/wachstumsprognose
+
