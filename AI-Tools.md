@@ -98,47 +98,47 @@ https://console.x.ai/
 Ein KI-Tool für Sprachsynthese und Texterstellung.
 https://bigspeak.ai/
 
-**Forefront AI:** 
+**Forefront AI** 
 Eine Plattform für KI-gestützte Konversationen und Aufgabenlösung.
 https://chat.forefront.ai/
 
-**Hugging Face:** 
+**Hugging Face** 
 Eine Plattform für die Entwicklung und den Einsatz von KI-Modellen.
 https://huggingface.co/
 
-**Komo AI:** 
+**Komo AI** 
 Ein KI-Assistent für verschiedene Aufgaben und Informationssuche.
 https://komo.ai/
 
-**RoamAround:** 
+**RoamAround** 
 Ein KI-gestützter Reiseplanungsassistent.
 https://www.roamaround.io/
 
-**Fathom:** 
+**Fathom** 
 Ein Tool zur KI-gestützten Videoanalyse und -zusammenfassung.
 https://fathom.video/
 
-**UniJump AI:** 
+**UniJump AI** 
 Eine Plattform zur Unterstützung von Studenten bei akademischen Aufgaben.
 https://unijump.ai/
 
-**Upscayl:** 
+**Upscayl** 
 Ein Tool zur KI-gestützten Verbesserung der Bildqualität.
 https://upscayl.org/
 
-**Booom.ai:**
+**Booom.ai**
 Ein KI-gestütztes Tool zur Erstellung von Marketingmaterialien, Werbeanzeigen und witzigen Quiz-Fragen
 https://futurepedia.io/tool/booom.ai
 
-**Talk to Books:**
+**Talk to Books**
 Ein von Google entwickelter Service, der es ermöglicht, Fragen zu stellen und Antworten aus einer großen Sammlung von Büchern zu erhalten.
 https://books.google.com/talktobooks/
 
-**Magic Eraser:**
+**Magic Eraser**
 Ein Online-Tool zur einfachen Entfernung unerwünschter Objekte aus Fotos.
 www.Magiceraser.io
 
-**Thing Translator:**
+**Thing Translator**
 Eine Anwendung, die Objekte in Bildern erkennt und deren Bezeichnungen in verschiedene Sprachen übersetzt.
 https://thing-translator.appspot.com
 
@@ -155,7 +155,8 @@ Eine KI-gestützte App zur Porträtbearbeitung und Avatargenerierung.
 https://prisma-ai.com/lensa
 
 **Replika** 
-https://replika.ai - Ein KI-Begleiter für persönliche Gespräche und emotionale Unterstützung.
+ Ein KI-Begleiter für persönliche Gespräche und emotionale Unterstützung
+ https://replika.ai
 
 **Genie**
 Genie ist ein KI-Chatbot, der auf ChatGPT und GPT-4 basiert und vielfältige Aufgaben wie Texterstellung und Fragenbeantwortung übernehmen kann
@@ -220,6 +221,10 @@ https://firstpagesage.com/reports/top-generative-ai-chatbots/
 https://kristihines.com/top-ai-chatbots-playgrounds/
 
 
+--------------------------------------------------------------------------------------------
+
+
+Diese Seite wurde erstellt mit https://stackedit.io/
 
 
 
