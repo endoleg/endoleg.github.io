@@ -4,11 +4,17 @@ https://www.chatpdf.com
 
 https://www.askyourpdf.com
 
+https://gemini.google.com/app
+
 https://app.sharly.ai
 
 https://anysummary.app
 
+https://claude.ai/
+
 https://www.summarize.tech/
+
+https://copilot.microsoft.com/
 
 https://www.anonchatgpt.com
 
