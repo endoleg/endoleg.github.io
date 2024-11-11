@@ -126,7 +126,21 @@ https://unijump.ai/
 Ein Tool zur KI-gestützten Verbesserung der Bildqualität.
 https://upscayl.org/
 
+**Booom.ai:**
+Ein KI-gestütztes Tool zur Erstellung von Marketingmaterialien, Werbeanzeigen und witzigen Quiz-Fragen
+https://futurepedia.io/tool/booom.ai
 
+**Talk to Books:**
+Ein von Google entwickelter Service, der es ermöglicht, Fragen zu stellen und Antworten aus einer großen Sammlung von Büchern zu erhalten.
+https://books.google.com/talktobooks/
+
+**Magic Eraser:**
+Ein Online-Tool zur einfachen Entfernung unerwünschter Objekte aus Fotos.
+www.Magiceraser.io
+
+**Thing Translator:**
+Eine Anwendung, die Objekte in Bildern erkennt und deren Bezeichnungen in verschiedene Sprachen übersetzt.
+https://thing-translator.appspot.com
 
 
 
@@ -142,31 +156,6 @@ https://firstpagesage.com/reports/top-generative-ai-chatbots/
 31 AI Chatbots & Playgrounds with 36 Top AI Models [INFOGRAPHIC]
 https://kristihines.com/top-ai-chatbots-playgrounds/
 
---------------------------------------------------------------------------------------------
-
-You can generate fun quizzes using just a single prompt with this free and no signup required tool -
-https://futurepedia.io/tool/booom.ai
-
-Ask your question to the collective wisdom of >100,000 books
-https://books.google.com/talktobooks/
-• Ask it a question
-• It searches all its books
-• It gives you quotes that answer your question
-A curated book search.
-
-
-Edit out parts of photos with Magic Eraser. Have a great photo but with something annoying in the background?
-Remove it easily:
-www.Magiceraser.io
-• Upload the photo
-• Select the part you don't want
-• Press 'erase'
-
-
-Identify objects from photos with Thing Translator.
-https://thing-translator.appspot.com
-• Take a picture of the item
-• Get the word in one of 10 languages
 
 
 
