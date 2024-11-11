@@ -142,7 +142,25 @@ www.Magiceraser.io
 Eine Anwendung, die Objekte in Bildern erkennt und deren Bezeichnungen in verschiedene Sprachen übersetzt.
 https://thing-translator.appspot.com
 
+--------------------------------------------------------------------------------------------
 
+prüfen
+
+Udio: Ein Musikgenerator, der es ermöglicht, Musik durch KI-gestützte Algorithmen zu erstellen.
+URL: https://www.udio.ai
+SDXL Turbo: Ein Bildgenerator, der in Echtzeit Bilder basierend auf Texteingaben erstellt. Es funktioniert lokal auf Ihrer Grafikkarte und bietet schnelle Ergebnisse.
+URL: https://github.com/SDXL-Turbo
+GPT4All: Ein KI-Tool, mit dem Nutzer in natürlicher Sprache chatten und eigene Texte generieren können.
+URL: https://gpt4all.io
+Palette FM: Ein Tool zur Kolorierung von Schwarzweißfotos, das einfach zu bedienen ist und keine Software-Downloads erfordert.
+URL: https://palette.fm
+WolframAlpha: Eine leistungsstarke Suchmaschine für wissenschaftliche und mathematische Fragen, die Antworten in natürlicher Sprache liefert.
+URL: https://www.wolframalpha.com
+Craiyon: Ein KI-gestütztes Tool zur Bildgenerierung, bei dem Nutzer Textanweisungen geben und mehrere Bildvorschläge erhalten können.
+URL: https://www.craiyon.com
+Perplexity AI: Eine intelligente Suchmaschine, die detaillierte Antworten auf komplexe Fragen liefert und Quellenangaben bereitstellt.
+URL: https://www.perplexity.ai
+Diese Tools erweitern Ihre Sammlung um verschiedene Funktionen und Anwendungen im Bereich der künstlichen Intelligenz.
 
 --------------------------------------------------------------------------------------------
 
