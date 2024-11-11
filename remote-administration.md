@@ -32,7 +32,7 @@ Then enter in the name of the remote computer.
 
 ![type regedit](https://images.airdroid.com/2024/08/type-regedit.jpg)
 
-1.  **Step 2.**In the Registry Editor, go to the menu and click on  **File**, then select  **Connect Network Registry**.
+2.  In the Registry Editor, go to the menu and click on  **File**, then select  **Connect Network Registry**.
 
 ![connect network registry](https://images.airdroid.com/2024/10/connect-network-registry-768x437.png)
 
