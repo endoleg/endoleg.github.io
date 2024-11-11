@@ -132,10 +132,14 @@ https://upscayl.org/
 
 --------------------------------------------------------------------------------------------
 
+Awesome Generative AI Awesome
+A curated list of modern Generative Artificial Intelligence projects and services.
 https://github.com/steven2358/awesome-generative-ai
 
+Top Generative AI Chatbots by Market Share – November 2024
 https://firstpagesage.com/reports/top-generative-ai-chatbots/
 
+31 AI Chatbots & Playgrounds with 36 Top AI Models [INFOGRAPHIC]
 https://kristihines.com/top-ai-chatbots-playgrounds/
 
 --------------------------------------------------------------------------------------------
