@@ -1,55 +1,55 @@
 
 AI Tools
 
-**ChatPDF:** 
+**ChatPDF** 
 Ein Tool, das es ermöglicht, mit PDF-Dokumenten zu chatten und Informationen schnell zu extrahieren.
 https://www.chatpdf.com
 
-**AskYourPDF:** 
+**AskYourPDF** 
 Ein Service, der Fragen zu PDF-Dokumenten beantwortet und relevante Informationen liefert.
 https://www.askyourpdf.com
 
-**Gemini:** 
+**Gemini** 
 Googles KI-Assistent, der Fragen beantwortet und bei verschiedenen Aufgaben unterstützt.
 https://gemini.google.com/app
 
-**Sharly AI:** 
+**Sharly AI** 
 Eine Plattform für KI-gestützte Zusammenarbeit und Ideenaustausch.
 https://app.sharly.ai
 
-**AnySummary:** 
+**AnySummary** 
 Ein Tool zur automatischen Zusammenfassung von Texten und Dokumenten.
 https://anysummary.app
 
-**Claude:** 
+**Claude** 
 Ein vielseitiger KI-Assistent von Anthropic für Konversationen und Aufgaben.
 https://claude.ai/
 
-**Summarize.tech:** 
+**Summarize.tech** 
 Ein Dienst zur Erstellung von Zusammenfassungen für verschiedene Inhaltstypen.
 https://www.summarize.tech/
 
-**Microsoft Copilot:** 
+**Microsoft Copilot** 
 Ein KI-Assistent, der in Microsoft-Produkte integriert ist und bei der Arbeit unterstützt.
 https://copilot.microsoft.com/
 
-**AnonChatGPT:** 
+**AnonChatGPT** 
 Eine anonyme Version von ChatGPT für vertrauliche Gespräche.
 https://www.anonchatgpt.com
 
-**NoteGPT:** 
+**NoteGPT** 
 Ein Tool zur Zusammenfassung von YouTube-Videos und Erstellung von Notizen.
 https://notegpt.io/youtube-video-summarizer
 
-**Kome AI Summarizer:** 
+**Kome AI Summarizer** 
 Ein Dienst zur automatischen Textzusammenfassung.
 https://kome.ai/summarizer
 
-**Photosonic:** 
+**Photosonic** 
 Ein KI-Kunstgenerator von Writesonic zur Erstellung von Bildern aus Textbeschreibungen.
 https://writesonic.com/photosonic-ai-art-generator
 
-**Craiyon:** 
+**Craiyon** 
 Ein KI-Tool zur Generierung von Bildern basierend auf Textbeschreibungen.
 https://www.craiyon.com/
 
@@ -57,44 +57,44 @@ https://www.craiyon.com/
 Eine webbasierte Plattform zur KI-gestützten Bildgenerierung.
 https://stablediffusionweb.com/
 
-**Phind:** 
+**Phind** 
 Eine KI-gestützte Suchmaschine, spezialisiert auf technische und Programmierfragen.
 https://www.phind.com
 
-**Noowai:** 
+**Noowai** 
 Ein KI-Assistent für verschiedene Aufgaben und Informationssuche.
 https://www.noowai.com
 
-**iAsk AI:** 
+**iAsk AI** 
 Eine Plattform für KI-gestützte Frage-Antwort-Interaktionen.
 https://www.iask.ai
 
-**You.com:** 
+**You.com** 
 Eine KI-gestützte Suchmaschine mit integriertem Chatbot.
 https://you.com/chat
 https://you.com/search?q=who+are+you&tbm=youchat&cfr=chat
 
-**Perplexity AI:** 
+**Perplexity AI** 
 Eine KI-Suchmaschine, die detaillierte Antworten auf komplexe Fragen liefert.
 https://www.perplexity.ai
 
-**Perplexity SQL:** 
+**Perplexity SQL** 
 Ein spezialisiertes Tool für SQL-bezogene Fragen und Datenbankabfragen.
 https://www.perplexity.ai/sql
 
-**AndiSearch:** 
+**AndiSearch** 
 Eine KI-gestützte Suchmaschine für präzise und relevante Ergebnisse.
 https://andisearch.com/
 
-**ChatGPT:** 
+**ChatGPT** 
 Der bekannte Chatbot von OpenAI für vielfältige Konversationen und Aufgaben.
 https://chat.openai.com/
 
-**X.AI:** 
+**X.AI** 
 Eine Plattform für die Entwicklung und den Einsatz von KI-Agenten.
 https://console.x.ai/
 
-**BigSpeak AI:** 
+**BigSpeak AI** 
 Ein KI-Tool für Sprachsynthese und Texterstellung.
 https://bigspeak.ai/
 
@@ -142,18 +142,69 @@ www.Magiceraser.io
 Eine Anwendung, die Objekte in Bildern erkennt und deren Bezeichnungen in verschiedene Sprachen übersetzt.
 https://thing-translator.appspot.com
 
+**WolframAlpha**
+Eine leistungsstarke Suchmaschine für wissenschaftliche und mathematische Fragen, die Antworten in natürlicher Sprache liefert.
+https://www.wolframalpha.com
 
-WolframAlpha: Eine leistungsstarke Suchmaschine für wissenschaftliche und mathematische Fragen, die Antworten in natürlicher Sprache liefert.
-URL: https://www.wolframalpha.com
-
-GPT-3 Playground: 
+**GPT-3 Playground**
 Eine Plattform zum Experimentieren mit OpenAIs GPT-3 Sprachmodell.
 https://beta.openai.com/playground
 
-Lensa: Eine KI-gestützte App zur Porträtbearbeitung und Avatargenerierung.
+**Lensa**
+Eine KI-gestützte App zur Porträtbearbeitung und Avatargenerierung.
 https://prisma-ai.com/lensa
 
-Replika: https://replika.ai - Ein KI-Begleiter für persönliche Gespräche und emotionale Unterstützung.
+**Replika** 
+https://replika.ai - Ein KI-Begleiter für persönliche Gespräche und emotionale Unterstützung.
+
+**Genie**
+Genie ist ein KI-Chatbot, der auf ChatGPT und GPT-4 basiert und vielfältige Aufgaben wie Texterstellung und Fragenbeantwortung übernehmen kann
+https://www.usegenie.ai/
+
+**Llama 2**
+Llama 2 ist ein Open-Source-Chatbot, der Konzepte erklären, Gedichte und Code schreiben sowie logische Rätsel lösen kann
+https://www.llama2.ai/
+
+**Groq Playground**
+Groq Playground ist eine Plattform zum Experimentieren mit KI-Modellen
+https://console.groq.com/playground
+
+**Pi**
+Pi ist eine KI-Plattform zum Entdecken und Interagieren mit verschiedenen KI-Anwendungen.
+https://pi.ai/discover
+
+**Vercel AI SDK**
+Vercel AI SDK ist ein Entwickler-Toolkit für die Integration von KI-Funktionen in Webanwendungen.
+https://sdk.vercel.ai/
+
+**Omniplex AI**
+Omniplex AI ist eine umfassende KI-Plattform für verschiedene Anwendungsbereiche.
+https://omniplex.ai/
+
+**Mistral AI**
+Mistral AI ist eine KI-Plattform, die sich auf fortschrittliche Sprachmodelle spezialisiert hat.
+https://auth.mistral.ai/
+
+**Arc Search**
+Arc Search ist eine iOS-App für schnelleres und effizienteres Suchen im Internet.
+https://apps.apple.com/us/app/arc-search-find-it-faster/id6472513080
+
+**Noow AI**
+Noow AI ist ein KI-basierter Assistent für verschiedene Aufgaben und Anfragen.
+https://noowai.com/
+
+**Anon ChatGPT**
+Anon ChatGPT ist ein anonymer Zugang zu ChatGPT-ähnlichen Funktionen.
+https://anonchatgpt.com/
+
+**ChatOpenAI**
+ChatOpenAI ist eine deutschsprachige Plattform für KI-gestützte Konversationen.
+https://chatopenai.de/
+
+**ChatX**
+ChatX ist ein weiterer deutschsprachiger KI-Chatdienst für verschiedene Anwendungszwecke.
+https://chatx.de/
+
 
 --------------------------------------------------------------------------------------------
 
