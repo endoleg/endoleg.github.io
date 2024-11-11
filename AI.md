@@ -18,7 +18,13 @@ www.iask.ai
 
 https://you.com/search?q=who+are+you&tbm=youchat&cfr=chat
 
-www.perplexity.ai
+https://www.perplexity.ai
+
+https://www.perplexity.ai/sql
+
+https://you.com/chat
+
+https://chat.openai.com/
 
 You can generate fun quizzes using just a single prompt with this free and no signup required tool -
 https://futurepedia.io/tool/booom.ai
