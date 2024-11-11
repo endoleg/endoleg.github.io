@@ -142,57 +142,21 @@ www.Magiceraser.io
 Eine Anwendung, die Objekte in Bildern erkennt und deren Bezeichnungen in verschiedene Sprachen übersetzt.
 https://thing-translator.appspot.com
 
---------------------------------------------------------------------------------------------
-
-prüfen
-
-Udio: Ein Musikgenerator, der es ermöglicht, Musik durch KI-gestützte Algorithmen zu erstellen.
-URL: https://www.udio.ai
-
-SDXL Turbo: Ein Bildgenerator, der in Echtzeit Bilder basierend auf Texteingaben erstellt. Es funktioniert lokal auf Ihrer Grafikkarte und bietet schnelle Ergebnisse.
-URL: https://github.com/SDXL-Turbo
-
-GPT4All: Ein KI-Tool, mit dem Nutzer in natürlicher Sprache chatten und eigene Texte generieren können.
-URL: https://gpt4all.io
-
-Palette FM: Ein Tool zur Kolorierung von Schwarzweißfotos, das einfach zu bedienen ist und keine Software-Downloads erfordert.
-URL: https://palette.fm
 
 WolframAlpha: Eine leistungsstarke Suchmaschine für wissenschaftliche und mathematische Fragen, die Antworten in natürlicher Sprache liefert.
 URL: https://www.wolframalpha.com
 
-GPT-3 Playground: https://beta.openai.com/playground - Eine Plattform zum Experimentieren mit OpenAIs GPT-3 Sprachmodell.
+GPT-3 Playground: 
+Eine Plattform zum Experimentieren mit OpenAIs GPT-3 Sprachmodell.
+https://beta.openai.com/playground
 
-Jasper: https://www.jasper.ai - Ein KI-Schreibassistent für Marketing-Inhalte und kreatives Schreiben.
-
-Grammarly: https://www.grammarly.com - Ein KI-gestütztes Schreibverbesserungstool für Grammatik und Stil.
-
-DALL-E 2: https://openai.com/dall-e-2 - OpenAIs fortschrittlicher KI-Bildgenerator.
-
-Midjourney: https://www.midjourney.com - Ein KI-Tool zur Erstellung von Kunstwerken und Illustrationen.
-
-Lensa: https://prisma-ai.com/lensa - Eine KI-gestützte App zur Porträtbearbeitung und Avatargenerierung.
-
-Descript: https://www.descript.com - Ein KI-gestützter Audio- und Videoeditor mit Transkriptionsfunktionen.
-
-Otter.ai: https://otter.ai - Ein KI-Transkriptionsdienst für Meetings und Interviews.
-
-Murf: https://murf.ai - Ein KI-Sprachsynthese-Tool zur Erstellung von Voiceovers.
-
-Notion AI: https://www.notion.so/product/ai - KI-gestützte Funktionen innerhalb der Notion-Plattform für verbesserte Produktivität.
-
-Mem.ai: https://mem.ai - Ein KI-gestütztes Notiz- und Wissensmanagement-Tool.
-
-Taskade: https://www.taskade.com - Eine KI-gestützte Plattform für Projektmanagement und Zusammenarbeit.
+Lensa: Eine KI-gestützte App zur Porträtbearbeitung und Avatargenerierung.
+https://prisma-ai.com/lensa
 
 Replika: https://replika.ai - Ein KI-Begleiter für persönliche Gespräche und emotionale Unterstützung.
 
-RunwayML: https://runwayml.com - Eine Plattform für KI-gestützte Videobearbeitung und -erstellung.
-
-Synthesia: https://www.synthesia.io - Ein Tool zur Erstellung von KI-generierten Videos mit virtuellen Moderatoren.
-
-
 --------------------------------------------------------------------------------------------
+
 
 Awesome Generative AI Awesome
 A curated list of modern Generative Artificial Intelligence projects and services.
