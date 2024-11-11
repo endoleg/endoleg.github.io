@@ -1,129 +1,128 @@
+
 AI Tools
 
-ChatPDF: 
+**ChatPDF:** 
 Ein Tool, das es ermöglicht, mit PDF-Dokumenten zu chatten und Informationen schnell zu extrahieren.
 https://www.chatpdf.com
 
-AskYourPDF: 
+**AskYourPDF:** 
 Ein Service, der Fragen zu PDF-Dokumenten beantwortet und relevante Informationen liefert.
 https://www.askyourpdf.com
 
-Gemini: 
+**Gemini:** 
 Googles KI-Assistent, der Fragen beantwortet und bei verschiedenen Aufgaben unterstützt.
 https://gemini.google.com/app
 
-Sharly AI: 
+**Sharly AI:** 
 Eine Plattform für KI-gestützte Zusammenarbeit und Ideenaustausch.
 https://app.sharly.ai
 
-AnySummary: 
+**AnySummary:** 
 Ein Tool zur automatischen Zusammenfassung von Texten und Dokumenten.
 https://anysummary.app
 
-Claude: 
+**Claude:** 
 Ein vielseitiger KI-Assistent von Anthropic für Konversationen und Aufgaben.
 https://claude.ai/
 
-Summarize.tech: 
+**Summarize.tech:** 
 Ein Dienst zur Erstellung von Zusammenfassungen für verschiedene Inhaltstypen.
 https://www.summarize.tech/
 
-Microsoft Copilot: 
+**Microsoft Copilot:** 
 Ein KI-Assistent, der in Microsoft-Produkte integriert ist und bei der Arbeit unterstützt.
 https://copilot.microsoft.com/
 
-AnonChatGPT: 
+**AnonChatGPT:** 
 Eine anonyme Version von ChatGPT für vertrauliche Gespräche.
 https://www.anonchatgpt.com
 
-NoteGPT: 
+**NoteGPT:** 
 Ein Tool zur Zusammenfassung von YouTube-Videos und Erstellung von Notizen.
 https://notegpt.io/youtube-video-summarizer
 
-Kome AI Summarizer: 
+**Kome AI Summarizer:** 
 Ein Dienst zur automatischen Textzusammenfassung.
 https://kome.ai/summarizer
 
-Bild- und Kunstgenerierung
-Photosonic: 
+**Photosonic:** 
 Ein KI-Kunstgenerator von Writesonic zur Erstellung von Bildern aus Textbeschreibungen.
 https://writesonic.com/photosonic-ai-art-generator
 
-Craiyon: 
+**Craiyon:** 
 Ein KI-Tool zur Generierung von Bildern basierend auf Textbeschreibungen.
 https://www.craiyon.com/
 
-Stable Diffusion: 
+**Stable Diffusion:** 
 Eine webbasierte Plattform zur KI-gestützten Bildgenerierung.
 https://stablediffusionweb.com/
 
-Phind: 
+**Phind:** 
 Eine KI-gestützte Suchmaschine, spezialisiert auf technische und Programmierfragen.
 https://www.phind.com
 
-Noowai: 
+**Noowai:** 
 Ein KI-Assistent für verschiedene Aufgaben und Informationssuche.
 https://www.noowai.com
 
-iAsk AI: 
+**iAsk AI:** 
 Eine Plattform für KI-gestützte Frage-Antwort-Interaktionen.
 https://www.iask.ai
 
-You.com: 
+**You.com:** 
 Eine KI-gestützte Suchmaschine mit integriertem Chatbot.
 https://you.com/chat
 https://you.com/search?q=who+are+you&tbm=youchat&cfr=chat
 
-Perplexity AI: 
+**Perplexity AI:** 
 Eine KI-Suchmaschine, die detaillierte Antworten auf komplexe Fragen liefert.
 https://www.perplexity.ai
 
-Perplexity SQL: 
+**Perplexity SQL:** 
 Ein spezialisiertes Tool für SQL-bezogene Fragen und Datenbankabfragen.
 https://www.perplexity.ai/sql
 
-AndiSearch: 
+**AndiSearch:** 
 Eine KI-gestützte Suchmaschine für präzise und relevante Ergebnisse.
 https://andisearch.com/
 
-Konversations-KI und Chatbots
-ChatGPT: 
+**ChatGPT:** 
 Der bekannte Chatbot von OpenAI für vielfältige Konversationen und Aufgaben.
 https://chat.openai.com/
 
-X.AI: 
+**X.AI:** 
 Eine Plattform für die Entwicklung und den Einsatz von KI-Agenten.
 https://console.x.ai/
 
-BigSpeak AI: 
+**BigSpeak AI:** 
 Ein KI-Tool für Sprachsynthese und Texterstellung.
 https://bigspeak.ai/
 
-Forefront AI: 
+**Forefront AI:** 
 Eine Plattform für KI-gestützte Konversationen und Aufgabenlösung.
 https://chat.forefront.ai/
 
-Hugging Face: 
+**Hugging Face:** 
 Eine Plattform für die Entwicklung und den Einsatz von KI-Modellen.
 https://huggingface.co/
 
-Komo AI: 
+**Komo AI:** 
 Ein KI-Assistent für verschiedene Aufgaben und Informationssuche.
 https://komo.ai/
 
-RoamAround: 
+**RoamAround:** 
 Ein KI-gestützter Reiseplanungsassistent.
 https://www.roamaround.io/
 
-Fathom: 
+**Fathom:** 
 Ein Tool zur KI-gestützten Videoanalyse und -zusammenfassung.
 https://fathom.video/
 
-UniJump AI: 
+**UniJump AI:** 
 Eine Plattform zur Unterstützung von Studenten bei akademischen Aufgaben.
 https://unijump.ai/
 
-Upscayl: 
+**Upscayl:** 
 Ein Tool zur KI-gestützten Verbesserung der Bildqualität.
 https://upscayl.org/
 
