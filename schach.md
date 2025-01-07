@@ -37,10 +37,9 @@ https://schachtraining.de/eroeffnung/schottische-partie/
 Scotch Game: Lolli Variation • lichess.org
 https://lichess.org/opening/Scotch_Game_Lolli_Variation/e4_e5_Nf3_Nc6_d4_exd4_Nxd4_Nxd4_Qxd4
 
-
 Schottisch-Göring-Gambit
-https://schachgemeinschaft-schoeningen.de/schottisch-goering-gambit/?utm_source=perplexity
-
+https://schachgemeinschaft-schoeningen.de/schottisch-goering-gambit
+https://lichess.org/study/8bOCQ1Cv/CyA7gCZ6
 
 Kurzpartien Englische Eröffnung 4
 http://www.scrkuppenheim.de/training/kurzpartien/englisch4.htm
@@ -55,3 +54,66 @@ https://schachtraining.de/eroeffnung/russische-verteidigung/
 
 Eröffnung • Petrov's Defense: Damiano Variation, Kholmov Gambit • lichess.org
 https://lichess.org/opening/Petrovs_Defense_Damiano_Variation_Kholmov_Gambit
+
+
+Die besten Eröffnungen mit Schwarz für Anfänger:innen 
+https://www.chess.com/article/view/schach-eroffnungen-mit-schwarz-anfanger-innen #chess
+
+Polnische Verteidigung | www.ich-lerne-schach.de
+https://www.ich-lerne-schach.de/polnische_verteidigung
+
+
+Damengambit, angenommen
+http://www.ich-lerne-schach.de/angenommenes_damengambit
+
+
+Skandinavische Verteidigung
+http://www.ich-lerne-schach.de/skandinavische_verteidigung
+
+
+Nordisches Gambit
+http://www.ich-lerne-schach.de/nordisches_gambit
+
+
+Londoner System
+http://www.ich-lerne-schach.de/londoner-system
+
+
+Französische Verteidigung
+http://www.ich-lerne-schach.de/franzoesische_verteidigung
+
+
+Blackburne Gambit
+http://www.ich-lerne-schach.de/blackburne_gambit
+
+
+Sizilianisch
+http://www.ich-lerne-schach.de/sizilianisch
+
+
+Orang-Utan
+http://www.ich-lerne-schach.de/orang-utan
+
+
+Die 10 besten Fallen im Schach 
+https://www.chess.com/article/view/die-10-besten-fallen-im-schach #chess
+
+
+Benoni Verteidigung
+http://www.ich-lerne-schach.de/benoni_verteidigung
+
+
+Englisch
+http://www.ich-lerne-schach.de/englisch
+
+
+Fegatello-Variante
+https://de.m.wikipedia.org/wiki/Fegatello-Variante
+
+
+Diese unscheinbare Chess.com-Funktion wird dein Rating erhöhen
+https://www.chess.com/de/blog/Kevinpptx/diese-unscheinbare-chess-com-funktion-wird-dein-rating-erhohen
+
+
+Das Angriffs-Setup, das immer gewinnt
+https://www.chess.com/de/article/view/das-angriffs-setup-das-immer-gewinnt
