@@ -14,6 +14,7 @@ Eröffnungsdatenbank
 https://old.chesstempo.com/chess-openings.html
 https://www.365chess.com/opening.php
 https://web.archive.org/web/20250103074154/https://www.365chess.com/opening.php
+https://www.365chess.com/eco.php
 
 # **Analysebrett**
 https://lichess.org/analysis
@@ -136,6 +137,10 @@ https://www.chess.com/de/blog/Kevinpptx/diese-unscheinbare-chess-com-funktion-wi
 
 Chess Compass: Eine Chrome-Erweiterung, die es ermöglicht, Partien von Chess.com und Lichess zu importieren und kostenlos zu analysieren
 https://chromewebstore.google.com/detail/chess-compass-free-online/djkdhnacahocjglfmgdkcogbmnhholch?pli=1
+
+
+Link-Selection
+https://web.archive.org/web/20210618232322/http://www.amateurschach.de/main/_comparable.htm
 
 
 # **Das Angriffs-Setup, das immer gewinnt**
