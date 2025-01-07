@@ -4,7 +4,16 @@ https://pandao.github.io/editor.md/en.html
 
 ------------
 
+Trainieren. Lernen. Spielen. Verbessere Dein Schach.
+https://chesstempo.com/
 
+Schach-Taktik-Training.
+https://chesstempo.com/chess-tactics/
+
+Eröffnungsdatenbank
+https://old.chesstempo.com/chess-openings.html
+https://www.365chess.com/opening.php
+https://web.archive.org/web/20250103074154/https://www.365chess.com/opening.php
 
 # **Analysebrett**
 https://lichess.org/analysis
@@ -48,6 +57,8 @@ https://lichess.org/opening/Scotch_Game_Lolli_Variation/e4_e5_Nf3_Nc6_d4_exd4_Nx
 # **Schottisch-Göring-Gambit**
 https://schachgemeinschaft-schoeningen.de/schottisch-goering-gambit
 https://lichess.org/study/8bOCQ1Cv/CyA7gCZ6
+
+https://web.archive.org/web/20241126191146/https://www.365chess.com/chess-openings/Scotch-Game
 
 # **Kurzpartien Englische Eröffnung 4**
 http://www.scrkuppenheim.de/training/kurzpartien/englisch4.htm
