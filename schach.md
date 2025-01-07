@@ -1,5 +1,5 @@
 Schachlinks, erstellt mit 
-https://pandao.github.io/editor.md/index.html
+https://pandao.github.io/editor.md/en.html
 
 
 ------------
