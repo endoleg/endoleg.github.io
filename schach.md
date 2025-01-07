@@ -29,11 +29,29 @@ https://perlenvombodensee.de/2018/10/08/fuer-sparfuechse-die-schach-grundausstat
 
 
 Schottisch für Einsteiger
-https://www.herderschach.de/Training/Online/tr63s0.html?utm_source=perplexity
+https://www.herderschach.de/Training/Online/tr63s0.html
+
+Schottische Partie - schachtraining.de
+https://schachtraining.de/eroeffnung/schottische-partie/
+
+Scotch Game: Lolli Variation • lichess.org
+https://lichess.org/opening/Scotch_Game_Lolli_Variation/e4_e5_Nf3_Nc6_d4_exd4_Nxd4_Nxd4_Qxd4
 
 
 Schottisch-Göring-Gambit
 https://schachgemeinschaft-schoeningen.de/schottisch-goering-gambit/?utm_source=perplexity
 
 
+Kurzpartien Englische Eröffnung 4
+http://www.scrkuppenheim.de/training/kurzpartien/englisch4.htm
 
+
+Rochade Kuppenheim: Schachtraining
+http://www.scrkuppenheim.de/training/
+
+
+Russische Verteidigung 
+https://schachtraining.de/eroeffnung/russische-verteidigung/
+
+Eröffnung • Petrov's Defense: Damiano Variation, Kholmov Gambit • lichess.org
+https://lichess.org/opening/Petrovs_Defense_Damiano_Variation_Kholmov_Gambit
