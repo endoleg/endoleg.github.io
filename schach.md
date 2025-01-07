@@ -123,5 +123,9 @@ https://de.m.wikipedia.org/wiki/Fegatello-Variante
 https://www.chess.com/de/blog/Kevinpptx/diese-unscheinbare-chess-com-funktion-wird-dein-rating-erhohen
 
 
+Chess Compass: Eine Chrome-Erweiterung, die es ermöglicht, Partien von Chess.com und Lichess zu importieren und kostenlos zu analysieren
+https://chromewebstore.google.com/detail/chess-compass-free-online/djkdhnacahocjglfmgdkcogbmnhholch?pli=1
+
+
 # **Das Angriffs-Setup, das immer gewinnt**
 https://www.chess.com/de/article/view/das-angriffs-setup-das-immer-gewinnt
