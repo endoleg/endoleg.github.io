@@ -19,13 +19,14 @@ https://crescnet.org/wachstumsrechner.php und https://apps.crescnet.org/growth-j
 
 ------------------
 
-##Perzentile##
+##Perzentile für den Body-mass-Index für das Kindes- und Jugendalter unter Heranziehung verschiedener deutscher Stichproben##
 https://tud.qucosa.de/landing-page/?tx_dlf%5Bid%5D=https%3A%2F%2Ftud.qucosa.de%2Fapi%2Fqucosa%253A26571%2Fmets
 
-Perzentile sind statistische Maße, die eine Verteilung von Daten in 100 gleich große Teile aufteilen13. Sie werden verwendet, um die relative Position eines Wertes innerhalb einer Verteilung zu beschreiben.
-Bedeutung und Anwendung
-Ein Perzentil gibt an, welcher Prozentsatz der Werte in einer Verteilung kleiner oder gleich diesem Wert ist24.
-Beispiel: Liegt ein Wert auf dem 70. Perzentil, bedeutet dies, dass 70% der Werte in der Verteilung kleiner oder gleich diesem Wert sind
+und
+
+https://nbn-resolving.org/urn:nbn:de:bsz:14-qucosa-105179
+
+Die Perzentile gibt an, wieviel Prozent der Kinder des entsprechenden Geschlechtes bzw. Alters kleiner bzw. dünner sind. Eine BMI-Perzentile von 3% bedeutet also, dass nur 3 von Hundert Kindern (dieses Geschlechtes und Alters) dünner sind, während z.B. eine Größenperzentile von 98% bedeutet, dass 98% der Kinder kleiner, bzw. nur 2% der Kinder größer sind.
 
 -----------------
 
