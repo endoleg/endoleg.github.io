@@ -26,7 +26,35 @@ und
 
 https://nbn-resolving.org/urn:nbn:de:bsz:14-qucosa-105179
 
+und
+
+https://www.familie.de/kleinkind/wachstum-bei-kindern/
+
 Die Perzentile gibt an, wieviel Prozent der Kinder des entsprechenden Geschlechtes bzw. Alters kleiner bzw. dünner sind. Eine BMI-Perzentile von 3% bedeutet also, dass nur 3 von Hundert Kindern (dieses Geschlechtes und Alters) dünner sind, während z.B. eine Größenperzentile von 98% bedeutet, dass 98% der Kinder kleiner, bzw. nur 2% der Kinder größer sind.
+
+Zusammenfassung der Größen und Geburtsdaten (Bezugsdatum 08.01.2025)
+Alter Sollgröße Geburtsdatum
+6 Jahre 116 cm 08.01.2019
+6,5 Jahre 118 cm 08.07.2018
+7 Jahre 121 cm 08.01.2018
+7,5 Jahre 124 cm 08.07.2017
+8 Jahre 127 cm 08.01.2017
+8,5 Jahre 130 cm 08.07.2016
+9 Jahre 133 cm 08.01.2016
+9,5 Jahre 136 cm 08.07.2015
+10 Jahre 139 cm 08.01.2015
+10,5 Jahre 142 cm 08.07.2014
+11 Jahre 145 cm 08.01.2014
+11,5 Jahre 148 cm 08.07.2013
+12 Jahre 151 cm 08.01.2013
+12,5 Jahre 154 cm 08.07.2012
+13 Jahre 157 cm 08.01.2012
+
+Diese Tabelle zeigt die Sollgrößen für Kinder in der 50. Perzentile im Alter von 6 bis 13 Jahren, zusammen mit den entsprechenden Geburtsdaten, bezogen auf den Stichtag 08.01.2025. Die Größenangaben repräsentieren Durchschnittswerte und können individuell variieren.
+
+
+Heute ist der 08.01.2025.
+Kannst du je ein Datum zu den Altersangaben hinzuschreiben, also Geburtstage für die Altersangaben (Bezugsdatum 08.01.2025)? Danke.
 
 -----------------
 
