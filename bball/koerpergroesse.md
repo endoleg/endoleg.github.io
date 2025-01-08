@@ -1,7 +1,7 @@
 
 **Die Körpergröße**
 
-Jugendliche erreichen mit etwa 18 bis 20 Jahren ihre endgültige Körpergröße, wobei Mädchen etwas früher zu wachsen aufhören als Knaben. Das Größenwachstum verläuft vom Säugling bis zum Erwachsenen keineswegs linear. Der Wachstumsschub setzt bei Mädchen zwischen 7,5 und 12, bei Jungen zwischen 10 und 13,5 Jahren ein.
+Jugendliche erreichen mit etwa 18 bis 20 Jahren ihre endgültige Körpergröße, wobei Mädchen etwas früher zu wachsen aufhören als Jungs. Das Größenwachstum verläuft vom Säugling bis zum Erwachsenen keineswegs linear. Der Wachstumsschub setzt bei Mädchen zwischen 7,5 und 12, bei Jungen zwischen 10 und 13,5 Jahren ein.
 
 Kopf, Hände und Füße erreichen zuerst die volle Größe. Beine und Arme wachsen langsamer als die zuvor genannten Körperteile, aber schneller als der Rumpf. Diese  Asynchronitäten  machen sich in Disproportionen (übergroße Gelenke und Hände) aber auch in ungelenken und schlaksigen Bewegungen bemerkbar (vgl. OERTER & MONTADA 1995, S331; SCHENK-DANZIGER 1988, S 322).
 
