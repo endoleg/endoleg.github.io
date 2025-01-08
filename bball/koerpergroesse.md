@@ -17,6 +17,19 @@ https://www.kinderaerzte-im-netz.de/mediathek/koerpergroessen-rechner/
 Andere Interessante Seiten:
 https://crescnet.org/wachstumsrechner.php und https://apps.crescnet.org/growth-js/
 
+------------------
+
+##Perzentile##
+https://tud.qucosa.de/landing-page/?tx_dlf%5Bid%5D=https%3A%2F%2Ftud.qucosa.de%2Fapi%2Fqucosa%253A26571%2Fmets
+
+Perzentile sind statistische Maße, die eine Verteilung von Daten in 100 gleich große Teile aufteilen13. Sie werden verwendet, um die relative Position eines Wertes innerhalb einer Verteilung zu beschreiben.
+Bedeutung und Anwendung
+Ein Perzentil gibt an, welcher Prozentsatz der Werte in einer Verteilung kleiner oder gleich diesem Wert ist24.
+Beispiel: Liegt ein Wert auf dem 70. Perzentil, bedeutet dies, dass 70% der Werte in der Verteilung kleiner oder gleich diesem Wert sind
+
+-----------------
+
+
 Bei Kleinkindern kann in bestimmten Altersabschnitten durch anthropometrische Vermessung die endgültige Körpergröße mit äußerst geringen Abweichungen ermittelt werden.
 
 Nach  Giurgiu  (1987) kann man die endgültige Körperhöhe so schätzen, wenn man den Istwert der Körperhöhe (KH) im betreffenden Lebensjahr mit folgenden Faktoren multipliziert:  
@@ -71,8 +84,12 @@ Diese nicht-invasive Methode kann bei Mädchen im Alter von 10 bis 14 Jahren und
 
 MIRWALD Methode Erklärvideo: 
 https://www.youtube.com/watch?v=wPV9A2Gnzpc&t=4s 
+
 https://www.football.ch/sfv/nachwuchsfoerderung/biologisches-alter/mirwald.aspx 
+
 https://www.swissolympic.ch/dam/jcr:8198b513-cfee-494d-9d8c-4d43bc8fa84d/01_PISTE_Merkblatt_Biologischer_Entwicklungsstand_DE.pdf 
+
 https://assets01.sdd1.ch/assets/lbwp-cdn/mobilesport/files/2011/02/Manual_Talentidentifikation_und_-selektion_DE_LOW_Neu.pdf
+
 https://orthinform.de/lexikon/wachstumsprognose
 
