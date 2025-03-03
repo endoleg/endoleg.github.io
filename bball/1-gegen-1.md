@@ -1,12 +1,13 @@
-1. Dribbling an der Drei-Punkte-Linie nicht weit weg vom Verteidiger:
---->   Dribbling neben dem Körper in paralleler Fußstellung  --->  Tempowechsel durch Antritt  ---> Anschlussbewegung
---->   Handwechsel vor dem Körper tiefer als die Knie  --->   1 Dribbling mit der anderen Hand --->  Anschlussbewegung
---->   Handwechsel hin und zurück  --->  Tempowechsel durch Antritt  --->   Anschlussbewegung
---->   Angetäuschter Handwechsel mit einer Hand hin und zurück  --->   Tempowechsel durch Antritt  ---> Anschlussbewegung
---->   Handwechsel mit Dribbling durch die Beine  --->  Tempowechsel durch Antritt  --->   Anschlussbewegung
---->   Handwechsel hinter dem Rücken --->  Tempowechsel durch Antritt  ---> Anschlussbewegung
 
-2. Dribbelbeginn mit großer Distanz zum Verteidiger:
+**Dribbling an der Drei-Punkte-Linie nicht weit weg vom Verteidiger:**
+ - Dribbling neben dem Körper in paralleler Fußstellung  --->  Tempowechsel durch Antritt  ---> Anschlussbewegung
+ - Handwechsel vor dem Körper tiefer als die Knie  --->   1 Dribbling mit der anderen Hand --->  Anschlussbewegung
+ - Handwechsel hin und zurück  --->  Tempowechsel durch Antritt  --->   Anschlussbewegung
+ - Angetäuschter Handwechsel mit einer Hand hin und zurück  --->   Tempowechsel durch Antritt  ---> Anschlussbewegung
+ - Handwechsel mit Dribbling durch die Beine  --->  Tempowechsel durch Antritt  --->   Anschlussbewegung
+ - Handwechsel hinter dem Rücken --->  Tempowechsel durch Antritt  ---> Anschlussbewegung
+
+Dribbelbeginn mit großer Distanz zum Verteidiger:
 --->   Dribbelsprint zur Drei-Punkte-Linie und dann --->  Dribbelstopp  --->   Stotterschritte  --->  Tempowechsel durch Antritt mit der gleichen Hand  ---> Anschlussbewegung
 --->   Dribbelstopp  --->  Stotterschritte  --->  Handwechsel vor dem Körper  --->  Tempowechsel durch Antritt mit der anderen Hand  ---> Anschlussbewegung
 --->   Dribbelstopp  --->  Rückwärtsdribbling (BACK UP)  --->   Tempowechsel durch Antritt mit der gleichen Hand  ---> Anschlussbewegung
@@ -22,4 +23,3 @@
 
 
    Quelle: https://www.verlagdrkovac.de/open-access/1067/14_Anhaenge.pdf
-   
