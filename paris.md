@@ -73,3 +73,5 @@ https://www.cometoparis.com/ger/catalog/disneyland-paris-tickets-8008
 https://www.jochen-schweizer.de/reisen/
 
 https://www.dein-dlrp.de/
+
+https://www.travelcircus.de/disneyland-paris-mit-hotel
