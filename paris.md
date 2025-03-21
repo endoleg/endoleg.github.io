@@ -79,3 +79,30 @@ https://www.disneylandparis.com/de-de/ihre-pauschale-umfasst/
 https://www.travelcircus.de/disneyland-paris-mit-hotel
 
 https://www.dein-dlrp.de/disney-parks-magazin/was-kostet-ein-aufenthalt-in-disneyland-paris/
+
+ALLTAGSFRAGEN ZU DISNEYLAND PARIS: IHR HABT GEFRAGT, WIR ANTWORTEN!
+Die Fragen stammen direkt von Euch – aus unseren Gruppen, per E-Mail oder aus dem Forum. Also, los geht es und erfahre alles Wichtige für Deinen nächsten Besuch!
+
+Hier haben wir die 10 Top-Fragen und unsere Antworten für Dich:
+
+Brauche ich eine Umweltplakette?
+Nicht zwingend, das hängt von Deiner Fahrtstrecke ab. Aber um auf Nummer sicher zu gehen, bestell sie lieber. Sie kostet nur 5 € und erspart Dir im Zweifel jede Menge Ärger.
+Darf ich alle Hotelpools nutzen?
+Du darfst nur den Pool des gebuchten Hotels nutzen. Ausnahmen gibt es nur selten. Hat Dein Hotel keinen Pool, darfst Du nie einen der anderen Hotels nutzen.
+Kann ich in jedem Hotel frühstücken?
+Jain… Theoretisch ja, praktisch eher schwierig. Es kommt auf das Hotel und die Auslastung des Frühstücksrestaurants am jeweiligen Tag an. Je nach Deinem Hotel und dem Hotel, in dem Du frühstücken möchtest, kann es zudem sein, dass Du einen Aufpreis bezahlen musst.
+Muss ich Plätze für Shows reservieren?
+Nicht zwingend. Wenn Du aber eine bestimmte Show zu einer festen Uhrzeit sehen willst, kann eine Reservierung sinnvoll sein. Die reservierten (und extra bezahlten) Plätze bieten zwar einen etwas besseren Blick, aber eigentlich kannst Du jede Show von jedem Platz aus gut sehen.
+Haben Geburtstagskinder Vorteile?
+Es gibt einen Geburtstagsbutton (in der City Hall, bei Studio Services oder beim Concierge Deines Hotels) und gegen Bezahlung einen Geburtstagskuchen (45 € für einen großen Kuchen, 25 € für einen kleinen Kuchen).
+Sollte ich Restaurants reservieren?
+Ja, unbedingt! Besonders für Mahlzeiten mit Disney Figuren oder beliebte Buffet- und Tischbedienungsrestaurants ist eine Reservierung sehr empfehlenswert.
+Gibt es im Hotel Handtücher?
+Ja, sowohl in den Hotelzimmern als auch am Pool. Lediglich auf der Davy Crockett Ranch musste Du für Pooltücher eine Leihgebühr bezahlen.
+Darf ich die Parks tagsüber verlassen und wieder betreten?
+Ja, Du kannst die Parks jederzeit so oft Du willst verlassen und wieder betreten.
+Welche Schuhe sind ideal?
+Hauptsache bequem! Wir tragen gerne Skechers, andere schwören auf andere Marken. Probiere aus, was für Dich am besten funktioniert.
+Du möchtest nie mehr schmerzende Füße und Blasen erleben? Dann lies unbedingt unseren Artikel: Nie mehr Blasen an den Füßen in Disneyland Paris
+Gibt es Bollwerwagen zum Ausleihen?
+Nein, Disneyland Paris bietet nur Buggys zur Miete an. Du kannst aber einen eigenen Bollerwagen mitbringen – allerdings gibt es dabei einige Regeln zu beachten, insbesondere bei der Größe.
