@@ -74,6 +74,8 @@ https://www.jochen-schweizer.de/reisen/
 
 https://www.dein-dlrp.de/
 
+https://www.disneylandparis.com/de-de/ihre-pauschale-umfasst/
+
 https://www.travelcircus.de/disneyland-paris-mit-hotel
 
 https://www.dein-dlrp.de/disney-parks-magazin/was-kostet-ein-aufenthalt-in-disneyland-paris/
