@@ -1,12 +1,14 @@
 https://wissender.dertour.de/disneyland-paris/
-
 https://www.dertour-reisebuero.de/reisewelten/freizeitparks/disneyland-paris/
-
 https://www.dertour.de/freizeitparks/disneyland-paris
-
 https://parisbytrain.com/rer-train-paris-to-euro-disney/
-
 https://www.rome2rio.com/de/
+
+Hinfahrt:
+https://www.bahn.de/buchung/fahrplan/suche#sts=true&so=Wiesbaden%20Hbf&zo=Paris%20Est&kl=2&r=13:16:KLASSENLOS:1&soid=A%3D1%40O%3DWiesbaden%20Hbf%40X%3D8243729%40Y%3D50070788%40U%3D80%40L%3D8000250%40B%3D1%40p%3D1749588501%40i%3DU%C3%97008011018%40&zoid=A%3D1%40O%3DParis%20Est%40X%3D2359120%40Y%3D48876976%40U%3D80%40L%3D8700011%40B%3D1%40p%3D1749758067%40i%3DU%C3%97008711300%40&sot=ST&zot=ST&soei=8000250&zoei=8700011&hd=2025-07-02T12:14:51&hza=D&hz=%5B%5D&ar=false&s=true&d=false&vm=00,01,02,03,04,05,06,07,08,09&fm=false&bp=false&dlt=false&dltv=false
+
+-------------------
+
 
 
 Bei einer Disneyland Paris Pauschale haben Sie unbegrenzten Zugang zu beiden Parks an jedem Tag Ihres Aufenthalts, einschließlich An- und Abreisetag.
@@ -21,6 +23,9 @@ https://www.freizeitparkdeals.de/disneyland-paris-fruehbucher/
 Die Reisezeit von Wiesbaden nach Disneyland Paris beträgt mit dem Auto etwa 4 Std. 35 Min., mit dem Zug etwa 6 Std. 10 Min. bis 9 Std. 14 Min., je nach Verbindung
 
 2 Tage könnten ausreichen, um die Hauptattraktionen zu erleben. Allerdings kann ein 3-tägiger Aufenthalt zusätzliche Zeit bieten, um die Parks in einem entspannteren Tempo zu erkunden und die magische Atmosphäre vollständig zu genießen. 
+
+-------------------
+
 
 3-Tage-Plan mit Zugreise
 Tag 1: Anreise
@@ -39,46 +44,30 @@ Frühes Frühstück und Check-out (Gepäck kann im Hotel aufbewahrt werden)
 Letzter Parkbesuch bis zur Abreise
 Nachmittags/Abends: Rückreise nach Wiesbaden
 
+-------------------
+
+
 Tipps:
 Buchen Sie Ihre Zugtickets frühzeitig für bessere Preise.
-Die günstigste Zugverbindung kostet etwa 100-160 €.
-Erwägen Sie die Buchung einer Disneyland Paris Pauschale für den besten Komfort und mögliche Ersparnisse.
 Parktickets für Erwachsene kosten je nach Saison ab 105 € für einen Park oder 144 € für beide Parks pro Tag
 
 Disney Premier Access: Wenn du bereit bist, etwas mehr auszugeben, erwäge den Kauf von Disney Premier Access, um die Warteschlangen für beliebte Attraktionen zu überspringen.
 
 Gepäckaufbewahrung: Nutze die Gepäckaufbewahrungsmöglichkeiten am Bahnhof oder im Hotel, um dein Gepäck sicher zu verstauen, wenn du die Parks am An- oder Abreisetag besuchen möchtest.
 
-Preisniveau: Die Preise für Disney Hotels beginnen in der Nebensaison bei etwa 197 Euro pro Nacht für die günstigeren Optionen wie Davy Crockett Ranch, Hotel Cheyenne und Hotel Santa Fe. In der Hochsaison steigen die Preise auf etwa 284 Euro pro Nacht
-
-Hotels in der Nähe von Disneyland Paris
-Günstigere Optionen: Es gibt auch günstigere Hotels in der Nähe des Parks, die ab etwa 119 Euro pro Person für eine Übernachtung erhältlich sind.
-
-Pauschalangebote: Einige Anbieter bieten Pauschalreisen an, die Übernachtung und Eintrittskarten umfassen, ab etwa 99 Euro pro Person
-https://watado.de/reisen/disneyland-paris
-https://www.urlaubspiraten.de/reisethemen/freizeitparks/disneyland-paris
-
-Pauschalreisen
-Kurzreisen: Eine 2,5-tägige Reise mit Eintritt und Hotel kann ab etwa 199,99 Euro pro Person gebucht werden.
-https://www.disneyland-busreisen.de/2-tage-busreise-disneyland/
-https://www.kurz-mal-weg.de/disneyland-paris-hotel
-Längere Aufenthalte: Eine Reise von 5 Tagen und 4 Nächten in einem 4-Sterne-Hotel in der Nähe von Disneyland Paris ist ab etwa 350 Euro erhältlich
-
 
 https://www.rome2rio.com/de/s/Wiesbaden/Disneyland-Paris
 https://www.magical-dream.de/disneyland-paris-pauschalreise/
 https://www.cometoparis.com/ger/catalog/disneyland-paris-tickets-8008
-
-
 https://www.jochen-schweizer.de/reisen/
-
 https://www.dein-dlrp.de/
-
 https://www.disneylandparis.com/de-de/ihre-pauschale-umfasst/
-
 https://www.travelcircus.de/disneyland-paris-mit-hotel
-
 https://www.dein-dlrp.de/disney-parks-magazin/was-kostet-ein-aufenthalt-in-disneyland-paris/
+
+
+-------------------
+
 
 ALLTAGSFRAGEN ZU DISNEYLAND PARIS: IHR HABT GEFRAGT, WIR ANTWORTEN!
 Die Fragen stammen direkt von Euch – aus unseren Gruppen, per E-Mail oder aus dem Forum. Also, los geht es und erfahre alles Wichtige für Deinen nächsten Besuch!
