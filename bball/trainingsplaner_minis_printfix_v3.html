@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trainingsplaner Minis</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--text:#102027;--muted:#607d8b;--line:#d9e2ec;--accent:#1565c0}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+.wrap{max-width:1400px;margin:0 auto;padding:20px} h1{margin:0 0 8px;font-size:24px} .sub{color:var(--muted);margin-bottom:16px;line-height:1.45}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.04);margin-bottom:16px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px} .btnrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+label{display:block;font-weight:700;margin:10px 0 6px} select,input,textarea,button{width:100%;font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--text)} textarea{min-height:72px;resize:vertical}
+button{width:auto;cursor:pointer;border:none;background:var(--accent);color:#fff;font-weight:700} button.light{background:#90a4ae}
+.small{font-size:13px;color:var(--muted)}
+.blockA{background:#fdf2b3}.blockB{background:#d9ecff}.blockC{background:#e4f7dd}.blockD{background:#f4e2ff}.blockE{background:#ffe7db}.blockF{background:#edf1f5}
+.tablewrap{overflow-x:auto;max-width:100%}
+table{width:100%;border-collapse:collapse;margin-top:10px;min-width:1050px} th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top;word-wrap:break-word;overflow-wrap:anywhere} th{background:#f8fafc}
+.timecell{white-space:nowrap;font-variant-numeric:tabular-nums}
+@media (max-width: 820px){.row{grid-template-columns:1fr}.btnrow{flex-direction:column}.btnrow select,.btnrow button{width:100%}.card{padding:12px}.wrap{padding:12px} table{min-width:1050px;font-size:12px} th,td{padding:7px 5px}}
+@media print{.no-print{display:none !important}.wrap{max-width:none;padding:0}.card{box-shadow:none;border:1px solid #ccc;break-inside:avoid;padding:6px}.tablewrap{overflow:visible} table{min-width:0;width:100%;font-size:10px;margin-top:4px} th,td{padding:4px 4px}.print-only{display:block !important}.print-title{display:block !important;margin:0 0 6px 0;font-size:14px;font-weight:700}.print-sub{display:block !important;margin:0 0 10px 0;font-size:10px;color:#333}.screen-hide{display:none !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Trainingsplaner Minis</h1>
+  <div class="sub screen-hide">Schlanker Trainingsgerüst-Planer für U8 / U10 / U12: Warm-up und Abschluss sind fest, dazwischen frei ergänzen.</div>
+
+  <div class="card no-print">
+    <div class="row">
+      <div>
+        <label for="ageGroup">Altersgruppe</label>
+        <select id="ageGroup"><option value="U12">U12</option><option value="U10">U10</option><option value="U8">U8</option></select>
+      </div>
+      <div>
+        <label for="duration">Dauer</label>
+        <select id="duration"><option value="60">60 Minuten</option><option value="90" selected>90 Minuten</option><option value="120">120 Minuten</option></select>
+      </div>
+    </div>
+    <label for="startTime">Trainingsbeginn</label>
+    <input id="startTime" type="time" value="16:30" />
+    <div class="btnrow">
+      <button id="saveTemplate">Gerüst zurücksetzen</button>
+      <button class="light" id="printPlan">Drucken</button>
+    </div>
+  </div>
+
+  <div class="card no-print">
+    <h2 style="margin:0 0 8px">Trainingsgerüst</h2>
+    <div class="small">Warm-up und Abschluss sind fest vorhanden. Weitere Blöcke werden nur per Button ergänzt.</div>
+    <div class="btnrow" style="margin-top:12px">
+      <select id="addKind" style="min-width:260px;max-width:360px">
+        <option value="spiel">Spiel</option>
+        <option value="technik">Technik</option>
+        <option value="athletik">Athletik</option>
+        <option value="divers">DIVERS</option>
+      </select>
+      <button id="addBlock">Block hinzufügen</button>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th style="width:13%">Block</th><th style="width:10%">Uhrzeit</th><th style="width:10%">Dauer</th><th>Ziel / Coaching-Punkte</th><th style="width:24%">Auswahl</th><th style="width:14%">Reihenfolge</th></tr></thead>
+        <tbody id="planBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card print-only" style="display:none">
+    <div class="print-title">Trainingsplaner Minis</div>
+    <div class="print-sub">Schlanker Trainingsgerüst-Planer für U8 / U10 / U12</div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th style="width:13%">Block</th><th style="width:10%">Uhrzeit</th><th style="width:10%">Dauer</th><th>Ziel / Coaching-Punkte</th><th style="width:24%">Auswahl</th></tr></thead>
+        <tbody id="printBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+const pool={technik:["Ballhandling","Passen und Fangen","Beinarbeit","Wurf/Korbabschluss"],spiel:["1-1","2-2","3-3","4-4","Große Spiele","Kleine Spiele","Funino","Parteiball","Tigerball","Dribbelkönig","Dribbelspiel","Bump / Ausbomben","Balldieb","Verkehrsspiel / Autobahnspiel","Kettenfangen","1,2,3 Ochs am Berg","Balltausch"],athletik:["Koordination","Warm-up","Schnelligkeit","Balance"],divers:["DIVERS"],abschluss:["Abschluss"]};
+const defaults={technik:10,spiel:14,athletik:8,divers:5,abschluss:3};
+const blockLabels={technik:'Technik',spiel:'Spiel',athletik:'Warm-up',divers:'DIVERS',abschluss:'Abschluss'};
+const palette=['blockA','blockB','blockC','blockD','blockE','blockF'];
+let rows=[]; let uidCounter=0;
+const el=id=>document.getElementById(id); const esc=s=>String(s||'').replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+function addMinutes(t,m){const [h,mi]=String(t||'00:00').split(':').map(Number);const d=new Date();d.setHours(h||0,mi||0,0,0);d.setMinutes(d.getMinutes()+m);return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
+function normRows(){rows=rows.map(r=>({uid:r.uid||`u${++uidCounter}`,kind:r.kind||'spiel',label:r.label||blockLabels[r.kind]||'Block',min:Number.isFinite(+r.min)?+r.min:(defaults[r.kind]||10),choice:r.choice||'',goal:r.goal||'',fixed:!!r.fixed}))}
+function buildRows(){normRows();const body=el('planBody');body.innerHTML='';const all=[{uid:'warmup',label:'Warm-up',min:12,kind:'athletik',choice:'',goal:'',fixed:true},...rows,{uid:'abschluss',label:'Abschluss',min:3,kind:'abschluss',choice:'',goal:'',fixed:true}];all.forEach((r,i)=>{const opts=Object.keys(pool).flatMap(k=>pool[k]).map(v=>`<option value="${esc(v)}" ${r.choice===v?'selected':''}>${esc(v)}</option>`).join('');const tr=document.createElement('tr');tr.dataset.uid=r.uid;tr.dataset.kind=r.kind;tr.dataset.fixed=r.fixed?'1':'';tr.className=palette[i%palette.length];tr.innerHTML=`<td><strong>${esc(r.label)}</strong></td><td class="timecell"></td><td><input type="number" min="0" step="1" value="${r.min}" style="width:100%" ${r.fixed?'':'data-min="1"'}></td><td><textarea placeholder="Ziel / Coaching-Punkte" data-goal="1">${esc(r.goal)}</textarea></td><td><select class="choice"><option value="">Bitte wählen</option>${opts}</select></td><td>${r.fixed?'':`<div class="btnrow" style="margin:0"><button type="button" class="light up" style="flex:1">▲</button><button type="button" class="light down" style="flex:1">▼</button><button type="button" class="light removeBlock" style="flex:1">−</button></div>`}</td>`;body.appendChild(tr)});renderTimes();syncPrint()}
+function renderTimes(){normRows();const start=el('startTime').value||'16:30';const dur=parseInt(el('duration').value,10)||90;const all=Array.from(el('planBody').querySelectorAll('tr'));let cursor=start;all.forEach(tr=>{const row=rows.find(r=>r.uid===tr.dataset.uid)||{fixed:true,kind:tr.dataset.kind};const inp=tr.querySelector('input');const ta=tr.querySelector('textarea');const sel=tr.querySelector('select.choice');if(ta&&row){row.goal=ta.value||''}if(sel&&row){row.choice=sel.value||''}if(inp&&row){row.min=Math.max(0,parseInt(inp.value||'0',10)||0)}if(row.fixed&&row.kind==='athletik'){tr.querySelector('.timecell').textContent=start;if(inp) inp.value=12;cursor=addMinutes(start,12)}else if(row.fixed&&row.kind==='abschluss'){tr.querySelector('.timecell').textContent=addMinutes(start,dur-3);if(inp) inp.value=3}else{tr.querySelector('.timecell').textContent=cursor;cursor=addMinutes(cursor,row.min||0)}});syncPrint()}
+function syncPrint(){const pb=el('printBody');if(!pb) return;pb.innerHTML='';Array.from(el('planBody').querySelectorAll('tr')).forEach(tr=>{const row={block:tr.querySelector('strong')?.textContent||'',time:tr.querySelector('.timecell')?.textContent||'',min:tr.querySelector('input')?.value||'',goal:tr.querySelector('textarea')?.value||'',choice:tr.querySelector('select.choice')?.value||''};const r=document.createElement('tr');r.innerHTML=`<td>${esc(row.block)}</td><td class="timecell">${esc(row.time)}</td><td>${esc(row.min)}</td><td>${esc(row.goal)}</td><td>${esc(row.choice)}</td>`;pb.appendChild(r)})}
+function reset(){rows=[];buildRows()}
+function addBlock(kind='spiel'){rows.push({uid:`u${++uidCounter}`,label:blockLabels[kind]||'Block',min:defaults[kind]||10,kind,choice:'',goal:'',fixed:false});buildRows()}
+function move(uid,dir){normRows();const i=rows.findIndex(r=>r.uid===uid);const j=i+dir;if(i<0||j<0||j>=rows.length)return;[rows[i],rows[j]]=[rows[j],rows[i]];buildRows()}
+function syncRow(tr){const uid=tr.dataset.uid;const row=rows.find(r=>r.uid===uid);if(!row)return;row.min=Math.max(0,parseInt(tr.querySelector('input').value||'0',10)||0);row.goal=tr.querySelector('textarea').value||'';row.choice=tr.querySelector('select.choice').value||''}
+el('addBlock').onclick=()=>addBlock(el('addKind').value||'spiel');
+el('saveTemplate').onclick=()=>reset();
+el('printPlan').onclick=()=>window.print();
+el('duration').addEventListener('change',renderTimes);el('startTime').addEventListener('change',renderTimes);
+el('planBody').addEventListener('input',e=>{const tr=e.target.closest('tr');if(!tr||tr.dataset.fixed==='1')return;syncRow(tr);renderTimes()});
+el('planBody').addEventListener('change',e=>{const sel=e.target.closest('select.choice');if(!sel)return;const tr=sel.closest('tr');if(!tr||tr.dataset.fixed==='1')return;syncRow(tr);const row=rows.find(r=>r.uid===tr.dataset.uid);const val=sel.value||'';let kind='technik';if(['1-1','2-2','3-3','4-4','Große Spiele','Kleine Spiele','Funino','Parteiball','Tigerball','Dribbelkönig','Dribbelspiel','Bump / Ausbomben','Balldieb','Verkehrsspiel / Autobahnspiel','Kettenfangen','1,2,3 Ochs am Berg','Balltausch'].includes(val)) kind='spiel';else if(['Koordination','Warm-up','Schnelligkeit','Balance'].includes(val)) kind='athletik';else if(['Ballhandling','Passen und Fangen','Beinarbeit','Wurf/Korbabschluss'].includes(val)) kind='technik';else if(val==='DIVERS') kind='divers';row.kind=kind;row.label=blockLabels[kind]||row.label;row.min=defaults[kind]||10;renderTimes()});
+el('planBody').addEventListener('click',e=>{const tr=e.target.closest('tr');if(!tr||tr.dataset.fixed==='1')return;syncRow(tr);const uid=tr.dataset.uid;if(e.target.closest('.removeBlock')){rows=rows.filter(r=>r.uid!==uid);buildRows();return}if(e.target.closest('.up')){move(uid,-1);return}if(e.target.closest('.down')){move(uid,1);return}});
+window.addEventListener('beforeprint',()=>{syncPrint();renderTimes()});
+reset();
+</script>
+</body>
+</html>
