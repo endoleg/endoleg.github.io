@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Basketball Camp Stations-Filter</title>
+  <style>
+    :root{--bg:#0f172a;--panel:#111827;--line:#334155;--text:#e5e7eb;--muted:#94a3b8;--accent:#f59e0b;--accent2:#0f766e;--shadow:0 18px 40px rgba(0,0,0,.25);--radius:18px}
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;background:radial-gradient(circle at top,#1e293b 0%,var(--bg) 55%,#020617 100%);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+    button,select,textarea{font:inherit}
+    .app{max-width:1180px;margin:0 auto;padding:12px 12px 84px}
+    .hero{padding:14px 16px;background:rgba(17,24,39,.9);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:12px}
+    h1{margin:0;font-size:clamp(1.35rem,5vw,2.2rem);line-height:1.1}
+    .subtitle{margin:8px 0 0;color:var(--muted);line-height:1.45;font-size:.92rem;max-width:72ch}
+    .grid{display:grid;grid-template-columns:320px minmax(0,1fr);gap:12px;align-items:start}
+    .card{background:rgba(17,24,39,.92);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .cardHeader{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03);font-weight:700}
+    .cardBody{padding:14px}
+    label{display:block;margin:0 0 8px;color:#cbd5e1;font-weight:600;font-size:.95rem}
+    select,textarea,button{width:100%;border-radius:12px;border:1px solid var(--line);background:#0b1220;color:var(--text);padding:11px 12px;outline:none;font-size:15px}
+    textarea{min-height:78px;resize:vertical}
+    select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(245,158,11,.18)}
+    .field{margin-bottom:12px}
+    .buttonRow{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
+    button{cursor:pointer;font-weight:700;transition:transform .15s ease,filter .15s ease}
+    button:hover{transform:translateY(-1px)}
+    .primary{background:linear-gradient(135deg,var(--accent),#fb7185);color:#111827;border-color:transparent}
+    .secondary{background:#162033}
+    .printBtn{background:var(--accent2);border-color:transparent}
+    .sessionTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap}
+    .sessionInfo{color:var(--muted);font-size:.94rem;line-height:1.45}
+    .tagRow{display:flex;flex-wrap:wrap;gap:7px}
+    .tag{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:rgba(148,163,184,.12);color:#dbeafe;font-size:.78rem;border:1px solid rgba(255,255,255,.06)}
+    .stationGrid{display:grid;grid-template-columns:1fr;gap:14px}
+    .station{border:1px solid rgba(255,255,255,.08);border-radius:16px;background:#0b1220;overflow:hidden}
+    .stationHead{padding:11px 12px;background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(34,197,94,.10));border-bottom:1px solid rgba(255,255,255,.06)}
+    .stationTitle{margin:0;font-size:1.01rem;line-height:1.25}
+    .stationMeta{margin-top:5px;color:var(--muted);font-size:.88rem;line-height:1.35}
+    .stationBody{padding:11px;display:grid;gap:9px}
+    .phaseBox{padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+    .phaseHeader{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:8px}
+    .phaseTitle{font-weight:700}
+    .phaseCount{font-size:.82rem;color:var(--muted)}
+    .phaseList{margin:0;padding-left:18px;color:#dbeafe;line-height:1.55}
+    .phaseList li{margin:3px 0}
+    .tabRow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .tabBtn{width:auto;padding:10px 12px;border-radius:999px;background:#162033;border:1px solid var(--line);font-size:15px}
+    .tabBtn.active{background:linear-gradient(135deg,var(--accent),#fb7185);color:#111827;border-color:transparent}
+    .mobileOnly{display:none}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}.app{padding:10px}.buttonRow{grid-template-columns:1fr}.sessionTop{flex-direction:column;align-items:stretch}}
+    @media (max-width:700px){.hero{padding:14px}.cardBody{padding:12px}.cardHeader{padding:11px 12px}.desktopTabs{display:none}.mobileOnly{display:block}.tabRow{display:grid;grid-template-columns:1fr 1fr;gap:7px}.tabBtn{width:100%;font-size:14px}.tag{font-size:.76rem;padding:5px 8px}select,textarea,button{font-size:16px;padding:11px}.stationBody{padding:11px}.stationHead{padding:11px}}
+    @media (max-width:430px){.app{padding:8px}.subtitle{font-size:.88rem}.tabRow{grid-template-columns:1fr}.buttonRow{gap:6px}}
+    @media print{@page{size:A4 portrait;margin:8mm}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}html,body{height:auto !important}body{background:#fff;color:#111827}.app{max-width:none;padding:0 !important}.hero{display:none !important}.grid{display:block !important;gap:0 !important}.card{box-shadow:none;background:#fff;color:#111827;border:0 !important;overflow:visible !important}.card:first-child{display:none !important}.card:last-child{display:block !important}.cardHeader{display:none !important}.cardBody{padding:0 !important}.sessionTop{display:block;padding:0 0 2mm 0;margin:0 0 2mm 0;border:0;border-bottom:1px solid #e5e7eb}.sessionInfo{color:#374151;font-size:8.5pt;line-height:1.2}.tagRow{margin-top:1.5mm;gap:4px}.tag{background:#f3f4f6;color:#111827;border:1px solid #d1d5db;font-size:7.5pt;padding:3px 6px}.stationGrid{display:block}.station{margin:0;border:1px solid #cbd5e1;border-radius:8px;background:#fff;break-inside:avoid;page-break-inside:avoid}.stationHead{background:#fff;border-bottom:1px solid #e5e7eb;padding:3mm 3mm 2mm 3mm}.stationTitle{font-size:12pt;line-height:1.1}.stationMeta{color:#374151;font-size:8.3pt;line-height:1.1;margin-top:1mm}.stationBody{padding:2.5mm 3mm 3mm 3mm;color:#111827;gap:5px}.phaseBox{padding:4px 6px;border-radius:8px;page-break-inside:avoid}.phaseHeader{margin-bottom:4px}.phaseCount{font-size:7.5pt}.phaseTitle{font-size:9pt}.phaseBox strong{font-size:8.8pt;line-height:1.05}.phaseBox .sessionInfo{font-size:7.7pt;line-height:1.1}buttonRow,.desktopTabs,.mobileOnly,select,textarea,button{display:none !important}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <section class="hero">
+      <h1>Basketball Camp Stations-Filter</h1>
+      <p class="subtitle">Wähle deine Station und die Phasen der Station. Du kannst auch alle oder mehrere Phasen in den Trainingsplan übernehmen und eigene Notizen eintragen.</p>
+      <p class="subtitle">
+        <a href="https://www.bcwiesbaden.de/ostercamp99/stationen.htm" target="_blank" rel="noopener noreferrer" style="color:#fbbf24;text-decoration:none;margin-right:15px;">🔍 BC Wiesbaden Stationen</a>
+        <a href="https://www.bcwiesbaden.de/hp/wp-content/uploads/2024/09/Technik-Spielerisches-Lernen2024-V02.pdf" target="_blank" rel="noopener noreferrer" style="color:#fbbf24;text-decoration:none;">📄 Technik & Spielerisches Lernen</a>
+      </p>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <div class="cardHeader">Einstellungen</div>
+        <div class="cardBody">
+          <div class="field">
+            <label for="stationFilter">Station auswählen</label>
+            <div class="tabRow desktopTabs" id="stationTabs">
+              <button class="tabBtn active" data-station="offensive" type="button">Offensive</button>
+              <button class="tabBtn" data-station="defense" type="button">Verteidigung</button>
+              <button class="tabBtn" data-station="ballhandling" type="button">Ballhandling</button>
+              <button class="tabBtn" data-station="scoring" type="button">Scoring</button>
+              <button class="tabBtn" data-station="motion" type="button">Motion</button>
+            </div>
+            <select id="stationFilter" class="mobileOnly" style="margin-top:10px">
+              <option value="offensive">1. Offensive Beinarbeit & Täuschungen</option>
+              <option value="defense">2. Verteidigung</option>
+              <option value="ballhandling">3. Ballhandling</option>
+              <option value="scoring">4. Scoring</option>
+              <option value="motion">5. Motion</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="phases">Phasen übernehmen (Mehrfachauswahl möglich)</label>
+            <select id="phases" multiple size="7">
+              <option value="phase1" selected>Phase 1</option>
+              <option value="phase2" selected>Phase 2</option>
+              <option value="phase3" selected>Phase 3</option>
+              <option value="phase4" selected>Phase 4</option>
+              <option value="phase5" selected>Phase 5</option>
+              <option value="phase6" selected>Phase 6</option>
+              <option value="phase7" selected>Phase 7</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="coachNote">Coach-Notiz</label>
+            <textarea id="coachNote" placeholder="z. B. Kleine Gruppe, schnelle Erklärung, viele Wiederholungen..."></textarea>
+          </div>
+
+          <div class="buttonRow">
+            <button class="primary" id="generateBtn" type="button">Notiz in Plan übertragen</button>
+            <button class="secondary" id="resetBtn" type="button">Zurücksetzen</button>
+            <button class="printBtn" id="printBtn" type="button">Drucken</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHeader">Anzeige</div>
+        <div class="cardBody" id="printArea">
+          <div class="sessionTop">
+            <div>
+              <strong id="planTitle">Station auswählen</strong>
+              <div class="sessionInfo" id="planInfo">Wähle links eine Station aus.</div>
+            </div>
+            <div class="tagRow" id="summaryTags"></div>
+          </div>
+          <div class="stationGrid" id="stationGrid"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const stationData={
+      offensive:{
+        title:"1. Offensive Beinarbeit & Täuschungen",
+        meta:"Stoppen, Sternschritt, Beinarbeit beim Dribbelstart, Finten und Cuts",
+        tags:["Grundstellung","Sprungstopp","Schrittstopp","Sternschritt","Finten","Cuts"],
+        phases:{
+          phase1:[
+            {title:"Grundstellung & Stopps",desc:"Erarbeitung der athletischen Grundstellung als Ausgangsbasis für alle Aktionen."},
+            {title:"1-Kontakt-Sprungstopp",desc:"Laufend oder aus dem Dribbling zeitgleich auf beiden Füßen stabil und ausbalanciert stoppen."},
+            {title:"2-Kontakt-Schrittstopp",desc:"Kontrolliertes Abstoppen über eine 1-2-Fußfolge zur Etablierung eines klaren Standbeins."},
+            {title:"Sternschritt vorwärts/rückwärts",desc:"Drehbewegungen um das feste Standbein zur Raumschaffung und Ballbehauptung."}
+          ],
+          phase2:[
+            {title:"Dribbelbeginn und Dribbelende",desc:"Regelkonformes Einleiten des Dribblings ohne Schrittfehler sowie sicheres Aufnehmen des Balls."},
+            {title:"Kreuzschritt (Cross-Over Step)",desc:"Erster Schritt erfolgt diagonal am Verteidiger vorbei, um den Ball mit dem Körper abzuschirmen."},
+            {title:"Passgang (Open Step)",desc:"Explosiver Antritt mit dem raumgleichen Fuß für einen schnellen, direkten Durchbruch."}
+          ],
+          phase3:[
+            {title:"Wurftäuschung (Shot Fake)",desc:"Antäuschen des Wurfs durch Heben des Balls und Aufrichten des Oberkörpers, um die Defense zu binden."},
+            {title:"Schrittfinte (Jab Step)",desc:"Kurzer, explosiver Ausfallschritt nach vorne/außen, um das Gewicht des Verteidigers zu verlagern."}
+          ],
+          phase4:[
+            {title:"Täuschungen & Finten aus dem Dribbling",desc:"Kombination von Tempowechseln, Handwechseln und Körpertäuschungen in der dynamischen Bewegung."}
+          ],
+          phase5:[
+            {title:"Cuts & Freilaufbewegungen",desc:"Zielgerichtete Tempowechsel und Richtungsänderungen ohne Ball, um sich effektiv vom Verteidiger zu lösen."}
+          ]
+        }
+      },
+      defense:{
+        title:"2. Verteidigung",
+        meta:"On-Ball-Defense, Passwege verweigern, Help-Side und Absinken",
+        tags:["Ready Position","Slides","Deny","Helpside","Close-out"],
+        phases:{
+          phase1:[
+            {title:"Grundprinzipien & Defensive Ready Position",desc:"Tiefer, aktiver Stand mit gebeugten Knieen, breiter Basis und wachsamen Händen."},
+            {title:"Grundlagenbeinarbeit",desc:"Schnelle, flache Fußarbeit ohne Überkreuzen, um stets die Balance zu halten."}
+          ],
+          phase2:[
+            {title:"Verteidigungsgrundbewegungen",desc:"Einschub-Schritte (Slides) und flüssige Übergänge in Sprintschritte bei Richtungswechseln."},
+            {title:"Verteidigung am Spieler mit Ball",desc:"Dribbelnden Spieler unter Druck setzen, ihn kontrolliert lenken und den direkten Zug zum Korb konsequent verhindern."}
+          ],
+          phase3:[
+            {title:"Deny / Passweg-Verteidigung",desc:"Zustellen des Passwegs zum direkten Gegenspieler, um einfache Anspiele zu unterbinden."},
+            {title:"Open Stance / Fronten",desc:"Offene Verteidigungshaltung mit Blick zum Ball und zum Mann bzw. das davor Positionieren im Post."}
+          ],
+          phase4:[
+            {title:"Jump with the pass / Jump to the ball",desc:"Gleichzeitiges Verlagern der eigenen Position in dem Moment, in dem der Ball die Hand des Passers verlässt."},
+            {title:"Cutverteidigung / Bump",desc:"Laufwege von schneidenden Angreifern aufnehmen und den direkten Laufweg elastisch stören (Bumping)."}
+          ],
+          phase5:[
+            {title:"Help / Absinken",desc:"Lösen vom eigenen Mann in Richtung Zone, wenn der Ball weiter entfernt ist, um den Korb zu beschützen."},
+            {title:"Shell-Drill",desc:"Komplexes 4-gegen-4 Systemtraining zur defensiven Positionierung, Absinken und Verschieben."},
+            {title:"Rotationen & Helpside",desc:"Gemeinsames, abgestimmtes Aushelfen und Übernehmen, wenn ein Verteidiger geschlagen wurde."}
+          ],
+          phase6:[
+            {title:"Close-out",desc:"Explosives Anlaufen des freien Schützen mit schnellem Abstoppen (kurze, hackende Schritte) zur Wurfabwehr."},
+          ],
+          phase7:[
+            {title:"Ausblocken des Gegners (Box-Out)",desc:"Aktive Kontaktaufnahme zum Gegenspieler mit dem Rücken/Gesäß, um ihm den Weg zum Abpraller zu versperren."}
+          ]
+        }
+      },
+      ballhandling:{
+        title:"3. Ballhandling",
+        meta:"Dribbelvarianten, Handwechsel, Passen, Fangen und Ballschutz",
+        tags:["Handwechsel","Ballbehandlung","Passen","Fangen","Sweep"],
+        phases:{
+          phase1:[
+            {title:"Dribbling-Grundlagentechnik",desc:"Kontrolliertes Pushen des Balles mit den Fingerspitzen und Handgelenken, tiefer Körperschwerpunkt, Blick vom Ball gelöst."},
+            {title:"Handwechsel in 4 Varianten",desc:"Vor dem Körper, durch die Beine, hinter dem Rücken, Spin-Move-Dribbling (Drehung)."},
+            {title:"Variationen des Dribblings",desc:"Wechsel von Dribbelhöhe (Power- vs. Pocket-Dribbling) und Frequenz."},
+            {title:"Methodik des Dribbling-Lernens",desc:"Stufenweiser Aufbau vom Stand in die Bewegung, von der dominanten zur schwachen Hand."},
+            {title:"Täuschungen/Finten aus dem Dribbling",desc:"In-and-Out Moves, Hesitation Moves (Stop-and-Go) zur Täuschung des Verteidigers."},
+            {title:"Drills zur Ballbehandlung",desc:"Koordinative Übungen (Achten, Kreisen) zur Steigerung des Ballgefühls ohne permanentes Dribbeln."}
+          ],
+          phase2:[
+            {title:"Alle wichtigen Passarten",desc:"Präzise Ausführung von Brustpass, Bodenpass, Überkopfpass und einhändigen Push-Pässen."},
+            {title:"Fangen des Balles",desc:"Dem Ball entgegengehen, ein 'Fangfenster' mit den Händen bilden und den Ball aktiv abfedern."}
+          ],
+          phase3:[
+            {title:"Ballschutz / Sweep / Wischer",desc:"Tiefes, aggressives Durchschwingen des Balles (unter Kniehöhe), um den Ball vor den Händen des Verteidigers zu schützen."}
+          ]
+        }
+      },
+      scoring:{
+        title:"4. Scoring",
+        meta:"Abschlussformen am Korb, Korbleger-Varianten, Floater und Würfe",
+        tags:["Layup","Eurostep","Floater","Spin Move","Up and Under"],
+        phases:{
+          phase1:[
+            {title:"Positionswurf",desc:"Sauberer Set-Shot oder Sprungwurf mit Fokus auf Beinarbeit, Ellbogenführung und Handgelenk-Follow-Through."},
+            {title:"Druckwurf-Korbleger (Overhand)",desc:"Klassischer Abschluss im Lauf mit Handfläche hinter/oberhalb des Balles am Brett."}
+          ],
+          phase2:[
+            {title:"Eurostep",desc:"Richtungswechsel im Zweitakt-Rhythmus ohne Dribbling, um den defensiven Block zu umgehen."},
+            {title:"Reverse-Korbleger",desc:"Abschluss auf der gegenüberliegenden Seite des Ringes unter Nutzung des Brettes als Schutz."},
+            {title:"Unterhandkorbleger / Finger Roll",desc:"Sanftes Rollenlassen des Balles über die Fingerspitzen direkt über den Ring."},
+            {title:"CrossStep-Korbleger",desc:"Schrittfolge mit modifiziertem Kreuzschritt im Anlauf, um den Verteidiger zu überraschen."}
+          ],
+          phase3:[
+            {title:"Einbeiniger Floater",desc:"Hoher Bogenwurf aus dem Lauf von einem Bein, um dem heraneilenden Center auszuweichen."},
+            {title:"Push Shot / Beidbeiniger Floater",desc:"Abwurf nach einem schnellen Stopp auf beiden Füßen für maximale Stabilität im Wurf."},
+            {title:"Spin Move (Scoring)",desc:"Drehung mit Ball am Gegenspieler vorbei im direkten Zug zum Korb."},
+            {title:"Powermove",desc:"Kraftvoller Abschluss mit beiden Beinen im Parallelstopp, Ball wird eng am Körper geschützt hochgezogen."},
+            {title:"Up and Under",desc:"Wurftäuschung am Korb, gefolgt von einem Schritt unter den springenden Verteidiger durch zum Abschluss."}
+          ]
+        }
+      },
+      motion:{
+        title:"5. Motion",
+        meta:"Laufwege, Freilaufen, Spacing und mannschaftliches Zusammenspiel",
+        tags:["Pass-Cut-Fill","Give and Go","Backdoor","Spacing","Timing"],
+        phases:{
+          phase1:[
+            {title:"Frontcut-Drill (give and go)",desc:"Explosiver Cut direkt vor dem Gesicht des Verteidigers entlang zum Korb nach einem Anspiel. Sofortige Bewegung direkt nach dem Abspiel, Stehenbleiben wird aktiv verboten."}
+          ],
+          phase2:[
+            {title:"Backdoor-Drill Basics",desc:"Täuschung nach außen, gefolgt von einem harten Schnitt im Rücken der Defense direkt zum Korb."}
+          ],
+          phase3:[
+            {title:"Pass-Cut-Fill",desc:"Grundrotations-Regel: Spieler passt, schneidet zum Korb und die verbleibenden Spieler füllen die Lücken auf."}
+          ],
+          phase4:[
+            {title:"Dribble-at mit Backdoor",desc:"Wenn ein Dribbler auf einen Mitspieler zudribbelt, schneidet dieser automatisch via Backdoor ab. Präzises Timing des Passes vom Dribbler in den Lauf des Backdoor-Schneidenden."}
+          ]
+        }
+      }
+    };
+
+    const el=id=>document.getElementById(id);
+    function getSelectedPhases(){return Array.from(el('phases').selectedOptions).map(o=>o.value)}
+    
+    function buildPlan(){
+      const station=el('stationFilter').value,
+            note=el('coachNote').value.trim(),
+            s=stationData[station],
+            selectedPhases=getSelectedPhases();
+            
+      const phaseBoxes=selectedPhases.map(p=>{
+        const number=p.replace('phase','Phase '),
+              items=s.phases[p]||[];
+        if(items.length===0) return ''; 
+        
+        return `<div class="phaseBox">
+          <div class="phaseHeader">
+            <div class="phaseTitle">${number}</div>
+            <div class="phaseCount">${items.length} Übungsbereiche</div>
+          </div>
+          ${items.map(item=>`<div style="margin-bottom:10px"><strong>${item.title}</strong><div class="sessionInfo">${item.desc}</div></div>`).join('')}
+        </div>`
+      }).join('');
+
+      el('planTitle').textContent=s.title;
+      
+      const activePhasesCount=selectedPhases.filter(p=>s.phases[p] && s.phases[p].length>0).length;
+      el('planInfo').textContent=`${activePhasesCount} Phase(n) aktiv`;
+      el('summaryTags').innerHTML=[`<span class="tag">${activePhasesCount} Phase(n)</span>`].join('');
+      
+      el('stationGrid').innerHTML=`<article class="station">
+        <div class="stationHead">
+          <h3 class="stationTitle">${s.title}</h3>
+          <div class="stationMeta">${s.meta}</div>
+        </div>
+        <div class="stationBody">
+          <div class="tagRow">${s.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+          ${phaseBoxes}
+          <div class="phaseBox">
+            <div class="phaseHeader">
+              <div class="phaseTitle">Coach-Hinweis</div>
+              <div class="phaseCount">Anpassung</div>
+            </div>
+            <div class="sessionInfo">${note||'Nutze die ausgewählten Phasen passend zur Gruppe und zum Tagesziel.'}</div>
+          </div>
+        </div>
+      </article>`;
+      
+      document.querySelectorAll('.tabBtn').forEach(b=>b.classList.toggle('active',b.dataset.station===station));
+    }
+
+    function resetForm(){
+      el('stationFilter').value='offensive';
+      const opts=el('phases').options;
+      for(let i=0;i<opts.length;i++)opts[i].selected=true;
+      el('coachNote').value='';
+      buildPlan();
+    }
+    
+    function printPlan(){window.print()}
+    
+    el('generateBtn').addEventListener('click',buildPlan);
+    el('resetBtn').addEventListener('click',resetForm);
+    el('printBtn').addEventListener('click',printPlan);
+    ['stationFilter','phases'].forEach(id=>el(id).addEventListener('change',buildPlan));
+    
+    document.querySelectorAll('.tabBtn').forEach(btn=>btn.addEventListener('click',()=>{
+      el('stationFilter').value=btn.dataset.station;
+      buildPlan();
+    }));
+    
+    buildPlan();
+  </script>
+</body>
+</html>
