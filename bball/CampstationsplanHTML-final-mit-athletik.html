@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Basketball Camp Stations-Filter</title>
+  <style>
+    :root{--bg:#0f172a;--panel:#111827;--line:#334155;--text:#e5e7eb;--muted:#94a3b8;--accent:#f59e0b;--accent2:#0f766e;--shadow:0 18px 40px rgba(0,0,0,.25);--radius:18px}
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;background:radial-gradient(circle at top,#1e293b 0%,var(--bg) 55%,#020617 100%);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+    button,select,textarea{font:inherit}
+    .app{max-width:1180px;margin:0 auto;padding:12px 12px 84px}
+    .hero{padding:14px 16px;background:rgba(17,24,39,.9);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:12px}
+    h1{margin:0;font-size:clamp(1.35rem,5vw,2.2rem);line-height:1.1}
+    .subtitle{margin:8px 0 0;color:var(--muted);line-height:1.45;font-size:.92rem;max-width:72ch}
+    .grid{display:grid;grid-template-columns:320px minmax(0,1fr);gap:12px;align-items:start}
+    .card{background:rgba(17,24,39,.92);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .cardHeader{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03);font-weight:700}
+    .cardBody{padding:14px}
+    label{display:block;margin:0 0 8px;color:#cbd5e1;font-weight:600;font-size:.95rem}
+    select,textarea,button{width:100%;border-radius:12px;border:1px solid var(--line);background:#0b1220;color:var(--text);padding:11px 12px;outline:none;font-size:15px}
+    textarea{min-height:78px;resize:vertical}
+    select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(245,158,11,.18)}
+    .field{margin-bottom:12px}
+    .buttonRow{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
+    button{cursor:pointer;font-weight:700;transition:transform .15s ease,filter .15s ease}
+    button:hover{transform:translateY(-1px)}
+    .primary{background:linear-gradient(135deg,var(--accent),#fb7185);color:#111827;border-color:transparent}
+    .secondary{background:#162033}
+    .printBtn{background:var(--accent2);border-color:transparent}
+    .sessionTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap}
+    .sessionInfo{color:var(--muted);font-size:.94rem;line-height:1.45}
+    .tagRow{display:flex;flex-wrap:wrap;gap:7px}
+    .tag{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:rgba(148,163,184,.12);color:#dbeafe;font-size:.78rem;border:1px solid rgba(255,255,255,.06)}
+    .stationGrid{display:grid;grid-template-columns:1fr;gap:14px}
+    .station{border:1px solid rgba(255,255,255,.08);border-radius:16px;background:#0b1220;overflow:hidden}
+    .stationHead{padding:11px 12px;background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(34,197,94,.10));border-bottom:1px solid rgba(255,255,255,.06)}
+    .stationTitle{margin:0;font-size:1.01rem;line-height:1.25}
+    .stationMeta{margin-top:5px;color:var(--muted);font-size:.88rem;line-height:1.35}
+    .stationBody{padding:11px;display:grid;gap:9px}
+    .phaseBox{padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+    .phaseHeader{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:8px}
+    .phaseTitle{font-weight:700}
+    .phaseCount{font-size:.82rem;color:var(--muted)}
+    .phaseList{margin:0;padding-left:18px;color:#dbeafe;line-height:1.55}
+    .phaseList li{margin:3px 0}
+    .tabRow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .tabBtn{width:auto;padding:10px 12px;border-radius:999px;background:#162033;border:1px solid var(--line);font-size:15px}
+    .tabBtn.active{background:linear-gradient(135deg,var(--accent),#fb7185);color:#111827;border-color:transparent}
+    .mobileOnly{display:none}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}.app{padding:10px}.buttonRow{grid-template-columns:1fr}.sessionTop{flex-direction:column;align-items:stretch}}
+    @media (max-width:700px){.hero{padding:14px}.cardBody{padding:12px}.cardHeader{padding:11px 12px}.desktopTabs{display:none}.mobileOnly{display:block}.tabRow{display:grid;grid-template-columns:1fr 1fr;gap:7px}.tabBtn{width:100%;font-size:14px}.tag{font-size:.76rem;padding:5px 8px}select,textarea,button{font-size:16px;padding:11px}.stationBody{padding:11px}.stationHead{padding:11px}}
+    @media (max-width:430px){.app{padding:8px}.subtitle{font-size:.88rem}.tabRow{grid-template-columns:1fr}.buttonRow{gap:6px}}
+    @media print{@page{size:A4 portrait;margin:8mm}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}html,body{height:auto !important}body{background:#fff;color:#111827}.app{max-width:none;padding:0 !important}.hero{display:none !important}.grid{display:block !important;gap:0 !important}.card{box-shadow:none;background:#fff;color:#111827;border:0 !important;overflow:visible !important}.card:first-child{display:none !important}.card:last-child{display:block !important}.cardHeader{display:none !important}.cardBody{padding:0 !important}.sessionTop{display:block;padding:0 0 2mm 0;margin:0 0 2mm 0;border:0;border-bottom:1px solid #e5e7eb}.sessionInfo{color:#374151;font-size:8.5pt;line-height:1.2}.tagRow{margin-top:1.5mm;gap:4px}.tag{background:#f3f4f6;color:#111827;border:1px solid #d1d5db;font-size:7.5pt;padding:3px 6px}.stationGrid{display:block}.station{margin:0;border:1px solid #cbd5e1;border-radius:8px;background:#fff;break-inside:avoid;page-break-inside:avoid}.stationHead{background:#fff;border-bottom:1px solid #e5e7eb;padding:3mm 3mm 2mm 3mm}.stationTitle{font-size:12pt;line-height:1.1}.stationMeta{color:#374151;font-size:8.3pt;line-height:1.1;margin-top:1mm}.stationBody{padding:2.5mm 3mm 3mm 3mm;color:#111827;gap:5px}.phaseBox{padding:4px 6px;border-radius:8px;page-break-inside:avoid}.phaseHeader{margin-bottom:4px}.phaseCount{font-size:7.5pt}.phaseTitle{font-size:9pt}.phaseBox strong{font-size:8.8pt;line-height:1.05}.phaseBox .sessionInfo{font-size:7.7pt;line-height:1.1}buttonRow,.desktopTabs,.mobileOnly,select,textarea,button{display:none !important}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <section class="hero">
+      <h1>Basketball Camp Stations-Filter</h1>
+      <p class="subtitle">Wähle deine Station und die Phasen der Station. Du kannst auch alle oder mehrere Phasen in den Trainingsplan übernehmen und eigene Notizen eintragen.</p>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <div class="cardHeader">Einstellungen</div>
+        <div class="cardBody">
+          <div class="field">
+            <label for="stationFilter">Station auswählen</label>
+            <div class="tabRow desktopTabs" id="stationTabs">
+              <button class="tabBtn active" data-station="offensive" type="button">Offensive</button>
+              <button class="tabBtn" data-station="defense" type="button">Verteidigung</button>
+              <button class="tabBtn" data-station="ballhandling" type="button">Ballhandling</button>
+              <button class="tabBtn" data-station="scoring" type="button">Scoring</button>
+              <button class="tabBtn" data-station="motion" type="button">Motion</button>
+              <button class="tabBtn" data-station="athletik" type="button">Athletik</button>
+            </div>
+            <select id="stationFilter" class="mobileOnly" style="margin-top:10px">
+              <option value="offensive">1. Offensive</option>
+              <option value="defense">2. Verteidigung</option>
+              <option value="ballhandling">3. Ballhandling</option>
+              <option value="scoring">4. Scoring</option>
+              <option value="motion">5. Motion</option>
+              <option value="athletik">6. Athletik</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="phases">Phasen übernehmen (Mehrfachauswahl möglich)</label>
+            <select id="phases" multiple size="7">
+              <option value="phase1" selected>Phase 1</option>
+              <option value="phase2" selected>Phase 2</option>
+              <option value="phase3" selected>Phase 3</option>
+              <option value="phase4" selected>Phase 4</option>
+              <option value="phase5" selected>Phase 5</option>
+              <option value="phase6" selected>Phase 6</option>
+              <option value="phase7" selected>Phase 7</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="coachNote">Coach-Notiz</label>
+            <textarea id="coachNote" placeholder="z. B. Kleine Gruppe, schnelle Erklärung, viele Wiederholungen..."></textarea>
+          </div>
+
+          <div class="buttonRow">
+            <button class="primary" id="generateBtn" type="button">Notiz in Plan übertragen</button>
+            <button class="secondary" id="resetBtn" type="button">Zurücksetzen</button>
+            <button class="printBtn" id="printBtn" type="button">Drucken</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHeader">Anzeige</div>
+        <div class="cardBody" id="printArea">
+          <div class="sessionTop">
+            <div>
+              <strong id="planTitle">Station auswählen</strong>
+              <div class="sessionInfo" id="planInfo">Wähle links eine Station aus.</div>
+            </div>
+            <div class="tagRow" id="summaryTags"></div>
+          </div>
+          <div class="stationGrid" id="stationGrid"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const stationData={
+      offensive:{
+        title:"1. Offensive Beinarbeit & Täuschungen",
+        meta:"Stoppen, Sternschritt, Beinarbeit beim Dribbelstart, Finten und Cuts",
+        tags:["Grundstellung","Sprungstopp","Schrittstopp","Sternschritt","Finten","Cuts"],
+        phases:{
+          phase1:[{title:"Grundstellung",desc:"Erarbeitung der athletischen Grundstellung."}, {title:"Sprungstopp",desc:"Stabil auf beiden Füßen landen."}],
+          phase2:[{title:"Kreuzschritt",desc:"Explosiver Dribbelstart."}],
+          phase3:[{title:"Wurftäuschung",desc:"Bindung der Defense."}],
+          phase4:[{title:"Körpertäuschungen",desc:"Bewegung gegen die Laufrichtung."}],
+          phase5:[{title:"Cuts",desc:"Effektives Freilaufen."}],
+          phase6:[{title:"Laufwege",desc:"Kombination der Schritte."}],
+          phase7:[{title:"Variationen",desc:"Freie Anwendung."}]
+        }
+      },
+      defense:{
+        title:"2. Verteidigung",
+        meta:"On-Ball-Defense, Passwege verweigern, Help-Side und Absinken",
+        tags:["Ready Position","Slides","Deny","Helpside","Close-out"],
+        phases:{
+          phase1:[{title:"Grundstellung",desc:"Aktiver, tiefer Stand."}],
+          phase2:[{title:"Slides",desc:"Schnelle Fußarbeit ohne Überkreuzen."}],
+          phase3:[{title:"Deny",desc:"Zustellen des Passwegs."}],
+          phase4:[{title:"Jump with pass",desc:"Positionierung bei Passflug."}],
+          phase5:[{title:"Absinken",desc:"Hilfsverhalten in der Zone."}],
+          phase6:[{title:"Close-out",desc:"Sicheres Anlaufen des Schützen."}],
+          phase7:[{title:"Ausblocken",desc:"Aktives Box-Out."}]
+        }
+      },
+      ballhandling:{
+        title:"3. Ballhandling",
+        meta:"Dribbelvarianten, Handwechsel, Passen, Fangen und Ballschutz",
+        tags:["Handwechsel","Ballbehandlung","Passen","Fangen","Sweep"],
+        phases:{
+          phase1:[{title:"Dribbel-Grundlagen",desc:"Blick vom Ball lösen."}],
+          phase2:[{title:"Handwechsel",desc:"Vor/Durch/Hinter dem Körper."}],
+          phase3:[{title:"Passarten",desc:"Brust/Boden/Überkopf."}],
+          phase4:[{title:"Fangen",desc:"Aktives Entgegengehen."}],
+          phase5:[{title:"Ballschutz",desc:"Körperzwischenschalten."}],
+          phase6:[{title:"Täuschungen",desc:"In-and-Out Moves."}],
+          phase7:[{title:"Koordination",desc:"Drills ohne Dribbeln."}]
+        }
+      },
+      scoring:{
+        title:"4. Scoring",
+        meta:"Abschlussformen am Korb, Korbleger-Varianten, Floater und Würfe",
+        tags:["Layup","Eurostep","Floater","Spin Move","Up and Under"],
+        phases:{
+          phase1:[{title:"Positionswurf",desc:"Technik-Fokus."}],
+          phase2:[{title:"Korbleger",desc:"Basisabschluss am Brett."}],
+          phase3:[{title:"Eurostep",desc:"Umgehen der Defense."}],
+          phase4:[{title:"Reverse-Layup",desc:"Abschluss auf der anderen Seite."}],
+          phase5:[{title:"Floater",desc:"Hoher Bogenwurf."}],
+          phase6:[{title:"Powermove",desc:"Kraftvoller Zweibeinstopp."}],
+          phase7:[{title:"Up and Under",desc:"Finten-Abschluss."}]
+        }
+      },
+      motion:{
+        title:"5. Motion",
+        meta:"Laufwege, Freilaufen, Spacing und mannschaftliches Zusammenspiel",
+        tags:["Pass-Cut-Fill","Give and Go","Backdoor","Spacing","Timing"],
+        phases:{
+          phase1:[{title:"Give and Go",desc:"Passen und sofort schneiden."}],
+          phase2:[{title:"Backdoor",desc:"Lauf hinter den Verteidiger."}],
+          phase3:[{title:"Pass-Cut-Fill",desc:"Lücken füllen."}],
+          phase4:[{title:"Dribble-at",desc:"Raum für Mitspieler schaffen."}],
+          phase5:[{title:"Spacing",desc:"Abstände halten."}],
+          phase6:[{title:"Timing",desc:"Abstimmung der Bewegungen."}],
+          phase7:[{title:"Freies Spiel",desc:"Anwendung der Prinzipien."}]
+        }
+      },
+      athletik:{
+        title:"6. Athletik & Koordination",
+        meta:"Rumpfstabilität, Schnellkraft, Landetechnik und koordinative Basisfähigkeiten",
+        tags:["Stabilität","Schnelligkeit","Sprungkraft","Landung","Koordination"],
+        phases:{
+          phase1:[{title:"Rumpfstabilität",desc:"Statische und dynamische Übungen zur Körpermitte-Stärkung."}],
+          phase2:[{title:"Gelenkstabilität",desc:"Propriozeptive Übungen für Sprunggelenk und Knie."}],
+          phase3:[{title:"Koordinationsleiter",desc:"Schnelle, präzise Fußfolgen und Rhythmuswechsel."}],
+          phase4:[{title:"Landetechnik",desc:"Kontrolliertes Landen auf einem oder beiden Beinen (Winkel/Kraft)."}],
+          phase5:[{title:"Schnellkraft",desc:"Kurze Sprints und Antrittsübungen mit plötzlichem Stop."}],
+          phase6:[{title:"Sprungkraft",desc:"Explosive Sprungübungen mit korrektem Absprung."}],
+          phase7:[{title:"Challenge",desc:"Wettbewerbsorientierte Parcours-Übungen."}]
+        }
+      }
+    };
+
+    const el=id=>document.getElementById(id);
+    function getSelectedPhases(){return Array.from(el('phases').selectedOptions).map(o=>o.value)}
+    
+    function buildPlan(){
+      const station=el('stationFilter').value,
+            note=el('coachNote').value.trim(),
+            s=stationData[station],
+            selectedPhases=getSelectedPhases();
+            
+      const phaseBoxes=selectedPhases.map(p=>{
+        const number=p.replace('phase','Phase '),
+              items=s.phases[p]||[];
+        if(items.length===0) return ''; 
+        
+        return `<div class="phaseBox">
+          <div class="phaseHeader">
+            <div class="phaseTitle">${number}</div>
+            <div class="phaseCount">${items.length} Übungsbereich(e)</div>
+          </div>
+          ${items.map(item=>`<div style="margin-bottom:10px"><strong>${item.title}</strong><div class="sessionInfo">${item.desc}</div></div>`).join('')}
+        </div>`
+      }).join('');
+
+      el('planTitle').textContent=s.title;
+      
+      const activePhasesCount=selectedPhases.filter(p=>s.phases[p] && s.phases[p].length>0).length;
+      el('planInfo').textContent=`${activePhasesCount} Phase(n) aktiv`;
+      el('summaryTags').innerHTML=[`<span class="tag">${activePhasesCount} Phase(n)</span>`].join('');
+      
+      el('stationGrid').innerHTML=`<article class="station">
+        <div class="stationHead">
+          <h3 class="stationTitle">${s.title}</h3>
+          <div class="stationMeta">${s.meta}</div>
+        </div>
+        <div class="stationBody">
+          <div class="tagRow">${s.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+          ${phaseBoxes}
+          <div class="phaseBox">
+            <div class="phaseHeader">
+              <div class="phaseTitle">Coach-Hinweis</div>
+              <div class="phaseCount">Anpassung</div>
+            </div>
+            <div class="sessionInfo">${note||'Nutze die ausgewählten Phasen passend zur Gruppe und zum Tagesziel.'}</div>
+          </div>
+        </div>
+      </article>`;
+      
+      document.querySelectorAll('.tabBtn').forEach(b=>b.classList.toggle('active',b.dataset.station===station));
+    }
+
+    function resetForm(){
+      el('stationFilter').value='offensive';
+      const opts=el('phases').options;
+      for(let i=0;i<opts.length;i++)opts[i].selected=true;
+      el('coachNote').value='';
+      buildPlan();
+    }
+    
+    function printPlan(){window.print()}
+    
+    el('generateBtn').addEventListener('click',buildPlan);
+    el('resetBtn').addEventListener('click',resetForm);
+    el('printBtn').addEventListener('click',printPlan);
+    ['stationFilter','phases'].forEach(id=>el(id).addEventListener('change',buildPlan));
+    
+    document.querySelectorAll('.tabBtn').forEach(btn=>btn.addEventListener('click',()=>{
+      el('stationFilter').value=btn.dataset.station;
+      buildPlan();
+    }));
+    
+    buildPlan();
+  </script>
+</body>
+</html>
