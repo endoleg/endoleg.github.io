@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basketball Campplaner Pro</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 20px; background: #f4f7f6; }
+        .config { background: #fff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ccc; }
+        
+        /* Mobil-Optimierung: Scrollbarer Container */
+        .table-container { width: 100%; overflow-x: auto; background: white; border-radius: 8px; }
+        
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #0056b3; color: white; }
+        
+        input { width: 90%; padding: 5px; box-sizing: border-box; }
+        .btn { padding: 8px 12px; cursor: pointer; border: none; border-radius: 4px; font-weight: bold; margin: 2px; }
+        .add-btn { background: #28a745; color: white; }
+        .print-btn { background: #17a2b8; color: white; }
+        .del-btn { background: #dc3545; color: white; }
+        .move-btn { background: #eee; border: 1px solid #ccc; cursor: pointer; }
+
+        /* Druck-Optimierung */
+        @media print {
+            .no-print, .move-btn, .del-btn, .btn { display: none !important; }
+            body { background: white; margin: 0; }
+            .config { border: none; padding: 0; }
+            .table-container { overflow-x: visible; }
+            table { min-width: 100%; table-layout: fixed; }
+            td { word-wrap: break-word; }
+            th:nth-child(5), th:nth-child(6), td:nth-child(5), td:nth-child(6) { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Basketball Campplaner</h1>
+    
+    <div class="config">
+        <label><b>Camp Startzeit: </b></label>
+        <input type="time" id="campStart" value="09:30" onchange="recalcAll()">
+    </div>
+
+    <div class="table-container">
+        <table id="planTable">
+            <thead><tr><th style="width: 80px;">Dauer</th><th>Aktivität</th><th style="width: 80px;">Start</th><th style="width: 80px;">Ende</th><th class="no-print" style="width: 100px;">Verschieben</th><th class="no-print" style="width: 60px;">Aktion</th></tr></thead>
+            <tbody>
+                </tbody>
+        </table>
+    </div>
+
+    <button class="btn add-btn" onclick="addRow()">+ Zeile hinzufügen</button>
+    <button class="btn print-btn" onclick="window.print()">Plan Drucken</button>
+
+    <script>
+        const initialData = [
+            [15, "Check-in / Umziehen etc."], [10, "Begrüßung & Warmup"], [5, "Einteilung Gruppen"],
+            [38, "1. Stationsrunde Themen 1 & 2"], [5, "Pause"], [38, "1. Stationsrunde Themen 3 & 4"],
+            [5, "Pause"], [38, "2. Stationsrunde Themen 1 & 2"], [5, "Pause"],
+            [38, "2. Stationsrunde Themen 3 & 4"], [15, "Große Pause"], [80, "Spiele"], [5, "Ende"]
+        ];
+
+        function addRow(dauer = 15, text = "") {
+            let tbody = document.querySelector('#planTable tbody');
+            let row = tbody.insertRow();
+            row.innerHTML = `<td><input type="number" value="${dauer}" onchange="recalcAll()"></td>
+                             <td><input type="text" value="${text}" style="width: 95%;"></td>
+                             <td class="start"></td><td class="end"></td>
+                             <td class="no-print"><button class="move-btn" onclick="moveRow(this, -1)">▲</button><button class="move-btn" onclick="moveRow(this, 1)">▼</button></td>
+                             <td class="no-print"><button class="del-btn" onclick="this.parentElement.parentElement.remove(); recalcAll();">X</button></td>`;
+            recalcAll();
+        }
+
+        function recalcAll() {
+            let currentTime = document.getElementById('campStart').value;
+            let rows = document.querySelectorAll('#planTable tbody tr');
+            let [h, m] = currentTime.split(':').map(Number);
+            let totalMinutes = h * 60 + m;
+            rows.forEach(row => {
+                let duration = parseInt(row.cells[0].querySelector('input').value) || 0;
+                row.cells[2].innerText = formatTime(totalMinutes);
+                totalMinutes += duration;
+                row.cells[3].innerText = formatTime(totalMinutes);
+            });
+        }
+
+        function formatTime(min) {
+            let h = Math.floor(min / 60) % 24;
+            let m = min % 60;
+            return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+        }
+
+        function moveRow(btn, direction) {
+            let row = btn.parentElement.parentElement;
+            let sibling = direction === -1 ? row.previousElementSibling : row.nextElementSibling;
+            if (sibling) {
+                direction === -1 ? row.parentNode.insertBefore(row, sibling) : row.parentNode.insertBefore(sibling, row);
+                recalcAll();
+            }
+        }
+
+        initialData.forEach(data => addRow(data[0], data[1]));
+    </script>
+</body>
+</html>
