@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TFG Wiesbaden Masterplan V3</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #475569;
+      --line: #e2e8f0;
+      --accent: #0f172a;
+      --accent2: #2563eb;
+      --green: #10b981;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      text-align: center;
+      color: var(--accent);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+    }
+
+    .intro {
+      max-width: 900px;
+      margin: 0 auto 24px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+      color: var(--muted);
+    }
+
+    details {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--accent);
+      background: linear-gradient(180deg, #fff, #fbfdff);
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary:hover { background: #f8fafc; }
+
+    .tag {
+      font-size: 0.78rem;
+      background: #e2e8f0;
+      color: #334155;
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      border: 1px solid #cbd5e1;
+    }
+
+    .content {
+      border-top: 1px solid var(--line);
+      padding: 18px 20px 20px;
+      background: #fff;
+    }
+
+    .content p {
+      margin: 0 0 12px;
+    }
+
+    ul {
+      margin: 10px 0 0;
+      padding-left: 20px;
+    }
+
+    li { margin-bottom: 8px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .box {
+      border: 1px solid var(--line);
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .ksu-box {
+      background: #ecfdf5;
+      border-left: 4px solid var(--green);
+      padding: 14px 14px 14px 16px;
+      border-radius: 0 12px 12px 0;
+      margin-top: 14px;
+    }
+
+    .small {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .highlight {
+      color: var(--accent2);
+      font-weight: 700;
+    }
+
+    .note {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 12px;
+    }
+
+    .warning {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 12px;
+    }
+
+    .tableWrap {
+      overflow-x: auto;
+      margin-top: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+      background: #fff;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f8fafc;
+      color: var(--accent);
+    }
+
+    .sectionTitle {
+      font-size: 1.02rem;
+      font-weight: 700;
+      margin: 14px 0 6px;
+      color: var(--accent);
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 12px; }
+      summary { padding: 16px; }
+      .content { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>TFG Wiesbaden Masterplan V3</h1>
+
+    <div class="intro">
+      Vollständige, erweiterte HTML-Fassung mit den Inhalten der 12 Trainingseinheiten aus der PDF sowie den ergänzenden Themenblöcken, Regelprinzipien und Zusatzübungen.
+    </div>
+
+    <!-- 1 -->
+    <details>
+      <summary>1. Try Out 1 <span class="tag">Sichtung</span></summary>
+      <div class="content">
+        <p>Am besten trägt jeder Spieler ein Stück Kreppband als Namensschild auf dem T-Shirt. Im 1. Try-out sind die ersten 50 der angemeldeten Kinder anwesend. Es sollten 2 bis 3 Felder verfügbar sein, in Absprache mit den anderen Trainern in der Halle. Stationstraining ist sinnvoll, die Kinder rotieren nach 5 Minuten, und die Trainer notieren auffällige Leistungen.</p>
+        <div class="sectionTitle">Material</div>
+        <p>Hütchen, Bälle, Hemdchen, Kreppband, Edding, Notizblatt, Pfeife.</p>
+        <div class="sectionTitle">Inhalte</div>
+        <ul>
+          <li>Laufschule mit und ohne Ball, Koordinationsaufgaben ohne Ball, Hopserläufe, Armkreisen, Dribbelsprint.</li>
+          <li>Handwechsel vor dem Körper im Dribbelparcours und Slalomdribbling an Hütchen.</li>
+          <li>R/L-Dribbling vorwärts und rückwärts, Dribbelspiel mit Ball wegschlagen, Auf- und Abstieg, Dribbelkönig.</li>
+          <li>Wurfspiel und Korblegertechnik: dribbeln, 1-2-Stopp, hoch.</li>
+          <li>Staffellauf-Spiele, Parteiball ohne Dribbling oder mit 1-2 Dribblings.</li>
+          <li>Spielfähigkeit ohne Ball testen, 2 gegen 2 oder 3 gegen 3 auf 1 Korb, mit und ohne Dribbling.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 2 -->
+    <details>
+      <summary>2. Try Out 2 <span class="tag">Sichtung</span></summary>
+      <div class="content">
+        <p>Der Ablauf ist identisch zu Try Out 1, aber für die zweite Hälfte der Teilnehmer. Ziel ist es, die Kinder vergleichbar zu beobachten und eine Rangliste zu erstellen.</p>
+        <div class="sectionTitle">Fokus</div>
+        <ul>
+          <li>Erstellung der Rangliste nach Jahrgang, Körpergröße, Ballgeschicklichkeit und Einsatz.</li>
+          <li>Cut auf ca. 30 Kinder.</li>
+          <li>Bekanntgabe der Teilnehmer nach der Sichtung.</li>
+          <li>Komplett chancenlose Kinder möglichst freundlich ausschließen, unauffällige Kinder lieber noch einmal einladen.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 3 -->
+    <details>
+      <summary>3. Beinarbeit und Ballhandling <span class="tag">Technik</span></summary>
+      <div class="content">
+        <ul>
+          <li>Selbstvorlage, 1- oder 2-Kontaktstopp, Sternschritt.</li>
+          <li>Balltausch.</li>
+          <li>Überzahlspiel 2-1, 3-2, jeweils etwa 10 Minuten.</li>
+          <li>Funino auf 2-4 Körbe mit 2-4 Bällen.</li>
+          <li>Cut auf 25 Kinder.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 4 -->
+    <details>
+      <summary>4. Beinarbeit und Korbleger <span class="tag">Technik</span></summary>
+      <div class="content">
+        <ul>
+          <li>Selbstvorlage, 1- oder 2-Kontaktstopp, Sternschritt, Facing, Sweep, Dribbelbeginn.</li>
+          <li>Ballhandling inklusive Handwechsel vor dem Körper und durch die Beine.</li>
+          <li>Korbleger.</li>
+          <li>Überzahlspiel 2-1, 3-2, jeweils etwa 10 Minuten.</li>
+          <li>Spiel 2-2 oder 3-3, ca. 15 Minuten.</li>
+        </ul>
+        <div class="ksu-box">
+          <strong>KSAthletik-Übungen:</strong> Hampelmann, Unterarmstütz, Seitstütz rechts/links, Rückstütz, Käferliegestütz, Kniehebelauf, Mountain-Climber, Quivern.
+        </div>
+        <p class="small">Ziel: Cut auf 18 Kinder.</p>
+      </div>
+    </details>
+
+    <!-- 5 -->
+    <details>
+      <summary>5. Beinarbeit plus 1-1 <span class="tag">Technik</span></summary>
+      <div class="content">
+        <ul>
+          <li>Warm-up: Korbleger nach Handwechsel.</li>
+          <li>Technik: Wurf.</li>
+          <li>1-1 gegen stehenden und bewegten Verteidiger.</li>
+          <li>Überzahlspiel 2-1, 3-2, jeweils etwa 10 Minuten.</li>
+          <li>Spiel 2-2 oder 3-3, ca. 15 Minuten.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 6 -->
+    <details>
+      <summary>6. Passen und Wurf <span class="tag">Technik</span></summary>
+      <div class="content">
+        <ul>
+          <li>Passtechnik und Wurftechnik.</li>
+          <li>Handhaltung, Beinarbeit, Follow-through.</li>
+          <li>Befreiungsbewegungen auf dem Flügel und Beinarbeit.</li>
+          <li>L- oder V-Cut.</li>
+          <li>Überzahlspiel 2-1, 3-2, jeweils etwa 10 Minuten.</li>
+          <li>Spiel 2-2 oder 3-3, ca. 15 Minuten.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 7 -->
+    <details>
+      <summary>7. Give and Go / Überzahl <span class="tag">Taktik</span></summary>
+      <div class="content">
+        <ul>
+          <li>Passen in die Bewegung.</li>
+          <li>2-0, 2-1, 2-2, Give and Go, Doppelpass.</li>
+          <li>Fastbreak mit 3 Spuren.</li>
+          <li>Überzahlspiel 2-1, 3-2, jeweils etwa 10 Minuten.</li>
+          <li>Spiel 2-2 oder 3-3, ca. 15 Minuten.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 8 -->
+    <details>
+      <summary>8. Cuts und Passen <span class="tag">Technik</span></summary>
+      <div class="content">
+        <ul>
+          <li>Cuts: L-Cut, V-Cut, Backdoorcut mit Anschlussbewegungen.</li>
+          <li>Passen aus dem Dribbling mit und ohne Gegner.</li>
+          <li>Überzahlspiel 2-1, 3-2, jeweils etwa 10 Minuten.</li>
+          <li>Spiel 2-2 oder 3-3, ca. 15 Minuten.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 9 -->
+    <details>
+      <summary>9. Verteidigung <span class="tag">Defensive</span></summary>
+      <div class="content">
+        <ul>
+          <li>Verteidigung am Spieler mit Ball.</li>
+          <li>Verteidigung am Spieler ohne Ball.</li>
+          <li>Pushstep, Distanz zum Gegner, Foulregeln, Kommunikation, Helpside.</li>
+          <li>Überzahlspiel 2-1, 3-2, jeweils etwa 10 Minuten.</li>
+          <li>Spiel 2-2 oder 3-3, ca. 15 Minuten.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 10 -->
+    <details>
+      <summary>10. Korbabschlüsse <span class="tag">Offense</span></summary>
+      <div class="content">
+        <ul>
+          <li>Varianten des Korblegers.</li>
+          <li>Ziel: In der Nähe des Korbes scoren, im No-Charge-Kreis abschließen.</li>
+          <li>Überzahlspiel 2-1, 3-2, jeweils etwa 10 Minuten.</li>
+          <li>Spiel 2-2 oder 3-3, ca. 15 Minuten.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 11 -->
+    <details>
+      <summary>11. Täuschungen <span class="tag">Technik</span></summary>
+      <div class="content">
+        <ul>
+          <li>Wurftäuschung.</li>
+          <li>Dribbeltäuschung.</li>
+          <li>Überzahlspiel 2-1, 3-2, jeweils etwa 10 Minuten.</li>
+          <li>Spiel 2-2 oder 3-3, ca. 15 Minuten.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 12 -->
+    <details>
+      <summary>12. Wiederholungen <span class="tag">Review</span></summary>
+      <div class="content">
+        <ul>
+          <li>Vertiefung aller bisher erlernten Techniken und Taktiken.</li>
+          <li>Überzahlspiel 2-1, 3-2, jeweils etwa 10 Minuten.</li>
+          <li>Spiel 2-2 oder 3-3, ca. 15 Minuten.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Themen-Topf -->
+    <details>
+      <summary>Themen-Topf <span class="tag">Zusatz</span></summary>
+      <div class="content">
+        <p>Aus diesem Themenpool kann je nach Gruppe und Bedarf zusätzlich geschöpft werden.</p>
+        <div class="grid">
+          <div class="box">
+            <strong>Ballhandling</strong>
+            <p>Täuschungen aus dem Dribbling, beidhändiger Druckpass, Bodenpass, Überkopfpass, einhändige Pässe aus dem Dribbling.</p>
+          </div>
+          <div class="box">
+            <strong>Fangen</strong>
+            <p>Fangen in Bewegung, unter Druck, mit unterschiedlichen Passhöhen.</p>
+          </div>
+          <div class="box">
+            <strong>Offensive Beinarbeit</strong>
+            <p>Sternschritt vorwärts und rückwärts.</p>
+          </div>
+          <div class="box">
+            <strong>Täuschungen</strong>
+            <p>Wurftäuschung, Schrittfinte, Passfinte, Finte mit und ohne Ball, Dribbelfinte.</p>
+          </div>
+          <div class="box">
+            <strong>Scoring / Abschluss</strong>
+            <p>Korbleger, Druckwurfkorbleger, Eurostep, Reverse, Unterhandkorbleger, Cross-Step, Floater, Spin Move, Powermove, Positionswurf.</p>
+          </div>
+          <div class="box">
+            <strong>Verteidigung</strong>
+            <p>Defensiv-Grundbewegung, Close-out, Verteidigung am Spieler mit und ohne Ball, deny, Passweg, Absinken, Help, Defensivrebound, Ausblocken.</p>
+          </div>
+          <div class="box">
+            <strong>Regeln</strong>
+            <p>Spielfeld, Fouls, Schiedsrichterzeichen, Mann-Mann-Kriterien, Regelbertretungen, Zeitregeln, Wurffouls, Aufstellung bei Freiwürfen.</p>
+          </div>
+          <div class="box">
+            <strong>Athletik</strong>
+            <p>Hampelmann, Jumping Jack, Unterarmstütz, Side Plank, Reverse Plank, Bicycle Crunch, Kniehebelauf, Mountain-Climber, Quivern.</p>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Motion -->
+    <details>
+      <summary>Motion / Read and React <span class="tag">Offense</span></summary>
+      <div class="content">
+        <p>Die Read and React Offense heißt im BC Wiesbaden <span class="highlight">MOTION</span>. Ziel ist nicht ein starres System, sondern ein gemeinsames taktisches Grundverständnis mit viel Raum, klaren Freiheiten und sinnvollen Ausstiegsmöglichkeiten.</p>
+        <p>Im Positionsangriff sollen alle Spieler alle Positionen spielen können. Jeder Spieler startet in einem der 5 home-spots, Pässe gehen idealerweise nur zu benachbarten home-spots, und lange Seitenwechsel bleiben die Ausnahme.</p>
+        <div class="note">
+          Motion ist kein Offense-System, Motion ist Offense.
+        </div>
+      </div>
+    </details>
+
+    <!-- Phasen -->
+    <details>
+      <summary>Phasen 1-4 <span class="tag">Drills</span></summary>
+      <div class="content">
+        <div class="sectionTitle">Phase 1: Frontcut-Drill</div>
+        <p>Passer oben-Spot passt zu Empfänger neben-Spot, Empfänger gibt Pass zurück, Passer macht geradlinigen Frontcut vor dem Hütchen-Verteidiger bis No-Charge-Kreis, Layup, eigener Rebound, alle rotieren. Tempo hoch, Kinder rufen Doppelpass.</p>
+
+        <div class="sectionTitle">Phase 2: Backdoor-Drill</div>
+        <p>Wie Phase 1, aber der Passer macht einen Backdoorcut hinter dem Hütchen-Verteidiger bis zum No-Charge-Kreis. Fokus: Cutten hinten lang, ohne Täuschung, Hände zeigen, Rear-Cut hinter dem Verteidiger entlang.</p>
+
+        <div class="sectionTitle">Phase 3: Dribble-At mit Backdoor</div>
+        <p>Zwei Stationen, Coach oder Kind dribbelt at aufdribbeln, Zielkind backdoor-cut zum Korb, andere füllen den Spot auf. Ballträger wechseln, Abstände halten.</p>
+
+        <div class="sectionTitle">Phase 4: Auffüllen nach Cutten</div>
+        <p>4-gegen-0 Pass-Cut-Fill-Drill in Home-Spots. Nach jedem Cut sprintet das nächste Kind zum freien Spot baseline nach oben. Erstes Ziel ist der Pass vom Aufbauspieler zum Flügel, anschließend Cut zum Korb und Weiterrotation.</p>
+      </div>
+    </details>
+
+    <!-- Regeln -->
+    <details>
+      <summary>Regeln im Angriff <span class="tag">Prinzipien</span></summary>
+      <div class="content">
+        <ul>
+          <li>Nach jedem Pass zu einem benachbarten Spot schneidest du unter den Korb bis in den No-Charge-Kreis.</li>
+          <li>Der Passgeber versucht nach dem Pass geradlinig vorne am Verteidiger vorbei als Front Cut zu cutten.</li>
+          <li>Wenn der Verteidiger den Weg vorne versperrt, wird backdoor bzw. rear-cut hinter dem Verteidiger gelaufen.</li>
+          <li>Freie Spots werden nach oben hin bzw. Richtung Ball aufgefüllt.</li>
+          <li>Niemand bekommt den Ball im Stehen.</li>
+          <li>Wenn der ballführende Spieler auf mich zudribbelt, cutte ich backdoor und mache Platz.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 4out -->
+    <details>
+      <summary>4out Basic Cut-and-Fill <span class="tag">Drill</span></summary>
+      <div class="content">
+        <p>4 Spieler stellen sich in den 4 home-spots auf, also außen herum. Je zwei Spieler in den Ecken und auf den beiden Flügeln sowie ein Aufbauspieler mit Ball oben in der Mitte. Grundprinzip: passen, schneiden, auffüllen.</p>
+        <ul>
+          <li>Der Passgeber macht nach jedem Pass einen Cut bis unter den Korb in den No-Charge-Kreis.</li>
+          <li>Auffüllen zum Ball, Hände zeigen, Korb bedrohen, Raumaufteilung einhalten.</li>
+          <li>Spots einhalten außerhalb der Dreierlinie.</li>
+          <li>Nach dem Cut unter den Korb immer auf der Seite raus, auf der kein Ball ist.</li>
+        </ul>
+        <div class="tableWrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Stufe</th>
+                <th>Organisation</th>
+                <th>Inhalt</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>4out ohne Verteidigung</td>
+                <td>Außen herum von Ecke zu Ecke passen, ohne Dribbling, inklusive Cuts und Fills. Ballbesitzer macht Sweep für Ballschutz. Keine Korbabschlüsse, nur außen passen. Anspiele zum Layup erlaubt.</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>4out mit Verteidigung</td>
+                <td>Gleiche Struktur, aber mit Verteidigung. Ziel: Raumgefühl und Entscheidungsfindung verbessern.</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>4out mit Dribble-At</td>
+                <td>Außen herum passen, zusätzlich Dribblings nutzen. Kein Abschluss außer Layup-Anspiel.</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>4out als Drill-Offense</td>
+                <td>Offense erhält Punkte für Cuts, Defense zwei Punkte für Ballberührungen.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <!-- Bewegung -->
+    <details>
+      <summary>Movement Prep und Basic <span class="tag">Athletik</span></summary>
+      <div class="content">
+        <div class="grid">
+          <div class="box">
+            <strong>Movement Prep U12 und jünger</strong>
+            <p>Tiger Krabbeln, Armkreisen, Arme nach hinten und vorne kreisen, Klositz, Kniebeugen, Flugzeug, Zappel-Philipp, Soldat, Frosch-Sprung, Skippings, Kniehebelauf.</p>
+          </div>
+          <div class="box">
+            <strong>Basic Übungen</strong>
+            <p>Unterarmstütz, Seitstütz, Rückstütz, Liegestütz, Glute Bridge, Einbeinstand, Sprünge mit Stick Landing, Sumo Squat Stretch, Rückenstrecker, Split Squats, Squat Jumps.</p>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Fastbreak -->
+    <details>
+      <summary>Schnellangriffe <span class="tag">Transition</span></summary>
+      <div class="content">
+        <p>Der Fastbreak dient dazu, einen Korb in Überzahl gegen eine noch nicht organisierte Verteidigung zu erzielen. Zeitlich besteht er aus drei Phasen: Ballsicherung, Ballvortrag und Abschluss.</p>
+        <ul>
+          <li>Ballsicherung durch Defensiv-Rebound oder Steal, danach schneller Outlet-Pass.</li>
+          <li>Ballvortrag per Pass oder Dribbling über die Mitte oder über die Seite.</li>
+          <li>Abschluss meist per Korbleger oder Power-Move, selten Sprungwurf.</li>
+          <li>Spurenprinzip: Außen- und Innenläufer machen das Feld breit und lang.</li>
+          <li>Rim-Runner sprintet in der Mittelspur bis unter den Korb.</li>
+          <li>Trailer kommt als Nachzügler und hält Abstand zum Aufbau.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Unterzahl -->
+    <details>
+      <summary>Unterzahlverteidigung <span class="tag">Defense</span></summary>
+      <div class="content">
+        <p>Auch die Verteidigung in Unterzahl muss organisiert und kontrolliert sein. Ein wichtiger Spieler ist der Safety, also derjenige, der sich am nächsten zum eigenen Korb befindet und die zurück sprintenden Mitspieler dirigiert.</p>
+        <ul>
+          <li>1 gegen X: schnell in die Zone zurücksprinten, Korbleger verhindern, Ballbesitzer spät attackieren.</li>
+          <li>2 gegen X: Tandem oder parallel, der vordere Verteidiger attackiert den Ball, der hintere deckt den ersten Pass ab.</li>
+          <li>Kommunikation ist besonders wichtig bei Würfen und beim Ausboxen.</li>
+          <li>Priorität: korbnahe Abschlüsse verhindern.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Talent -->
+    <details>
+      <summary>Talentsichtung und PISTE <span class="tag">Selektion</span></summary>
+      <div class="content">
+        <p>Das Konzept betont, dass nicht die aktuell Besten, sondern die Geeignetsten gesucht werden. Die Prognosevalidität vor der Pubertät ist gering, weshalb Selektionsentscheidungen mit großer Vorsicht getroffen werden sollten.</p>
+        <ul>
+          <li>Statischer Talentbegriff: anthropometrische, konditionelle, koordinative, kognitive, psychische und Umfeldfaktoren.</li>
+          <li>Dynamischer Talentbegriff: Entwicklungsprozess und Reaktion auf Fördermaßnahmen.</li>
+          <li>PISTE: psychische, intellektuelle, soziale, technische und ethische Faktoren plus Belastbarkeit.</li>
+          <li>Wichtige Kriterien sind Coachability, Lernfähigkeit, Teamfähigkeit und Spielverständnis.</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Abschluss -->
+    <details>
+      <summary>Hinweis zur Nutzung <span class="tag">Export</span></summary>
+      <div class="content">
+        <p>Diese Datei ist als erweiterte Basis gedacht. Wenn du willst, kann man daraus im nächsten Schritt noch eine optisch modernere Version mit sauberer Navigation, Suchfunktion, aufklappbaren Wochenkarten oder Drucklayout bauen.</p>
+      </div>
+    </details>
+  </div>
+</body>
+</html>
