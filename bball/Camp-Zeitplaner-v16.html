@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basketball Campplaner Pro</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 10px; background: #f4f7f6; }
+        .config, .info-box { background: #fff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ccc; }
+        
+        /* Mobile Optimierung */
+        .table-container { width: 100%; overflow-x: auto; background: white; border-radius: 8px; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; min-width: 450px; table-layout: fixed; }
+        
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #0056b3; color: white; font-size: 14px; }
+        
+        th:nth-child(1), td:nth-child(1) { width: 60px; }
+        th:nth-child(2) { width: auto; }
+        th:nth-child(3), td:nth-child(3), th:nth-child(4), td:nth-child(4) { width: 60px; }
+        
+        input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        
+        .btn { padding: 10px 15px; cursor: pointer; border: none; border-radius: 4px; font-weight: bold; margin: 5px 0; }
+        .add-btn { background: #28a745; color: white; width: 100%; }
+        .print-btn { background: #17a2b8; color: white; width: 100%; }
+        .move-btn { background: #eee; border: 1px solid #ccc; padding: 5px; }
+        .del-btn { background: #dc3545; color: white; padding: 5px; }
+
+        @media print {
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Basketball Campplaner</h1>
+    
+    <div class="config">
+        <label><b>Camp Startzeit: </b></label>
+        <input type="time" id="campStart" value="09:30" onchange="recalcAll()" style="width: 120px;">
+    </div>
+
+    <div class="table-container">
+        <table id="planTable">
+            <thead>
+                <tr><th>Min</th><th>Aktivität</th><th>Start</th><th>Ende</th><th class="no-print">V</th><th class="no-print">X</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <button class="btn add-btn" onclick="addRow()">+ Zeile hinzufügen</button>
+    <button class="btn print-btn" onclick="window.print()">Plan Drucken</button>
+
+    <div style="margin-top:24px;padding:16px;border:1px solid #ccc;border-radius:8px;background:#f9f9f9;line-height:1.6;">
+        <h3>Grundinfos aus dem Campplan</h3>
+        <p><b>1-Tages-Basketball-Camp (voller Tag)</b></p>
+        <p>Halle öffnen, Umziehen und Einchecken. Teilnehmerlisten pflegen, Bezahlung, Bälle rausholen.</p>
+        <p>Begrüßung, grober Ablauf und Camp-Regeln.</p>
+        <p>Wichtige Hinweise: Ball mitbringen, wenn vorhanden; keine Getränke oder Essen in der Halle, nur auf der Tribüne; fair play; nett zu den Coaches.</p>
+        <p>Aufwärmen mit Laufschule.</p>
+        <p>Einteilung in 4 gleichgroße Gruppen nach Alter, Größe und Leistungsstärke.</p>
+        <p>Stations-Trainingsrunden mit Scoring, Ballhandling, 4-Out-Basics bzw. Athletik sowie offensiver Beinarbeit und Täuschungen.</p>
+        <p>Spielrunden auf 2 Feldern mit 2 gegen 2, 3 gegen 3 und 4 gegen 4; kein 5 gegen 5.</p>
+        <p>Pause und Mittagessen.</p>
+        <p>Clinic zu einem gemeinsamen Thema, z. B. Linkskorbleger oder Defense.</p>
+        <p>Cool down, Aufräumen, Verabschiedung und Feedback.</p>
+    </div>
+
+    <script>
+        const initialData = [
+            [15, "Check-in / Umziehen"], [10, "Begrüßung & Warmup"], [5, "Einteilung Gruppen"],
+            [38, "1. Stationsrunde Themen 1 & 2"], [5, "Pause"], [38, "1. Stationsrunde Themen 3 & 4"],
+            [5, "Pause"], [38, "2. Stationsrunde Themen 1 & 2"], [5, "Pause"],
+            [38, "2. Stationsrunde Themen 3 & 4"], [15, "Große Pause"], [80, "Spiele"], [5, "Ende"]
+        ];
+
+        function addRow(dauer = 15, text = "") {
+            let tbody = document.querySelector('#planTable tbody');
+            let row = tbody.insertRow();
+            row.innerHTML = `<td><input type="number" value="${dauer}" onchange="recalcAll()"></td>
+                             <td><input type="text" value="${text}"></td>
+                             <td class="start"></td><td class="end"></td>
+                             <td class="no-print"><button class="move-btn" onclick="moveRow(this, -1)">▲</button><button class="move-btn" onclick="moveRow(this, 1)">▼</button></td>
+                             <td class="no-print"><button class="del-btn" onclick="this.parentElement.parentElement.remove(); recalcAll();">X</button></td>`;
+            recalcAll();
+        }
+
+        function recalcAll() {
+            let currentTime = document.getElementById('campStart').value;
+            let rows = document.querySelectorAll('#planTable tbody tr');
+            let [h, m] = currentTime.split(':').map(Number);
+            let totalMinutes = h * 60 + m;
+            rows.forEach(row => {
+                let duration = parseInt(row.cells[0].querySelector('input').value) || 0;
+                row.cells[2].innerText = formatTime(totalMinutes);
+                totalMinutes += duration;
+                row.cells[3].innerText = formatTime(totalMinutes);
+            });
+        }
+
+        function formatTime(min) {
+            let h = Math.floor(min / 60) % 24;
+            let m = min % 60;
+            return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+        }
+
+        function moveRow(btn, direction) {
+            let row = btn.parentElement.parentElement;
+            let sibling = direction === -1 ? row.previousElementSibling : row.nextElementSibling;
+            if (sibling) {
+                direction === -1 ? row.parentNode.insertBefore(row, sibling) : row.parentNode.insertBefore(sibling, row);
+                recalcAll();
+            }
+        }
+
+        initialData.forEach(data => addRow(data[0], data[1]));
+    </script>
+</body>
+</html>
