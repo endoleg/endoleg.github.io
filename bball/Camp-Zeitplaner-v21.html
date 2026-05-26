@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basketball Campplaner Pro</title>
+  <style>
+    :root{
+      --bg:#f4f7f6;
+      --card:#fff;
+      --border:#d7dbe0;
+      --text:#1f2937;
+      --primary:#0056b3;
+      --success:#28a745;
+      --info:#17a2b8;
+      --danger:#dc3545;
+      --shadow:0 2px 10px rgba(0,0,0,.06);
+      --radius:10px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px;
+    }
+
+    h1 {
+      margin: 8px 0 16px;
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      line-height: 1.2;
+    }
+
+    .card, .info-box, .table-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .card, .info-box {
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .config-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr;
+      align-items: end;
+    }
+
+    .field label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input, button {
+      font: inherit;
+    }
+
+    input {
+      width: 100%;
+      padding: 9px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--text);
+    }
+
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    caption {
+      text-align: left;
+      padding: 14px 16px 8px;
+      font-weight: 700;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 8px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    thead th {
+      background: var(--primary);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) { background: #fafbfc; }
+
+    th:nth-child(1), td:nth-child(1) { width: 72px; }
+    th:nth-child(2), td:nth-child(2) { width: auto; }
+    th:nth-child(3), td:nth-child(3),
+    th:nth-child(4), td:nth-child(4) { width: 84px; }
+    th:nth-child(5), td:nth-child(5),
+    th:nth-child(6), td:nth-child(6) { width: 78px; }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 12px 0 16px;
+    }
+
+    .btn {
+      padding: 10px 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .add-btn { background: var(--success); color: #fff; }
+    .print-btn { background: var(--info); color: #fff; }
+
+    .move-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .move-btn, .del-btn {
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      line-height: 1;
+      background: #f3f4f6;
+    }
+
+    .del-btn {
+      background: var(--danger);
+      color: #fff;
+      border-color: var(--danger);
+    }
+
+    .station-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .station-box {
+      padding: 12px;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      background: #fcfcfd;
+    }
+
+    .station-title {
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .info-box {
+      background: #f9f9f9;
+      line-height: 1.6;
+    }
+
+    .info-box h3 { margin-top: 0; }
+
+    @media (min-width: 700px) {
+      .config-grid { grid-template-columns: 220px 1fr; }
+      .station-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      .page { padding: 10px; }
+      .card, .info-box { padding: 14px; }
+      table { min-width: 620px; }
+    }
+
+    @media print {
+      body { background: #fff; color: #000; }
+      .no-print, .toolbar { display: none !important; }
+      .page { max-width: none; padding: 0; }
+      .table-container { box-shadow: none; border: 0; }
+      table { min-width: 0; }
+      thead th { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1>Basketball Campplaner</h1>
+
+    <section class="card config-grid" aria-label="Konfiguration">
+      <div class="field">
+        <label for="campStart"><b>Camp Startzeit:</b></label>
+        <input type="time" id="campStart" value="09:30" />
+      </div>
+
+      <div class="field">
+        <label>Stationen bearbeiten</label>
+        <div class="station-grid">
+          <input id="station1" type="text" value="Scoring" />
+          <input id="station2" type="text" value="Ballhandling" />
+          <input id="station3" type="text" value="4-Out-Basics / Athletik" />
+          <input id="station4" type="text" value="Offensive Beinarbeit & Täuschungen" />
+        </div>
+      </div>
+    </section>
+
+    <section class="card" aria-label="Stationsübersicht">
+      <div class="station-grid">
+        <div class="station-box">
+          <div class="station-title">Stationsrunde 1 & 2</div>
+          <div id="stationBlock12"></div>
+        </div>
+        <div class="station-box">
+          <div class="station-title">Stationsrunde 3 & 4</div>
+          <div id="stationBlock34"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="table-container" aria-label="Campplan Tabelle">
+      <table id="planTable">
+        <caption>Programmübersicht des Basketball-Camps</caption>
+        <thead>
+          <tr>
+            <th scope="col">Min</th>
+            <th scope="col">Aktivität</th>
+            <th scope="col">Start</th>
+            <th scope="col">Ende</th>
+            <th scope="col" class="no-print">V</th>
+            <th scope="col" class="no-print">X</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <div class="toolbar no-print">
+      <button class="btn add-btn" id="addRowBtn" type="button">+ Zeile hinzufügen</button>
+      <button class="btn print-btn" id="printBtn" type="button">Plan Drucken</button>
+    </div>
+
+    <section class="info-box" aria-label="Grundinformationen">
+      <h3>Grundinfos aus dem Campplan</h3>
+      <p><b>1-Tages-Basketball-Camp (voller Tag)</b></p>
+      <p>Halle öffnen, Umziehen und Einchecken. Teilnehmerlisten pflegen, Bezahlung, Bälle rausholen.</p>
+      <p>Begrüßung, grober Ablauf und Camp-Regeln.</p>
+      <p>Wichtige Hinweise: Ball mitbringen, wenn vorhanden; keine Getränke oder Essen in der Halle, nur auf der Tribüne; fair play; nett zu den Coaches.</p>
+      <p>Aufwärmen mit Laufschule.</p>
+      <p>Einteilung in 4 gleichgroße Gruppen nach Alter, Größe und Leistungsstärke.</p>
+      <p>Stations-Trainingsrunden mit Scoring, Ballhandling, 4-Out-Basics bzw. Athletik sowie offensiver Beinarbeit und Täuschungen.</p>
+      <p>Spielrunden auf 2 Feldern mit 2 gegen 2, 3 gegen 3 und 4 gegen 4; kein 5 gegen 5.</p>
+      <p>Pause und Mittagessen.</p>
+      <p>Clinic zu einem gemeinsamen Thema, z. B. Linkskorbleger oder Defense.</p>
+      <p>Cool down, Aufräumen, Verabschiedung und Feedback.</p>
+    </section>
+  </main>
+
+  <script>
+    const initialData = [
+      [15, "Check-in / Umziehen"],
+      [10, "Begrüßung & Warmup"],
+      [5, "Einteilung Gruppen"],
+      [38, "1. Stationsrunde Themen 1 & 2"],
+      [5, "Pause"],
+      [38, "1. Stationsrunde Themen 3 & 4"],
+      [5, "Pause"],
+      [38, "2. Stationsrunde Themen 1 & 2"],
+      [5, "Pause"],
+      [38, "2. Stationsrunde Themen 3 & 4"],
+      [15, "Große Pause"],
+      [80, "Spiele"],
+      [5, "Ende"]
+    ];
+
+    const tbody = document.querySelector("#planTable tbody");
+    const campStart = document.getElementById("campStart");
+    const addRowBtn = document.getElementById("addRowBtn");
+    const printBtn = document.getElementById("printBtn");
+
+    const stationInputs = [
+      document.getElementById("station1"),
+      document.getElementById("station2"),
+      document.getElementById("station3"),
+      document.getElementById("station4")
+    ];
+
+    const stationBlock12 = document.getElementById("stationBlock12");
+    const stationBlock34 = document.getElementById("stationBlock34");
+
+    const stationRows = [
+      { label: "1. Stationsrunde Themen", from: 0, to: 1 },
+      { label: "1. Stationsrunde Themen", from: 1, to: 2 },
+      { label: "2. Stationsrunde Themen", from: 2, to: 3 },
+      { label: "2. Stationsrunde Themen", from: 3, to: 4 }
+    ];
+
+    function getStations() {
+      return stationInputs.map(input => input.value.trim() || "—");
+    }
+
+    function updateStationBlocks() {
+      const [s1, s2, s3, s4] = getStations();
+
+      stationBlock12.textContent = "";
+      stationBlock34.textContent = "";
+
+      const line1 = document.createElement("div");
+      line1.textContent = `1. Stationsrunde Themen ${s1} & ${s2}`;
+
+      const line2 = document.createElement("div");
+      line2.textContent = `2. Stationsrunde Themen ${s3} & ${s4}`;
+
+      stationBlock12.appendChild(line1);
+      stationBlock34.appendChild(line2);
+
+      const rows = tbody.querySelectorAll("tr");
+      if (rows[3]) rows[3].querySelector(".activity-text").textContent = `1. Stationsrunde Themen ${s1} & ${s2}`;
+      if (rows[5]) rows[5].querySelector(".activity-text").textContent = `1. Stationsrunde Themen ${s1} & ${s2}`;
+      if (rows[7]) rows[7].querySelector(".activity-text").textContent = `2. Stationsrunde Themen ${s3} & ${s4}`;
+      if (rows[9]) rows[9].querySelector(".activity-text").textContent = `2. Stationsrunde Themen ${s3} & ${s4}`;
+    }
+
+    function formatTime(min) {
+      const h = Math.floor(min / 60) % 24;
+      const m = min % 60;
+      return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+    }
+
+    function recalcAll() {
+      const [h, m] = (campStart.value || "00:00").split(":").map(Number);
+      let totalMinutes = h * 60 + m;
+
+      tbody.querySelectorAll("tr").forEach(row => {
+        const durationInput = row.querySelector('input[type="number"]');
+        const duration = Number.parseInt(durationInput?.value, 10) || 0;
+        row.querySelector(".start").textContent = formatTime(totalMinutes);
+        totalMinutes += duration;
+        row.querySelector(".end").textContent = formatTime(totalMinutes);
+      });
+    }
+
+    function createRow(dauer = 15, text = "") {
+      const row = tbody.insertRow();
+      row.innerHTML = `
+        <td><input type="number" min="0" step="1" value="${dauer}" aria-label="Dauer in Minuten"></td>
+        <td><span class="activity-text">${text}</span></td>
+        <td class="start" aria-label="Startzeit"></td>
+        <td class="end" aria-label="Endzeit"></td>
+        <td class="no-print">
+          <div class="move-group">
+            <button class="move-btn" type="button" data-dir="-1" aria-label="Zeile nach oben verschieben">▲</button>
+            <button class="move-btn" type="button" data-dir="1" aria-label="Zeile nach unten verschieben">▼</button>
+          </div>
+        </td>
+        <td class="no-print">
+          <button class="del-btn" type="button" aria-label="Zeile löschen">X</button>
+        </td>
+      `;
+      recalcAll();
+    }
+
+    function moveRow(btn, direction) {
+      const row = btn.closest("tr");
+      const sibling = direction === -1 ? row.previousElementSibling : row.nextElementSibling;
+      if (!sibling) return;
+
+      if (direction === -1) tbody.insertBefore(row, sibling);
+      else tbody.insertBefore(sibling, row);
+
+      recalcAll();
+      updateStationBlocks();
+    }
+
+    tbody.addEventListener("input", (e) => {
+      if (e.target.matches('input[type="number"]')) recalcAll();
+    });
+
+    tbody.addEventListener("click", (e) => {
+      const moveBtn = e.target.closest(".move-btn");
+      const delBtn = e.target.closest(".del-btn");
+
+      if (moveBtn) moveRow(moveBtn, Number(moveBtn.dataset.dir));
+
+      if (delBtn) {
+        delBtn.closest("tr").remove();
+        recalcAll();
+        updateStationBlocks();
+      }
+    });
+
+    stationInputs.forEach(input => {
+      input.addEventListener("input", () => {
+        updateStationBlocks();
+      });
+    });
+
+    addRowBtn.addEventListener("click", () => createRow());
+    printBtn.addEventListener("click", () => window.print());
+    campStart.addEventListener("change", recalcAll);
+
+    initialData.forEach(([dauer, text]) => createRow(dauer, text));
+    updateStationBlocks();
+    recalcAll();
+  </script>
+</body>
+</html>
