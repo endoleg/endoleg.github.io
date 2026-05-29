@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Minibasketball Rotations-Planer (4vs4 Dynamic)</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #102027;
+      --muted: #607d8b;
+      --line: #d9e2ec;
+      --accent: #1565c0;
+      --accent2: #0f4c81;
+      --danger: #c62828;
+      --warning: #ef6c00;
+      --ok: #2e7d32;
+      --active-bg: #e3f2fd;
+      --active-text: #0d47a1;
+      --shadow: 0 10px 30px rgba(16, 32, 39, .08);
+      --radius: 16px;
+      --radiusSm: 12px;
+    }
+    
+    [data-theme="dark"] {
+      --bg: #1a1f24;
+      --card: #242b33;
+      --text: #e8eef4;
+      --muted: #90a4ae;
+      --line: #37474f;
+      --accent: #42a5f5;
+      --accent2: #2196f3;
+      --danger: #ef5350;
+      --warning: #ffa726;
+      --ok: #66bb6a;
+      --active-bg: #1e3a5f;
+      --active-text: #90caf9;
+      --shadow: 0 10px 30px rgba(0, 0, 0, .3);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+
+    .app {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: end;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+    h1 { margin: 0; font-size: clamp(1.5rem, 2vw, 2rem); }
+    .subtitle { color: var(--muted); margin: 6px 0 0; max-width: 70ch; }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 2.4fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 1150px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .card h2 { margin: 0 0 12px; font-size: 1.1rem; }
+    
+    .kader-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .btn-control {
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 6px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 0.85rem;
+      transition: background 0.1s;
+    }
+    [data-theme="dark"] .btn-control {
+      background: #2c353f;
+    }
+    .btn-control:hover { background: #f1f5f9; }
+    [data-theme="dark"] .btn-control:hover { background: #37474f; }
+    .btn-control.minus { color: var(--danger); }
+    .btn-control.plus { color: var(--ok); }
+
+    .player-input-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .player-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .player-row .row-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      width: 20px;
+      text-align: right;
+    }
+    .player-row input[type="text"] {
+      flex: 1;
+      border: 1px solid var(--line);
+      border-radius: var(--radiusSm);
+      padding: 8px 12px;
+      background: #fff;
+      color: var(--text);
+    }
+    [data-theme="dark"] .player-row input[type="text"] {
+      background: #2c353f;
+    }
+    .player-row input[type="number"] {
+      width: 55px;
+      border: 1px solid var(--line);
+      border-radius: var(--radiusSm);
+      padding: 8px 6px;
+      text-align: center;
+      background: #fff;
+      color: var(--text);
+    }
+    [data-theme="dark"] .player-row input[type="number"] {
+      background: #2c353f;
+    }
+    
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight: 700;
+      background: var(--accent);
+      color: #fff;
+      transition: transform .05s ease, background .15s ease;
+    }
+    .btn:hover { background: var(--accent2); }
+    .btn:active { transform: translateY(1px); }
+    .btn.secondary { background: #90a4ae; }
+    .btn.secondary:hover { background: #78909c; }
+    .btn.small { padding: 6px 12px; font-size: 0.85rem; border-radius: 8px; }
+    .btn.print-btn { background: #37474f; }
+    .btn.print-btn:hover { background: #263238; }
+    
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .theme-toggle:hover {
+      background: var(--active-bg);
+      color: var(--active-text);
+    }
+    
+    .table-wrap {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+      min-width: 800px;
+    }
+    th, td {
+      padding: 10px 4px;
+      border: 1px solid var(--line);
+    }
+    th {
+      background: #f8fafc;
+      font-size: 0.9rem;
+    }
+    [data-theme="dark"] th {
+      background: #2c353f;
+    }
+    .player-cell-name {
+      text-align: left;
+      font-weight: bold;
+      min-width: 160px;
+      padding-left: 8px;
+    }
+    .player-cell-name.placeholder-name {
+      color: var(--muted);
+      font-weight: normal;
+      font-style: italic;
+    }
+    
+    .slot-cell {
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.1s ease;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    .slot-cell.active {
+      background-color: var(--active-bg);
+      color: var(--active-text);
+    }
+    .slot-cell.active::before {
+      content: "🏀";
+    }
+    .slot-cell.bench {
+      background-color: #fafafa;
+      color: #bbb;
+    }
+    [data-theme="dark"] .slot-cell.bench {
+      background-color: #2c353f;
+      color: #607d8b;
+    }
+    .slot-cell.bench::before {
+      content: "🛑";
+      font-size: 0.85rem;
+    }
+    
+    .count-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+    .badge-ok { background: #e8f5e9; color: var(--ok); }
+    .badge-danger { background: #ffe0e0; color: var(--danger); }
+    [data-theme="dark"] .badge-ok {
+      background: #1b5e20;
+      color: #a5d6a7;
+    }
+    [data-theme="dark"] .badge-danger {
+      background: #b71c1c;
+      color: #ef9a9a;
+    }
+    
+    .court-count-row td {
+      font-weight: bold;
+      background: #f1f5f9;
+    }
+    [data-theme="dark"] .court-count-row td {
+      background: #2c353f;
+    }
+    
+    .alert-box {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: var(--radiusSm);
+      background: #fff3e0;
+      border: 1px solid #ffe0b2;
+      color: #e65100;
+      display: none;
+    }
+    [data-theme="dark"] .alert-box {
+      background: #3e2723;
+      border-color: #5d4037;
+      color: #ffcc80;
+    }
+    .alert-box ul { margin: 4px 0 0; padding-left: 20px; }
+    .info-footer {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ==================== PRINT STYLES ==================== */
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 10mm;
+      }
+      body {
+        background: #fff;
+        color: #000;
+        font-size: 10pt;
+      }
+      [data-theme="dark"] body {
+        background: #fff;
+        color: #000;
+      }
+      .app {
+        padding: 0;
+        max-width: 100%;
+      }
+      .header p, .header-actions, .kader-controls, h2:not(:first-of-type), .btn, .info-footer, .alert-box, .grid section:first-child {
+        display: none !important;
+      }
+      .grid {
+        display: block;
+      }
+      .card {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        background: transparent;
+      }
+      table {
+        min-width: 100%;
+        page-break-inside: avoid;
+      }
+      th, td {
+        padding: 8px 4px !important;
+        border: 1px solid #000 !important;
+        font-size: 11pt;
+      }
+      th {
+        background: #f0f0f0 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .court-count-row td {
+        background: #e5e5e5 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .slot-cell.active {
+        background-color: #e3f2fd !important;
+        color: #0d47a1 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .slot-cell.bench::before {
+        content: "" !important;
+      }
+      .count-badge {
+        border: 1px solid #ccc;
+        background: transparent !important;
+        color: #000 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app">
+    <header class="header">
+      <div>
+        <h1>Mini-Basketball Rotations-Planer (4 gegen 4) 🏀</h1>
+        <p class="subtitle">Wechselzeit-Rechner für den Zehnteltakt (Minis). Sichert exakt 4 Spieler auf dem Feld und passt sich flexibel deiner Teamgröße an.</p>
+      </div>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle">🌙 Dunkel</button>
+        <button class="btn print-btn" id="printBtn">🖨️ Als PDF drucken</button>
+        <button class="btn secondary" id="clearBtn">Plan zurücksetzen</button>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section class="card">
+        <h2>Kadergröße anpassen</h2>
+        <div class="kader-controls">
+          <button class="btn-control minus" id="removePlayerBtn">− Spieler entfernen</button>
+          <button class="btn-control plus" id="addPlayerBtn">+ Spieler hinzufügen</button>
+        </div>
+
+        <h2>Spielerliste</h2>
+        <div class="player-input-list" id="playerInputs"></div>
+        <div style="margin-top:12px; display:flex; gap:8px;">
+          <button class="btn small" id="loadDemoBtn">Beispiel-Team laden</button>
+        </div>
+        
+        <div class="info-footer">
+          <strong>Regeln DBB (Minis - 10 Zehntel):</strong><br>
+          • <strong>Exakt 4 gegen 4</strong> auf dem Feld<br>
+          • Jedes Kind mind. 2 Zehntel Einsätze<br>
+          • Jedes Kind max. 8 Zehntel Einsätze<br>
+          • Keine fliegenden Wechsel während des Zehntels
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Wechsel-Matrix <span class="hint" style="font-weight:normal; font-size:0.85rem; color:var(--muted);">👉 Klicke in die Felder, um Spieler ein-/auszuwechseln</span></h2>
+        
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="text-align:left;">Spieler / Trikot</th>
+                <th>Z1</th>
+                <th>Z2</th>
+                <th>Z3</th>
+                <th>Z4</th>
+                <th>Z5</th>
+                <th>Z6</th>
+                <th>Z7</th>
+                <th>Z8</th>
+                <th>Z9</th>
+                <th>Z10</th>
+                <th>Gesamt</th>
+              </tr>
+            </thead>
+            <tbody id="matrixBody"></tbody>
+            <tfoot>
+              <tr class="court-count-row" id="courtCountRow"></tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div class="alert-box" id="alertBox">
+          <strong>Regelkonformität & Warnungen:</strong>
+          <ul id="alertList"></ul>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    // =============================================
+    // Mini-Basketball Rotations-Planer – Modular
+    // =============================================
+
+    (function () {
+      "use strict";
+
+      // ==================== KONFIGURATION ====================
+      const CONFIG = {
+        MAX_PLAYERS: 12,
+        MIN_PLAYERS: 5,
+        TOTAL_PERIODS: 10,
+        MIN_PLAY_PER_PLAYER: 2,
+        MAX_PLAY_PER_PLAYER: 8,
+        IDEAL_COURT_COUNT: 4
+      };
+
+      // ==================== STATE ====================
+      let state = {
+        players: [],
+        matrix: [],
+        currentPlayerCount: 12
+      };
+
+      // ==================== DOM CACHE ====================
+      const DOM = {
+        playerInputs: document.getElementById('playerInputs'),
+        matrixBody: document.getElementById('matrixBody'),
+        courtCountRow: document.getElementById('courtCountRow'),
+        alertBox: document.getElementById('alertBox'),
+        alertList: document.getElementById('alertList'),
+        clearBtn: document.getElementById('clearBtn'),
+        loadDemoBtn: document.getElementById('loadDemoBtn'),
+        addPlayerBtn: document.getElementById('addPlayerBtn'),
+        removePlayerBtn: document.getElementById('removePlayerBtn'),
+        printBtn: document.getElementById('printBtn'),
+        themeToggle: document.getElementById('themeToggle')
+      };
+
+      // ==================== DARK MODE ====================
+      function initTheme() {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeButton(savedTheme);
+      }
+
+      function toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        updateThemeButton(next);
+      }
+
+      function updateThemeButton(theme) {
+        DOM.themeToggle.textContent = theme === 'dark' ? '☀️ Hell' : '🌙 Dunkel';
+      }
+
+      // ==================== HILFSFUNKTIONEN ====================
+      function createEmptyMatrix(count) {
+        return Array.from({ length: count }, () => Array(CONFIG.TOTAL_PERIODS).fill(false));
+      }
+
+      function applyDefault4vs4Rotation() {
+        const m = state.matrix;
+        const n = state.currentPlayerCount;
+
+        // Basis-Rotation für erste 8 Spieler
+        for (let p = 0; p < Math.min(4, n); p++) {
+          m[p][0] = m[p][1] = m[p][4] = m[p][5] = true;
+        }
+        for (let p = 4; p < Math.min(8, n); p++) {
+          m[p][2] = m[p][3] = m[p][6] = m[p][7] = true;
+        }
+
+        // Zusätzliche Spieler (9-12)
+        if (n >= 9) {
+          for (let p = 8; p < Math.min(12, n); p++) {
+            m[p][8] = m[p][9] = true;
+          }
+        }
+      }
+
+      function getDisplayName(player, index) {
+        return player.name.trim() || `Spieler ${index + 1}`;
+      }
+
+      // ==================== RENDERING ====================
+      function initPlayerInputs() {
+        DOM.playerInputs.innerHTML = '';
+        state.players.forEach((player, idx) => {
+          const row = document.createElement('div');
+          row.className = 'player-row';
+          row.innerHTML = `
+            <span class="row-label">${idx + 1}.</span>
+            <input type="number" class="p-num" data-id="${idx}" value="${player.number}" placeholder="Nr.">
+            <input type="text" class="p-name" data-id="${idx}" value="${player.name}" placeholder="Spieler ${idx + 1}">
+          `;
+          DOM.playerInputs.appendChild(row);
+        });
+      }
+
+      function renderMatrix() {
+        DOM.matrixBody.innerHTML = '';
+        const periodCounts = Array(CONFIG.TOTAL_PERIODS).fill(0);
+
+        state.players.forEach((player, pIdx) => {
+          const tr = document.createElement('tr');
+
+          // Name
+          const nameTd = document.createElement('td');
+          nameTd.className = 'player-cell-name';
+          const numStr = player.number ? `#${player.number} ` : '';
+          
+          if (player.name.trim()) {
+            nameTd.textContent = numStr + player.name.trim();
+          } else {
+            nameTd.classList.add('placeholder-name');
+            nameTd.textContent = numStr + `Spieler ${pIdx + 1}`;
+          }
+          tr.appendChild(nameTd);
+
+          // Perioden
+          let totalPlayed = 0;
+          for (let perIdx = 0; perIdx < CONFIG.TOTAL_PERIODS; perIdx++) {
+            const isPlaying = state.matrix[pIdx][perIdx];
+            if (isPlaying) {
+              totalPlayed++;
+              periodCounts[perIdx]++;
+            }
+
+            const td = document.createElement('td');
+            td.className = `slot-cell ${isPlaying ? 'active' : 'bench'}`;
+            td.dataset.player = pIdx;
+            td.dataset.period = perIdx;
+            tr.appendChild(td);
+          }
+
+          // Gesamt
+          const totalTd = document.createElement('td');
+          const badgeClass = (totalPlayed < CONFIG.MIN_PLAY_PER_PLAYER || totalPlayed > CONFIG.MAX_PLAY_PER_PLAYER) 
+                           ? 'badge-danger' : 'badge-ok';
+          totalTd.innerHTML = `<span class="count-badge ${badgeClass}">${totalPlayed} / 10</span>`;
+          tr.appendChild(totalTd);
+
+          DOM.matrixBody.appendChild(tr);
+        });
+
+        // Feldstärke-Fußzeile
+        let footHtml = `<td style="text-align:left; padding-left:8px;">Spieler auf dem Feld</td>`;
+        for (let i = 0; i < CONFIG.TOTAL_PERIODS; i++) {
+          const count = periodCounts[i];
+          let style = '';
+          if (count !== CONFIG.IDEAL_COURT_COUNT && count > 0) {
+            style = 'style="color: var(--danger); background: #ffe0e0;"';
+          } else if (count === CONFIG.IDEAL_COURT_COUNT) {
+            style = 'style="color: var(--ok); background: #e8f5e9;"';
+          }
+          footHtml += `<td ${style}>${count}</td>`;
+        }
+        footHtml += `<td>-</td>`;
+        DOM.courtCountRow.innerHTML = footHtml;
+
+        runRuleCheck(periodCounts);
+      }
+
+      // ==================== REGELPRÜFUNG ====================
+      function runRuleCheck(periodCounts) {
+        const warnings = [];
+
+        state.players.forEach((player, pIdx) => {
+          const name = getDisplayName(player, pIdx);
+          let total = 0;
+          let consecBench = 0, maxBench = 0;
+          let consecCourt = 0, maxCourt = 0;
+
+          for (let i = 0; i < CONFIG.TOTAL_PERIODS; i++) {
+            if (state.matrix[pIdx][i]) {
+              total++;
+              consecCourt++;
+              maxBench = Math.max(maxBench, consecBench);
+              consecBench = 0;
+            } else {
+              consecBench++;
+              maxCourt = Math.max(maxCourt, consecCourt);
+              consecCourt = 0;
+            }
+          }
+          maxBench = Math.max(maxBench, consecBench);
+          maxCourt = Math.max(maxCourt, consecCourt);
+
+          if (total < CONFIG.MIN_PLAY_PER_PLAYER) {
+            warnings.push(`❌ <strong>${name}</strong> hat nur ${total} Einsätze (Minimum: 2).`);
+          }
+          if (total > CONFIG.MAX_PLAY_PER_PLAYER) {
+            warnings.push(`❌ <strong>${name}</strong> hat ${total} Einsätze (Maximum: 8).`);
+          }
+          if (maxBench >= 4) {
+            warnings.push(`⚠️ <strong>${name}</strong> sitzt ${maxBench} Zehntel hintereinander auf der Bank.`);
+          }
+          if (maxCourt >= 5) {
+            warnings.push(`🏃‍♂️ <strong>${name}</strong> spielt ${maxCourt} Zehntel ununterbrochen.`);
+          }
+        });
+
+        periodCounts.forEach((count, idx) => {
+          if (count !== CONFIG.IDEAL_COURT_COUNT) {
+            warnings.push(`🛑 In <strong>Zehntel Z${idx+1}</strong> sind ${count} Spieler auf dem Feld (soll: 4).`);
+          }
+        });
+
+        if (warnings.length > 0) {
+          DOM.alertList.innerHTML = warnings.map(w => `<li>${w}</li>`).join('');
+          DOM.alertBox.style.display = 'block';
+        } else {
+          DOM.alertBox.style.display = 'none';
+        }
+      }
+
+      // ==================== EVENT HANDLER ====================
+      function handleInputChange(e) {
+        const idx = parseInt(e.target.dataset.id, 10);
+        if (isNaN(idx)) return;
+
+        if (e.target.classList.contains('p-name')) {
+          state.players[idx].name = e.target.value;
+        } else if (e.target.classList.contains('p-num')) {
+          state.players[idx].number = e.target.value;
+        }
+        renderMatrix();
+      }
+
+      function handleMatrixClick(e) {
+        const cell = e.target.closest('.slot-cell');
+        if (!cell) return;
+
+        const pIdx = parseInt(cell.dataset.player, 10);
+        const perIdx = parseInt(cell.dataset.period, 10);
+
+        state.matrix[pIdx][perIdx] = !state.matrix[pIdx][perIdx];
+        renderMatrix();
+      }
+
+      function addPlayer() {
+        if (state.currentPlayerCount >= CONFIG.MAX_PLAYERS) {
+          alert("Maximal 12 Spieler sind erlaubt.");
+          return;
+        }
+        state.currentPlayerCount++;
+        state.players.push({
+          id: state.currentPlayerCount - 1,
+          name: '',
+          number: (state.currentPlayerCount + 3).toString()
+        });
+        state.matrix.push(Array(CONFIG.TOTAL_PERIODS).fill(false));
+
+        initPlayerInputs();
+        renderMatrix();
+      }
+
+      function removePlayer() {
+        if (state.currentPlayerCount <= CONFIG.MIN_PLAYERS) {
+          alert("Mindestens 5 Spieler werden benötigt.");
+          return;
+        }
+        state.currentPlayerCount--;
+        state.players.pop();
+        state.matrix.pop();
+
+        initPlayerInputs();
+        renderMatrix();
+      }
+
+      function loadDemoTeam() {
+        const demoNames = ['Noah', 'Mia', 'Ben', 'Emma', 'Elias', 'Leon', 'Lina', 'Luis', 'Sofia', 'Paul', 'Lucas', 'Clara'];
+        
+        state.currentPlayerCount = 12;
+        state.players = Array.from({ length: 12 }, (_, i) => ({
+          id: i,
+          name: demoNames[i] || '',
+          number: (i + 4).toString()
+        }));
+        state.matrix = createEmptyMatrix(12);
+        applyDefault4vs4Rotation();
+
+        initPlayerInputs();
+        renderMatrix();
+      }
+
+      function clearPlan() {
+        if (confirm('Gesamte Aufstellung und Namen löschen?')) {
+          state.matrix = createEmptyMatrix(state.currentPlayerCount);
+          renderMatrix();
+        }
+      }
+
+      function printPlan() {
+        window.print();
+      }
+
+      function setupEventListeners() {
+        DOM.playerInputs.addEventListener('input', handleInputChange);
+        DOM.matrixBody.addEventListener('click', handleMatrixClick);
+        DOM.addPlayerBtn.addEventListener('click', addPlayer);
+        DOM.removePlayerBtn.addEventListener('click', removePlayer);
+        DOM.loadDemoBtn.addEventListener('click', loadDemoTeam);
+        DOM.clearBtn.addEventListener('click', clearPlan);
+        DOM.printBtn.addEventListener('click', printPlan);
+        DOM.themeToggle.addEventListener('click', toggleTheme);
+      }
+
+      // ==================== INITIALISIERUNG ====================
+      function initializeApp() {
+        initTheme();
+        
+        state.currentPlayerCount = 12;
+        state.players = Array.from({ length: 12 }, (_, i) => ({
+          id: i,
+          name: '',
+          number: (i + 4).toString()
+        }));
+        state.matrix = createEmptyMatrix(12);
+        applyDefault4vs4Rotation();
+
+        initPlayerInputs();
+        renderMatrix();
+        setupEventListeners();
+
+        console.log('%cRotations-Planer mit Druckfunktion und Darkmode initialisiert ✅', 'color:#1565c0; font-weight:bold');
+      }
+
+      window.addEventListener('load', initializeApp);
+    })();
+  </script>
+</body>
+</html>
