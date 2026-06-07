@@ -287,7 +287,7 @@
       </div>
     </div>
   <p class="muted">  
-  Dieser Basketball-Camp-Planer hilft bei der schnellen Erstellung eines Camp-Zeitplans für 2-3 Coach bei 20 Kindern oder weniger.</p>
+  Dieser Basketball-Camp-Planer hilft bei der schnellen Erstellung eines Camp-Zeitplans für 2-3 Coaches bei 20 Kindern oder weniger.</p>
   <p class="muted">Startzeit und Stationen sollten ausgefüllt werden und dann können kleinere Anpassungen vorgenommen werden.</p>
 
     <section class="card config-grid">
@@ -342,12 +342,12 @@
 
     <section class="info-box">
       <h3>Grundinfos aus dem Campplan</h3>
-      <p><b>1-Tages-Basketball-Camp (voller Tag)</b></p>
+      <p><b>1-Tages-Basketball-Camp (5 Stunden)</b></p>
       <p>Halle öffnen, Umziehen und Einchecken. Teilnehmerlisten pflegen, Bezahlung, Bälle rausholen.</p>
       <p>Begrüßung, grober Ablauf und Camp-Regeln.</p>
-      <p>Wichtige Hinweise: Ball mitbringen, wenn vorhanden; keine Getränke oder Essen in der Halle, nur auf der Tribüne; fair play; nett zu den Coaches.</p>
+      <p>Wichtige Hinweise: Ball mitbringen, wenn vorhanden; keine Getränke oder Essen in der Halle, nur auf der Tribüne; fair play.</p>
       <p>Aufwärmen mit Laufschule.</p>
-      <p>Einteilung in 4 gleichgroße Gruppen nach Alter, Größe und Leistungsstärke.</p>
+      <p>Einteilung in gleichgroße Gruppen nach Alter, Größe und Leistungsstärke.</p>
       <p>Stations-Trainingsrunden mit Scoring, Ballhandling, 4-Out-Basics bzw. Athletik sowie offensiver Beinarbeit und Täuschungen.</p>
       <p>Spielrunden auf 2 Feldern mit 2 gegen 2, 3 gegen 3 und 4 gegen 4; kein 5 gegen 5.</p>
       <p>Pause und Mittagessen.</p>
@@ -397,8 +397,8 @@
       document.getElementById("stationBlock12").textContent = `1. Runde: ${s1} & ${s2}`;
       document.getElementById("stationBlock34").textContent = `2. Runde: ${s3} & ${s4}`;
 
-      document.querySelectorAll(".station-12").forEach(el => el.textContent = `1. Stationsrunde: ${s1} & ${s2}`);
-      document.querySelectorAll(".station-34").forEach(el => el.textContent = `2. Stationsrunde: ${s3} & ${s4}`);
+      document.querySelectorAll(".station-12").forEach(el => el.textContent = `1. Stationsrunde (Die Kinder durchlaufen 2 Stationen - bei der Mitte des Zeitslots gitb es Wechsel) - je ein Coach übernimmt 1 der 2 Stationen, die gleichzeitig laufen: Links: ${s1} & Rechts: ${s2}`);
+      document.querySelectorAll(".station-34").forEach(el => el.textContent = `2. Stationsrunde (Die Kinder durchlaufen 2 Stationen - bei der Mitte des Zeitslots gitb es Wechsel) - je ein Coach übernimmt 1 der 2 Stationen, die gleichzeitig laufen: Links: ${s3} & Rechts: ${s4}`);
     }
 
     function formatTime(min) {
