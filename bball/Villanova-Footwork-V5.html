@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beinarbeit Villanova Basketball</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --card: #111a2e;
+      --card-2: #17233d;
+      --text: #e8eefc;
+      --muted: #aab7d6;
+      --accent: #f4c542;
+      --accent-2: #6bb6ff;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 18px 50px rgba(0,0,0,0.35);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(107,182,255,0.18), transparent 36%),
+        radial-gradient(circle at right, rgba(244,197,66,0.12), transparent 28%),
+        linear-gradient(180deg, #060b14 0%, var(--bg) 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(17,26,46,0.96), rgba(23,35,61,0.92));
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -120px -120px auto;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(244,197,66,0.22), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1.05;
+    }
+
+    .lead {
+      max-width: 820px;
+      font-size: 1.08rem;
+      color: var(--muted);
+      margin: 0 0 24px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #1a1a1a;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 22px;
+      margin-top: 22px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(17,26,46,0.95), rgba(23,35,61,0.92));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 1.45rem;
+    }
+
+    p { margin: 0 0 14px; color: var(--muted); }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    li { margin: 10px 0; }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+
+    .players {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .player {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .player strong { color: #fff; display: block; margin-bottom: 6px; }
+
+    .video-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .video-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+    }
+
+    .badge {
+      flex: 0 0 auto;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(244,197,66,0.16);
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .video-item a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .video-item a:hover { text-decoration: underline; }
+
+    .footer {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .players { grid-template-columns: 1fr; }
+      .hero { padding: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Grundlagen</div>
+      <h1>Offensive Beinarbeit</h1>
+      <h1>Villanova-College</h1>
+      <p class="lead">
+        Das Villanova-College-Basketball-Programm steht seit Jahren für technisch sauberes Basketball:
+        Zweibeinige Abschlüsse in der Zone, kontrollierte Jump Stops, konsequente Wurftäuschungen
+        und kraftvolle „Bully“-Moves mit tiefem Schwerpunkt.
+        Genau diese Details machen die Spieler effizient und im Halfcourt extrem unangenehm.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#grundlagen">Grundlagen-Übersicht</a>
+        <a class="btn btn-secondary" href="#videos">Zu den Videos und Artikeln</a>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="card" id="grundlagen">
+        <h2>Warum das Villanova-Programm so gut funktioniert</h2>
+        <p>
+          Villanova vermittelt seinen Spielern eine klare technische Basis: sauberes Abstoppen,
+          gute Balance und die Fähigkeit, unter Kontakt ruhig zu bleiben.
+        </p>
+        <ul>
+          <li><strong>Beidbeinige Aktionen (Jump Stops / Stride Stops):</strong> Mehr Stabilität, mehr Kontrolle, Aktionen abbrechbar, Täuschungen und Sternschritte sinnvoll.</li>
+          <li><strong>Wurf- und Fußtäuschungen:</strong> Verteidiger aus dem Gleichgewicht bringen und bessere Abschlüsse erzeugen.</li>
+          <li><strong>Moves:</strong> Floater aka Teardrops (auch zweibenig), Bullies, Barkleys, cross-step-layups etc.</li>
+          <li><strong>Sternschritte:</strong> Winkel schaffen und den Verteidiger lesen.</li>
+        </ul>
+      </section>
+
+      <aside class="card">
+        <h2>Aktuelle Ex-Villanova-Spieler in der NBA</h2>
+        <div class="players">
+          <div class="player">
+            <strong>Jalen Brunson</strong>
+            New York Knicks. Ein Paradebeispiel für beidbeinige Abschlüsse und effizientes Finishing.
+          </div>
+          <div class="player">
+            <strong>Josh Hart</strong>
+            New York Knicks. Bekannt für Energie, Rebounding und starke Jump Stops im Drive.
+          </div>
+          <div class="player">
+            <strong>Mikal Bridges</strong>
+            New York Knicks. Vielseitiger Flügelspieler mit Villanova-Wurzeln.
+          </div>
+          <div class="player">
+            <strong>Weitere Namen</strong>
+            Donte DiVincenzo, Collin Gillespie, Kyle Lowry und Cam Whitmore gehören ebenfalls zu den bekannten Villanova-Profis in der NBA.
+          <, Kyle Lowry/div>
+        </div>
+      </aside>
+    </div>
+
+    <section class="card" id="videos" style="margin-top:22px;">
+      <h2>Videos und Artikel zum Thema</h2>
+
+        <div class="video-item">
+          <div class="badge">1</div>
+          <div>
+            <a href="https://www.youtube.com/watch?v=VuBkZFKOt2w" target="_blank" rel="noopener">
+              Villanova Wildcats - Josh Hart Jumpstops
+            </a>
+          </div>
+        </div>
+
+      <div class="video-list">
+        <div class="video-item">
+          <div class="badge">2</div>
+          <div>
+            <a href="https://www.youtube.com/watch?v=Z34iF0kaT68" target="_blank" rel="noopener">
+              Jalen Brunson Finishing Moves
+            </a>
+          </div>
+        </div>
+
+        <div class="video-item">
+          <div class="badge">3</div>
+          <div>
+            <a href="https://www.youtube.com/watch?v=4U1QTOFX5F4" target="_blank" rel="noopener">
+              Jalen Brunson Breakdown | How To Score As A Point Guard | Play Off Two Feet
+            </a>
+          </div>
+        </div>
+
+        <div class="video-item">
+          <div class="badge">4</div>
+          <div>
+            <a href="https://www.youtube.com/watch?v=MNnK3CBRraI" target="_blank" rel="noopener">
+              Villanova Jab Series to Improve Footwork and Quickness with the Ball
+            </a>
+          </div>
+        </div>
+
+        <div class="video-item">
+          <div class="badge">5</div>
+          <div>
+            <a href="https://www.youtube.com/watch?v=FgmVcrFicnk" target="_blank" rel="noopener">
+              Villanova Swing Series to Improve Footwork and Attacking of the Catch
+            </a>
+          </div>
+        </div>
+
+        <div class="video-item">
+          <div class="badge">6</div>
+          <div>
+            <a href="https://www.youtube.com/watch?v=93cAtwa9PNw" target="_blank" rel="noopener">
+              Drill: Stoppen, Sternschritt, Passen, Fangen
+            </a>
+          </div>
+        </div>
+
+        <div class="video-item">
+          <div class="badge">7</div>
+          <div>
+            <a href="https://www.youtube.com/watch?v=75REdJmc2i0" target="_blank" rel="noopener">
+              Villanova Guard Finishes (8 min)
+            </a>
+          </div>
+        </div>
+
+
+        <div class="video-item">
+          <div class="badge">8</div>
+          <div>
+            <a href="https://www.youtube.com/watch?v=LBOSEmZ55_I" target="_blank" rel="noopener">
+              Villanova Fundamentals - "Bullies"
+            </a>
+          </div>
+        </div>
+
+        <div class="video-item">
+          <div class="badge">9</div>
+          <div>
+            <a href="https://www.youtube.com/watch?v=Q1JmuttzNRg" target="_blank" rel="noopener">
+              Villanova "Logo" Jump Stops + Cuts
+            </a>
+          </div>
+        </div>
+
+		<div class="video-item">
+		  <div class="badge">10</div>
+		  <div>
+			<a href="https://coachingtoolbox.net/workouts/basketball-workouts-jay-wright.html" target="_blank" rel="noopener">
+			  Building a Player the (Jay) Wright Way
+			</a>
+		  </div>
+		</div>
+
+        <div class="video-item">
+          <div class="badge">11</div>
+          <div>
+            <a href="https://www.youtube.com/watch?v=HJSm3xNu4qU" target="_blank" rel="noopener">
+              Jalen Brunson - "Barkleys"
+            </a>
+          </div>
+        </div>
+
+        <div class="video-item">
+          <div class="badge">12</div>
+          <div>
+            <a href="https://www.youtube.com/watch?v=8Ufb9TwYz0o" target="_blank" rel="noopener">
+              Villanova - Fundamentals (3 min.)
+            </a>
+          </div>
+        </div>
+		<div class="video-item">
+		  <div class="badge">13</div>
+		  <div>
+			<a href="https://www.youtube.com/watch?v=GNT3_nXlzX0" target="_blank" rel="noopener">
+			  Villanova - Fundamentals2 (4 min.)
+			</a>
+		  </div>
+		</div>
+
+		<div class="video-item">
+		  <div class="badge">14</div>
+		  <div>
+			<a href="https://web.archive.org/web/20251112012436/http://www.hoopsplaybook.ca/footwork/jay_wright_jab-swing_series.html" target="_blank" rel="noopener">
+			  Footwork - Jay Wright jab-swing series
+			</a>
+		  </div>
+		</div>
+
+		<div class="video-item">
+		  <div class="badge">15</div>
+		  <div>
+			<a href="https://coachingtoolbox.net/villanova-shot-fake-drill" target="_blank" rel="noopener">
+			  Villanova Shot Fake Drill
+			</a>
+		  </div>
+		</div>
+
+		<div class="video-item">
+		  <div class="badge">16</div>
+		  <div>
+			<a href="https://coachingtoolbox.net/villanova-pressure-release-finish-drill" target="_blank" rel="noopener">
+			  Villanova Triple Threat Pressure Release and Finishing Drill
+			</a>
+		  </div>
+		</div>
+		
+        <div class="video-item">
+          <div class="badge">17</div>
+          <div>
+            <a href="https://www.youtube.com/watch?v=bUSHK6JS7nE&t=20s" target="_blank" rel="noopener">
+              Josh Hart's Go-To Finishing Footwork (cross-step-layups)
+            </a>
+          </div>
+        </div>
+		
+
+		<div class="video-item">
+		  <div class="badge">18</div>
+		  <div>
+			<a href="https://www.youtube.com/watch?v=rSoeiIZsmK4" target="_blank" rel="noopener">
+			  Villanova Wildcats Fundamentals Series (Jump Stops/Pump Fakes/Pivots)
+			</a>
+			<div class="video-item">
+			  <div class="badge">0:05</div>
+			  <div>Jump stop series with outside hand layup from corner</div>
+			</div>
+
+			<div class="video-item">
+			  <div class="badge">0:20</div>
+			  <div>Layup from top with jump stop and lefthanded finish (players finish with either hand)</div>
+			</div>
+
+			<div class="video-item">
+			  <div class="badge">0:53</div>
+			  <div>Note shot fake without bringing the ball above head (limits traveling calls)</div>
+			</div>
+
+			<div class="page-break"></div>
+
+			<div class="video-item">
+			  <div class="badge">1:30</div>
+			  <div>Floater series (off jump stop)</div>
+			</div>
+
+			<div class="video-item">
+			  <div class="badge">1:57</div>
+			  <div>Pullup series (midrange jumpers)</div>
+			</div>
+
+			<div class="video-item">
+			  <div class="badge">2:10</div>
+			  <div>Pullup off pump fake (could use same layout as above)</div>
+			</div>
+
+			<div class="video-item">
+			  <div class="badge">2:27</div>
+			  <div>Pivot series (initially R foot, front pivot) then L foot, front pivot. Players create space off the pivot.</div>
+			</div>
+
+			<div class="page-break"></div>
+
+			<div class="video-item">
+			  <div class="badge">3:15</div>
+			  <div>Penetrate and pitch off jump stop. Shows a variety of scenarios ranging from 3 point shots to back cuts.</div>
+			</div>
+
+			<div class="video-item">
+			  <div class="badge">4:36</div>
+			  <div>Shot fake into driving layup.</div>
+			</div>
+
+			<div class="video-item">
+			  <div class="badge">6:18</div>
+			  <div>Shot fake into penetrate and pitch.</div>
+			</div>
+
+			<div class="video-item">
+			  <div class="badge">7:36</div>
+			  <div>Spectacular "inside-outside-inside" action for layup.</div>
+			</div>
+
+			<div class="video-item">
+			  <div class="badge">8:35</div>
+			  <div>Shot fake into pullups.</div>
+			</div>
+
+			<div class="video-item">
+			  <div class="badge">9:50</div>
+			  <div>Pump fake, jump stop, floater.</div>
+			</div>
+
+			<div class="video-item">
+			  <div class="badge"></div>
+			  <div>https://ronsenbasketball.blogspot.com/2017/01/villanova-perimeter-actions-via-herb-on.html</div>
+			</div>
+			
+		  </div>
+		</div>
+		
+      </div>
+    </section>
+
+    <div class="footer">
+      Villanova-Footwork
+    </div>
+  </div>
+</body>
+</html>
