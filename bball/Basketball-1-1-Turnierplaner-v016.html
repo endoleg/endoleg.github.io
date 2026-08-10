@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>1-gegen-1 Turnierplan – mit Druckfunktion (Querformat)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg1: #667eea;
+      --bg2: #764ba2;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --primary: #4f46e5;
+      --primaryDark: #3730a3;
+      --accent: #f59e0b;
+      --success: #10b981;
+      --border: #d1d5db;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      color: var(--text);
+    }
+
+    .app {
+      max-width: 1500px;
+      margin: 0 auto;
+      background: #f3f4f6;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      color: #fff;
+      padding: 28px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.8rem, 3vw, 2.7rem);
+    }
+
+    header p {
+      margin: 0;
+      opacity: 0.95;
+    }
+
+    .section {
+      padding: 22px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      color: var(--primaryDark);
+      font-size: 1.2rem;
+    }
+
+    .rulesGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 10px;
+    }
+
+    .rule {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      background: #f9fafb;
+      font-size: 0.95rem;
+    }
+
+    .info {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #fef3c7;
+      border: 1px solid #facc15;
+      color: #92400e;
+      margin-bottom: 14px;
+      font-size: 0.95rem;
+    }
+
+    .grid { display: grid; gap: 12px; }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .row label {
+      min-width: 180px;
+      font-weight: 600;
+    }
+
+    .row input,
+    .row select {
+      width: min(360px, 100%);
+      padding: 9px 11px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 0.98rem;
+      background: #fff;
+    }
+
+    .playerInputs {
+      margin-top: 4px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 8px;
+    }
+
+    .playerInputs input {
+      width: 100%;
+      padding: 9px 11px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 0.94rem;
+      background: #fff;
+    }
+
+    .playerInputs input.seeded {
+      border-color: #f59e0b;
+      background: #fffbeb;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 10px 18px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btnPrimary {
+      background: linear-gradient(135deg, var(--primary), var(--primaryDark));
+      color: #fff;
+    }
+
+    .btnSecondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .btnPrint {
+      background: #111827;
+      color: #fff;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .card {
+      background: #f9fafb;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      font-size: 0.92rem;
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--primaryDark);
+    }
+
+    .bracketSection {
+      padding: 22px;
+      background: #e5e7eb;
+      overflow-x: auto;
+    }
+
+    .bracketHead {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .bracketHead h2 { margin: 0; color: var(--primaryDark); }
+
+    .bracketInfo {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .bracket {
+      display: flex;
+      gap: 26px;
+      min-width: max-content;
+      align-items: flex-start;
+    }
+
+    .round {
+      flex: 0 0 auto;
+      width: 260px;
+    }
+
+    .roundTitle {
+      text-align: center;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--border);
+      font-weight: 700;
+      color: var(--primaryDark);
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .match {
+      background: var(--card);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      padding: 9px;
+      margin-bottom: 10px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+    }
+
+    .match.byeMatch { border-left-color: var(--success); }
+    .match.seededMatch { border-left-color: var(--accent); }
+
+    .slot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 9px;
+      border-radius: 8px;
+      background: #f3f4f6;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      min-height: 32px;
+      word-break: break-word;
+    }
+
+    .slot:last-child { margin-bottom: 0; }
+
+    .slot.seeded { background: #fffbeb; }
+    .slot.bye { background: #ecfdf5; color: #047857; }
+
+    .meta {
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .hidden { display: none; }
+
+    /* ---------- PRINT: Querformat-kompakt ---------- */
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 8mm;
+      }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #ffffff !important;
+      }
+
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        font-size: 10px;
+      }
+
+      .app {
+        max-width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      header {
+        background: #111827;
+        color: #ffffff;
+        padding: 6px 8px;
+      }
+
+      header h1 {
+        font-size: 1.1rem;
+        margin-bottom: 2px;
+      }
+
+      header p {
+        font-size: 0.75rem;
+      }
+
+      .section:nth-of-type(1) {
+        padding: 6px 8px;
+      }
+
+      .section:nth-of-type(2) {
+        display: none !important;
+      }
+
+      .rulesGrid .rule {
+        font-size: 0.7rem;
+        padding: 4px 6px;
+      }
+
+      .bracketSection {
+        padding: 6px 4px;
+        background: #ffffff;
+      }
+
+      .bracketHead {
+        margin-bottom: 6px;
+      }
+
+      .bracketHead h2 {
+        font-size: 0.9rem;
+      }
+
+      .bracketInfo {
+        font-size: 0.7rem;
+      }
+
+      .bracket {
+        gap: 8px;
+      }
+
+      .round {
+        width: 150px;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .roundTitle {
+        font-size: 0.7rem;
+        padding: 3px 4px;
+        margin-bottom: 3px;
+      }
+
+      .match {
+        margin-bottom: 3px;
+        box-shadow: none;
+        border-width: 1px;
+        padding: 3px;
+      }
+
+      .slot {
+        font-size: 0.65rem;
+        padding: 2px 3px;
+        margin-bottom: 1px;
+        min-height: auto;
+      }
+
+      .meta {
+        font-size: 0.6rem;
+        margin-top: 1px;
+        padding-top: 1px;
+      }
+
+      button {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>🏀 1-gegen-1 Turnierplan</h1>
+      <p>K.O.-Turnier mit Freilosen, zufälligen Paarungen und gesetzten Spielern</p>
+    </header>
+
+    <section class="section">
+      <h2>Regeln</h2>
+      <div class="rulesGrid">
+        <div class="rule">K.O.-System mit Freilosen am Anfang.</div>
+        <div class="rule">Nach Achtelfinale direkt Viertelfinale, Halbfinale und Finale.</div>
+        <div class="rule">Gespielt wird bis 2 Treffer.</div>
+        <div class="rule">Nach jedem Angriffsversuch wird schnell zur Dreierlinie gesprintet und gecheckt.</div>
+        <div class="rule">Angriffszeit: 10 Sekunden (Orientierung, wird nicht gestoppt).</div>
+        <div class="rule">Bei Foul gibt es einen Freiwurf.</div>
+        <div class="rule">Fair Play steht an erster Stelle.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="info">
+        Bis zu 45 Spielernamen, bis zu 4 gesetzte Spieler. In Runde&nbsp;1 werden Freilose so vergeben,
+        dass für Runde&nbsp;2 eine 2er‑Potenz (4, 8, 16 oder 32) übrig bleibt.
+        Gesetzte Spieler erhalten zuerst Freilose und werden im Baum so verteilt, dass sie sich frühestens im Halbfinale treffen.
+      </div>
+
+      <div class="grid">
+        <div class="row">
+          <label for="playerCount">Anzahl Spieler</label>
+          <input id="playerCount" type="number" min="2" max="45" value="8">
+        </div>
+
+        <div class="row">
+          <label for="seededCount">Gesetzte Spieler</label>
+          <select id="seededCount">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
+
+        <div id="playerInputs" class="playerInputs"></div>
+
+        <div class="buttons">
+          <button class="btnPrimary" id="buildBtn">Turnierplan erstellen</button>
+          <button class="btnSecondary" id="resetBtn">Zurücksetzen</button>
+          <button class="btnPrint" id="printBtn">🖨️ Turnierplan drucken / als PDF speichern</button>
+        </div>
+      </div>
+
+      <div id="summary" class="summary"></div>
+    </section>
+
+    <section id="bracketSection" class="bracketSection hidden">
+      <div class="bracketHead">
+        <h2>Turnierbaum</h2>
+        <div id="bracketInfo" class="bracketInfo"></div>
+      </div>
+      <div id="bracket" class="bracket"></div>
+    </section>
+  </div>
+
+  <script>
+    const els = {
+      playerCount: document.getElementById('playerCount'),
+      seededCount: document.getElementById('seededCount'),
+      playerInputs: document.getElementById('playerInputs'),
+      buildBtn: document.getElementById('buildBtn'),
+      resetBtn: document.getElementById('resetBtn'),
+      printBtn: document.getElementById('printBtn'),
+      summary: document.getElementById('summary'),
+      bracketSection: document.getElementById('bracketSection'),
+      bracket: document.getElementById('bracket'),
+      bracketInfo: document.getElementById('bracketInfo')
+    };
+
+    function shuffle(a) {
+      const arr = [...a];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function biggestPow2AtMost32(n) {
+      const options = [32, 16, 8, 4, 2];
+      for (const p of options) if (n >= p) return p;
+      return 2;
+    }
+
+    function renderInputs() {
+      const count = Number(els.playerCount.value);
+      const seededCount = Number(els.seededCount.value);
+      els.playerInputs.innerHTML = '';
+      for (let i = 0; i < count; i++) {
+        const inp = document.createElement('input');
+        inp.type = 'text';
+        inp.id = `player_${i}`;
+        inp.placeholder = i < seededCount ? `⭐ Gesetzter Spieler ${i + 1}` : `Spieler ${i + 1}`;
+        if (i < seededCount) inp.classList.add('seeded');
+        els.playerInputs.appendChild(inp);
+      }
+    }
+
+    function seedPositions(size, seedCount) {
+      if (seedCount === 0) return [];
+      if (seedCount === 1) return [0];
+      if (seedCount === 2) return [0, size - 1];
+      if (seedCount === 3) return [0, size - 1, size / 2];
+      return [0, size - 1, size / 2 - 1, size / 2];
+    }
+
+    function roundLabel(size) {
+      const map = {
+        2: 'Finale',
+        4: 'Halbfinale',
+        8: 'Viertelfinale',
+        16: 'Achtelfinale',
+        32: 'Sechzehntelfinale'
+      };
+      return map[size] || `${size}-er Runde`;
+    }
+
+    function buildBracket() {
+      const count = Number(els.playerCount.value);
+      const seededCount = Number(els.seededCount.value);
+      if (count < 2) {
+        alert('Mindestens 2 Spieler.');
+        return;
+      }
+
+      const players = [];
+      for (let i = 0; i < count; i++) {
+        const val = (document.getElementById(`player_${i}`)?.value || '').trim();
+        players.push({ name: val || `Spieler ${i + 1}`, seeded: i < seededCount, id: i + 1 });
+      }
+
+      const target = biggestPow2AtMost32(count);
+      const matchesRound1 = count - target;
+      const byesRound1 = count - 2 * matchesRound1;
+
+      const seededPlayers = players.filter(p => p.seeded);
+      const nonSeeded = shuffle(players.filter(p => !p.seeded));
+
+      const byePlayers = [];
+      let byeLeft = byesRound1;
+
+      for (let i = 0; i < seededPlayers.length && byeLeft > 0; i++) {
+        byePlayers.push(seededPlayers[i]);
+        byeLeft--;
+      }
+
+      const shuffledNonSeed = shuffle(nonSeeded);
+      let idx = 0;
+      while (byeLeft > 0 && idx < shuffledNonSeed.length) {
+        byePlayers.push(shuffledNonSeed[idx]);
+        idx++;
+        byeLeft--;
+      }
+
+      const byeSet = new Set(byePlayers.map(p => p.id));
+      const mustPlay = shuffle(players.filter(p => !byeSet.has(p.id)));
+
+      const round1 = [];
+      for (let i = 0; i < matchesRound1; i++) {
+        const p1 = mustPlay[2 * i];
+        const p2 = mustPlay[2 * i + 1];
+        round1.push({
+          p1,
+          p2,
+          bye: false,
+          seededMatch: p1.seeded || p2.seeded,
+          label: `Sieger Spiel ${i + 1}: ${p1.name} vs. ${p2.name}`
+        });
+      }
+
+      const winnersFromR1 = round1.map(m => ({ name: m.label, placeholder: true }));
+      const mainPlayers = [...byePlayers, ...winnersFromR1];
+
+      let bracketSize = 1;
+      while (bracketSize < target) bracketSize <<= 1;
+
+      const slots = new Array(bracketSize).fill(null);
+      const mainSeeds = mainPlayers.filter(p => p.seeded);
+      const seedPos = seedPositions(bracketSize, mainSeeds.length);
+      seedPos.forEach((pos, i) => { if (mainSeeds[i]) slots[pos] = mainSeeds[i]; });
+
+      const others = shuffle(mainPlayers.filter(p => !p.seeded));
+      let fillIdx = 0;
+      for (let i = 0; i < bracketSize; i++) {
+        if (!slots[i]) {
+          if (fillIdx < others.length) slots[i] = others[fillIdx++];
+          else slots[i] = { name: 'FREILOS', bye: true };
+        }
+      }
+
+      const mainRounds = [];
+      let current = slots;
+      let currentSize = bracketSize;
+
+      while (currentSize >= 2) {
+        const matches = [];
+        for (let i = 0; i < currentSize; i += 2) {
+          const A = current[i];
+          const B = current[i + 1];
+          const aBye = !A || A.bye;
+          const bBye = !B || B.bye;
+          let match;
+          if (aBye && bBye) {
+            match = { p1: { name: 'FREILOS', bye: true }, p2: { name: 'FREILOS', bye: true }, bye: true };
+          } else if (aBye && !bBye) {
+            match = { p1: B, p2: { name: 'FREILOS', bye: true }, bye: true };
+          } else if (!aBye && bBye) {
+            match = { p1: A, p2: { name: 'FREILOS', bye: true }, bye: true };
+          } else {
+            match = { p1: A, p2: B, bye: false };
+            if (A.seeded || B.seeded) match.seededMatch = true;
+          }
+          matches.push(match);
+        }
+
+        mainRounds.push({ size: currentSize, matches });
+
+        const next = [];
+        matches.forEach((m, idx) => {
+          if (m.bye) {
+            const winner = m.p1.bye ? m.p2 : m.p1;
+            next.push(winner);
+          } else {
+            next.push({ name: `Sieger ${roundLabel(currentSize)} Spiel ${idx + 1}`, placeholder: true });
+          }
+        });
+
+        current = next;
+        currentSize = next.length;
+        if (currentSize === 1) break;
+      }
+
+      renderSummary({ count, seededCount, target, matchesRound1, byesRound1, bracketSize });
+      renderBracket(round1, mainRounds);
+      els.bracketSection.classList.remove('hidden');
+    }
+
+    function renderSummary({ count, seededCount, target, matchesRound1, byesRound1, bracketSize }) {
+      els.summary.innerHTML = `
+        <div class="card"><strong>Spieler</strong>${count}</div>
+        <div class="card"><strong>Gesetzte Spieler</strong>${seededCount}</div>
+        <div class="card"><strong>Ziel nach Runde 1</strong>${target} Spieler</div>
+        <div class="card"><strong>Runde 1 Spiele</strong>${matchesRound1}</div>
+        <div class="card"><strong>Runde 1 Freilose</strong>${byesRound1}</div>
+        <div class="card"><strong>Hauptrunden-Bracket</strong>${bracketSize}-er Baum</div>
+      `;
+      els.bracketInfo.textContent = `Runde 1: ${matchesRound1} Spiele, ${byesRound1} Freilose → ${target} Spieler in der Hauptrunde`;
+    }
+
+    function renderBracket(round1, mainRounds) {
+      els.bracket.innerHTML = '';
+
+      const col1 = document.createElement('div');
+      col1.className = 'round';
+      const t1 = document.createElement('div');
+      t1.className = 'roundTitle';
+      t1.textContent = 'Runde 1 (Vorrunde)';
+      col1.appendChild(t1);
+
+      round1.forEach((m, idx) => {
+        const box = document.createElement('div');
+        box.className = 'match' + (m.seededMatch ? ' seededMatch' : '');
+        const p1 = document.createElement('div');
+        p1.className = 'slot' + (m.p1.seeded ? ' seeded' : '');
+        p1.textContent = m.p1.name + (m.p1.seeded ? ' ⭐' : '');
+        const p2 = document.createElement('div');
+        p2.className = 'slot' + (m.p2.seeded ? ' seeded' : '');
+        p2.textContent = m.p2.name + (m.p2.seeded ? ' ⭐' : '');
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+        meta.textContent = `Spiel ${idx + 1}`;
+        box.appendChild(p1);
+        box.appendChild(p2);
+        box.appendChild(meta);
+        col1.appendChild(box);
+      });
+
+      els.bracket.appendChild(col1);
+
+      mainRounds.forEach(round => {
+        const col = document.createElement('div');
+        col.className = 'round';
+        const t = document.createElement('div');
+        t.className = 'roundTitle';
+        t.textContent = roundLabel(round.size);
+        col.appendChild(t);
+
+        round.matches.forEach((m, idx) => {
+          const box = document.createElement('div');
+          box.className = 'match' + (m.bye ? ' byeMatch' : '') + (m.seededMatch ? ' seededMatch' : '');
+          const s1 = document.createElement('div');
+          s1.className = 'slot' + (m.p1.seeded ? ' seeded' : '') + (m.p1.bye ? ' bye' : '');
+          s1.textContent = m.p1.name + (m.p1.seeded ? ' ⭐' : '');
+          const s2 = document.createElement('div');
+          s2.className = 'slot' + (m.p2.seeded ? ' seeded' : '') + (m.p2.bye ? ' bye' : '');
+          s2.textContent = m.p2.name + (m.p2.seeded ? ' ⭐' : '');
+          const meta = document.createElement('div');
+          meta.className = 'meta';
+          meta.textContent = m.bye
+            ? '⚡ Freilos – dieser Spieler rückt direkt weiter'
+            : `${roundLabel(round.size)} – Spiel ${idx + 1}`;
+          box.appendChild(s1);
+          box.appendChild(s2);
+          box.appendChild(meta);
+          col.appendChild(box);
+        });
+
+        els.bracket.appendChild(col);
+      });
+    }
+
+    function resetAll() {
+      els.playerCount.value = 8;
+      els.seededCount.value = 0;
+      renderInputs();
+      els.summary.innerHTML = '';
+      els.bracket.innerHTML = '';
+      els.bracketSection.classList.add('hidden');
+    }
+
+    function printBracket() {
+      if (els.bracketSection.classList.contains('hidden')) {
+        alert('Bitte zuerst einen Turnierplan erstellen, dann drucken.');
+        return;
+      }
+      window.print();
+    }
+
+    els.playerCount.addEventListener('input', renderInputs);
+    els.seededCount.addEventListener('change', renderInputs);
+    els.buildBtn.addEventListener('click', buildBracket);
+    els.resetBtn.addEventListener('click', resetAll);
+    els.printBtn.addEventListener('click', printBracket);
+
+    renderInputs();
+  </script>
+</body>
+</html>
