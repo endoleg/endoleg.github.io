@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basketballcamp-Planer</title>
+  <style>
+    /* 1. Design-Variablen */
+    :root {
+      color-scheme: light;
+      --bg: #f4f7f6; --card: #fff; --border: #d7dbe0; --text: #1f2937;
+      --primary: #0056b3; --success: #28a745; --info: #17a2b8; --danger: #dc3545; --neutral: #6b7280;
+      --shadow: 0 2px 10px rgba(0,0,0,.06); --radius: 10px;
+      --input-bg: #fff; --row-alt: #fafbfc; --btn-bg: #f3f4f6; --btn-text: var(--text);
+      --break-bg: #fff4d6; --tint: rgba(0,0,0,.035);
+      --st1: #0056b3; --st2: #1e8e3e; --st3: #d9730d;
+      --switch-bg: linear-gradient(90deg,#e2e8f0,#f8fafc); --switch-border: var(--border);
+      --knob-bg: #fff; --knob-shift: 0px; --knob-shadow: 0 2px 6px rgba(0,0,0,.12);
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #0f1720; --card: #0b1220; --border: #1f2937; --text: #e6eef8;
+      --primary: #3b82f6; --success: #16a34a; --info: #0ea5a4; --danger: #ef4444;
+      --shadow: 0 6px 18px rgba(0,0,0,.6);
+      --input-bg: #071026; --row-alt: rgba(255,255,255,.02); --btn-bg: #1f2937;
+      --break-bg: rgba(250,204,21,.12); --tint: rgba(255,255,255,.05);
+      --st1: #60a5fa; --st2: #4ade80; --st3: #fb923c;
+      --switch-bg: linear-gradient(90deg,#0f1720,#0b1220); --switch-border: rgba(255,255,255,.06);
+      --knob-bg: #001f3f; --knob-shift: 20px; --knob-shadow: 0 2px 8px rgba(0,0,0,.5);
+    }
+
+    /* 2. Basis */
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body {
+      margin: 0; font-family: "Segoe UI", Arial, sans-serif; background: var(--bg);
+      color: var(--text); line-height: 1.5; transition: background-color .25s ease, color .25s ease;
+    }
+    .page { max-width: 1100px; margin: 0 auto; padding: 12px; }
+    h1 { margin: 0; font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.2; }
+    input, textarea, select, button { font: inherit; }
+    input, textarea, select {
+      width: 100%; padding: 9px 10px; border: 1px solid var(--border); border-radius: 6px;
+      background: var(--input-bg); color: var(--text);
+    }
+    textarea { resize: vertical; overflow: hidden; min-height: 80px; line-height: 1.4; }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    button:focus-visible, summary:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 2px solid var(--primary); outline-offset: 2px;
+    }
+
+    /* 3. Komponenten */
+    .page-header { display: flex; align-items: center; gap: 12px; margin: 8px 0 12px; }
+    .card, .table-container, .fold {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+    }
+    .card { padding: 16px; margin-bottom: 16px; }
+    .fold { margin-bottom: 10px; }
+    .fold > summary {
+      cursor: pointer; padding: 10px 16px; font-weight: 700; list-style: none;
+      display: flex; align-items: center; gap: 8px; user-select: none;
+    }
+    .fold > summary::-webkit-details-marker { display: none; }
+    .fold > summary::before { content: "▶"; font-size: .75em; transition: transform .2s; }
+    .fold[open] > summary::before { transform: rotate(90deg); }
+    .fold[open] > summary { border-bottom: 1px solid var(--border); }
+    .fold-body { padding: 4px 16px 8px; max-height: 60vh; overflow-y: auto; }
+    .fold-body p { margin: 10px 0; }
+
+    .config-grid { display: grid; gap: 12px; grid-template-columns: 1fr; align-items: end; }
+    .field label, .section-label { font-weight: 600; display: block; margin-bottom: 6px; }
+    .hint { margin: 0 0 12px; font-size: .92rem; opacity: .8; }
+
+    .station-edit-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    .station-edit {
+      --accent: var(--primary);
+      border: 1px solid var(--border); border-top: 5px solid var(--accent);
+      border-radius: 8px; padding: 10px 12px 12px; background: var(--tint);
+    }
+    .station-edit label { font-weight: 700; display: block; margin-bottom: 6px; color: var(--accent); }
+    .station-edit textarea { min-height: 150px; }
+    [data-st="1"] { --accent: var(--st1); }
+    [data-st="2"] { --accent: var(--st2); }
+    [data-st="3"] { --accent: var(--st3); }
+
+    .round-intro { margin: 0 0 10px; font-weight: 600; }
+    .st-block {
+      --accent: var(--primary);
+      border-left: 6px solid var(--accent); background: var(--tint);
+      border-radius: 0 6px 6px 0; padding: 8px 12px; margin: 0 0 12px;
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+    .st-block:last-child { margin-bottom: 0; }
+    .st-head { font-size: .85rem; font-weight: 700; color: var(--accent); margin-bottom: 2px; }
+    .st-name { font-weight: 700; font-size: 1.05rem; margin-bottom: 4px; }
+    .st-body { white-space: pre-wrap; overflow-wrap: anywhere; }
+
+    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 16px; align-items: center; }
+    .total { margin-left: auto; font-weight: 600; }
+    .btn { padding: 10px 14px; cursor: pointer; border: none; border-radius: 6px; font-weight: 700; color: #fff; }
+    .add-btn { background: var(--success); }
+    .break-btn { background: #b7791f; }
+    .print-btn { background: var(--info); }
+    .tool-btn, .reset-btn { background: var(--neutral); }
+    .file-input { display: none; }
+
+    .move-group { display: flex; gap: 6px; }
+    .move-btn, .del-btn {
+      padding: 6px 8px; border-radius: 6px; border: 1px solid var(--border);
+      cursor: pointer; line-height: 1; background: var(--btn-bg); color: var(--btn-text);
+    }
+    .del-btn { background: var(--danger); color: #fff; border-color: var(--danger); }
+
+    .theme-toggle { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; }
+    .theme-label { font-size: .9rem; font-weight: 600; }
+    .theme-switch {
+      --w: 46px; --h: 26px; width: var(--w); height: var(--h); border-radius: 999px;
+      background: var(--switch-bg); border: 1px solid var(--switch-border);
+      position: relative; cursor: pointer; box-sizing: content-box;
+    }
+    .theme-switch .knob {
+      width: calc(var(--h) - 6px); height: calc(var(--h) - 6px); background: var(--knob-bg);
+      border-radius: 50%; position: absolute; top: 3px; left: 3px;
+      transform: translateX(var(--knob-shift)); transition: transform .22s ease, background .22s ease;
+      box-shadow: var(--knob-shadow);
+    }
+
+    .toast, .banner {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      padding: 10px 14px; border-radius: var(--radius); background: #111827; color: #fff; box-shadow: var(--shadow);
+    }
+    .toast { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 10; max-width: calc(100vw - 24px); }
+    .banner { margin-bottom: 12px; background: #92400e; }
+    .toast .btn, .banner .btn { padding: 6px 10px; background: #374151; }
+
+    /* 4. Tabelle */
+    .table-container { width: 100%; overflow-x: auto; margin-bottom: 16px; }
+    .print-title { display: none; margin: 0 0 12px; font-size: 18pt; line-height: 1.2; font-weight: 700; color: #000; }
+    table { width: 100%; min-width: 720px; border-collapse: collapse; table-layout: fixed; }
+    th, td { border: 1px solid var(--border); padding: 8px; text-align: left; vertical-align: middle; }
+    thead th { background: var(--primary); color: #fff; position: sticky; top: 0; z-index: 1; }
+    tbody tr:nth-child(even) { background: var(--row-alt); }
+    th:nth-child(1), td:nth-child(1) { width: 72px; }
+    th:nth-child(2), td:nth-child(2) { width: auto; }
+    th:nth-child(3), td:nth-child(3), th:nth-child(4), td:nth-child(4) { width: 84px; }
+    th:nth-child(5), td:nth-child(5), th:nth-child(6), td:nth-child(6) { width: 78px; }
+    .row-type select { width: auto; padding: 4px 8px; margin-bottom: 6px; font-size: .85rem; }
+
+    /* 5. Mobil (Kartenansicht) */
+    @media (min-width: 700px) {
+      .config-grid { grid-template-columns: 220px 1fr; }
+      .station-edit-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media screen and (max-width: 719px) {
+      .table-container { overflow: visible; background: transparent; border: 0; box-shadow: none; }
+      table, tbody { display: block; min-width: 0; width: 100%; }
+      thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      tbody tr, tbody tr:nth-child(even) {
+        display: grid; grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas: "min start end" "act act act" "move move del";
+        gap: 8px; margin-bottom: 12px; padding: 12px; background: var(--card);
+        border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow);
+      }
+      tbody td { display: block; width: auto !important; border: 0; padding: 0; }
+      tbody td:nth-child(1) { grid-area: min; }
+      tbody td:nth-child(2) { grid-area: act; }
+      tbody td:nth-child(3) { grid-area: start; }
+      tbody td:nth-child(4) { grid-area: end; }
+      tbody td:nth-child(5) { grid-area: move; }
+      tbody td:nth-child(6) { grid-area: del; justify-self: end; }
+      tbody td[data-label]::before { content: attr(data-label); display: block; font-size: .75rem; font-weight: 600; opacity: .7; margin-bottom: 2px; }
+      td.start, td.end { font-weight: 600; }
+      .toolbar .btn { flex: 1 1 45%; }
+      .total { margin-left: 0; width: 100%; }
+    }
+    tbody tr[data-type="break"], tbody tr[data-type="break"]:nth-child(even) { background: var(--break-bg); }
+    tbody tr[data-type="break"] textarea { min-height: 40px; }
+
+    /* 6. Druck */
+    @media print {
+      @page { size: auto; margin: 10mm; }
+      html, body { width: auto; min-width: 0; background: #fff !important; color: #000 !important; overflow: visible !important; }
+      body { margin: 0; padding: 0; font-size: 10.5pt; line-height: 1.25; }
+      .no-print, .toolbar, .card, .toast, .banner, #themeToggleWrap { display: none !important; }
+      .page { max-width: none !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
+      .print-title { display: block; }
+      .table-container {
+        width: 100% !important; overflow: visible !important; margin: 0 !important; padding: 0 !important;
+        border: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: transparent !important;
+      }
+      table { width: 100% !important; min-width: 0 !important; table-layout: fixed; border-collapse: collapse; }
+      thead { display: table-header-group; }
+      thead th { position: static !important; top: auto !important; z-index: auto !important; background: #e9ecef !important; color: #000 !important; }
+      tr, td, th { page-break-inside: avoid; break-inside: avoid; }
+      th, td { padding: 6px 7px; font-size: 9.5pt; white-space: normal; word-break: break-word; overflow-wrap: anywhere; }
+      .st-block { background: #f3f4f6 !important; border-left-color: #000 !important; padding: 4px 8px; margin-bottom: 6px; }
+      .st-head { color: #000 !important; }
+      tbody tr[data-type="break"] td { background: #eee !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      th:nth-child(1), td:nth-child(1) { width: 12%; }
+      th:nth-child(2), td:nth-child(2) { width: 48%; }
+      th:nth-child(3), td:nth-child(3), th:nth-child(4), td:nth-child(4) { width: 20%; }
+      input[type="number"], textarea {
+        width: 100%; min-width: 0; border: 0 !important; padding: 0; background: transparent !important;
+        color: #000 !important; appearance: none; -webkit-appearance: none; box-shadow: none !important; resize: none;
+      }
+      input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="page-header">
+      <h1>Basketballcamp-Planer</h1>
+      <div class="theme-toggle no-print" id="themeToggleWrap">
+        <div class="theme-label" id="themeLabel">Hell</div>
+        <button class="theme-switch" id="themeSwitch" data-action="toggle-theme" aria-pressed="false" aria-label="Dunkelmodus umschalten" type="button">
+          <span class="knob" aria-hidden="true"></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="banner no-print" id="externalBanner" role="alert" hidden>
+      <span>Der Plan wurde in einem anderen Tab geändert.</span>
+      <button class="btn" type="button" data-action="reload-external">Neu laden</button>
+      <button class="btn" type="button" data-action="dismiss-external">Ignorieren</button>
+    </div>
+
+    <details class="fold no-print">
+      <summary>Hinweise zur Planung</summary>
+      <div class="fold-body">
+        <p>Dieser Basketball-Camp-Planer hilft bei der schnellen Erstellung eines Camp-Zeitplans für 2-3 Coaches bei 20 Kindern oder weniger.</p>
+        <p>Startzeit und Stationen sollten ausgefüllt werden und dann können kleinere Anpassungen vorgenommen werden.</p>
+      </div>
+    </details>
+    <details class="fold no-print">
+      <summary>Regeln für die 1-1-Spielrunde</summary>
+      <div class="fold-body">
+        <p><b>Regeln für eine 1-1-Spielrunde für alle: </b>Es wird auf alle Körbe (auch Seitenkörbe) gespielt bis ein/e Spieler/in 1 Treffer hat. Nach einem Angriffsversuch (Treffer oder Verteidigung hat sich den Ball durch Steal oder Rebound erkämpft) wird immer wieder aus der Dreierlinie gedribbelt und gecheckt und zwar schnell per Sprint nach oben. Die Angriffe sollen schnell ausgeführt werden und sind begrenzt auf maximal 5 Dribblings. Nach einem Duell gehen beide Kinder in die Mitte der Halle (Mittelkreis) und bekommen einen neuen Partner. Hier warten alle Kinder, die gerade nicht spielen und ein Coach sagt, wer als nächstes dran ist, den freien Korb zu bespielen! Keine Preise, keine Gewinner/Verlierer des Gesamtwettbewerbs.</p>
+      </div>
+    </details>
+
+    <section class="card config-grid">
+      <div class="field">
+        <label for="campStart"><b>Camp-Treffzeit (15 Min vor Startzeit):</b></label>
+        <input type="time" id="campStart" value="09:00" required />
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="section-label" id="stationsLabel">Stationen bearbeiten</span>
+      <p class="hint">Pro Station: Stationsname in die erste Zeile, danach Coach und Inhalte – mit Enter in neue Zeilen. Die Felder wachsen mit.</p>
+      <div class="station-edit-grid" role="group" aria-labelledby="stationsLabel">
+        <div class="station-edit" data-st="1">
+          <label for="station1">Station 1</label>
+          <textarea id="station1" data-station="0" placeholder="Stationsname&#10;Coach: &#10;Inhalte:"></textarea>
+        </div>
+        <div class="station-edit" data-st="2">
+          <label for="station2">Station 2</label>
+          <textarea id="station2" data-station="1" placeholder="Stationsname&#10;Coach: &#10;Inhalte:"></textarea>
+        </div>
+        <div class="station-edit" data-st="3">
+          <label for="station3">Station 3</label>
+          <textarea id="station3" data-station="2" placeholder="Stationsname&#10;Coach: &#10;Inhalte:"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="print-title">Basketball-Camp-Planer – Zeitplan</h2>
+
+    <div class="table-container">
+      <table id="planTable">
+        <thead>
+          <tr>
+            <th scope="col">Min</th>
+            <th scope="col">Aktivität</th>
+            <th scope="col">Start</th>
+            <th scope="col">Ende</th>
+            <th scope="col" class="no-print">V</th>
+            <th scope="col" class="no-print">X</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="toolbar no-print">
+      <button class="btn add-btn" type="button" data-action="add-row" data-type="text">+ Zeile hinzufügen</button>
+      <button class="btn break-btn" type="button" data-action="add-row" data-type="break">+ Pause</button>
+      <button class="btn print-btn" type="button" data-action="print">Plan Drucken</button>
+      <button class="btn tool-btn" type="button" data-action="export">Exportieren (JSON)</button>
+      <button class="btn tool-btn" type="button" data-action="import">Importieren (JSON)</button>
+      <input class="file-input" id="importFile" type="file" accept="application/json,.json" aria-label="JSON-Datei zum Import auswählen" />
+      <button class="btn reset-btn" type="button" data-action="reset">Zurücksetzen</button>
+      <span class="total" id="totalInfo"></span>
+    </div>
+  </main>
+
+  <div class="toast no-print" id="toast" role="status" aria-live="polite" hidden>
+    <span id="toastText"></span>
+    <button class="btn" id="toastUndo" type="button" data-action="undo" hidden>Rückgängig</button>
+  </div>
+
+  <template id="row-template">
+    <tr>
+      <td data-label="Min"><input type="number" min="0" max="600" step="1" data-field="minutes" aria-label="Dauer in Minuten" /></td>
+      <td class="cell-activity">
+        <label class="row-type no-print">
+          <span class="visually-hidden">Zeilentyp</span>
+          <select data-field="type">
+            <option value="text">Aktivität</option>
+            <option value="stations">Stationsrunde</option>
+            <option value="break">Pause</option>
+          </select>
+        </label>
+        <textarea rows="3" data-field="text" aria-label="Beschreibung"></textarea>
+        <div data-field="stations-cell"></div>
+      </td>
+      <td class="start" data-label="Start"></td>
+      <td class="end" data-label="Ende"></td>
+      <td class="no-print">
+        <div class="move-group">
+          <button class="move-btn" type="button" data-action="move-up" aria-label="Zeile nach oben">▲</button>
+          <button class="move-btn" type="button" data-action="move-down" aria-label="Zeile nach unten">▼</button>
+        </div>
+      </td>
+      <td class="no-print"><button class="del-btn" type="button" data-action="delete-row" aria-label="Zeile löschen">X</button></td>
+    </tr>
+  </template>
+
+  <!-- Standardplan: Texte, Zeiten und Zeilentypen können hier ohne JavaScript-Kenntnisse geändert werden.
+       type: "text" (Aktivität) | "stations" (Stationsrunde, wird aus den Stationsfeldern erzeugt) | "break" (Pause) -->
+  <script type="application/json" id="default-plan">
+{
+  "version": 2,
+  "start": "09:00",
+  "stations": [
+    "Scoring/Finishing\nCoach: \nInhalte: \nWurftechnik\nKorbleger mit Schutzhand\nLinkskorbleger\nSwing Step, Eurostep, Floater\nReverse-Korbleger, Kreuzschritt-Korbleger, Spin-Move\nUnterhand-Korbleger Voll-Speed, Up and Under\nPowermove",
+    "Ballhandling\nCoach: \nInhalte: \nHandwechsel: Kurz stationär, dann im Parcours: Handwechsel vor dem Körper, durch die Beine, hinter dem Körper, Spin-Move-Dribbling.\nVerzögerungsdribbling, In-and-Out-Dribbling\nBackup-Dribbling, seitliche Hüpfer als Dribbling, Crossover-Dribbelstart.\nEinhändige Pässe",
+    "Offensive Beinarbeit & Täuschungen\nCoach: \nInhalte: \nSelbstvorlage, 1-Kontakt-Sprungstopp vs. 2-Kontakt-Schrittstopp, Sternschritt vorwärts/rückwärts\nKreuzgang, (optional: Passgang), Jab-Step\nBallschutz/sweep (\"Rip\")\nV-Cut, Backdoor-Cut\nWurffinte, Schrittfinte, Passfinte und auch den Dribbelstart danach in Kombination"
+  ],
+  "rows": [
+    {
+      "type": "text",
+      "minutes": 15,
+      "text": "Halle öffnen, Umziehen, Check-in. Alle Kinder bekommen per Kreppband einen Namensaufkleber. Teilnehmerlisten abhaken, Bezahlung, Bälle, Hütchen und Leibchen bereithalten. Bei Bedarf Spieluhr für Hallenanzeige und Stationstimer bereitlegen."
+    },
+    {
+      "type": "text",
+      "minutes": 5,
+      "text": "Begrüßung (Vorstellung grober Ablauf und Coaches, allg. Camp-Regeln, keine Getränke oder Essen in der Halle, nur auf der Tribüne, fair play)"
+    },
+    {
+      "type": "text",
+      "minutes": 5,
+      "text": "WarmUp: Ankommensspiel, das den Kopf und die Aufmerksamkeit der Camper fordert"
+    },
+    {
+      "type": "text",
+      "minutes": 10,
+      "text": "WarmUp: 2. Spiel oder Movement-Preparation"
+    },
+    {
+      "type": "text",
+      "minutes": 5,
+      "text": "A) Einteilung in gleich große Gruppen nach Alter, Größe und Leistungsstärke ODER BESSER B) eine Runde 'Findungs-Stationen' zum Warmup wo alle das gleiche machen (erst Korbleger, dann Dribbling) und Kinder live optimiert sortiert werden, damit die Stationen ausgeglichen eingeteilt sind"
+    },
+    {
+      "type": "stations",
+      "minutes": 16,
+      "text": ""
+    },
+    {
+      "type": "break",
+      "minutes": 3,
+      "text": "Pause / Wechsel"
+    },
+    {
+      "type": "stations",
+      "minutes": 16,
+      "text": ""
+    },
+    {
+      "type": "break",
+      "minutes": 3,
+      "text": "Pause / Wechsel"
+    },
+    {
+      "type": "stations",
+      "minutes": 16,
+      "text": ""
+    },
+    {
+      "type": "break",
+      "minutes": 15,
+      "text": "Pause (auch ein paar Minuten ohne Ball), Zeit für Essen/Snack"
+    },
+    {
+      "type": "text",
+      "minutes": 10,
+      "text": "Platz für eine Spielform wie z.B. Parteiball, Staffellauf, Wurfspiel"
+    },
+    {
+      "type": "stations",
+      "minutes": 16,
+      "text": ""
+    },
+    {
+      "type": "break",
+      "minutes": 3,
+      "text": "Pause / Wechsel"
+    },
+    {
+      "type": "stations",
+      "minutes": 16,
+      "text": ""
+    },
+    {
+      "type": "break",
+      "minutes": 3,
+      "text": "Pause / Wechsel"
+    },
+    {
+      "type": "stations",
+      "minutes": 16,
+      "text": ""
+    },
+    {
+      "type": "break",
+      "minutes": 15,
+      "text": "Pause (auch ein paar Minuten ohne Ball), Zeit für Essen/Snack"
+    },
+    {
+      "type": "text",
+      "minutes": 10,
+      "text": "Platz für eine Spielform wie z.B. Parteiball, Staffellauf, Wurfspiel"
+    },
+    {
+      "type": "text",
+      "minutes": 60,
+      "text": "Entweder A) Spiele --> 2vs.2, 3vs.3. Viele Ballkontakte! Coaches spielen nicht mit! Coaches achten darauf, dass alle Kinder verteidigen und alle Kinder mal den Ball bekommen ODER B) Ein weiterer Stationen-Durchgang mit kleinen Pausen"
+    },
+    {
+      "type": "break",
+      "minutes": 3,
+      "text": "Pause / Wechsel"
+    },
+    {
+      "type": "text",
+      "minutes": 15,
+      "text": "1vs.1-Duelle"
+    },
+    {
+      "type": "text",
+      "minutes": 9,
+      "text": "Ende --> Cool down, Aufräumen, Verabschiedung und Feedback"
+    }
+  ]
+}
+  </script>
+
+  <script type="module">
+    "use strict";
+
+    /* Konfiguration */
+    const CONFIG = Object.freeze({
+      APP_ID: "basketball-camp-planer",
+      STORAGE_VERSION: 2,
+      STORAGE_KEY: "bc_plan_state_v2",
+      LEGACY_KEY: "bc_plan_state",
+      THEME_KEY: "bc_plan_theme",
+      TYPES: ["text", "stations", "break"],
+      MAX_ROWS: 200,
+      MAX_MINUTES: 600,
+      MAX_TEXT: 5000,
+      MAX_FILE_BYTES: 1024 * 1024,
+      NEW_ROW_MINUTES: 15,
+      SAVE_DELAY_MS: 300,
+      TOAST_MS: 8000,
+      DEFAULT_START: "09:00",
+      FALLBACK_STATIONS: ["Station 1", "Station 2", "Station 3"],
+      STATION_POSITIONS: ["links", "links", "rechts"],
+      ROUND_INTRO: "Stationsrunde (3 Gruppen – jede Gruppe durchläuft 1 der 3 Stationen – je ein Coach betreut eine Station, bei zwei Coaches wird gleichzeitig das gleiche Thema geschult)"
+    });
+
+    const $ = (sel, root = document) => root.querySelector(sel);
+    const clone = (x) => JSON.parse(JSON.stringify(x));
+    const TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/;
+
+    /* Browser-Speicher */
+    const Store = {
+      get(key) { try { return localStorage.getItem(key); } catch { return null; } },
+      set(key, value) { try { localStorage.setItem(key, value); return true; } catch { return false; } },
+      del(key) { try { localStorage.removeItem(key); } catch { /* ignorieren */ } }
+    };
+
+    /* Plan: Datenmodell, Migration, Berechnung (ohne DOM) */
+    const Plan = {
+      uid: 0,
+      newId() { return `r${++Plan.uid}`; },
+
+      defaultRaw() {
+        try { return JSON.parse($("#default-plan").textContent); } catch { return null; }
+      },
+
+      defaultStations() {
+        const s = Plan.defaultRaw()?.stations;
+        return CONFIG.FALLBACK_STATIONS.map((fb, i) => (Array.isArray(s) && typeof s[i] === "string" && s[i].trim() ? s[i] : fb));
+      },
+
+      clampMinutes(value) {
+        const n = Number.parseInt(value, 10);
+        return Number.isFinite(n) ? Math.min(CONFIG.MAX_MINUTES, Math.max(0, n)) : 0;
+      },
+
+      makeRow(src = {}) {
+        return {
+          id: Plan.newId(),
+          type: CONFIG.TYPES.includes(src.type) ? src.type : "text",
+          minutes: Plan.clampMinutes(src.minutes),
+          text: typeof src.text === "string" ? src.text.slice(0, CONFIG.MAX_TEXT) : ""
+        };
+      },
+
+      /* Ältere Formate: Arrays [min, text, klasse] und Objekte {duration, activity, className} */
+      fromLegacy(row) {
+        let minutes, text, cls;
+        if (Array.isArray(row)) [minutes, text, cls] = row;
+        else if (row && typeof row === "object") ({ duration: minutes, activity: text, className: cls } = row);
+        else return null;
+        const label = typeof text === "string" ? text : "";
+        let type = "text";
+        if (cls === "station-round-1") type = "stations";
+        else if (/^\s*(Pause|Große Mittags-Pause)/i.test(label)) type = "break";
+        return { type, minutes, text: type === "stations" ? "" : label };
+      },
+
+      /* Liefert einen gültigen Zustand oder null */
+      migrate(input) {
+        let raw = input;
+        if (!raw || typeof raw !== "object") return null;
+        if (raw.data && typeof raw.data === "object" && !Array.isArray(raw.rows)) raw = { ...raw.data, version: 1 };
+        if (!Array.isArray(raw.rows) || raw.rows.length === 0 || raw.rows.length > CONFIG.MAX_ROWS) return null;
+        const legacy = !Number.isInteger(raw.version) || raw.version < 2;
+        const rows = [];
+        for (const entry of raw.rows) {
+          const src = legacy ? Plan.fromLegacy(entry) : entry;
+          if (!src || typeof src !== "object" || !Number.isFinite(Number(src.minutes))) return null;
+          rows.push(Plan.makeRow(src));
+        }
+        const startRaw = raw.start ?? raw.startTime;
+        const defaults = Plan.defaultStations();
+        return {
+          start: typeof startRaw === "string" && TIME_RE.test(startRaw) ? startRaw : CONFIG.DEFAULT_START,
+          stations: defaults.map((fb, i) => (Array.isArray(raw.stations) && typeof raw.stations[i] === "string" && raw.stations[i].trim()
+            ? raw.stations[i].slice(0, CONFIG.MAX_TEXT) : fb)),
+          rows
+        };
+      },
+
+      fresh() {
+        return Plan.migrate(Plan.defaultRaw()) || {
+          start: CONFIG.DEFAULT_START,
+          stations: [...CONFIG.FALLBACK_STATIONS],
+          rows: [Plan.makeRow({ minutes: CONFIG.NEW_ROW_MINUTES })]
+        };
+      },
+
+      serialize(state) {
+        return {
+          app: CONFIG.APP_ID,
+          version: CONFIG.STORAGE_VERSION,
+          start: state.start,
+          stations: [...state.stations],
+          rows: state.rows.map(({ type, minutes, text }) => ({ type, minutes, text }))
+        };
+      },
+
+      schedule(state) {
+        const [h, m] = state.start.split(":").map(Number);
+        const startMin = h * 60 + m;
+        let t = startMin;
+        let pauses = 0;
+        const slots = state.rows.map((row) => {
+          const slot = { start: t, end: t + row.minutes };
+          t += row.minutes;
+          if (row.type === "break") pauses += row.minutes;
+          return slot;
+        });
+        const total = t - startMin;
+        return { slots, total, pauses, training: total - pauses, endMin: t };
+      },
+
+      clock(min) {
+        const h = Math.floor(min / 60) % 24;
+        return `${String(h).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
+      },
+
+      duration(min) { return `${Math.floor(min / 60)} h ${min % 60} min`; }
+    };
+
+    /* Darstellung */
+    const View = {
+      els: {},
+
+      init() {
+        const e = View.els;
+        e.tbody = $("#planTable tbody");
+        e.start = $("#campStart");
+        e.stations = [$("#station1"), $("#station2"), $("#station3")];
+        e.total = $("#totalInfo");
+        e.file = $("#importFile");
+        e.toast = $("#toast");
+        e.toastText = $("#toastText");
+        e.toastUndo = $("#toastUndo");
+        e.banner = $("#externalBanner");
+      },
+
+      stationRound(round) {
+        const wrap = document.createElement("div");
+        const intro = document.createElement("p");
+        intro.className = "round-intro";
+        intro.textContent = `${round}. ${CONFIG.ROUND_INTRO}`;
+        wrap.append(intro);
+
+        App.state.stations.forEach((value, i) => {
+          const lines = value.replace(/\r/g, "").split("\n");
+          const name = lines.shift().trim() || "—";
+          const rest = lines.join("\n").trim();
+
+          const block = document.createElement("div");
+          block.className = "st-block";
+          block.dataset.st = String(i + 1);
+
+          const head = document.createElement("div");
+          head.className = "st-head";
+          head.textContent = `Station ${i + 1} (${CONFIG.STATION_POSITIONS[i]})`;
+          const title = document.createElement("div");
+          title.className = "st-name";
+          title.textContent = name;
+          block.append(head, title);
+
+          if (rest) {
+            const body = document.createElement("div");
+            body.className = "st-body";
+            body.textContent = rest;
+            block.append(body);
+          }
+          wrap.append(block);
+        });
+        return wrap;
+      },
+
+      buildRow(row) {
+        const tr = $("#row-template").content.firstElementChild.cloneNode(true);
+        tr.dataset.id = row.id;
+        tr.dataset.type = row.type;
+        $('[data-field="minutes"]', tr).value = row.minutes;
+        $('[data-field="type"]', tr).value = row.type;
+        const textarea = $('[data-field="text"]', tr);
+        const cell = $('[data-field="stations-cell"]', tr);
+        if (row.type === "stations") textarea.remove();
+        else { textarea.value = row.text; cell.remove(); }
+        return tr;
+      },
+
+      render() {
+        const frag = document.createDocumentFragment();
+        App.state.rows.forEach((row) => frag.append(View.buildRow(row)));
+        View.els.tbody.replaceChildren(frag);
+        View.syncInputs();
+        View.updateStations();
+        View.update();
+        View.growAll();
+      },
+
+      syncInputs() {
+        View.els.start.value = App.state.start;
+        View.els.stations.forEach((input, i) => { input.value = App.state.stations[i]; });
+      },
+
+      /* Zeiten und Summen (ohne Zeilen neu aufzubauen) */
+      update() {
+        const sched = Plan.schedule(App.state);
+        App.state.rows.forEach((row, i) => {
+          const tr = View.els.tbody.rows[i];
+          if (!tr) return;
+          $(".start", tr).textContent = Plan.clock(sched.slots[i].start);
+          $(".end", tr).textContent = Plan.clock(sched.slots[i].end);
+        });
+        View.els.total.textContent =
+          `Gesamt: ${Plan.duration(sched.total)} · Training: ${Plan.duration(sched.training)} · ` +
+          `Pausen: ${Plan.duration(sched.pauses)} · Ende ${Plan.clock(sched.endMin)}`;
+      },
+
+      /* Stationsblöcke in allen Stationsrunden */
+      updateStations() {
+        let round = 0;
+        App.state.rows.forEach((row, i) => {
+          if (row.type !== "stations") return;
+          round += 1;
+          const cell = View.els.tbody.rows[i] && $('[data-field="stations-cell"]', View.els.tbody.rows[i]);
+          cell?.replaceChildren(View.stationRound(round));
+        });
+      },
+
+      autoGrow(textarea) {
+        textarea.style.height = "auto";
+        textarea.style.height = `${textarea.scrollHeight + 2}px`;
+      },
+
+      growAll() {
+        View.els.tbody.querySelectorAll("textarea").forEach(View.autoGrow);
+        View.els.stations.forEach(View.autoGrow);
+      },
+
+      rowEl(id) { return View.els.tbody.querySelector(`tr[data-id="${id}"]`); },
+      focusRow(id, selector) { View.rowEl(id)?.querySelector(selector)?.focus(); },
+
+      showToast(text, undoable) {
+        const { toast, toastText, toastUndo } = View.els;
+        if (!toast) return;
+        toastText.textContent = text;
+        toastUndo.hidden = !undoable;
+        toast.hidden = false;
+        clearTimeout(View.toastTimer);
+        View.toastTimer = setTimeout(View.hideToast, CONFIG.TOAST_MS);
+      },
+
+      hideToast() { if (View.els.toast) View.els.toast.hidden = true; },
+      showBanner(visible) { View.els.banner.hidden = !visible; }
+    };
+
+    /* Persistenz, Import und Export */
+    const Persist = {
+      saveTimer: null,
+      warned: false,
+
+      schedule() {
+        clearTimeout(Persist.saveTimer);
+        Persist.saveTimer = setTimeout(Persist.flush, CONFIG.SAVE_DELAY_MS);
+      },
+
+      flush() {
+        clearTimeout(Persist.saveTimer);
+        Persist.saveTimer = null;
+        const ok = Store.set(CONFIG.STORAGE_KEY, JSON.stringify(Plan.serialize(App.state)));
+        if (!ok && !Persist.warned) {
+          Persist.warned = true;
+          View.showToast("Speichern im Browser nicht möglich – bitte den Plan exportieren.", false);
+        }
+      },
+
+      load() {
+        for (const key of [CONFIG.STORAGE_KEY, CONFIG.LEGACY_KEY]) {
+          const text = Store.get(key);
+          if (!text) continue;
+          try {
+            const state = Plan.migrate(JSON.parse(text));
+            if (state) return state;
+          } catch { /* nächsten Schlüssel versuchen */ }
+        }
+        return null;
+      },
+
+      exportFile() {
+        Persist.flush();
+        const json = JSON.stringify(Plan.serialize(App.state), null, 2);
+        const url = URL.createObjectURL(new Blob([json], { type: "application/json" }));
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `basketballcamp-plan-${new Date().toISOString().slice(0, 10)}.json`;
+        document.body.append(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      },
+
+      importFile(file) {
+        if (!file) return;
+        if (file.size > CONFIG.MAX_FILE_BYTES) { alert("Die Datei ist zu groß für einen Plan."); return; }
+        const reader = new FileReader();
+        reader.onerror = () => alert("Die Datei konnte nicht geladen werden.");
+        reader.onload = () => {
+          let raw = null;
+          try { raw = JSON.parse(reader.result); } catch { /* ungültig */ }
+          if (raw && raw.app && raw.app !== CONFIG.APP_ID) raw = null;
+          const state = Plan.migrate(raw);
+          if (!state) {
+            alert("Die Datei konnte nicht gelesen werden. Bitte eine mit diesem Planer exportierte JSON-Datei wählen.");
+            return;
+          }
+          if (Number.isInteger(raw.version) && raw.version > CONFIG.STORAGE_VERSION) {
+            const ok = confirm(
+              `Diese Datei stammt von einer neueren Version des Planers (Dateiformat ${raw.version}, ` +
+              `unterstützt wird bis ${CONFIG.STORAGE_VERSION}). Einige Angaben können fehlen oder falsch sein. Trotzdem importieren?`);
+            if (!ok) return;
+          }
+          if (!confirm("Die importierte Datei ersetzt den aktuellen Plan. Fortfahren?")) return;
+          App.replaceState(state, "Plan importiert.");
+        };
+        reader.readAsText(file);
+      }
+    };
+
+    /* Theme */
+    const Theme = {
+      mq: window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null,
+
+      apply(theme) {
+        const dark = theme === "dark";
+        if (dark) document.documentElement.dataset.theme = "dark";
+        else delete document.documentElement.dataset.theme;
+        $("#themeSwitch").setAttribute("aria-pressed", String(dark));
+        $("#themeLabel").textContent = dark ? "Dunkel" : "Hell";
+      },
+
+      current() { return document.documentElement.dataset.theme === "dark" ? "dark" : "light"; },
+
+      init() {
+        const saved = Store.get(CONFIG.THEME_KEY);
+        Theme.apply(saved === "dark" || saved === "light" ? saved : (Theme.mq?.matches ? "dark" : "light"));
+        Theme.mq?.addEventListener?.("change", (e) => {
+          if (!Store.get(CONFIG.THEME_KEY)) Theme.apply(e.matches ? "dark" : "light");
+        });
+      },
+
+      toggle() {
+        const next = Theme.current() === "dark" ? "light" : "dark";
+        Theme.apply(next);
+        Store.set(CONFIG.THEME_KEY, next);
+      }
+    };
+
+    /* App: Zustand, Aktionen (data-action) und Ereignisse */
+    const App = {
+      state: null,
+      undoSnapshot: null,
+
+      rowIndex(id) { return App.state.rows.findIndex((r) => r.id === id); },
+      changed() { View.update(); Persist.schedule(); },
+      structureChanged() { View.render(); Persist.schedule(); },
+      rememberForUndo() { App.undoSnapshot = clone(App.state); },
+
+      replaceState(next, message) {
+        App.rememberForUndo();
+        App.state = next;
+        View.render();
+        Persist.flush();
+        View.showToast(message, true);
+      },
+
+      actions: {
+        "add-row"(button) {
+          const type = CONFIG.TYPES.includes(button.dataset.type) ? button.dataset.type : "text";
+          if (App.state.rows.length >= CONFIG.MAX_ROWS) { alert("Maximale Zeilenanzahl erreicht."); return; }
+          const row = Plan.makeRow({ type, minutes: type === "break" ? 5 : CONFIG.NEW_ROW_MINUTES, text: type === "break" ? "Pause" : "" });
+          App.state.rows.push(row);
+          App.structureChanged();
+          View.focusRow(row.id, "textarea");
+          View.rowEl(row.id)?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        },
+
+        "delete-row"(button) {
+          const i = App.rowIndex(button.closest("tr").dataset.id);
+          if (i < 0) return;
+          App.rememberForUndo();
+          App.state.rows.splice(i, 1);
+          App.structureChanged();
+          View.showToast("Zeile gelöscht.", true);
+        },
+
+        "move-up"(button) { App.move(button, -1); },
+        "move-down"(button) { App.move(button, 1); },
+
+        undo() {
+          if (!App.undoSnapshot) return;
+          App.state = App.undoSnapshot;
+          App.undoSnapshot = null;
+          View.render();
+          Persist.flush();
+          View.hideToast();
+        },
+
+        reset() {
+          if (!confirm("Plan auf die Standardwerte zurücksetzen? Eigene Änderungen gehen verloren (Rückgängig ist kurz möglich).")) return;
+          App.replaceState(Plan.fresh(), "Plan zurückgesetzt.");
+        },
+
+        print() { View.growAll(); window.print(); },
+        export() { Persist.exportFile(); },
+        import() { View.els.file.click(); },
+        "toggle-theme"() { Theme.toggle(); },
+
+        "reload-external"() {
+          const state = Persist.load();
+          if (state) { App.state = state; View.render(); }
+          View.showBanner(false);
+        },
+        "dismiss-external"() { View.showBanner(false); }
+      },
+
+      move(button, dir) {
+        const id = button.closest("tr").dataset.id;
+        const i = App.rowIndex(id);
+        const j = i + dir;
+        if (i < 0 || j < 0 || j >= App.state.rows.length) return;
+        const rows = App.state.rows;
+        [rows[i], rows[j]] = [rows[j], rows[i]];
+        App.structureChanged();
+        View.focusRow(id, `[data-action="${dir < 0 ? "move-up" : "move-down"}"]`);
+      },
+
+      bind() {
+        document.addEventListener("click", (e) => {
+          const button = e.target.closest("[data-action]");
+          const handler = button && App.actions[button.dataset.action];
+          if (handler) handler(button, e);
+        });
+
+        const tbody = View.els.tbody;
+
+        tbody.addEventListener("input", (e) => {
+          const field = e.target.dataset.field;
+          const tr = e.target.closest("tr");
+          const row = tr && App.state.rows[App.rowIndex(tr.dataset.id)];
+          if (!row) return;
+          if (field === "minutes") row.minutes = Plan.clampMinutes(e.target.value);
+          else if (field === "text") { row.text = e.target.value.slice(0, CONFIG.MAX_TEXT); View.autoGrow(e.target); }
+          else return;
+          App.changed();
+        });
+
+        tbody.addEventListener("change", (e) => {
+          const tr = e.target.closest("tr");
+          const row = tr && App.state.rows[App.rowIndex(tr.dataset.id)];
+          if (!row) return;
+          if (e.target.dataset.field === "type" && CONFIG.TYPES.includes(e.target.value)) {
+            row.type = e.target.value;
+            App.structureChanged();
+            View.focusRow(row.id, '[data-field="type"]');
+          } else if (e.target.dataset.field === "minutes") {
+            e.target.value = row.minutes;
+          }
+        });
+
+        View.els.stations.forEach((input, i) => input.addEventListener("input", () => {
+          App.state.stations[i] = input.value.slice(0, CONFIG.MAX_TEXT);
+          View.autoGrow(input);
+          View.updateStations();
+          Persist.schedule();
+        }));
+
+        View.els.start.addEventListener("input", () => {
+          if (TIME_RE.test(View.els.start.value)) {
+            App.state.start = View.els.start.value;
+            App.changed();
+          }
+        });
+        View.els.start.addEventListener("change", () => { View.els.start.value = App.state.start; });
+
+        View.els.file.addEventListener("change", (e) => {
+          Persist.importFile(e.target.files[0]);
+          e.target.value = "";
+        });
+
+        window.addEventListener("beforeprint", View.growAll);
+        let resizeTimer;
+        window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(View.growAll, 150); });
+
+        window.addEventListener("storage", (e) => {
+          if (e.key === CONFIG.STORAGE_KEY && e.newValue !== null) View.showBanner(true);
+        });
+
+        const flushPending = () => { if (Persist.saveTimer) Persist.flush(); };
+        window.addEventListener("pagehide", flushPending);
+        document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flushPending(); });
+
+        window.addEventListener("error", (e) => {
+          console.error(e.error || e.message);
+          View.showToast("Es ist ein unerwarteter Fehler aufgetreten.", false);
+        });
+      },
+
+      init() {
+        Theme.init();
+        View.init();
+        App.state = Persist.load() || Plan.fresh();
+        View.render();
+        App.bind();
+        requestAnimationFrame(View.growAll);
+      }
+    };
+
+    App.init();
+  </script>
+</body>
+</html>
