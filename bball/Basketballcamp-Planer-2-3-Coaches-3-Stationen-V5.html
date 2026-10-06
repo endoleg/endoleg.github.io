@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basketballcamp-Planer</title>
+  <style>
+    :root{
+      --bg:#f4f7f6;
+      --card:#fff;
+      --border:#d7dbe0;
+      --text:#1f2937;
+      --primary:#0056b3;
+      --success:#28a745;
+      --info:#17a2b8;
+      --danger:#dc3545;
+      --shadow:0 2px 10px rgba(0,0,0,.06);
+      --radius:10px;
+    }
+
+    /* Dark theme variables (applied when body[data-theme="dark"]) */
+    body[data-theme="dark"] {
+      --bg: #0f1720;
+      --card: #0b1220;
+      --border: #1f2937;
+      --text: #e6eef8;
+      --primary: #3b82f6;
+      --success: #16a34a;
+      --info: #0ea5a4;
+      --danger: #ef4444;
+      --shadow: 0 6px 18px rgba(0,0,0,0.6);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      transition: background-color .25s ease, color .25s ease;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px;
+    }
+
+    h1 {
+      margin: 8px 0 16px;
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      line-height: 1.2;
+    }
+
+    .card, .info-box, .table-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .card, .info-box {
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .config-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr;
+      align-items: end;
+    }
+
+    .field label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input, button {
+      font: inherit;
+    }
+
+    input {
+      width: 100%;
+      padding: 9px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--text);
+    }
+
+    body[data-theme="dark"] input {
+      background: #071026;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    textarea {
+      font: inherit;
+      width: 100%;
+      min-height: 150px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--text);
+      line-height: 1.5;
+      resize: vertical;
+      overflow: hidden;
+    }
+
+    body[data-theme="dark"] textarea {
+      background: #071026;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    textarea:focus, input:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 1px;
+    }
+
+    .hint {
+      margin: 0 0 12px;
+      font-size: .92rem;
+      opacity: .8;
+    }
+
+    .station-edit-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .station-edit {
+      --accent: var(--primary);
+      border-top: 5px solid var(--accent);
+      border-radius: 8px;
+      padding: 10px 12px 12px;
+      background: rgba(0,0,0,.02);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    body[data-theme="dark"] .station-edit { background: rgba(255,255,255,.03); }
+
+    .station-edit label {
+      font-weight: 700;
+      display: block;
+      margin-bottom: 6px;
+      color: var(--accent);
+    }
+
+    .station-edit:nth-child(1), .st-block:nth-of-type(1) { --accent: #0056b3; }
+    .station-edit:nth-child(2), .st-block:nth-of-type(2) { --accent: #1e8e3e; }
+    .station-edit:nth-child(3), .st-block:nth-of-type(3) { --accent: #d9730d; }
+
+    body[data-theme="dark"] .station-edit:nth-child(1), body[data-theme="dark"] .st-block:nth-of-type(1) { --accent: #60a5fa; }
+    body[data-theme="dark"] .station-edit:nth-child(2), body[data-theme="dark"] .st-block:nth-of-type(2) { --accent: #4ade80; }
+    body[data-theme="dark"] .station-edit:nth-child(3), body[data-theme="dark"] .st-block:nth-of-type(3) { --accent: #fb923c; }
+
+    /* Stationsrunde in der Tabelle */
+    .round-intro {
+      margin: 0 0 10px;
+      font-weight: 600;
+    }
+
+    .st-block {
+      --accent: var(--primary);
+      border-left: 6px solid var(--accent);
+      background: rgba(0,0,0,.035);
+      border-radius: 0 6px 6px 0;
+      padding: 8px 12px;
+      margin: 0 0 12px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .st-block:last-child { margin-bottom: 0; }
+
+    body[data-theme="dark"] .st-block { background: rgba(255,255,255,.05); }
+
+    .st-head {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+
+    .st-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+
+    .st-body {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin-bottom: 16px;
+    }
+
+    .print-title {
+      display: none;
+      margin: 0 0 12px;
+      font-size: 18pt;
+      line-height: 1.2;
+      font-weight: 700;
+      color: #000;
+    }
+
+    table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    caption {
+      text-align: left;
+      padding: 14px 16px 8px;
+      font-weight: 700;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 8px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    thead th {
+      background: var(--primary);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) { background: #fafbfc; }
+    body[data-theme="dark"] tbody tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+
+    th:nth-child(1), td:nth-child(1) { width: 72px; }
+    th:nth-child(2), td:nth-child(2) { width: auto; }
+    th:nth-child(3), td:nth-child(3),
+    th:nth-child(4), td:nth-child(4) { width: 84px; }
+    th:nth-child(5), td:nth-child(5),
+    th:nth-child(6), td:nth-child(6) { width: 78px; }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 12px 0 16px;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 10px 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .add-btn { background: var(--success); color: #fff; }
+    .print-btn { background: var(--info); color: #fff; }
+
+    .move-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .move-btn, .del-btn {
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      line-height: 1;
+      background: #f3f4f6;
+    }
+
+    .del-btn {
+      background: var(--danger);
+      color: #fff;
+      border-color: var(--danger);
+    }
+
+    .station-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .station-box {
+      padding: 12px;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      background: #fcfcfd;
+    }
+
+    body[data-theme="dark"] .station-box { background: rgba(255,255,255,0.02); }
+
+    .station-title {
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .info-box {
+      background: #f9f9f9;
+      line-height: 1.6;
+    }
+
+    body[data-theme="dark"] .info-box { background: rgba(255,255,255,0.02); }
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      background: transparent;
+    }
+
+    .theme-switch {
+      --w: 46px;
+      --h: 26px;
+      width: var(--w);
+      height: var(--h);
+      border-radius: 999px;
+      background: linear-gradient(90deg,#e2e8f0,#f8fafc);
+      border: 1px solid var(--border);
+      position: relative;
+      cursor: pointer;
+      box-sizing: content-box;
+    }
+
+    .theme-switch .knob {
+      width: calc(var(--h) - 6px);
+      height: calc(var(--h) - 6px);
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: transform .22s ease, left .22s ease, background .22s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,.12);
+    }
+
+    body[data-theme="dark"] .theme-switch {
+      background: linear-gradient(90deg,#0f1720,#0b1220);
+      border-color: rgba(255,255,255,0.06);
+    }
+
+    body[data-theme="dark"] .theme-switch .knob {
+      transform: translateX(20px);
+      background: #001f3f;
+      box-shadow: 0 2px 8px rgba(0,0,0,.5);
+    }
+
+    .theme-label {
+      font-size: .9rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    @media (min-width: 700px) {
+      .config-grid { grid-template-columns: 220px 1fr; }
+      .station-edit-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media print {
+      @page {
+        size: auto;
+        margin: 10mm;
+      }
+
+      html, body {
+        width: auto;
+        min-width: 0;
+        background: #fff !important;
+        color: #000 !important;
+        overflow: visible !important;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-size: 10.5pt;
+        line-height: 1.25;
+      }
+
+      .no-print,
+      .toolbar,
+      .card,
+      .info-box,
+      .muted,
+      #themeToggleWrap,
+      .station-grid,
+      .station-box {
+        display: none !important;
+      }
+
+      .page {
+        max-width: none !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .print-title {
+        display: block;
+      }
+
+      .table-container {
+        width: 100% !important;
+        overflow: visible !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background: transparent !important;
+      }
+
+      table {
+        width: 100% !important;
+        min-width: 0 !important;
+        table-layout: fixed;
+        border-collapse: collapse;
+      }
+
+      caption {
+        display: none;
+      }
+
+      thead {
+        display: table-header-group;
+      }
+
+      thead th {
+        position: static !important;
+        top: auto !important;
+        z-index: auto !important;
+        background: #e9ecef !important;
+        color: #000 !important;
+      }
+
+      tr,
+      td,
+      th {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      th,
+      td {
+        padding: 6px 7px;
+        font-size: 9.5pt;
+        white-space: normal;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+
+      .st-block {
+        background: #f3f4f6 !important;
+        border-left-color: #000 !important;
+        padding: 4px 8px;
+        margin-bottom: 6px;
+      }
+
+      .st-head { color: #000 !important; }
+
+      th:nth-child(1), td:nth-child(1) { width: 12%; }
+      th:nth-child(2), td:nth-child(2) { width: 48%; }
+      th:nth-child(3), td:nth-child(3) { width: 20%; }
+      th:nth-child(4), td:nth-child(4) { width: 20%; }
+
+      input[type="number"] {
+        width: 100%;
+        min-width: 0;
+        border: 0 !important;
+        padding: 0;
+        background: transparent !important;
+        color: #000 !important;
+        appearance: none;
+        -webkit-appearance: none;
+        box-shadow: none !important;
+      }
+
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
+      <h1 style="margin:0;">Basketballcamp-Planer</h1>
+      <div class="toolbar no-print" style="margin:0;">
+        <div class="theme-toggle" id="themeToggleWrap" aria-hidden="false">
+          <div class="theme-label" id="themeLabel">Hell</div>
+          <button class="theme-switch" id="themeSwitch" aria-pressed="false" aria-label="Dark mode umschalten" type="button">
+            <span class="knob" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  <p class="muted">Dieser Basketball-Camp-Planer hilft bei der schnellen Erstellung eines Camp-Zeitplans für 2-3 Coaches bei 20 Kindern oder weniger.</p>
+  <p class="muted">Startzeit und Stationen sollten ausgefüllt werden und dann können kleinere Anpassungen vorgenommen werden.</p>
+  
+  <p class="muted">Regeln für eine 1-1-Spielrunde für alle: Es wird auf alle Körbe (auch Seitenkörbe) gespielt bis ein/e Spieler/in 1 Treffer hat. Nach einem Angriffsversuch (Treffer oder Verteidigung hat sich den Ball durch Steal oder Rebound erkämpft) wird immer wieder aus der Dreierlinie gedribbelt und gecheckt und zwar schnell per Sprint nach oben. Die Angriffe sollen schnell ausgeführt werden und sind begrenzt auf maximal 5 Dribblings. Nach einem Duell gehen beide Kinder in die Mitte der Halle (Mittelkreis) und bekommen einen neuen Partner. Hier warten alle Kinder, die gerade nicht spielen und ein Coach sagt, wer als nächstes dran ist, den freien Korb zu bespielen! Keine Preise, keine Gewinner/Verlierer des Gesamtwettbewerbs.</p>
+  
+
+    <section class="card config-grid">
+      <div class="field">
+        <label for="campStart"><b>Camp-Treffzeit (15 Min vor Startzeit):</b></label>
+        <input type="time" id="campStart" value="09:30" />
+      </div>
+    </section>
+
+    <section class="card">
+      <label style="font-weight:700;display:block;margin-bottom:4px;">Stationen bearbeiten</label>
+      <p class="hint">Pro Station: Stationsname in die erste Zeile, danach Coach und Inhalte – mit Enter in neue Zeilen. Die Felder wachsen mit.</p>
+      <div class="station-edit-grid">
+        <div class="station-edit">
+          <label for="station1">Station 1</label>
+          <textarea id="station1" placeholder="Stationsname&#10;Coach: &#10;Inhalte:"></textarea>
+        </div>
+        <div class="station-edit">
+          <label for="station2">Station 2</label>
+          <textarea id="station2" placeholder="Stationsname&#10;Coach: &#10;Inhalte:"></textarea>
+        </div>
+        <div class="station-edit">
+          <label for="station3">Station 3</label>
+          <textarea id="station3" placeholder="Stationsname&#10;Coach: &#10;Inhalte:"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="print-title">Basketball-Camp-Planer – Zeitplan</h2>
+
+    <div class="table-container">
+      <table id="planTable">
+        <thead>
+          <tr>
+            <th scope="col">Min</th>
+            <th scope="col">Aktivität</th>
+            <th scope="col">Start</th>
+            <th scope="col">Ende</th>
+            <th scope="col" class="no-print">V</th>
+            <th scope="col" class="no-print">X</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="toolbar no-print">
+      <button class="btn add-btn" id="addRowBtn" type="button">+ Zeile hinzufügen</button>
+      <button class="btn print-btn" id="printBtn" type="button">Plan Drucken</button>
+    </div>
+
+    <section class="info-box">
+      <h3> </h3>
+      <p><b> </b></p>
+      <p> </p>
+    </section>
+  </main>
+
+  
+
+  <div id="app-status" role="status" aria-live="polite"></div>
+  
+
+  <script>
+(() => {
+  "use strict";
+
+  const STORAGE_KEY = "bc_plan_state";
+  const STORAGE_VERSION = 18;
+  const THEME_KEY = "bc_plan_theme";
+
+  const initialData = [[15, "Halle öffnen, Umziehen, check-in. Alle Kids bekommen per Kreppband einen Namens-Aufkleber. Teilnehmerlisten abhaken, Bezahlung, Bälle und Hütchen rausholen", ""], [5, "Begrüßung (Vorstellung grober Ablauf und Coaches, allg. Camp-Regeln, keine Getränke oder Essen in der Halle, nur auf der Tribüne, fair play)", ""], [5, "WarmUp: Ankommensspiel, das den Kopf und die Aufmerksamkeit der Camper fordert", ""], [10, "WarmUp: 2. Spiel oder Movement-Preparation", ""], [5, "A) Einteilung in 3 gleichgroße Gruppen nach Alter, Größe und Leistungsstärke ODER BESSER B) eine Runde 'Findungs-Stationen' zum Warmup wo alle das gleiche machen (erst Korbleger, dann Dribbling) und Kinder live optimiert sortiert werden, damit die Stationen ausgeglichen eingeteilt sind", ""], [16, "1. Stationsrunde", "station-round-1"], [3, "Pause / Wechsel", ""], [16, "2. Stationsrunde", "station-round-1"], [3, "Pause / Wechsel", ""], [16, "3. Stationsrunde", "station-round-1"], [10, "Pause (auch ein paar Minuten ohne Ball), Zeit für Essen/Snack", ""], [10, "Platz für eine Spielform wie z.B. Parteiball", ""], [16, "4. Stationsrunde", "station-round-1"], [3, "Pause / Wechsel", ""], [16, "5. Stationsrunde", "station-round-1"], [3, "Pause / Wechsel", ""], [16, "6. Stationsrunde", "station-round-1"], [10, "Pause (auch ein paar Minuten ohne Ball), Zeit für Essen/Snack", ""], [10, "Platz für eine Spielform wie z.B. Parteiball", ""], [60, "Entweder A) Spiele --> 2vs.2, 3vs.3. Viele Ballkontakte! Coaches spielen nicht mit! Coaches achten darauf, dass alle Kinder verteidigen und alle Kinder mal den Ball bekommen ODER B) Ein weiterer Stationen-Durchgang mit kleinen Pausen", ""], [3, "Pause / Wechsel", ""], [15, "1vs.1-Duelle", ""], [5, "Ende --> Cool down, Aufräumen, Verabschiedung und Feedback", ""]];
+
+  const DEFAULT_STATIONS = [
+    "Scoring/Finishing\nCoach: \nInhalte: \nWurftechnik\nKorbleger mit Schutzhand\nLinkskorbleger\nSwing Step, Eurostep, Floater\nReverse-Korbleger, Kreuzschritt-Korbleger, Spin-Move\nUnterhand-Korbleger Voll-Speed, Up and Under\nPowermove",
+    "Ballhandling\nCoach: \nInhalte:\nHandwechsel: Kurz stationär, dann im Parcours: Handwechsel vor dem Körper, durch die Beine, hinter dem Körper, Spin-Move-Dribbling.\nVerzögerungsdribbling, In-and-Out-Dribbling\nBackup-Dribbling, seitliche Hüpfer als Dribbling, Crossover-Dribbelstart.\nEinhändige Pässe",
+    "Offensive Beinarbeit & Täuschungen\nCoach: \nInhalte:\nSelbstvorlage, 1-Kontakt-Sprungstopp vs. 2-Kontakt-Schrittstopp, Sternschritt vorwärts/rückwärts\nKreuzgang, (optional: Passgang), Jab-Step\nBallschutz/sweep (\"Rip\")\nV-Cut, Backdoor-Cut\nWurffinte, Schrittfinte, Passfinte und auch den Dribbelstart danach in Kombination"
+  ];
+  const STATION_POSITIONS = ["links", "links", "rechts"];
+
+  const dom = {
+    tbody: document.querySelector("#planTable tbody"),
+    campStart: document.getElementById("campStart"),
+    addRowBtn: document.getElementById("addRowBtn"),
+    printBtn: document.getElementById("printBtn"),
+    themeSwitch: document.getElementById("themeSwitch"),
+    themeLabel: document.getElementById("themeLabel"),
+    status: document.getElementById("app-status"),
+    stationInputs: [1, 2, 3].map(n => document.getElementById(`station${n}`))
+  };
+
+  let state = createDefaultState();
+  let saveTimer;
+
+  function createId() {
+    return typeof crypto?.randomUUID === "function"
+      ? crypto.randomUUID()
+      : `row-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  }
+
+  function createDefaultState() {
+    return {
+      startTime: "09:00",
+      stations: [...DEFAULT_STATIONS],
+      rows: initialData.map(([duration, activity, className]) => ({
+        id: createId(), duration, activity, className
+      }))
+    };
+  }
+
+  function showStatus(message, type = "info") {
+    if (!dom.status) return;
+    dom.status.textContent = message;
+    dom.status.dataset.type = type;
+  }
+
+  function readStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (parsed.version !== STORAGE_VERSION || !parsed.data) return null;
+      return normalizeState(parsed.data);
+    } catch (error) {
+      console.warn("Gespeicherte Daten konnten nicht geladen werden.", error);
+      showStatus("Gespeicherte Daten waren ungültig. Standardwerte wurden geladen.", "warning");
+      return null;
+    }
+  }
+
+  function normalizeState(data) {
+    const rows = Array.isArray(data.rows) ? data.rows : [];
+    return {
+      startTime: /^\d{2}:\d{2}$/.test(data.startTime) ? data.startTime : "09:00",
+      stations: [0, 1, 2].map((i) => typeof data.stations?.[i] === "string" && data.stations[i].trim() ? data.stations[i] : DEFAULT_STATIONS[i]),
+      rows: rows.map(row => ({
+        id: typeof row.id === "string" ? row.id : createId(),
+        duration: Number.isFinite(Number(row.duration)) && Number(row.duration) >= 0 ? Number(row.duration) : 15,
+        activity: typeof row.activity === "string" ? row.activity : "",
+        className: typeof row.className === "string" ? row.className : ""
+      }))
+    };
+  }
+
+  function saveState() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          version: STORAGE_VERSION,
+          savedAt: new Date().toISOString(),
+          data: state
+        }));
+      } catch (error) {
+        console.warn("State konnte nicht gespeichert werden.", error);
+        showStatus("Die Änderungen konnten nicht gespeichert werden.", "warning");
+      }
+    }, 150);
+  }
+
+  function timeToMinutes(value) {
+    const match = /^(\d{1,2}):(\d{2})$/.exec(value || "");
+    if (!match) return 0;
+    const hours = Math.min(23, Number(match[1]));
+    const minutes = Math.min(59, Number(match[2]));
+    return hours * 60 + minutes;
+  }
+
+  function minutesToTime(total) {
+    const normalized = ((total % 1440) + 1440) % 1440;
+    const hours = Math.floor(normalized / 60);
+    const minutes = normalized % 60;
+    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+  }
+
+  function getStations() {
+    return state.stations.map(value => value.trim() || "—");
+  }
+
+  function buildStationRound() {
+    const wrap = document.createElement("div");
+
+    const intro = document.createElement("p");
+    intro.className = "round-intro";
+    intro.textContent = "Stationsrunde (3 Gruppen – jede Gruppe durchläuft 1 der 3 Stationen – je ein Coach betreut eine Station, bei zwei Coaches wird gleichzeitig das gleiche Thema geschult)";
+    wrap.append(intro);
+
+    getStations().forEach((value, index) => {
+      const lines = value.replace(/\r/g, "").split("\n");
+      const name = lines.shift() || "—";
+      const rest = lines.join("\n").trim();
+
+      const block = document.createElement("div");
+      block.className = "st-block";
+
+      const head = document.createElement("div");
+      head.className = "st-head";
+      head.textContent = `Station ${index + 1} (${STATION_POSITIONS[index]})`;
+
+      const title = document.createElement("div");
+      title.className = "st-name";
+      title.textContent = name;
+
+      block.append(head, title);
+
+      if (rest) {
+        const body = document.createElement("div");
+        body.className = "st-body";
+        body.textContent = rest;
+        block.append(body);
+      }
+      wrap.append(block);
+    });
+
+    return wrap;
+  }
+
+  function autoGrow(textarea) {
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight + 2}px`;
+  }
+
+  function renderStations() {
+    document.querySelectorAll(".station-round-1").forEach(element => {
+      element.replaceChildren(buildStationRound());
+    });
+  }
+
+  function renderSchedule() {
+    const fragment = document.createDocumentFragment();
+    let current = timeToMinutes(state.startTime);
+
+    state.rows.forEach(rowData => {
+      const row = document.createElement("tr");
+      row.dataset.rowId = rowData.id;
+
+      const durationCell = document.createElement("td");
+      const duration = document.createElement("input");
+      duration.type = "number";
+      duration.min = "0";
+      duration.step = "1";
+      duration.value = String(rowData.duration);
+      duration.name = "duration";
+      duration.setAttribute("aria-label", "Dauer in Minuten");
+      durationCell.append(duration);
+
+      const activityCell = document.createElement("td");
+      const activity = document.createElement(rowData.className === "station-round-1" ? "div" : "span");
+      activity.className = `activity-text ${rowData.className}`.trim();
+      if (rowData.className === "station-round-1") activity.append(buildStationRound());
+      else activity.textContent = rowData.activity;
+      activityCell.append(activity);
+
+      const startCell = document.createElement("td");
+      startCell.className = "start";
+      startCell.textContent = minutesToTime(current);
+      current += Math.max(0, Number(rowData.duration) || 0);
+
+      const endCell = document.createElement("td");
+      endCell.className = "end";
+      endCell.textContent = minutesToTime(current);
+
+      const moveCell = document.createElement("td");
+      moveCell.className = "no-print";
+      moveCell.innerHTML = '<div class="move-group"><button class="move-btn" type="button" data-dir="-1" aria-label="Zeile nach oben">▲</button><button class="move-btn" type="button" data-dir="1" aria-label="Zeile nach unten">▼</button></div>';
+
+      const deleteCell = document.createElement("td");
+      deleteCell.className = "no-print";
+      deleteCell.innerHTML = '<button class="del-btn" type="button" aria-label="Zeile löschen">X</button>';
+
+      row.append(durationCell, activityCell, startCell, endCell, moveCell, deleteCell);
+      fragment.append(row);
+    });
+
+    dom.tbody.replaceChildren(fragment);
+  }
+
+  function updateRow(id, changes) {
+    const row = state.rows.find(item => item.id === id);
+    if (!row) return;
+    Object.assign(row, changes);
+    renderSchedule();
+    saveState();
+  }
+
+  function moveRow(id, direction) {
+    const index = state.rows.findIndex(row => row.id === id);
+    const target = index + direction;
+    if (index < 0 || target < 0 || target >= state.rows.length) return;
+    [state.rows[index], state.rows[target]] = [state.rows[target], state.rows[index]];
+    renderSchedule();
+    saveState();
+  }
+
+  function addRow() {
+    state.rows.push({ id: createId(), duration: 15, activity: "", className: "" });
+    renderSchedule();
+    saveState();
+  }
+
+  function handleTableInput(event) {
+    if (!event.target.matches('input[name="duration"]')) return;
+    const row = event.target.closest("tr");
+    const value = Number(event.target.value);
+    updateRow(row?.dataset.rowId, { duration: Number.isFinite(value) && value >= 0 ? value : 0 });
+  }
+
+  function handleTableClick(event) {
+    const row = event.target.closest("tr");
+    if (!row) return;
+    if (event.target.closest(".move-btn")) {
+      moveRow(row.dataset.rowId, Number(event.target.closest(".move-btn").dataset.dir));
+    }
+    if (event.target.closest(".del-btn")) {
+      state.rows = state.rows.filter(item => item.id !== row.dataset.rowId);
+      renderSchedule();
+      saveState();
+    }
+  }
+
+  function applyTheme(theme) {
+    const dark = theme === "dark";
+    document.body.toggleAttribute("data-theme", dark);
+    if (dark) document.body.setAttribute("data-theme", "dark");
+    dom.themeSwitch?.setAttribute("aria-pressed", String(dark));
+    if (dom.themeLabel) dom.themeLabel.textContent = dark ? "Dunkel" : "Hell";
+  }
+
+  function initializeTheme() {
+    let saved = null;
+    try { saved = localStorage.getItem(THEME_KEY); } catch {}
+    const preferred = saved || (window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    applyTheme(preferred);
+    dom.themeSwitch?.addEventListener("click", () => {
+      const next = document.body.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      applyTheme(next);
+      try { localStorage.setItem(THEME_KEY, next); } catch {}
+    });
+  }
+
+  function initialize() {
+    state = readStorage() || createDefaultState();
+    state.stations = state.stations.map((value, index) => value.trim() || DEFAULT_STATIONS[index]);
+    dom.campStart.value = state.startTime;
+    dom.stationInputs.forEach((input, index) => { input.value = state.stations[index]; });
+    requestAnimationFrame(() => dom.stationInputs.forEach(autoGrow));
+    window.addEventListener("resize", () => dom.stationInputs.forEach(autoGrow));
+
+    dom.campStart.addEventListener("change", event => {
+      if (!/^\d{2}:\d{2}$/.test(event.target.value)) {
+        event.target.value = state.startTime;
+        showStatus("Bitte eine gültige Startzeit eingeben.", "error");
+        return;
+      }
+      state.startTime = event.target.value;
+      renderSchedule();
+      saveState();
+    });
+
+    dom.stationInputs.forEach((input, index) => input.addEventListener("input", event => {
+      state.stations[index] = event.target.value;
+      autoGrow(event.target);
+      renderStations();
+      saveState();
+    }));
+
+    dom.tbody.addEventListener("input", handleTableInput);
+    dom.tbody.addEventListener("click", handleTableClick);
+    dom.addRowBtn?.addEventListener("click", addRow);
+    dom.printBtn?.addEventListener("click", () => window.print());
+
+    renderSchedule();
+    renderStations();
+    initializeTheme();
+  }
+
+  window.addEventListener("error", event => {
+    console.error(event.error || event.message);
+    showStatus("Es ist ein unerwarteter Fehler aufgetreten.", "error");
+  });
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initialize, { once: true });
+  else initialize();
+})();
+</script>
+</body>
+</html>
