@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basketballcamp-Planer</title>
+<style>
+:root{color-scheme:light;--bg:#f4f7f6;--card:#fff;--border:#d7dbe0;--text:#1f2937;--primary:#0056b3;--ok:#28a745;--info:#17a2b8;--danger:#dc3545;--neutral:#6b7280;--warn:#b7791f;--shadow:0 2px 10px rgba(0,0,0,.06);--inp:#fff;--alt:#fafbfc;--btn:#f3f4f6;--brk:#fff4d6;--tint:rgba(0,0,0,.035);--s1:#0056b3;--s2:#1e8e3e;--s3:#d9730d;--s4:#7c3aed;--sw:linear-gradient(90deg,#e2e8f0,#f8fafc);--knob:#fff;--shift:0px}
+:root[data-theme=dark]{color-scheme:dark;--bg:#0f1720;--card:#0b1220;--border:#263244;--text:#e6eef8;--primary:#3b82f6;--ok:#16a34a;--info:#0ea5a4;--danger:#ef4444;--shadow:0 6px 18px rgba(0,0,0,.6);--inp:#071026;--alt:rgba(255,255,255,.025);--btn:#1f2937;--brk:rgba(250,204,21,.12);--tint:rgba(255,255,255,.05);--s1:#60a5fa;--s2:#4ade80;--s3:#fb923c;--s4:#c4b5fd;--sw:linear-gradient(90deg,#0f1720,#0b1220);--knob:#001f3f;--shift:20px}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;font-family:"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+.page{max-width:1200px;margin:0 auto;padding:12px}
+h1{margin:0;font-size:clamp(1.5rem,3vw,2.1rem);line-height:1.2}
+input,textarea,select,button{font:inherit}
+input,textarea,select{width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:6px;background:var(--inp);color:var(--text)}
+textarea{resize:none;overflow:hidden;min-height:44px;line-height:1.4;display:block}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.hdr{display:flex;align-items:center;gap:12px;margin:8px 0 12px}
+.card,.table-container,.fold{background:var(--card);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow)}
+.card{padding:16px;margin-bottom:16px}.fold{margin-bottom:10px}
+.fold>summary{cursor:pointer;padding:10px 16px;font-weight:700}
+.fold-body{padding:0 16px 8px;border-top:1px solid var(--border)}
+.cfg{display:grid;gap:12px;grid-template-columns:1fr 1fr 1fr}
+label.l{display:block;font-weight:700;margin-bottom:6px}
+.hint{margin:0 0 12px;font-size:.92rem;opacity:.8}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.station-edit{border:1px solid var(--border);border-top:5px solid var(--a);border-radius:8px;padding:10px 12px 12px;background:var(--tint)}
+.station-edit label{display:block;font-weight:700;margin-bottom:6px;color:var(--a)}
+.station-edit textarea{min-height:150px}
+[data-st="1"]{--a:var(--s1)}[data-st="2"]{--a:var(--s2)}[data-st="3"]{--a:var(--s3)}[data-st="4"]{--a:var(--s4)}
+.round-intro{margin:0 0 10px;font-weight:600}
+.st-block{border-left:6px solid var(--a);background:var(--tint);border-radius:0 6px 6px 0;padding:8px 12px;margin:0 0 10px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.st-block:last-child{margin-bottom:0}
+.st-head{font-size:.85rem;font-weight:700;color:var(--a)}.st-name{font-weight:700;font-size:1.05rem}
+.st-body{white-space:pre-wrap;overflow-wrap:anywhere}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 16px;align-items:center}
+.total{margin-left:auto;font-weight:600}
+.btn{padding:10px 14px;cursor:pointer;border:0;border-radius:6px;font-weight:700;color:#fff;background:var(--neutral)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.add{background:var(--ok)}.brk{background:var(--warn)}.prt{background:var(--info)}
+.tool-file{display:none}#lib{width:auto;cursor:pointer;padding:10px 14px}#lib option{color:#000}
+.mv{display:flex;gap:6px}
+.mv button,.del{padding:6px 8px;border-radius:6px;border:1px solid var(--border);cursor:pointer;line-height:1;background:var(--btn);color:var(--text)}
+.del{background:var(--danger);color:#fff;border-color:var(--danger)}
+.theme{display:inline-flex;align-items:center;gap:8px;margin-left:auto;font-size:.9rem;font-weight:600}
+.sw{width:46px;height:26px;border-radius:999px;background:var(--sw);border:1px solid var(--border);position:relative;cursor:pointer;box-sizing:content-box;padding:0}
+.knob{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--knob);transform:translateX(var(--shift));transition:transform .2s;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.toast,.banner{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 14px;border-radius:10px;background:#111827;color:#fff;box-shadow:var(--shadow)}
+.toast{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:10;max-width:calc(100vw - 24px)}
+.banner{margin-bottom:12px;background:#92400e}
+.toast .btn,.banner .btn{padding:6px 10px;background:#374151}
+.table-container{overflow-x:auto;margin-bottom:16px}
+.print-title{display:none;margin:0 0 12px;font-size:18pt;font-weight:700;color:#000}
+table{width:100%;min-width:720px;border-collapse:collapse;table-layout:fixed}
+th,td{border:1px solid var(--border);padding:8px;text-align:left;vertical-align:top}
+thead th{background:var(--primary);color:#fff;position:sticky;top:0}
+tbody tr:nth-child(even){background:var(--alt)}
+tbody tr[data-type=break],tbody tr[data-type=break]:nth-child(even){background:var(--brk)}
+th:nth-child(2),td:nth-child(2){width:100px}th:nth-child(3),td:nth-child(3),th:nth-child(4),td:nth-child(4){width:84px}th:nth-child(5),td:nth-child(5){width:120px}
+td.start,td.end{padding-top:16px;font-weight:600}
+.row-type select{width:auto;padding:4px 8px;margin-bottom:6px;font-size:.85rem}
+@media(max-width:719px){
+.cfg{grid-template-columns:1fr}
+.table-container{overflow:visible;background:none;border:0;box-shadow:none}
+table,tbody{display:block;min-width:0}thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+tbody tr,tbody tr:nth-child(even){display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-areas:"a a a" "m s e" "x x x";gap:8px;margin-bottom:12px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:10px}
+tbody tr[data-type=break]{background:var(--brk)}
+tbody td{display:block;width:auto!important;border:0;padding:0!important}
+td:nth-child(1){grid-area:a}td:nth-child(2){grid-area:m}td:nth-child(3){grid-area:s}td:nth-child(4){grid-area:e}td:nth-child(5){grid-area:x}
+td[data-l]::before{content:attr(data-l);display:block;font-size:.75rem;font-weight:600;opacity:.7}
+.toolbar .btn{flex:1 1 45%}.total{margin:0;width:100%}}
+@media print{
+@page{size:auto;margin:10mm}
+body{background:#fff!important;color:#000!important;font-size:10.5pt;line-height:1.25}
+.no-print,.toolbar,.card,.toast,.banner,.fold,.hdr{display:none!important}
+.page{max-width:none;padding:0}.print-title{display:block}
+.table-container{overflow:visible;border:0;box-shadow:none;background:none}
+table{min-width:0!important}thead{display:table-header-group}thead th{position:static;background:#e9ecef!important;color:#000!important}
+tr,td{break-inside:avoid}th,td{padding:6px 7px;font-size:9.5pt;overflow-wrap:anywhere}
+th:nth-child(2),td:nth-child(2),th:nth-child(3),td:nth-child(3),th:nth-child(4),td:nth-child(4){width:12%}
+input,textarea{border:0!important;padding:0;background:transparent!important;color:#000!important;appearance:none;box-shadow:none}
+textarea{overflow:visible;min-height:0}input::-webkit-inner-spin-button{-webkit-appearance:none}
+tbody tr[data-type=break] td{background:#eee!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.st-block{background:#f3f4f6!important;border-left-color:#000}.st-head{color:#000}}
+</style>
+</head>
+<body>
+<main class="page">
+<header class="hdr no-print"><h1>Basketballcamp-Planer</h1>
+<div class="theme"><span id="themeLabel">Hell</span><button class="sw" id="themeSwitch" data-action="theme" type="button" aria-pressed="false" aria-label="Dunkelmodus umschalten"><span class="knob"></span></button></div></header>
+
+<div class="banner no-print" id="banner" role="alert" hidden><span>Der Plan wurde in einem anderen Tab geändert.</span>
+<button class="btn" type="button" data-action="reload">Neu laden</button><button class="btn" type="button" data-action="ignore">Ignorieren</button></div>
+
+<section class="card cfg no-print">
+<div><label class="l" for="plannerSelect">Planertyp</label><select id="plannerSelect"></select></div>
+<div><label class="l" for="campStart" id="startLabel"></label><input type="time" id="campStart" required></div>
+</section>
+<div id="notes" class="no-print"></div>
+
+<section class="card no-print"><span class="l" style="display:block;font-weight:700">Stationen bearbeiten</span>
+<p class="hint">Pro Station: Stationsname in die erste Zeile, danach Coach und Inhalte. Die Felder wachsen mit.</p>
+<div class="sgrid" id="stationGrid"></div></section>
+
+<h2 class="print-title" id="printTitle"></h2>
+<div class="table-container"><table id="plan"><thead><tr>
+<th>Aktivität</th><th>Dauer (Min)</th><th>Start</th><th>Ende</th><th class="no-print">Aktionen</th></tr></thead><tbody></tbody></table></div>
+
+<div class="toolbar no-print">
+<button class="btn add" type="button" data-action="add">+ Zeile hinzufügen</button>
+<button class="btn brk" type="button" data-action="pause">+ Pause einfügen</button>
+<select class="btn" id="lib" aria-label="Baustein einfügen"><option value="">+ Baustein einfügen …</option></select>
+<button class="btn" id="undoBtn" type="button" data-action="undo" disabled>↶ Rückgängig</button>
+<button class="btn prt" type="button" data-action="print">Drucken</button>
+<button class="btn" type="button" data-action="export">Exportieren (JSON)</button>
+<button class="btn" type="button" data-action="import">Importieren (JSON)</button>
+<input class="tool-file" id="file" type="file" accept="application/json,.json" aria-label="JSON-Datei auswählen">
+<button class="btn" type="button" data-action="reset">Zurücksetzen</button>
+<span class="total" id="total"></span></div>
+<p class="hint no-print">Neue Zeilen, Pausen und Bausteine (Texte danach frei änderbar) werden unter der zuletzt bearbeiteten Zeile eingefügt, sonst am Ende. Alle Eingaben werden automatisch in diesem Browser gespeichert.</p>
+</main>
+
+<div class="toast no-print" id="toast" role="status" aria-live="polite" hidden><span id="toastText"></span>
+<button class="btn" type="button" data-action="undo" id="toastUndo" hidden>Rückgängig</button></div>
+
+<template id="rowTpl"><tr>
+<td class="cell"><label class="row-type no-print"><span style="position:absolute;left:-9999px">Zeilentyp</span><select data-f="type">
+<option value="text">Aktivität</option><option value="stations">Stationsrunde</option><option value="break">Pause</option></select></label>
+<textarea data-f="text" rows="2" aria-label="Beschreibung"></textarea><div data-f="rounds"></div></td>
+<td data-l="Min"><input type="number" min="0" max="600" step="1" data-f="minutes" aria-label="Dauer in Minuten"></td>
+<td class="start" data-l="Start"></td><td class="end" data-l="Ende"></td>
+<td class="no-print"><div class="mv"><button type="button" data-action="up" aria-label="Nach oben">▲</button><button type="button" data-action="down" aria-label="Nach unten">▼</button><button class="del" type="button" data-action="del" aria-label="Zeile löschen">X</button></div></td>
+</tr></template>
+
+<script type="application/json" id="planners">{"planners": {"c23": {"label": "2–3 Coaches · 3 Stationen (bis 20 Kinder)", "start": "09:00", "stations": ["Scoring / Finishing\nCoach: \nInhalte: \nWurftechnik\nKorbleger mit Schutzhand\nLinkskorbleger\nSwing Step, Eurostep, Floater\nReverse-Korbleger, Kreuzschritt-Korbleger, Spin-Move\nUnterhand-Korbleger Voll-Speed, Up and Under\nPowermove", "Ballhandling\nCoach: \nInhalte: \nHandwechsel: zunächst stationär, danach im Parcours: vor dem Körper, durch die Beine, hinter dem Körper und Spin-Move-Dribbling.\nVerzögerungsdribbling und In-and-out-Dribbling.\nBackup-Dribbling, seitliche Hüpfer als Dribbling und Crossover-Dribbelstart.\nEinhändige Pässe.", "Offensive Beinarbeit und Täuschungen\nCoach: \nInhalte: \nSelbstvorlage, 1-Kontakt-Sprungstopp und 2-Kontakt-Schrittstopp, Sternschritt vorwärts und rückwärts.\nKreuzgang, optional Passgang und Jab-Step.\nBallschutz und Sweep (Rip).\nV-Cut und Backdoor-Cut.\nWurf-, Schritt- und Passfinte sowie anschließender Dribbelstart in Kombination."], "rows": [{"type": "text", "minutes": 15, "text": "Halle öffnen, Umziehen, Check-in. Alle Kinder bekommen per Kreppband einen Namensaufkleber. Teilnehmerlisten abhaken, Bezahlung, Bälle, Hütchen und Leibchen bereithalten. Bei Bedarf Spieluhr für Hallenanzeige und Stationstimer bereitlegen."}, {"type": "text", "minutes": 5, "text": "Begrüßung: Vorstellung des groben Ablaufs und der Coaches, allgemeine Camp-Regeln, keine Getränke oder Essen in der Halle, nur auf der Tribüne, Fair Play."}, {"type": "text", "minutes": 5, "text": "WarmUp: Ankommensspiel, das den Kopf und die Aufmerksamkeit der Camper fordert"}, {"type": "text", "minutes": 10, "text": "WarmUp: 2. Spiel oder Movement-Preparation"}, {"type": "text", "minutes": 5, "text": "A) Einteilung in gleich große Gruppen nach Alter, Größe und Leistungsstärke ODER BESSER B) eine Runde 'Findungs-Stationen' zum Warmup wo alle das gleiche machen (erst Korbleger, dann Dribbling) und Kinder live optimiert sortiert werden, damit die Stationen ausgeglichen eingeteilt sind"}, {"type": "stations", "minutes": 16, "text": ""}, {"type": "break", "minutes": 3, "text": "Pause"}, {"type": "stations", "minutes": 16, "text": ""}, {"type": "break", "minutes": 3, "text": "Pause"}, {"type": "stations", "minutes": 16, "text": ""}, {"type": "break", "minutes": 15, "text": "Große Pause: Essen und Snack, auch einige Minuten ohne Ball."}, {"type": "text", "minutes": 10, "text": "Platz für eine Spielform, zum Beispiel Parteiball, Staffellauf oder Wurfspiel."}, {"type": "stations", "minutes": 16, "text": ""}, {"type": "break", "minutes": 3, "text": "Pause"}, {"type": "stations", "minutes": 16, "text": ""}, {"type": "break", "minutes": 3, "text": "Pause"}, {"type": "stations", "minutes": 16, "text": ""}, {"type": "break", "minutes": 15, "text": "Große Pause: Essen und Snack, auch einige Minuten ohne Ball."}, {"type": "text", "minutes": 10, "text": "Platz für eine Spielform, zum Beispiel Parteiball, Staffellauf oder Wurfspiel."}, {"type": "text", "minutes": 60, "text": "Entweder A) Spiele --> 2-gegen-2, 3-gegen-3. Viele Ballkontakte! Coaches spielen nicht mit! Coaches achten darauf, dass alle Kinder verteidigen und alle Kinder mal den Ball bekommen ODER B) Ein weiterer Stationen-Durchgang mit kleinen Pausen"}, {"type": "break", "minutes": 3, "text": "Pause"}, {"type": "text", "minutes": 15, "text": "1-gegen-1-Duelle"}, {"type": "text", "minutes": 9, "text": "Ende: Cool-down, Aufräumen, Verabschiedung und Feedback."}], "intros": ["3 Gruppen – jede Gruppe durchläuft 1 der 3 Stationen – je ein Coach betreut eine Station, bei zwei Coaches wird gleichzeitig das gleiche Thema geschult"], "positions": ["links", "links", "rechts"], "notes": [{"title": "Hinweise zur Planung", "paras": ["Dieser Basketball-Camp-Planer hilft bei der schnellen Erstellung eines Camp-Zeitplans für 2-3 Coaches bei 20 Kindern oder weniger.", "Startzeit und Stationen sollten ausgefüllt werden und dann können kleinere Anpassungen vorgenommen werden."]}, {"title": "Regeln für die 1-gegen-1-Spielrunde", "paras": ["Regeln für eine 1-gegen-1-Spielrunde für alle: Es wird auf alle Körbe (auch Seitenkörbe) gespielt bis ein/e Spieler/in 1 Treffer hat. Nach einem Angriffsversuch (Treffer oder Verteidigung hat sich den Ball durch Steal oder Rebound erkämpft) wird immer wieder aus der Dreierlinie gedribbelt und gecheckt und zwar schnell per Sprint nach oben. Die Angriffe sollen schnell ausgeführt werden und sind begrenzt auf maximal 5 Dribblings. Nach einem Duell gehen beide Kinder in die Mitte der Halle (Mittelkreis) und bekommen einen neuen Partner. Hier warten alle Kinder, die gerade nicht spielen und ein Coach sagt, wer als nächstes dran ist, den freien Korb zu bespielen! Keine Preise, keine Gewinner/Verlierer des Gesamtwettbewerbs."]}], "startLabel": "Camp-Treffzeit (15 Min vor Startzeit)"}, "c36": {"label": "3–6 Coaches · 3 Stationen (Wochencamp, bis 40 Kinder)", "start": "08:30", "stations": ["Scoring / Finishing\nCoach: \nInhalte: \nWurftechnik\nKorbleger mit Schutzhand\nLinkskorbleger\nSwing Step, Eurostep, Floater\nReverse-Korbleger, Kreuzschritt-Korbleger, Spin-Move\nUnterhand-Korbleger Voll-Speed, Up and Under\nPowermove", "Ballhandling\nCoach: \nInhalte: \nHandwechsel: zunächst stationär, danach im Parcours: vor dem Körper, durch die Beine, hinter dem Körper und Spin-Move-Dribbling.\nVerzögerungsdribbling und In-and-out-Dribbling.\nBackup-Dribbling, seitliche Hüpfer als Dribbling und Crossover-Dribbelstart.\nEinhändige Pässe.", "Offensive Beinarbeit und Täuschungen\nCoach: \nInhalte: \nSelbstvorlage, 1-Kontakt-Sprungstopp und 2-Kontakt-Schrittstopp, Sternschritt vorwärts und rückwärts.\nKreuzgang, optional Passgang und Jab-Step.\nBallschutz und Sweep (Rip).\nV-Cut und Backdoor-Cut.\nWurf-, Schritt- und Passfinte sowie anschließender Dribbelstart in Kombination."], "rows": [{"type": "text", "minutes": 15, "text": "Halle öffnen, Umziehen, Check-in. Alle Kinder bekommen per Kreppband einen Namensaufkleber. Teilnehmerlisten abhaken, Bezahlung, Bälle, Hütchen und Leibchen bereithalten. Bei Bedarf Spieluhr für Hallenanzeige und Stationstimer bereitlegen."}, {"type": "text", "minutes": 5, "text": "Begrüßung: Vorstellung des groben Ablaufs und der Coaches, allgemeine Camp-Regeln, keine Getränke oder Essen in der Halle, nur auf der Tribüne, Fair Play."}, {"type": "text", "minutes": 15, "text": "Mindestens 2 Spiele in mehreren Gruppen (je nach Teilnehmerzahl), damit alle Kinder mal den Ball bekommen. Hierfür eignen sich vor allem Parteballspiele ohne Dribbling, womit Zusammenspiel, Spielfähigkeit und Teamwork gefördert werden"}, {"type": "text", "minutes": 5, "text": "Einteilung in 3 gleich große Gruppen nach Alter, Größe und Leistungsstärke ODER BESSER eine Runde 'Findungs-Stationen' zum Warmup wo alle das gleiche machen (erst Korbleger, dann Dribbling) und Kinder live optimiert sortiert werden, damit die Stationen ausgeglichen eingeteilt sind"}, {"type": "stations", "minutes": 15, "text": ""}, {"type": "break", "minutes": 4, "text": "Pause"}, {"type": "stations", "minutes": 15, "text": ""}, {"type": "break", "minutes": 4, "text": "Pause"}, {"type": "stations", "minutes": 15, "text": ""}, {"type": "break", "minutes": 4, "text": "Pause"}, {"type": "text", "minutes": 15, "text": "Je nach Teilnehmerzahl: 1-gegen-1-Duelle oder ein Spiel 3-gegen-3 oder 4-gegen-4 auf das ganze Feld"}, {"type": "break", "minutes": 4, "text": "Pause"}, {"type": "text", "minutes": 15, "text": "Mindestens 2 Spiele in mehreren Gruppen (je nach Teilnehmerzahl), damit alle Kinder mal den Ball bekommen. Hierfür eignen sich vor allem Parteballspiele ohne Dribbling, womit Zusammenspiel, Spielfähigkeit und Teamwork gefördert werden"}, {"type": "break", "minutes": 4, "text": "Pause"}, {"type": "text", "minutes": 30, "text": "Spiele --> 2-gegen-2, 3-gegen-3. Viele Ballkontakte! Coaches spielen nicht mit! Coaches achten darauf, dass alle Kinder verteidigen und alle Kinder mal den Ball bekommen. Einzelaktionen unterbinden!"}, {"type": "break", "minutes": 4, "text": "Pause"}, {"type": "break", "minutes": 60, "text": "Große Pause: Essen und Snack, auch einige Minuten ohne Ball."}, {"type": "break", "minutes": 4, "text": "Pause"}, {"type": "stations", "minutes": 15, "text": ""}, {"type": "break", "minutes": 4, "text": "Pause"}, {"type": "stations", "minutes": 15, "text": ""}, {"type": "break", "minutes": 4, "text": "Pause"}, {"type": "stations", "minutes": 15, "text": ""}, {"type": "break", "minutes": 5, "text": "Pause"}, {"type": "text", "minutes": 5, "text": "Bump"}, {"type": "text", "minutes": 30, "text": "Spiele Teil 2 --> 2-gegen-2, 3-gegen-3. Teams wechseln, Coaches rotieren, Gegenspieler rotieren! Alle Kinder sollen aktiv mitspielen und verteidigen. Einzelaktionen unterbinden! Bewegung!"}, {"type": "text", "minutes": 4, "text": "Ende: Cool-down, Aufräumen, Verabschiedung und Feedback."}], "intros": ["3 Gruppen – jede Gruppe durchläuft 1 der 3 gleichzeitigen Stationen – je ein Coach betreut eine Station"], "positions": ["links", "links", "rechts"], "newMinutes": 5, "notes": [{"title": "Hinweise zur Planung", "paras": ["Zum Plan selbst: Dieser Basketball-Camp-Planer hilft bei der schnellen Erstellung eines Camp-Zeitplans für ein 5-Tages-Camp (ganztags) für 3-6 Coaches bei 40 Kindern oder weniger. Startzeit und Stationen (mit Namen) sollten ausgefüllt werden und dann können kleinere Anpassungen vorgenommen werden.", "5 identische Tage?: Je nach Wunsch können 5 identische oder 5 separate Tage geplant und als PDF \"ausgedruckt\" werden", "Startzeit: Die Startzeit ist Geschmackssache. Man muss folgendes bedenken: Einige Erziehungsberechtigte müssen arbeiten. Für diese sind frühe Startzeiten gut, da sie danach direkt arbeiten gehen können. Wenn wir erst später beginnen, gibt es einen Slot, der evtl. nicht von den Eltern abgedeckt werden kann, was dazu führt, dass die Kinder nicht teilnehmen können. Aber: Die Kinder wollen nicht zu früh aufstehen. Deshalb muss man einen Mittelweg finden. Eine Lösung wäre auch eine Betreuungszeit vor der Startzeit, die ein Coach betreut.", "Headcoach: Der Headcoach sollte in die sportlichen Inhalte des Camps eingebunden sein. Für die Campinhalte steht ein separates Dokument zur Verfügung.", "Coaches: Da wir ein Feriencamp machen, eignen sich als Coaches Leute, die wie die Schüler frei haben. Jemand, der gerade nicht berufstätig ist oder selbst 17-18-jährige/r Schüler/in ist, kommt genauso in Frage, wie ein Coach, der sich einen oder mehrere Tage frei nimmt. Am Ende müssen wir auf 3 Coaches pro Tag kommen. Wenn ein Coach nur Mo und Fr frei hat und ein anderer Coach Di bis Do ist ein Slot schon besetzt. Wir müssen da flexibel bleiben. 6 Coaches wären optimal, da es sehr anstrengend wird. 3 ist die Mindestanzahl, damit ein Camp stattfinden kann. Bei Problemen Coaches zu finden, kann man evtl. auch externe Coaches aus der Region \"einkaufen\".", "Veränderungen Tag 1 bis Tag 5: Wenn man es sich einfach machen will, ändert man nur die Stationsinhalte und macht ansonsten 5 identische Tage mit einem veränderten \"Tagesmotto\".", "Altersgruppen: Man sollte sich entscheiden. Entweder U18 bis U14/U12 oder U14/U12 bis U8, aber nicht komplett mixen", "Verpflegung: Variante 1: Eigenbedarf mitbringen. Variante 2: Bestellung Caterer (= Aufwand - Kontakt evtl. über das Ferienprogramm Amt für soziale Arbeit). Allergene/Unverträglichkeiten über das Google-Formular abfragen. Lieferzeitpunkt (kurz vor Mittagspause), Wer baut auf/ab (Verein vs. Caterer).", "Kosten: Je nachdem, ob man Shirts, Catering, Preise und Honorar für Coaches beinhaltet kann das 5-Tages-Camp zwischen 75 und 100 Euro kosten.", "Bezahlung: Man kann mit Vorabbezahlung per Überweisung arbeiten oder per Barzahlung und no-show-Gebühr am Camptag. Bei Überweisung muss eine Person Kontodaten zur Verfügung stellen. Anmelde-Frist auf Anmeldeformular hinzufügen.", "Anmeldung: Man sollte das wie viele andere Vereine machen mit einem Google-Formular, denn dann hat man die Daten automatisiert in einer Excel-Liste. Pflichtfelder (Name, Geburtsdatum, Kontakt, Allergien, Notfallkontakt)."]}, {"title": "Regeln & Verteidigung", "paras": ["Regeln für eine 1-gegen-1-Spielrunde für alle: Es wird auf alle Körbe (auch Seitenkörbe) gespielt bis ein/e Spieler/in 1 Treffer hat. Nach einem Angriffsversuch (Treffer oder Verteidigung hat sich den Ball durch Steal oder Rebound erkämpft) wird immer wieder aus der Dreierlinie gedribbelt und gecheckt und zwar schnell per Sprint nach oben. Die Angriffe sollen schnell ausgeführt werden und sind begrenzt auf maximal 5 Dribblings. Nach einem Duell gehen beide Kinder in die Mitte der Halle (Mittelkreis) und bekommen einen neuen Partner. Hier warten alle Kinder, die gerade nicht spielen und ein Coach sagt, wer als nächstes dran ist, den freien Korb zu bespielen! Keine Preise, keine Gewinner/Verlierer des Gesamtwettbewerbs.", "Verteidigung: Verteidigung wird von Beginn an spielerisch und altersgerecht vermittelt. Zunächst stehen Gegnerzuordnung, Grundposition, Druck am Ball, Ball-Korb-Linie, Rebound und Umschalten im Vordergrund. Komplexere defensive Gruppenprinzipien werden erst bei ausreichender technischer und taktischer Sicherheit ergänzt."]}], "startLabel": "Camp-Treffzeit (15 Min vor Startzeit)"}, "c45": {"label": "4–5 Coaches · 4 Stationen (20–40 Kinder)", "start": "09:30", "stations": ["Scoring / Finishing\nCoach: \nInhalte: \nWurftechnik\nKorbleger mit Schutzhand\nLinkskorbleger\nSwing Step, Eurostep, Floater\nReverse-Korbleger, Kreuzschritt-Korbleger, Spin-Move\nUnterhand-Korbleger Voll-Speed, Up and Under\nPowermove", "Ballhandling\nCoach: \nInhalte: \nHandwechsel: zunächst stationär, danach im Parcours: vor dem Körper, durch die Beine, hinter dem Körper und Spin-Move-Dribbling.\nVerzögerungsdribbling und In-and-out-Dribbling.\nBackup-Dribbling, seitliche Hüpfer als Dribbling und Crossover-Dribbelstart.\nEinhändige Pässe.", "Mixed-Station\nCoach: \nInhalte: \nDefense, 4-Out-Basics, Athletik und weitere Grundlagen oder Dinge aus den anderen Stationen, die zu kurz gekommen sind.", "Offensive Beinarbeit und Täuschungen\nCoach: \nInhalte: \nSelbstvorlage, 1-Kontakt-Sprungstopp und 2-Kontakt-Schrittstopp, Sternschritt vorwärts und rückwärts.\nKreuzgang, optional Passgang und Jab-Step.\nBallschutz und Sweep (Rip).\nV-Cut und Backdoor-Cut.\nWurf-, Schritt- und Passfinte sowie anschließender Dribbelstart in Kombination."], "rows": [{"type": "text", "minutes": 15, "text": "Halle öffnen, Umziehen, Check-in. Alle Kinder bekommen per Kreppband einen Namensaufkleber. Teilnehmerlisten abhaken, Bezahlung, Bälle, Hütchen und Leibchen bereithalten. Bei Bedarf Spieluhr für Hallenanzeige und Stationstimer bereitlegen."}, {"type": "text", "minutes": 5, "text": "Begrüßung: Vorstellung des groben Ablaufs und der Coaches, allgemeine Camp-Regeln, keine Getränke oder Essen in der Halle, nur auf der Tribüne, Fair Play."}, {"type": "text", "minutes": 8, "text": "Einteilung in vier gleichgroße Gruppen nach erwarteter Leistungsstärke oder – besser – eine Runde Findungs-Stationen zum Warm-up. Alle Kinder machen zunächst dasselbe, zum Beispiel Korbleger und Dribbling. Die Gruppen werden anschließend live optimiert, damit die Stationen ausgeglichen eingeteilt sind."}, {"type": "stations", "minutes": 34, "text": ""}, {"type": "break", "minutes": 4, "text": "Pause"}, {"type": "text", "minutes": 10, "text": "Platz für eine Spielform, zum Beispiel Parteiball, Staffellauf oder Wurfspiel."}, {"type": "stations", "minutes": 34, "text": ""}, {"type": "break", "minutes": 4, "text": "Pause"}, {"type": "text", "minutes": 10, "text": "Platz für eine Spielform, zum Beispiel Parteiball, Staffellauf oder Wurfspiel."}, {"type": "text", "minutes": 14, "text": "Spezialthema für alle auf alle Körbe, zum Beispiel 1-gegen-1-Duelle, Defense, Linkskorbleger, Athletik oder Give-and-go."}, {"type": "break", "minutes": 4, "text": "Pause"}, {"type": "text", "minutes": 5, "text": "Platz für eine Spielform, zum Beispiel Parteiball, Staffellauf oder Wurfspiel."}, {"type": "stations", "minutes": 34, "text": ""}, {"type": "break", "minutes": 15, "text": "Große Pause: Essen und Snack, auch einige Minuten ohne Ball."}, {"type": "stations", "minutes": 34, "text": ""}, {"type": "break", "minutes": 4, "text": "Pause"}, {"type": "text", "minutes": 10, "text": "Platz für eine Spielform, zum Beispiel Parteiball, Staffellauf oder Wurfspiel."}, {"type": "text", "minutes": 45, "text": "Spiele: 2-gegen-2 oder 3-gegen-3. Viele Ballkontakte. Coaches spielen nicht mit. Coaches achten darauf, dass alle Kinder verteidigen und alle Kinder einmal den Ball bekommen. Die Coaches laufen als Kommentatoren mit und kommentieren Aktionen und Verteidigung."}, {"type": "break", "minutes": 4, "text": "Pause"}, {"type": "text", "minutes": 15, "text": "1-gegen-1-Duelle"}, {"type": "text", "minutes": 7, "text": "Ende: Cool-down, Aufräumen, Verabschiedung und Feedback."}], "intros": ["Die Kinder durchlaufen die ersten zwei von vier Stationen. In der Mitte des Zeitslots wird gewechselt.", "Die Kinder durchlaufen die restlichen zwei von vier Stationen. In der Mitte des Zeitslots wird gewechselt."], "positions": null, "notes": [{"title": "Hinweise zur Planung", "paras": ["Dieser Basketball-Camp-Planer hilft bei der schnellen Erstellung eines Camp-Zeitplans für 4 bis 5 Coaches bei 20 bis 40 Kindern.", "Startzeit und Stationen sollten ausgefüllt werden. Danach können kleinere Anpassungen am Zeitplan vorgenommen werden."]}, {"title": "Regeln für die 1-gegen-1-Spielrunde", "paras": ["Regeln für eine 1-gegen-1-Spielrunde für alle: Es wird auf alle Körbe, auch auf Seitenkörbe, gespielt, bis ein Spieler oder eine Spielerin einen Treffer erzielt hat. Nach jedem Angriffsversuch wird wieder aus der Dreierlinie gedribbelt und schnell per Sprint nach oben gecheckt. Angriffe sollen schnell ausgeführt werden und sind auf maximal fünf Dribblings begrenzt. Nach einem Duell gehen beide Kinder in die Mitte der Halle und bekommen einen neuen Partner. Dort warten alle Kinder, die gerade nicht spielen. Ein Coach sagt an, wer als Nächstes den freien Korb bespielt. Es gibt keine Preise und keine Gesamtgewinner oder -verlierer."]}], "startLabel": "Camp-Treffzeit (15 Min vor Startzeit)"}}, "lib": [{"id": "checkin", "label": "Check-in", "type": "text", "minutes": 15, "text": "Halle öffnen, Umziehen, Check-in. Alle Kinder bekommen per Kreppband einen Namensaufkleber. Teilnehmerlisten abhaken, Bezahlung, Bälle, Hütchen und Leibchen bereithalten. Bei Bedarf Spieluhr für Hallenanzeige und Stationstimer bereitlegen."}, {"id": "welcome", "label": "Begrüßung", "type": "text", "minutes": 5, "text": "Begrüßung: Vorstellung des groben Ablaufs und der Coaches, allgemeine Camp-Regeln, keine Getränke oder Essen in der Halle, nur auf der Tribüne, Fair Play."}, {"id": "pause", "label": "Pause", "type": "break", "minutes": 4, "text": "Pause"}, {"id": "bigpause", "label": "Große Pause", "type": "break", "minutes": 15, "text": "Große Pause: Essen und Snack, auch einige Minuten ohne Ball."}, {"id": "game", "label": "Spielform", "type": "text", "minutes": 10, "text": "Platz für eine Spielform, zum Beispiel Parteiball, Staffellauf oder Wurfspiel."}, {"id": "cooldown", "label": "Cool-down", "type": "text", "minutes": 7, "text": "Ende: Cool-down, Aufräumen, Verabschiedung und Feedback."}]}</script>
+<script>
+"use strict";
+const D=JSON.parse(document.getElementById("planners").textContent),P=D.planners,LIB=D.lib;
+const $=(s,r=document)=>r.querySelector(s),clone=x=>JSON.parse(JSON.stringify(x));
+const TYPES=["text","stations","break"],MAXM=600,MAXR=200,MAXT=5000,TIME=/^([01]\d|2[0-3]):[0-5]\d$/,APP="basketball-camp-planer";
+const KEY=i=>"bcp_state_"+i,TYPE_KEY="bcp_type",THEME_KEY="bcp_theme";
+const Store={get(k){try{return localStorage.getItem(k)}catch{return null}},set(k,v){try{localStorage.setItem(k,v);return true}catch{return false}}};
+let uid=0,id,state,undo=[],last=null,timer=null,warned=false;
+const tbody=$("#plan tbody");
+const clamp=v=>{const n=parseInt(v,10);return Number.isFinite(n)?Math.min(MAXM,Math.max(0,n)):0};
+const mkRow=(s={})=>({id:"r"+(++uid),type:TYPES.includes(s.type)?s.type:"text",minutes:clamp(s.minutes),text:typeof s.text==="string"?s.text.slice(0,MAXT):""});
+function norm(raw,pid){
+  if(!raw||typeof raw!=="object"||!Array.isArray(raw.rows)||!raw.rows.length||raw.rows.length>MAXR)return null;
+  const rows=[];
+  for(const r of raw.rows){if(!r||typeof r!=="object"||!Number.isFinite(Number(r.minutes)))return null;rows.push(mkRow(r))}
+  const c=P[pid];
+  return{start:TIME.test(raw.start)?raw.start:c.start,rows,
+    stations:c.stations.map((d,i)=>typeof raw.stations?.[i]==="string"&&raw.stations[i].trim()?raw.stations[i].slice(0,MAXT):d)};
+}
+const fresh=pid=>norm(P[pid],pid);
+const ser=()=>({app:APP,version:3,planner:id,start:state.start,stations:[...state.stations],rows:state.rows.map(({type,minutes,text})=>({type,minutes,text}))});
+const load=pid=>{const t=Store.get(KEY(pid));if(!t)return null;try{return norm(JSON.parse(t),pid)}catch{return null}};
+function save(){clearTimeout(timer);timer=null;if(!Store.set(KEY(id),JSON.stringify(ser()))&&!warned){warned=true;toast("Speichern im Browser nicht möglich – bitte den Plan exportieren.")}}
+const later=()=>{clearTimeout(timer);timer=setTimeout(save,300)};
+let tt;function toast(msg,u){$("#toastText").textContent=msg;$("#toastUndo").hidden=!u;$("#toast").hidden=false;clearTimeout(tt);tt=setTimeout(()=>$("#toast").hidden=true,8000)}
+const syncUndo=()=>{$("#undoBtn").disabled=!undo.length};
+const push=()=>{undo.push(clone(state));if(undo.length>30)undo.shift();syncUndo()};
+const idx=rid=>state.rows.findIndex(r=>r.id===rid);
+const clock=m=>String(Math.floor(m/60)%24).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
+const dur=m=>Math.floor(m/60)+" h "+m%60+" min";
+const grow=t=>{t.style.height="auto";t.style.height=t.scrollHeight+2+"px"};
+const growAll=()=>document.querySelectorAll("textarea").forEach(grow);
+
+function rounds(n){
+  const c=P[id],w=document.createElement("div"),p=document.createElement("p");
+  p.className="round-intro";p.textContent=n+". Stationsrunde: "+c.intros[(n-1)%c.intros.length];w.append(p);
+  state.stations.forEach((v,i)=>{
+    const L=v.replace(/\r/g,"").split("\n"),name=L.shift().trim()||"—",rest=L.join("\n").trim();
+    const b=document.createElement("div");b.className="st-block";b.dataset.st=i+1;
+    const h=document.createElement("div");h.className="st-head";h.textContent="Station "+(i+1)+(c.positions?" ("+c.positions[i]+")":"");
+    const t=document.createElement("div");t.className="st-name";t.textContent=name;b.append(h,t);
+    if(rest){const d=document.createElement("div");d.className="st-body";d.textContent=rest;b.append(d)}
+    w.append(b);
+  });
+  return w;
+}
+function updateRounds(){let n=0;state.rows.forEach((r,i)=>{if(r.type!=="stations")return;n++;tbody.rows[i]?.querySelector('[data-f=rounds]').replaceChildren(rounds(n))})}
+function update(){
+  let t=+state.start.slice(0,2)*60+ +state.start.slice(3),pause=0;const t0=t;
+  state.rows.forEach((r,i)=>{const tr=tbody.rows[i];if(tr){$(".start",tr).textContent=clock(t);$(".end",tr).textContent=clock(t+r.minutes)}
+    t+=r.minutes;if(r.type==="break")pause+=r.minutes});
+  $("#total").textContent=`Gesamt: ${dur(t-t0)} · Training: ${dur(t-t0-pause)} · Pausen: ${dur(pause)} · Ende ${clock(t)}`;
+}
+function buildRow(r){
+  const tr=$("#rowTpl").content.firstElementChild.cloneNode(true);
+  tr.dataset.id=r.id;tr.dataset.type=r.type;
+  $("[data-f=minutes]",tr).value=r.minutes;$("[data-f=type]",tr).value=r.type;
+  const ta=$("[data-f=text]",tr),rd=$("[data-f=rounds]",tr);
+  if(r.type==="stations")ta.remove();else{ta.value=r.text;rd.remove()}
+  return tr;
+}
+function buildHead(){
+  const c=P[id];
+  $("#startLabel").textContent=c.startLabel;
+  document.title=$("#printTitle").textContent="Basketballcamp-Planer – "+c.label+" – Zeitplan";
+  $("#notes").replaceChildren(...c.notes.map(n=>{
+    const d=document.createElement("details"),s=document.createElement("summary"),b=document.createElement("div");
+    d.className="fold";b.className="fold-body";s.textContent=n.title;
+    n.paras.forEach(t=>{const p=document.createElement("p");p.textContent=t;b.append(p)});d.append(s,b);return d}));
+  $("#stationGrid").replaceChildren(...c.stations.map((_,i)=>{
+    const d=document.createElement("div"),l=document.createElement("label"),t=document.createElement("textarea");
+    d.className="station-edit";d.dataset.st=i+1;l.textContent="Station "+(i+1);l.htmlFor=t.id="station"+i;t.dataset.i=i;t.placeholder="Stationsname\nCoach: \nInhalte: ";
+    d.append(l,t);return d}));
+}
+function render(){
+  tbody.replaceChildren(...state.rows.map(buildRow));
+  $("#campStart").value=state.start;
+  document.querySelectorAll("#stationGrid textarea").forEach((t,i)=>t.value=state.stations[i]);
+  updateRounds();update();growAll();syncUndo();
+}
+function setPlanner(pid,s){
+  if(state)save();
+  id=pid;Store.set(TYPE_KEY,pid);$("#plannerSelect").value=pid;
+  state=s||load(pid)||fresh(pid);undo=[];last=null;$("#banner").hidden=true;
+  buildHead();render();if(s)save();
+}
+function structural(fn){push();fn();render();later()}
+const libItem=k=>LIB.find(x=>x.id===k);
+function insert(spec){
+  if(state.rows.length>=MAXR)return alert("Maximale Zeilenanzahl erreicht.");
+  const row=mkRow(spec),i=idx(last);
+  structural(()=>i<0?state.rows.push(row):state.rows.splice(i+1,0,row));
+  const tr=tbody.querySelector(`tr[data-id="${row.id}"]`);tr?.querySelector("textarea")?.focus();tr?.scrollIntoView({block:"nearest",behavior:"smooth"});
+}
+function move(btn,d){
+  const rid=btn.closest("tr").dataset.id,i=idx(rid),j=i+d;if(j<0||j>=state.rows.length)return;
+  structural(()=>{const r=state.rows;[r[i],r[j]]=[r[j],r[i]]});
+  tbody.querySelector(`tr[data-id="${rid}"] [data-action=${d<0?"up":"down"}]`)?.focus();
+}
+function importText(text){
+  let raw=null;try{raw=JSON.parse(text)}catch{}
+  if(raw&&raw.app&&raw.app!==APP)raw=null;
+  const pid=raw&&P[raw.planner]?raw.planner:id,s=norm(raw,pid);
+  if(!s)return alert("Die Datei konnte nicht gelesen werden. Bitte eine mit diesem Planer exportierte JSON-Datei wählen.");
+  if(!confirm("Die importierte Datei ersetzt den aktuellen Plan"+(pid!==id?" und wechselt zum Planertyp „"+P[pid].label+"“":"")+". Fortfahren?"))return;
+  if(pid!==id){setPlanner(pid,s);toast("Plan importiert (Planertyp gewechselt).")}
+  else{push();state=s;render();save();toast("Plan importiert.",true)}
+}
+const A={
+  add:()=>insert({type:"text",minutes:P[id].newMinutes||15}),pause:()=>insert(libItem("pause")),up:b=>move(b,-1),down:b=>move(b,1),
+  del(b){const i=idx(b.closest("tr").dataset.id);if(i<0)return;structural(()=>state.rows.splice(i,1));toast("Zeile gelöscht.",true)},
+  undo(){if(!undo.length)return;state=undo.pop();render();save();$("#toast").hidden=true},
+  reset(){if(!confirm("Plan auf die Standardwerte zurücksetzen? Eigene Änderungen gehen verloren (Rückgängig ist möglich)."))return;push();state=fresh(id);render();save();toast("Plan zurückgesetzt.",true)},
+  print(){growAll();window.print()},
+  export(){save();const u=URL.createObjectURL(new Blob([JSON.stringify(ser(),null,2)],{type:"application/json"})),a=document.createElement("a");
+    a.href=u;a.download=`basketballcamp-plan-${id}-${new Date().toISOString().slice(0,10)}.json`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000)},
+  import:()=>$("#file").click(),
+  reload(){const s=load(id);if(s){state=s;undo=[];render()}$("#banner").hidden=true},
+  ignore(){$("#banner").hidden=true},
+  theme(){const n=document.documentElement.dataset.theme==="dark"?"light":"dark";applyTheme(n);Store.set(THEME_KEY,n)}
+};
+function applyTheme(t){const d=t==="dark";if(d)document.documentElement.dataset.theme="dark";else delete document.documentElement.dataset.theme;
+  $("#themeSwitch").setAttribute("aria-pressed",String(d));$("#themeLabel").textContent=d?"Dunkel":"Hell"}
+
+document.addEventListener("click",e=>{const b=e.target.closest("[data-action]");if(b&&A[b.dataset.action])A[b.dataset.action](b)});
+tbody.addEventListener("focusin",e=>{last=e.target.closest("tr")?.dataset.id||last});
+tbody.addEventListener("input",e=>{
+  const tr=e.target.closest("tr"),r=tr&&state.rows[idx(tr.dataset.id)],f=e.target.dataset.f;if(!r)return;
+  if(f==="minutes")r.minutes=clamp(e.target.value);else if(f==="text"){r.text=e.target.value.slice(0,MAXT);grow(e.target)}else return;
+  update();later();
+});
+tbody.addEventListener("change",e=>{
+  const tr=e.target.closest("tr"),r=tr&&state.rows[idx(tr.dataset.id)],f=e.target.dataset.f;if(!r)return;
+  if(f==="type"&&TYPES.includes(e.target.value)){const rid=r.id;structural(()=>{r.type=e.target.value});tbody.querySelector(`tr[data-id="${rid}"] select`)?.focus()}
+  else if(f==="minutes")e.target.value=r.minutes;
+});
+$("#stationGrid").addEventListener("input",e=>{
+  const i=e.target.dataset.i;if(i===undefined)return;
+  state.stations[i]=e.target.value.slice(0,MAXT);grow(e.target);updateRounds();later();
+});
+$("#campStart").addEventListener("input",e=>{if(TIME.test(e.target.value)){state.start=e.target.value;update();later()}});
+$("#campStart").addEventListener("change",e=>{e.target.value=state.start});
+$("#lib").addEventListener("change",e=>{const s=libItem(e.target.value);e.target.value="";if(s)insert(s)});
+$("#plannerSelect").addEventListener("change",e=>{if(P[e.target.value])setPlanner(e.target.value)});
+$("#file").addEventListener("change",e=>{
+  const f=e.target.files[0];e.target.value="";if(!f)return;
+  if(f.size>1048576)return alert("Die Datei ist zu groß für einen Plan.");
+  const rd=new FileReader();rd.onerror=()=>alert("Die Datei konnte nicht geladen werden.");rd.onload=()=>importText(rd.result);rd.readAsText(f);
+});
+window.addEventListener("storage",e=>{if(e.key===KEY(id)&&e.newValue!==null)$("#banner").hidden=false});
+window.addEventListener("beforeprint",growAll);
+let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(growAll,150)});
+const flush=()=>{if(timer)save()};
+window.addEventListener("pagehide",flush);
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")flush()});
+window.addEventListener("error",()=>toast("Es ist ein unerwarteter Fehler aufgetreten."));
+
+(()=>{
+  const sel=$("#plannerSelect");
+  Object.keys(P).forEach(k=>{const o=document.createElement("option");o.value=k;o.textContent=P[k].label;sel.append(o)});
+  LIB.forEach(x=>{const o=document.createElement("option");o.value=x.id;o.textContent=x.label+" ("+x.minutes+" Min)";$("#lib").append(o)});
+  const t=Store.get(THEME_KEY);
+  applyTheme(t==="dark"||t==="light"?t:(matchMedia?.("(prefers-color-scheme: dark)").matches?"dark":"light"));
+  const saved=Store.get(TYPE_KEY);
+  setPlanner(P[saved]?saved:Object.keys(P)[0]);
+  requestAnimationFrame(growAll);
+})();
+</script>
+</body>
+</html>
