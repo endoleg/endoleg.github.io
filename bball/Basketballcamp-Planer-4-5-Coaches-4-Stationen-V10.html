@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basketballcamp-Planer – 4 bis 5 Coaches</title>
+
+  <style>
+    :root {
+      --bg: #f4f7f6;
+      --card: #ffffff;
+      --border: #d7dbe0;
+      --text: #1f2937;
+      --muted: #59636e;
+      --primary: #0056b3;
+      --success: #28a745;
+      --info: #17a2b8;
+      --danger: #dc3545;
+      --warning: #b7791f;
+      --shadow: 0 2px 10px rgba(0, 0, 0, .06);
+      --radius: 10px;
+      --input-bg: #ffffff;
+      --station-bg: rgba(0, 0, 0, .025);
+      --row-alt: #fafbfc;
+    }
+
+    body[data-theme="dark"] {
+      --bg: #0f1720;
+      --card: #0b1220;
+      --border: #263244;
+      --text: #e6eef8;
+      --muted: #aab7c6;
+      --primary: #3b82f6;
+      --success: #16a34a;
+      --info: #0ea5a4;
+      --danger: #ef4444;
+      --warning: #f6c453;
+      --shadow: 0 6px 18px rgba(0, 0, 0, .6);
+      --input-bg: #071026;
+      --station-bg: rgba(255, 255, 255, .035);
+      --row-alt: rgba(255, 255, 255, .025);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      transition: background-color .25s ease, color .25s ease;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .page {
+      width: min(1200px, 100%);
+      margin: 0 auto;
+      padding: 12px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      line-height: 1.2;
+    }
+
+    h2,
+    h3 {
+      margin-top: 0;
+    }
+
+    .muted {
+      color: var(--muted);
+      margin: 0 0 12px;
+    }
+
+    .card,
+    .info-box,
+    .table-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .card,
+    .info-box {
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .config-grid {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .field label,
+    .station-edit > label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 9px 10px;
+      background: var(--input-bg);
+      color: var(--text);
+    }
+
+    input[type="time"] {
+      min-height: 42px;
+    }
+
+    textarea {
+      min-height: 150px;
+      line-height: 1.5;
+      resize: vertical;
+      overflow: hidden;
+    }
+
+    .hint {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .station-edit-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .station-edit {
+      --accent: var(--primary);
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-top: 5px solid var(--accent);
+      border-radius: 8px;
+      background: var(--station-bg);
+    }
+
+    .station-edit:nth-child(1) {
+      --accent: #0056b3;
+    }
+
+    .station-edit:nth-child(2) {
+      --accent: #1e8e3e;
+    }
+
+    .station-edit:nth-child(3) {
+      --accent: #d9730d;
+    }
+
+    .station-edit:nth-child(4) {
+      --accent: #7c3aed;
+    }
+
+    body[data-theme="dark"] .station-edit:nth-child(1) {
+      --accent: #60a5fa;
+    }
+
+    body[data-theme="dark"] .station-edit:nth-child(2) {
+      --accent: #4ade80;
+    }
+
+    body[data-theme="dark"] .station-edit:nth-child(3) {
+      --accent: #fb923c;
+    }
+
+    body[data-theme="dark"] .station-edit:nth-child(4) {
+      --accent: #c4b5fd;
+    }
+
+    .station-edit > label {
+      color: var(--accent);
+    }
+
+    .station-overview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .station-box {
+      padding: 12px;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      background: var(--station-bg);
+    }
+
+    .station-title {
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .station-summary {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin: 12px 0 16px;
+    }
+
+    .btn {
+      padding: 10px 14px;
+      border: 0;
+      border-radius: 6px;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .add-btn {
+      background: var(--success);
+    }
+
+    .print-btn {
+      background: var(--info);
+    }
+
+    .move-btn,
+    .delete-btn {
+      padding: 6px 8px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      line-height: 1;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    .delete-btn {
+      background: var(--danger);
+      border-color: var(--danger);
+      color: #fff;
+    }
+
+    .move-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .theme-label {
+      font-size: .9rem;
+      font-weight: 600;
+    }
+
+    .theme-switch {
+      position: relative;
+      width: 46px;
+      height: 26px;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: linear-gradient(90deg, #e2e8f0, #f8fafc);
+    }
+
+    .theme-switch .knob {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .18);
+      transition: transform .2s ease;
+    }
+
+    body[data-theme="dark"] .theme-switch {
+      background: linear-gradient(90deg, #0f1720, #0b1220);
+    }
+
+    body[data-theme="dark"] .theme-switch .knob {
+      transform: translateX(20px);
+      background: #001f3f;
+    }
+
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      border: 1px solid var(--border);
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: var(--primary);
+      color: #fff;
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--row-alt);
+    }
+
+    th:nth-child(1),
+    td:nth-child(1) {
+      width: 72px;
+    }
+
+    th:nth-child(2),
+    td:nth-child(2) {
+      width: auto;
+    }
+
+    th:nth-child(3),
+    td:nth-child(3),
+    th:nth-child(4),
+    td:nth-child(4) {
+      width: 84px;
+    }
+
+    th:nth-child(5),
+    td:nth-child(5),
+    th:nth-child(6),
+    td:nth-child(6) {
+      width: 78px;
+    }
+
+    .activity-text {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .station-round {
+      display: block;
+    }
+
+    .round-intro {
+      margin: 0 0 10px;
+      font-weight: 700;
+    }
+
+    .st-block {
+      --accent: var(--primary);
+      padding: 8px 12px;
+      margin-bottom: 10px;
+      border-left: 6px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      background: var(--station-bg);
+      break-inside: avoid;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .st-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .st-block:nth-child(2) {
+      --accent: #0056b3;
+    }
+
+    .st-block:nth-child(3) {
+      --accent: #1e8e3e;
+    }
+
+    .st-block:nth-child(4) {
+      --accent: #d9730d;
+    }
+
+    .st-block:nth-child(5) {
+      --accent: #7c3aed;
+    }
+
+    .st-head {
+      margin-bottom: 2px;
+      color: var(--accent);
+      font-size: .85rem;
+      font-weight: 700;
+    }
+
+    .st-name {
+      margin-bottom: 4px;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .st-body {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    #app-status {
+      min-height: 1.5em;
+      margin: 4px 0 12px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    #app-status[data-type="warning"] {
+      color: var(--warning);
+    }
+
+    #app-status[data-type="error"] {
+      color: var(--danger);
+    }
+
+    .print-title {
+      display: none;
+      margin: 0 0 12px;
+      color: #000;
+      font-size: 18pt;
+      line-height: 1.2;
+    }
+
+    @media (max-width: 900px) {
+      .station-edit-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .theme-toggle {
+        margin-left: 0;
+      }
+
+      .config-grid,
+      .station-overview {
+        grid-template-columns: 1fr;
+      }
+
+      .station-edit-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      @page {
+        size: auto;
+        margin: 10mm;
+      }
+
+      html,
+      body {
+        width: auto;
+        min-width: 0;
+        overflow: visible !important;
+        background: #fff !important;
+        color: #000 !important;
+      }
+
+      body {
+        padding: 0;
+        font-size: 10.5pt;
+        line-height: 1.25;
+      }
+
+      .page {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .no-print,
+      .toolbar,
+      .card,
+      .info-box,
+      .muted,
+      #app-status,
+      .station-overview {
+        display: none !important;
+      }
+
+      .print-title {
+        display: block;
+      }
+
+      .table-container {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+
+      table {
+        width: 100% !important;
+        min-width: 0 !important;
+        table-layout: fixed;
+      }
+
+      thead {
+        display: table-header-group;
+      }
+
+      thead th {
+        position: static !important;
+        background: #e9ecef !important;
+        color: #000 !important;
+      }
+
+      tr,
+      td,
+      th {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      th,
+      td {
+        padding: 6px 7px;
+        font-size: 9.5pt;
+        white-space: normal;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+
+      th:nth-child(1),
+      td:nth-child(1) {
+        width: 12%;
+      }
+
+      th:nth-child(2),
+      td:nth-child(2) {
+        width: 48%;
+      }
+
+      th:nth-child(3),
+      td:nth-child(3),
+      th:nth-child(4),
+      td:nth-child(4) {
+        width: 20%;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        min-width: 0;
+        padding: 0;
+        border: 0 !important;
+        appearance: none;
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+      }
+
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button {
+        margin: 0;
+        -webkit-appearance: none;
+      }
+
+      .st-block {
+        padding: 4px 8px;
+        margin-bottom: 6px;
+        border-left-color: #000 !important;
+        background: #f3f4f6 !important;
+      }
+
+      .st-head {
+        color: #000 !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header class="page-header">
+      <h1>Basketballcamp-Planer</h1>
+
+      <div class="theme-toggle no-print" id="themeToggleWrap">
+        <span class="theme-label" id="themeLabel">Hell</span>
+
+        <button
+          class="theme-switch"
+          id="themeSwitch"
+          type="button"
+          aria-label="Dunkelmodus umschalten"
+          aria-pressed="false">
+          <span class="knob" aria-hidden="true"></span>
+        </button>
+      </div>
+    </header>
+
+    <p class="muted">
+      Dieser Basketball-Camp-Planer hilft bei der schnellen Erstellung eines
+      Camp-Zeitplans für 4 bis 5 Coaches bei 20 bis 40 Kindern.
+    </p>
+
+    <p class="muted">
+      Startzeit und Stationen sollten ausgefüllt werden. Danach können kleinere
+      Anpassungen am Zeitplan vorgenommen werden.
+    </p>
+
+    <p class="muted">
+      Regeln für eine 1-gegen-1-Spielrunde für alle: Es wird auf alle Körbe,
+      auch auf Seitenkörbe, gespielt, bis ein Spieler oder eine Spielerin einen
+      Treffer erzielt hat. Nach jedem Angriffsversuch wird wieder aus der
+      Dreierlinie gedribbelt und schnell per Sprint nach oben gecheckt.
+      Angriffe sollen schnell ausgeführt werden und sind auf maximal fünf
+      Dribblings begrenzt. Nach einem Duell gehen beide Kinder in die Mitte der
+      Halle und bekommen einen neuen Partner. Dort warten alle Kinder, die
+      gerade nicht spielen. Ein Coach sagt an, wer als Nächstes den freien Korb
+      bespielt. Es gibt keine Preise und keine Gesamtgewinner oder -verlierer.
+    </p>
+
+    <section class="card config-grid">
+      <div class="field">
+        <label for="campStart">Camp-Treffzeit (15 Min vor Startzeit):</label>
+        <input type="time" id="campStart" value="09:30">
+      </div>
+
+      <div>
+        <label for="station1" class="field">Stationen bearbeiten</label>
+
+        <p class="hint">
+          Pro Station: Stationsname in die erste Zeile, danach Coach und Inhalte.
+          Mit Enter können weitere Zeilen ergänzt werden.
+        </p>
+
+        <div class="station-edit-grid">
+          <div class="station-edit">
+            <label for="station1">Station 1</label>
+            <textarea
+              id="station1"
+              placeholder="Stationsname&#10;Coach:&#10;Inhalte:"></textarea>
+          </div>
+
+          <div class="station-edit">
+            <label for="station2">Station 2</label>
+            <textarea
+              id="station2"
+              placeholder="Stationsname&#10;Coach:&#10;Inhalte:"></textarea>
+          </div>
+
+          <div class="station-edit">
+            <label for="station3">Station 3</label>
+            <textarea
+              id="station3"
+              placeholder="Stationsname&#10;Coach:&#10;Inhalte:"></textarea>
+          </div>
+
+          <div class="station-edit">
+            <label for="station4">Station 4</label>
+            <textarea
+              id="station4"
+              placeholder="Stationsname&#10;Coach:&#10;Inhalte:"></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card station-overview">
+      <div class="station-box">
+        <div class="station-title">Stationsrunde 1 &amp; 2</div>
+        <div id="stationBlock12" class="station-summary"></div>
+      </div>
+
+      <div class="station-box">
+        <div class="station-title">Stationsrunde 3 &amp; 4</div>
+        <div id="stationBlock34" class="station-summary"></div>
+      </div>
+    </section>
+
+    <div id="app-status" role="status" aria-live="polite"></div>
+
+    <h2 class="print-title">
+      Basketballcamp-Planer – Zeitplan
+    </h2>
+
+    <div class="table-container">
+      <table id="planTable">
+        <thead>
+          <tr>
+            <th scope="col">Min</th>
+            <th scope="col">Aktivität</th>
+            <th scope="col">Start</th>
+            <th scope="col">Ende</th>
+            <th scope="col" class="no-print">V</th>
+            <th scope="col" class="no-print">X</th>
+          </tr>
+        </thead>
+
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="toolbar no-print">
+      <button class="btn add-btn" id="addRowBtn" type="button">
+        + Zeile hinzufügen
+      </button>
+
+      <button class="btn print-btn" id="printBtn" type="button">
+        Plan drucken
+      </button>
+    </div>
+
+    <section class="info-box">
+      <p>
+        Die Eingaben werden automatisch lokal in diesem Browser gespeichert.
+        Beim nächsten Öffnen werden die zuletzt gespeicherten Daten geladen.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const STORAGE_KEY = "basketball_camp_plan_v9_state";
+      const STORAGE_VERSION = 3;
+      const THEME_KEY = "basketball_camp_plan_theme";
+
+      const INITIAL_DATA = [
+        [
+          15,
+          "Halle öffnen, Umziehen, Check-in. Alle Kinder bekommen per Kreppband einen Namensaufkleber. Teilnehmerlisten abhaken, Bezahlung, Bälle, Hütchen und Leibchen bereithalten. Bei Bedarf Spieluhr für Hallenanzeige und Stationstimer bereitlegen.",
+          ""
+        ],
+        [
+          5,
+          "Begrüßung: Vorstellung des groben Ablaufs und der Coaches, allgemeine Camp-Regeln, keine Getränke oder Essen in der Halle, nur auf der Tribüne, Fair Play.",
+          ""
+        ],
+        [
+          8,
+          "Einteilung in vier gleichgroße Gruppen nach erwarteter Leistungsstärke oder – besser – eine Runde Findungs-Stationen zum Warm-up. Alle Kinder machen zunächst dasselbe, zum Beispiel Korbleger und Dribbling. Die Gruppen werden anschließend live optimiert, damit die Stationen ausgeglichen eingeteilt sind.",
+          ""
+        ],
+        [
+          34,
+          "1. Stationsrunde Themen",
+          "station-12"
+        ],
+        [
+          4,
+          "Pause",
+          ""
+        ],
+        [
+          10,
+          "Platz für eine Spielform, zum Beispiel Parteiball",
+          ""
+        ],
+        [
+          34,
+          "1. Stationsrunde Themen",
+          "station-34"
+        ],
+        [
+          4,
+          "Pause",
+          ""
+        ],
+        [
+          10,
+          "Platz für eine Spielform, zum Beispiel Parteiball",
+          ""
+        ],
+        [
+          14,
+          "Spezialthema für alle auf alle Körbe, zum Beispiel 1-gegen-1-Duelle, Defense, Linkskorbleger, Athletik oder Give-and-go.",
+          ""
+        ],
+        [
+          4,
+          "Pause",
+          ""
+        ],
+        [
+          5,
+          "Platz für eine Spielform, zum Beispiel Parteiball",
+          ""
+        ],
+        [
+          34,
+          "2. Stationsrunde Themen",
+          "station-12"
+        ],
+        [
+          15,
+          "Große Pause, auch einige Minuten ohne Ball, Zeit für Essen und Snack.",
+          ""
+        ],
+        [
+          34,
+          "2. Stationsrunde Themen",
+          "station-34"
+        ],
+        [
+          4,
+          "Pause",
+          ""
+        ],
+        [
+          10,
+          "Platz für eine Spielform, zum Beispiel Parteiball",
+          ""
+        ],
+        [
+          45,
+          "Spiele: 2-gegen-2 oder 3-gegen-3. Viele Ballkontakte. Coaches spielen nicht mit. Coaches achten darauf, dass alle Kinder verteidigen und alle Kinder einmal den Ball bekommen. Die Coaches laufen als Kommentatoren mit und kommentieren Aktionen und Verteidigung.",
+          ""
+        ],
+        [
+          4,
+          "Pause",
+          ""
+        ],
+        [
+          15,
+		  "1vs.1-Duelle", 
+          ""
+        ],
+        [
+          7,
+          "Ende: Cool-down, Aufräumen, Verabschiedung und Feedback.",
+          ""
+        ]
+      ];
+
+      const DEFAULT_STATIONS = [
+        "Scoring / Finishing\nCoach:\nInhalte:\nWurftechnik\nKorbleger mit Schutzhand\nLinkskorbleger\nSwing Step, Eurostep, Floater\nReverse-Korbleger, Kreuzschritt-Korbleger, Spin-Move\nUnterhand-Korbleger Voll-Speed, Up and Under\nPowermove",
+
+        "Ballhandling\nCoach:\nInhalte:\nHandwechsel: zunächst stationär, danach im Parcours: vor dem Körper, durch die Beine, hinter dem Körper und Spin-Move-Dribbling.\nVerzögerungsdribbling und In-and-out-Dribbling.\nBackup-Dribbling, seitliche Hüpfer als Dribbling und Crossover-Dribbelstart.\nEinhändige Pässe.",
+
+        "Mixed-Station\nCoach:\nInhalte:\nDefense, 4-Out-Basics, Athletik und weitere Grundlagen oder Dinge aus den anderen Stationen, die zu kurz gekommen sind.",
+
+        "Offensive Beinarbeit und Täuschungen\nCoach:\nInhalte:\nSelbstvorlage, 1-Kontakt-Sprungstopp und 2-Kontakt-Schrittstopp, Sternschritt vorwärts und rückwärts.\nKreuzgang, optional Passgang und Jab-Step.\nBallschutz und Sweep (Rip).\nV-Cut und Backdoor-Cut.\nWurf-, Schritt- und Passfinte sowie anschließender Dribbelstart in Kombination."
+      ];
+
+      const dom = {
+        tbody: document.querySelector("#planTable tbody"),
+        campStart: document.getElementById("campStart"),
+        addRowBtn: document.getElementById("addRowBtn"),
+        printBtn: document.getElementById("printBtn"),
+        themeSwitch: document.getElementById("themeSwitch"),
+        themeLabel: document.getElementById("themeLabel"),
+        status: document.getElementById("app-status"),
+        stationBlock12: document.getElementById("stationBlock12"),
+        stationBlock34: document.getElementById("stationBlock34"),
+        stationInputs: [1, 2, 3, 4].map(
+          number => document.getElementById(`station${number}`)
+        )
+      };
+
+      let state = createDefaultState();
+      let saveTimer = null;
+
+      function createId() {
+        if (
+          typeof crypto !== "undefined" &&
+          typeof crypto.randomUUID === "function"
+        ) {
+          return crypto.randomUUID();
+        }
+
+        return `row-${Date.now()}-${Math.random()
+          .toString(16)
+          .slice(2)}`;
+      }
+
+      function createDefaultState() {
+        return {
+          startTime: "09:30",
+          stations: [...DEFAULT_STATIONS],
+          rows: INITIAL_DATA.map(([duration, activity, className]) => ({
+            id: createId(),
+            duration,
+            activity,
+            className
+          }))
+        };
+      }
+
+      function showStatus(message, type = "info") {
+        if (!dom.status) {
+          return;
+        }
+
+        dom.status.textContent = message;
+        dom.status.dataset.type = type;
+      }
+
+      function safeStorageGet(key) {
+        try {
+          return localStorage.getItem(key);
+        } catch (error) {
+          console.warn("localStorage konnte nicht gelesen werden.", error);
+          return null;
+        }
+      }
+
+      function safeStorageSet(key, value) {
+        try {
+          localStorage.setItem(key, value);
+          return true;
+        } catch (error) {
+          console.warn("localStorage konnte nicht beschrieben werden.", error);
+          return false;
+        }
+      }
+
+      function normalizeTime(value, fallback = "09:30") {
+        if (typeof value !== "string") {
+          return fallback;
+        }
+
+        const match = /^(\d{2}):(\d{2})$/.exec(value);
+
+        if (!match) {
+          return fallback;
+        }
+
+        const hours = Number(match[1]);
+        const minutes = Number(match[2]);
+
+        if (
+          !Number.isInteger(hours) ||
+          !Number.isInteger(minutes) ||
+          hours < 0 ||
+          hours > 23 ||
+          minutes < 0 ||
+          minutes > 59
+        ) {
+          return fallback;
+        }
+
+        return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+      }
+
+      function normalizeDuration(value, fallback = 15) {
+        const number = Number(value);
+
+        if (!Number.isFinite(number) || number < 0) {
+          return fallback;
+        }
+
+        return Math.floor(number);
+      }
+
+      function normalizeState(data) {
+        const sourceRows = Array.isArray(data?.rows)
+          ? data.rows
+          : [];
+
+        const rows = sourceRows.map(row => ({
+          id: typeof row?.id === "string" && row.id.trim()
+            ? row.id
+            : createId(),
+
+          duration: normalizeDuration(row?.duration),
+
+          activity: typeof row?.activity === "string"
+            ? row.activity
+            : "",
+
+          className: typeof row?.className === "string"
+            ? row.className
+            : ""
+        }));
+
+        const stations = [0, 1, 2, 3].map(index => {
+          const value = data?.stations?.[index];
+
+          return typeof value === "string" && value.trim()
+            ? value
+            : DEFAULT_STATIONS[index];
+        });
+
+        return {
+          startTime: normalizeTime(data?.startTime),
+          stations,
+          rows
+        };
+      }
+
+      function readState() {
+        const raw = safeStorageGet(STORAGE_KEY);
+
+        if (!raw) {
+          return null;
+        }
+
+        try {
+          const parsed = JSON.parse(raw);
+
+          if (
+            parsed?.version !== STORAGE_VERSION ||
+            !parsed?.data ||
+            typeof parsed.data !== "object"
+          ) {
+            return null;
+          }
+
+          return normalizeState(parsed.data);
+        } catch (error) {
+          console.warn("Gespeicherte Daten waren ungültig.", error);
+          showStatus(
+            "Gespeicherte Daten waren ungültig. Standardwerte wurden geladen.",
+            "warning"
+          );
+          return null;
+        }
+      }
+
+      function saveState() {
+        window.clearTimeout(saveTimer);
+
+        saveTimer = window.setTimeout(() => {
+          const payload = {
+            version: STORAGE_VERSION,
+            savedAt: new Date().toISOString(),
+            data: state
+          };
+
+          const saved = safeStorageSet(
+            STORAGE_KEY,
+            JSON.stringify(payload)
+          );
+
+          if (!saved) {
+            showStatus(
+              "Die Änderungen konnten nicht lokal gespeichert werden.",
+              "warning"
+            );
+          }
+        }, 200);
+      }
+
+      function timeToMinutes(value) {
+        const normalized = normalizeTime(value, "00:00");
+        const [hours, minutes] = normalized.split(":").map(Number);
+        return hours * 60 + minutes;
+      }
+
+      function minutesToTime(totalMinutes) {
+        const normalized =
+          ((totalMinutes % 1440) + 1440) % 1440;
+
+        const hours = Math.floor(normalized / 60);
+        const minutes = normalized % 60;
+
+        return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+      }
+
+      function getStationValues() {
+        return state.stations.map(value => {
+          const normalized = String(value || "").trim();
+          return normalized || "—";
+        });
+      }
+
+      function splitStation(value) {
+        const lines = String(value || "")
+          .replace(/\r/g, "")
+          .split("\n");
+
+        const name = lines.shift()?.trim() || "—";
+        const details = lines.join("\n").trim();
+
+        return {
+          name,
+          details
+        };
+      }
+
+      function createStationRound(roundLabel) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "station-round";
+
+        const intro = document.createElement("p");
+        intro.className = "round-intro";
+        intro.textContent =
+          roundLabel === "12"
+            ? "1. Stationsrunde: Die Kinder durchlaufen die ersten zwei von vier Stationen. In der Mitte des Zeitslots wird gewechselt."
+            : "2. Stationsrunde: Die Kinder durchlaufen die restlichen zwei von vier Stationen. In der Mitte des Zeitslots wird gewechselt.";
+
+        wrapper.append(intro);
+
+        const stations = getStationValues();
+
+        stations.forEach((value, index) => {
+          const station = splitStation(value);
+
+          const block = document.createElement("div");
+          block.className = "st-block";
+
+          const head = document.createElement("div");
+          head.className = "st-head";
+          head.textContent = `Station ${index + 1}`;
+
+          const name = document.createElement("div");
+          name.className = "st-name";
+          name.textContent = station.name;
+
+          block.append(head, name);
+
+          if (station.details) {
+            const details = document.createElement("div");
+            details.className = "st-body";
+            details.textContent = station.details;
+            block.append(details);
+          }
+
+          wrapper.append(block);
+        });
+
+        return wrapper;
+      }
+
+      function renderStationOverview() {
+        const stations = getStationValues();
+
+        dom.stationBlock12.textContent =
+          `1. Runde: ${splitStation(stations[0]).name} & ${splitStation(stations[1]).name}`;
+
+        dom.stationBlock34.textContent =
+          `2. Runde: ${splitStation(stations[2]).name} & ${splitStation(stations[3]).name}`;
+      }
+
+      function createDurationInput(duration) {
+        const input = document.createElement("input");
+
+        input.type = "number";
+        input.min = "0";
+        input.step = "1";
+        input.inputMode = "numeric";
+        input.name = "duration";
+        input.value = String(duration);
+        input.setAttribute("aria-label", "Dauer in Minuten");
+
+        return input;
+      }
+
+      function createButton(text, className, attributes = {}) {
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.textContent = text;
+        button.className = className;
+
+        Object.entries(attributes).forEach(([name, value]) => {
+          button.setAttribute(name, value);
+        });
+
+        return button;
+      }
+
+      function createActivityContent(rowData) {
+        const wrapper = document.createElement("div");
+        wrapper.className = `activity-text ${rowData.className || ""}`.trim();
+
+        if (rowData.className === "station-12") {
+          wrapper.append(createStationRound("12"));
+        } else if (rowData.className === "station-34") {
+          wrapper.append(createStationRound("34"));
+        } else {
+          wrapper.textContent = rowData.activity;
+        }
+
+        return wrapper;
+      }
+
+      function renderSchedule() {
+        const fragment = document.createDocumentFragment();
+        let currentMinutes = timeToMinutes(state.startTime);
+
+        state.rows.forEach(rowData => {
+          const row = document.createElement("tr");
+          row.dataset.rowId = rowData.id;
+
+          const durationCell = document.createElement("td");
+          durationCell.append(createDurationInput(rowData.duration));
+
+          const activityCell = document.createElement("td");
+          activityCell.append(createActivityContent(rowData));
+
+          const startCell = document.createElement("td");
+          startCell.className = "start";
+          startCell.textContent = minutesToTime(currentMinutes);
+
+          currentMinutes += normalizeDuration(rowData.duration, 0);
+
+          const endCell = document.createElement("td");
+          endCell.className = "end";
+          endCell.textContent = minutesToTime(currentMinutes);
+
+          const moveCell = document.createElement("td");
+          moveCell.className = "no-print";
+
+          const moveGroup = document.createElement("div");
+          moveGroup.className = "move-group";
+
+          moveGroup.append(
+            createButton("▲", "move-btn", {
+              "data-direction": "-1",
+              "aria-label": "Zeile nach oben verschieben"
+            }),
+            createButton("▼", "move-btn", {
+              "data-direction": "1",
+              "aria-label": "Zeile nach unten verschieben"
+            })
+          );
+
+          moveCell.append(moveGroup);
+
+          const deleteCell = document.createElement("td");
+          deleteCell.className = "no-print";
+          deleteCell.append(
+            createButton("X", "delete-btn", {
+              "aria-label": "Zeile löschen"
+            })
+          );
+
+          row.append(
+            durationCell,
+            activityCell,
+            startCell,
+            endCell,
+            moveCell,
+            deleteCell
+          );
+
+          fragment.append(row);
+        });
+
+        dom.tbody.replaceChildren(fragment);
+      }
+
+      function updateRow(id, changes) {
+        const row = state.rows.find(item => item.id === id);
+
+        if (!row) {
+          return;
+        }
+
+        Object.assign(row, changes);
+        renderSchedule();
+        saveState();
+      }
+
+      function moveRow(id, direction) {
+        const index = state.rows.findIndex(item => item.id === id);
+        const targetIndex = index + direction;
+
+        if (
+          index < 0 ||
+          targetIndex < 0 ||
+          targetIndex >= state.rows.length
+        ) {
+          return;
+        }
+
+        [
+          state.rows[index],
+          state.rows[targetIndex]
+        ] = [
+          state.rows[targetIndex],
+          state.rows[index]
+        ];
+
+        renderSchedule();
+        saveState();
+      }
+
+      function deleteRow(id) {
+        const exists = state.rows.some(item => item.id === id);
+
+        if (!exists) {
+          return;
+        }
+
+        state.rows = state.rows.filter(item => item.id !== id);
+        renderSchedule();
+        saveState();
+      }
+
+      function addRow() {
+        state.rows.push({
+          id: createId(),
+          duration: 15,
+          activity: "",
+          className: ""
+        });
+
+        renderSchedule();
+        saveState();
+
+        const lastRow = dom.tbody.lastElementChild;
+        lastRow?.querySelector('input[name="duration"]')?.focus();
+      }
+
+      function handleTableInput(event) {
+        if (!event.target.matches('input[name="duration"]')) {
+          return;
+        }
+
+        const rowElement = event.target.closest("tr");
+        const rowId = rowElement?.dataset.rowId;
+
+        if (!rowId) {
+          return;
+        }
+
+        const value = Number(event.target.value);
+        const duration = Number.isFinite(value) && value >= 0
+          ? Math.floor(value)
+          : 0;
+
+        updateRow(rowId, { duration });
+      }
+
+      function handleTableClick(event) {
+        const rowElement = event.target.closest("tr");
+        const rowId = rowElement?.dataset.rowId;
+
+        if (!rowId) {
+          return;
+        }
+
+        const moveButton = event.target.closest(".move-btn");
+
+        if (moveButton) {
+          moveRow(
+            rowId,
+            Number(moveButton.dataset.direction)
+          );
+          return;
+        }
+
+        const deleteButton = event.target.closest(".delete-btn");
+
+        if (deleteButton) {
+          deleteRow(rowId);
+        }
+      }
+
+      function autoGrow(textarea) {
+        textarea.style.height = "auto";
+        textarea.style.height = `${textarea.scrollHeight + 2}px`;
+      }
+
+      function applyTheme(theme) {
+        const dark = theme === "dark";
+
+        if (dark) {
+          document.body.setAttribute("data-theme", "dark");
+        } else {
+          document.body.removeAttribute("data-theme");
+        }
+
+        dom.themeSwitch?.setAttribute(
+          "aria-pressed",
+          String(dark)
+        );
+
+        if (dom.themeLabel) {
+          dom.themeLabel.textContent = dark ? "Dunkel" : "Hell";
+        }
+      }
+
+      function initializeTheme() {
+        const savedTheme = safeStorageGet(THEME_KEY);
+
+        let theme = "light";
+
+        if (savedTheme === "dark" || savedTheme === "light") {
+          theme = savedTheme;
+        } else if (
+          typeof window.matchMedia === "function" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+        ) {
+          theme = "dark";
+        }
+
+        applyTheme(theme);
+
+        dom.themeSwitch?.addEventListener("click", () => {
+          const current =
+            document.body.getAttribute("data-theme") === "dark"
+              ? "dark"
+              : "light";
+
+          const next = current === "dark" ? "light" : "dark";
+
+          applyTheme(next);
+          safeStorageSet(THEME_KEY, next);
+        });
+      }
+
+      function initialize() {
+        state = readState() || createDefaultState();
+
+        dom.campStart.value = state.startTime;
+
+        dom.stationInputs.forEach((input, index) => {
+          input.value = state.stations[index];
+          autoGrow(input);
+        });
+
+        dom.campStart.addEventListener("change", event => {
+          const normalized = normalizeTime(
+            event.target.value,
+            state.startTime
+          );
+
+          state.startTime = normalized;
+          event.target.value = normalized;
+
+          renderSchedule();
+          saveState();
+        });
+
+        dom.stationInputs.forEach((input, index) => {
+          input.addEventListener("input", event => {
+            state.stations[index] = event.target.value;
+            autoGrow(event.target);
+            renderStationOverview();
+            renderSchedule();
+            saveState();
+          });
+        });
+
+        window.addEventListener("resize", () => {
+          dom.stationInputs.forEach(autoGrow);
+        });
+
+        dom.tbody.addEventListener("input", handleTableInput);
+        dom.tbody.addEventListener("click", handleTableClick);
+
+        dom.addRowBtn?.addEventListener("click", addRow);
+        dom.printBtn?.addEventListener("click", () => window.print());
+
+        renderStationOverview();
+        renderSchedule();
+        initializeTheme();
+      }
+
+      window.addEventListener("error", event => {
+        console.error(event.error || event.message);
+        showStatus(
+          "Es ist ein unerwarteter Fehler aufgetreten.",
+          "error"
+        );
+      });
+
+      window.addEventListener("unhandledrejection", event => {
+        console.error(event.reason);
+        showStatus(
+          "Es ist ein unerwarteter Fehler aufgetreten.",
+          "error"
+        );
+      });
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initialize, {
+          once: true
+        });
+      } else {
+        initialize();
+      }
+    })();
+  </script>
+</body>
+</html>
