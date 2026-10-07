@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BCW Mini-Turnierplaner</title>
+<style>
+  :root { color-scheme: light; --navy:#172554; --blue:#2563eb; --bg:#f1f5f9; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:#172033; font:16px/1.5 system-ui,sans-serif; }
+  header { background:var(--navy); color:white; padding:24px max(20px,calc((100% - 1200px)/2)); }
+  header h1 { margin:0 0 5px; }
+  main { max-width:1200px; margin:24px auto; padding:0 16px 60px; }
+  section,.card { background:white; border:1px solid #dbe2ea; border-radius:12px; padding:20px; margin:16px 0; }
+  h2 { margin:0 0 14px; color:var(--navy); }
+  h3 { margin:18px 0 8px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; }
+  label { display:block; font-weight:650; margin:8px 0 4px; }
+  input,select,textarea,button { font:inherit; }
+  input,select,textarea { width:100%; padding:9px 10px; border:1px solid #b9c5d3; border-radius:7px; background:white; }
+  textarea { min-height:160px; resize:vertical; }
+  textarea.tall { min-height:220px; }
+  button,.button { background:var(--blue); color:white; border:0; border-radius:8px; padding:10px 14px; cursor:pointer; font-weight:700; }
+  button.secondary { background:#475569; }
+  button:hover { filter:brightness(.94); }
+  .toolbar { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
+  .muted { color:#526174; }
+  .notice { background:#eff6ff; border-left:4px solid var(--blue); padding:10px 14px; border-radius:6px; }
+  .table-wrap { overflow:auto; }
+  table { width:100%; border-collapse:collapse; margin:8px 0 18px; min-width:700px; }
+  th,td { border:1px solid #cbd5e1; padding:8px; text-align:left; vertical-align:middle; }
+  th { background:#e2e8f0; }
+  td input { min-width:65px; }
+  .checklist label { font-weight:400; display:flex; gap:8px; align-items:flex-start; }
+  .checklist input[type="checkbox"] { width:auto; margin-top:5px; flex-shrink:0; }
+  .checklist input[type="text"] { flex:1; min-width:0; padding:4px 8px; font-weight:400; }
+  .team-fields { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:8px; }
+  .pill { display:inline-block; padding:3px 9px; border-radius:99px; background:#dbeafe; }
+  .small { font-size:.9rem; }
+  @media print {
+    body { background:white; font-size:11pt; }
+    header { background:white; color:black; padding:0 0 12px; border-bottom:2px solid #111; }
+    main { margin:0; max-width:none; padding:0; }
+    section,.card { box-shadow:none; break-inside:avoid; padding:12px; margin:8px 0; }
+    button,.toolbar,.no-print { display:none!important; }
+    input,select,textarea { border:0; padding:1px; }
+    table { min-width:0; font-size:9pt; }
+    th,td { padding:4px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>BCW Mini-Turnierplaner</h1>
+  <div>Planung, Zeitplan, Spielberichte und Organisation</div>
+</header>
+
+<main>
+  <div class="toolbar no-print">
+    <button onclick="window.print()">Drucken / als PDF speichern</button>
+    <button class="secondary" onclick="exportJSON()">Planung als JSON exportieren</button>
+    <button class="secondary" onclick="document.getElementById('jsonFile').click()">JSON importieren</button>
+    <input id="jsonFile" type="file" accept=".json,application/json" hidden>
+    <button class="secondary" onclick="saveLocal()">Im Browser speichern</button>
+    <button class="secondary" onclick="loadLocal()">Gespeicherte Planung laden</button>
+  </div>
+
+  <section>
+    <h2>Turnier-Einstellungen</h2>
+    <div class="grid">
+      <div><label for="title">Turniername</label><input id="title" value="BCW Mini Turnier"></div>
+      <div><label for="date">Datum</label><input id="date" type="date"></div>
+      <div><label for="teamCount">Anzahl Teams</label>
+        <select id="teamCount"><option value="8">8 Teams — 2 Gruppen à 4</option><option value="6">6 Teams — 2 Gruppen à 3</option></select>
+      </div>
+      <div><label for="startTime">Spielbeginn</label><input id="startTime" type="time" value="10:00"></div>
+      <div><label for="gameMin">Spielzeit pro Spiel (Minuten)</label><input id="gameMin" type="number" min="1" value="20"></div>
+      <div><label for="gapMin">Pause zwischen Spielblöcken (Minuten)</label><input id="gapMin" type="number" min="0" value="10"></div>
+      <div><label for="courts">Spielfelder</label><input id="courts" type="number" min="1" value="2"></div>
+      <div><label for="checkin">Check-in</label><input id="checkin" type="time" value="09:30"></div>
+      <div><label for="welcome">Begrüßung</label><input id="welcome" type="time" value="09:40"></div>
+      <div><label for="warmup">Aufwärmen</label><input id="warmup" type="time" value="09:45"></div>
+      <div><label for="lunch">Mittagspause</label><input id="lunch" type="time" value="13:00"></div>
+      <div><label for="resume">Spielfortsetzung nach Mittagspause</label><input id="resume" type="time" value="14:00"></div>
+    </div>
+    <p class="notice" id="formatNote"></p>
+    <h3>Teams</h3>
+    <div id="teams" class="team-fields"></div>
+    <div class="toolbar no-print"><button onclick="buildSchedule()">Spielplan aktualisieren</button></div>
+  </section>
+
+  <section>
+    <h2>Spielplan</h2>
+    <p class="muted small">Vorrundenspiele werden nach Gruppen-Rundentagen angesetzt. Platzierungsrunden verwenden Gruppenplatzierungen als Platzhalter.</p>
+    <div id="schedule"></div>
+  </section>
+
+  <section>
+    <h2>Ergebnisse &amp; Gruppenstände</h2>
+    <p class="muted small">Ergebnisse eintragen. Die Gruppenstände werden anhand von Siegen und Punktedifferenz berechnet. Bei Gleichstand entscheidet zunächst die Punktedifferenz, entsprechend der Turnierangaben.</p>
+    <div id="standings"></div>
+  </section>
+
+  <section>
+    <h2>Turnier-Grundlagen</h2>
+    <div class="grid">
+      <div><label>Turnierbeschreibung</label><textarea class="tall">8 Teams — 2 Gruppen à 4 Teams (ggf. 6 Teams — 2 Gruppen à 3 Teams).
+Jeder gegen jeden in der Gruppe.
+Bei 8 Teams: mindestens 5 Spiele à 20 Minuten pro Team (3 Gruppenspiele + 2 Platzierungsspiele).
+Bei 6 Teams: 4 Spiele à 20 Minuten pro Team.
+Danach werden alle Plätze ausgespielt.
+2 Spielfelder; 10 Minuten Pause zwischen den Spielen.</textarea></div>
+      <div><label>Schiedsrichter &amp; Kampfgericht</label><textarea>4 Schiedsrichter werden vom BCW gestellt. Bitte mit unterschiedlichen Pfeifen pro Spielfeld, um Unterscheidungen zu ermöglichen (könnte ein Problem sein).
+Jedes Gast-Team stellt ein Kampfgericht für Spiele, an denen es nicht beteiligt ist. Im besten Falle durch teambegleitende Eltern.</textarea></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Regelwerk</h2>
+    <p>Gespielt wird orientiert an den offiziellen DBB-Miniregeln mit folgenden Vereinfachungen:</p>
+    <ul>
+      <li>Spielzeit: 4 × 5 Minuten ungestoppte Zeit an der Hallenanzeige; für Parallelspiele ausgewiesen.</li>
+      <li>Zwischen Vierteln und Halbzeit wird nur gewechselt, keine Pause.</li>
+      <li>Keine Auszeiten.</li>
+      <li>Spielerwechsel während Spielunterbrechungen (kein fliegender Wechsel).</li>
+      <li>Jeder teilnehmende Spieler muss eingesetzt werden (sofern gesund und unverletzt).</li>
+      <li>Keine Verlängerung nach Ablauf der Zeit. Platzierung per Punktdifferenz am Ende der Gruppenphase bzw. aller Spiele.</li>
+      <li>Ausnahme Finale: 2 Minuten gestoppte Verlängerung.</li>
+      <li>Keine Freiwürfe:
+        <ul>
+          <li>Ab dem 5. Teamfoul im Spiel: 1 Punkt + Einwurf für das gefoulte Team.</li>
+          <li>Foul im Wurf ohne Korberfolg: 1 Punkt + Einwurf für das gefoulte Team.</li>
+          <li>Foul im Wurf mit Korberfolg: 2 Punkte + Einwurf für das gefoulte Team.</li>
+          <li>Technisches/unsportliches Foul: 2 Punkte + Einwurf für das gefoulte Team.</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Zeitplan &amp; Rahmenprogramm</h2>
+    <p class="muted small no-print">Check-in, Begrüßung, Aufwärmen, Spielbeginn, Mittagspause und Spielfortsetzung kommen aus den Einstellungen (Standard wie PDF: 8 Teams 13:00 / 14:00, 6 Teams 12:00 / 13:00). Siegerehrung = Ende des Finals + 10 Min, Turnierende = Siegerehrung + 30 Min.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Uhrzeit</th><th>Programmpunkt</th></tr></thead>
+        <tbody id="programBody"></tbody>
+      </table>
+    </div>
+    <p><strong>Danach Rückbau — Viele Hände, schnelles Ende.</strong></p>
+  </section>
+
+  <section>
+    <h2>Verpflegung, Gebühren &amp; Sponsoring</h2>
+    <div class="grid">
+      <div><label>Verpflegung</label><textarea>Während des gesamten Turniers stehen Speisen und Getränke zu moderaten Preisen zur Verfügung.</textarea></div>
+      <div><label>Teilnahmegebühr pro Team (€)</label><input type="number" value="0" min="0" step="0.50"></div>
+      <div><label>Event-Sponsoring pro Partner (€)</label><input type="number" value="0" min="0" step="0.50"></div>
+      <div><label>Ausgaben / Notizen</label><textarea class="tall">4 Schiedsrichter (60 € pro Kopf = 240 €)
+Werbematerial, Messewand, Drucksachen, ggf. T-Shirts für Teilnehmer
+Preise (Pokal, Medaille)</textarea></div>
+    </div>
+    <h3>Kalkulation</h3>
+    <p id="budget"></p>
+  </section>
+
+  <section>
+    <h2>Aufbau-Checkliste</h2>
+    <div class="checklist" id="checklist">
+      <label><input type="checkbox"> Mülleimer</label>
+      <label><input type="checkbox"> Turnierleitung: Beschilderung</label>
+      <label><input type="checkbox"> Turnierleitung: 1 Tisch</label>
+      <label><input type="checkbox"> Turnierleitung: 2 Stühle</label>
+      <label><input type="checkbox"> Turnierleitung: Messewand/Fotowand</label>
+      <label><input type="checkbox"> Turnierleitung: Hallenanzeigebedienung</label>
+      <label><input type="checkbox"> Verpflegungsstand: Beschilderung</label>
+      <label><input type="checkbox"> Verpflegungsstand: Preisliste</label>
+      <label><input type="checkbox"> Verpflegungsstand: 1 Tisch</label>
+      <label><input type="checkbox"> Verpflegungsstand: 2 Stühle</label>
+      <label><input type="checkbox"> 2 Spielerbänke pro Spielfeld</label>
+      <label><input type="checkbox"> 1 Kampfgericht pro Spielfeld: 1 Tisch, 2 Stühle</label>
+      <label><input type="checkbox"> Spielbogen für jedes Kampfgericht</label>
+      <label><input type="checkbox"> 2 Stifte pro Kampfgericht</label>
+    </div>
+    <div class="toolbar no-print">
+      <button type="button" class="secondary" onclick="addChecklistItem()">Eintrag hinzufügen</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Siegerehrung</h2>
+    <ul>
+      <li>Platz 1 bekommt einen Pokal.</li>
+      <li>Alle bekommen eine Medaille.</li>
+      <li>Ggf. auch Urkunde, aber nur als Notlösung (ordentliches Papier, bitte!).</li>
+    </ul>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const readTeams = () => [...document.querySelectorAll(".team-name")].map(x=>x.value.trim());
+const teamCode = (group,n) => readTeams()[group==="A" ? n-1 : (Number($("teamCount").value)/2+n-1)] || `${group}${n}`;
+const timeToMinutes = t => { const [h,m]=String(t||"0:0").split(":").map(Number); return h*60+m; };
+const fmt = n => `${String(Math.floor(n/60)%24).padStart(2,"0")}:${String(n%60).padStart(2,"0")}`;
+const fmtTime = t => t ? t + " Uhr" : "—";
+let matches = [];
+let awardTime = "";
+let endTimeCalc = "";
+
+function renderTeams(){
+  const count=Number($("teamCount").value), per=count/2, old=readTeams();
+  $("teams").innerHTML="";
+  for(let i=0;i<count;i++){
+    const v=old[i] || `Team ${i+1}`;
+    $("teams").insertAdjacentHTML("beforeend",
+      `<div><label for="team${i}">${i<per?"Gruppe A":"Gruppe B"} — Team ${i%per+1}</label>
+       <input class="team-name" id="team${i}" value="${esc(v)}"></div>`);
+  }
+  $("formatNote").textContent = count===8
+    ? "8 Teams: 2 Gruppen à 4. Drei Gruppenspiele pro Team; danach Platzierungsspiele um die Plätze 1–8."
+    : "6 Teams: 2 Gruppen à 3. Zwei Gruppenspiele pro Team; danach Halbfinale/Platzierungsspiele und Finale.";
+  updateProgramDefaults();
+  buildSchedule();
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+
+function renderProgram(){
+  const six = Number($("teamCount").value) === 6;
+  const rows = [
+    [$("checkin").value, "Check-in bei der Turnierleitung"],
+    [$("welcome").value, "Begrüßung durch Turnierleitung"],
+    [$("warmup").value, "Aufwärmen"],
+    [$("startTime").value, "Spielbeginn"],
+    [$("lunch").value, "Mittagspause" + (six ? " (bei 6 Teams 12 Uhr)" : "")],
+    [$("resume").value, "Weiter mit den Platzierungsspielen"],
+    [awardTime, "Siegerehrung (10 Min nach Finalende)"],
+    [endTimeCalc, "Turnierende (30 Min nach Siegerehrung)"]
+  ];
+  $("programBody").innerHTML = rows.map(([t, label]) =>
+    `<tr><td>${esc(fmtTime(t))}</td><td>${esc(label)}</td></tr>`
+  ).join("");
+}
+
+function buildSchedule(){
+ const count=Number($("teamCount").value), per=count/2;
+ const slots=[];
+ if(count===8){
+   const A=[["A1","A2"],["A3","A4"]],B=[["B1","B2"],["B3","B4"]];
+   const rows=[
+    [[A[0][0],A[0][1],"B4"],[B[0][0],B[0][1],"A4"]],
+    [[A[1][0],A[1][1],"B1"],[B[1][0],B[1][1],"A1"]],
+    [["A1","A3","B2"],["B1","B3","A2"]],
+    [["A2","A4","B3"],["B2","B4","A3"]],
+    [["A1","A4","B2"],["B1","B4","A2"]],
+    [["A2","A3","B1"],["B2","B3","A1"]]
+   ];
+   rows.forEach((row,i)=>row.forEach((x,c)=>slots.push({phase:"Vorrunde",round:i+1,court:c+1,a:x[0],b:x[1],official:x[2]})));
+ } else {
+   const rows=[
+    [["A1","A2","B3"],["B1","B2","A3"]],
+    [["A1","A3","B2"],["B1","B3","A2"]],
+    [["A2","A3","B1"],["B2","B3","A1"]]
+   ];
+   rows.forEach((row,i)=>row.forEach((x,c)=>slots.push({phase:"Vorrunde",round:i+1,court:c+1,a:x[0],b:x[1],official:x[2]})));
+ }
+ const start=timeToMinutes($("startTime").value), dur=Number($("gameMin").value)||20, gap=Number($("gapMin").value)||0;
+ const add=(phase, label, games)=>{
+   games.forEach((gm,c)=>slots.push({phase,round:label,court:c+1,a:gm[0],b:gm[1],official:gm[2]||""}));
+ };
+ if(count===8){
+   add("Halbfinale Plätze 1–4","HF",[
+     ["1. Gruppe A","2. Gruppe B","3. Gruppe B"],
+     ["1. Gruppe B","2. Gruppe A","3. Gruppe A"]]);
+   add("Spiele Plätze 5–8","Plätze 5–8",[
+     ["3. Gruppe A","4. Gruppe B","2. Gruppe A"],
+     ["3. Gruppe B","4. Gruppe A","2. Gruppe B"]]);
+   add("Endrunde","Platzierung",[
+     ["Spiel um Platz 3","",""],["Spiel um Platz 7","",""]
+   ]);
+   add("Endrunde","Platzierung",[
+     ["Spiel um Platz 5","",""],["FINALE: Platz 1 gegen Platz 2","",""]
+   ]);
+ } else {
+   add("Halbfinale Plätze 1–2","HF",[
+     ["1. Gruppe A","2. Gruppe B","3. Gruppe B"],
+     ["1. Gruppe B","2. Gruppe A","3. Gruppe A"]]);
+   add("Spiele Plätze 3–6","Platzierung",[
+     ["3. Gruppe A","3. Gruppe B","2. Gruppe A"],
+     ["Verlierer HF-1","Verlierer HF-2","Sieger HF-1"]]);
+   add("Finale","Finale",[
+     ["Sieger HF-1","Sieger HF-2",""]]);
+ }
+ let block=0;
+ let lastEndMin = start;
+ const grouped=[];
+ // Block (1-basiert), ab dem nach der Mittagspause weitergespielt wird:
+ // 8 Teams: nach 6 Vorrundenblöcken -> Block 7 (Halbfinale); 6 Teams: nach Vorrunde + Halbfinale -> Block 5 (Spiele 3-6)
+ const resumeBlock = count===8 ? 7 : 5;
+ const resumeStart = timeToMinutes($("resume").value);
+ for(const s of slots){
+   if(s.court===1) block++;
+   const blockStart = block<resumeBlock
+     ? start + (block-1)*(dur+gap)
+     : resumeStart + (block-resumeBlock)*(dur+gap);
+   const blockEnd = blockStart + dur;
+   s.time=`${fmt(blockStart)}–${fmt(blockEnd)}`;
+   lastEndMin = Math.max(lastEndMin, blockEnd);
+   grouped.push(s);
+ }
+ matches=grouped;
+
+ // Siegerehrung = 10 Min nach Finalende, Turnierende = 30 Min danach
+ awardTime = fmt(lastEndMin + 10);
+ endTimeCalc = fmt(lastEndMin + 10 + 30);
+
+ renderMatches();
+ renderStandings();
+ renderProgram();
+}
+function renderMatches(){
+ let html="",phase="";
+ for(const m of matches){
+   if(m.phase!==phase){
+     if(phase) html+="</tbody></table></div>";
+     phase=m.phase;
+     html+=`<h3>${esc(phase)}</h3><div class="table-wrap"><table><thead><tr><th>Zeit</th><th>Runde</th><th>Spielfeld</th><th>Spiel</th><th>Kampfgericht</th><th>Ergebnis</th></tr></thead><tbody>`;
+   }
+   const id=matches.indexOf(m);
+   html+=`<tr><td>${m.time}</td><td>${esc(m.round)}</td><td>${m.court}</td>
+   <td>${esc(resolve(m.a))} – ${esc(resolve(m.b))}</td><td>${esc(resolve(m.official)||"—")}</td>
+   <td><input aria-label="Punkte Team A" type="number" min="0" data-match="${id}" data-side="a" placeholder="A"> :
+       <input aria-label="Punkte Team B" type="number" min="0" data-match="${id}" data-side="b" placeholder="B"></td></tr>`;
+ }
+ if(phase) html+="</tbody></table></div>";
+ $("schedule").innerHTML=html;
+ $("schedule").querySelectorAll("input").forEach(i=>i.addEventListener("input",renderStandings));
+}
+function resolve(code){
+ const m=String(code||"").match(/^([AB])([1-4])$/);
+ return m ? teamCode(m[1],Number(m[2])) : code;
+}
+function renderStandings(){
+ const count=Number($("teamCount").value),per=count/2;
+ const stats={};
+ for(let i=0;i<count;i++){const group=i<per?"A":"B"; const name=readTeams()[i]||`Team ${i+1}`;stats[`${group}${i%per+1}`]={name,group,w:0,l:0,pf:0,pa:0,diff:0};}
+ document.querySelectorAll("#schedule input[data-match]").forEach(inp=>{
+   const id=Number(inp.dataset.match), row=matches[id];
+   if(!row || row.phase!=="Vorrunde" || !/^([AB][1-4])$/.test(row.a)||!/^([AB][1-4])$/.test(row.b))return;
+   const a=document.querySelector(`#schedule input[data-match="${id}"][data-side="a"]`).value;
+   const b=document.querySelector(`#schedule input[data-match="${id}"][data-side="b"]`).value;
+   if(a===""||b==="")return;
+   const x=Number(a),y=Number(b),sa=stats[row.a],sb=stats[row.b];
+   sa.pf+=x;sa.pa+=y;sb.pf+=y;sb.pa+=x;
+   if(x>y){sa.w++;sb.l++;}else if(y>x){sb.w++;sa.l++;}
+ });
+ for(const s of Object.values(stats))s.diff=s.pf-s.pa;
+ let out="";
+ for(const g of ["A","B"]){
+   const arr=Object.entries(stats).filter(([,s])=>s.group===g).sort((a,b)=>b[1].w-a[1].w||b[1].diff-a[1].diff||b[1].pf-a[1].pf);
+   out+=`<h3>Gruppe ${g}</h3><div class="table-wrap"><table><thead><tr><th>Platz</th><th>Team</th><th>Siege</th><th>Niederlagen</th><th>Punkte</th><th>Gegenspunkte</th><th>Punktedifferenz</th></tr></thead><tbody>`;
+   arr.forEach(([code,s],i)=>out+=`<tr><td>${i+1}</td><td>${esc(s.name)}</td><td>${s.w}</td><td>${s.l}</td><td>${s.pf}</td><td>${s.pa}</td><td>${s.diff>0?"+":""}${s.diff}</td></tr>`);
+   out+="</tbody></table></div>";
+ }
+ $("standings").innerHTML=out;
+}
+function updateProgramDefaults(){
+  const six=Number($("teamCount").value)===6;
+  if(six){
+    if($("lunch").value === "13:00") $("lunch").value = "12:00";
+    if($("resume").value === "14:00") $("resume").value = "13:00";
+  } else {
+    if($("lunch").value === "12:00") $("lunch").value = "13:00";
+    if($("resume").value === "13:00") $("resume").value = "14:00";
+  }
+}
+function addChecklistItem(){
+  const div=$("checklist");
+  const label=document.createElement("label");
+  label.innerHTML=`<input type="checkbox"> <input type="text" placeholder="Neuer Eintrag…" value="">`;
+  div.appendChild(label);
+  label.querySelector('input[type="text"]').focus();
+}
+function exportJSON(){
+ const data={settings:{title:$("title").value,date:$("date").value,teamCount:$("teamCount").value,startTime:$("startTime").value,gameMin:$("gameMin").value,gapMin:$("gapMin").value,courts:$("courts").value,checkin:$("checkin").value,welcome:$("welcome").value,warmup:$("warmup").value,lunch:$("lunch").value,resume:$("resume").value,award:awardTime,endTime:endTimeCalc},
+ teams:readTeams(),scores:[...document.querySelectorAll("#schedule input[data-match]")].map(x=>({match:x.dataset.match,side:x.dataset.side,value:x.value})),
+ notes:[...document.querySelectorAll("textarea")].map(x=>x.value)};
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));a.download="bcw-turnierplanung.json";a.click();URL.revokeObjectURL(a.href);
+}
+$("jsonFile").addEventListener("change",async e=>{
+ const f=e.target.files[0];if(!f)return;
+ try{const d=JSON.parse(await f.text());Object.entries(d.settings||{}).forEach(([k,v])=>{if($(k))$(k).value=v;});renderTeams();
+ (d.teams||[]).forEach((v,i)=>{const el=$(`team${i}`);if(el)el.value=v;});
+ buildSchedule();
+ (d.scores||[]).forEach(s=>{const el=document.querySelector(`#schedule input[data-match="${s.match}"][data-side="${s.side}"]`);if(el)el.value=s.value;});
+ renderStandings();
+ }catch(err){alert("Die JSON-Datei konnte nicht eingelesen werden.");}
+});
+function saveLocal(){localStorage.setItem("bcwPlan",JSON.stringify({settings:{title:$("title").value,date:$("date").value,teamCount:$("teamCount").value,startTime:$("startTime").value,gameMin:$("gameMin").value,gapMin:$("gapMin").value,courts:$("courts").value,checkin:$("checkin").value,welcome:$("welcome").value,warmup:$("warmup").value,lunch:$("lunch").value,resume:$("resume").value},teams:readTeams()}));alert("Planung wurde in diesem Browser gespeichert.");}
+function loadLocal(){const d=JSON.parse(localStorage.getItem("bcwPlan")||"null");if(!d){alert("Keine gespeicherte Planung gefunden.");return;}Object.entries(d.settings).forEach(([k,v])=>{if($(k))$(k).value=v;});renderTeams();(d.teams||[]).forEach((v,i)=>{if($(`team${i}`))$(`team${i}`).value=v;});buildSchedule();}
+function updateBudget(){
+ $("budget").textContent=`Bekannte Schiedsrichterkosten: 4 × 60 € = 240 €. Teilnahmegebühr und Sponsoring können oben bearbeitet werden; weitere Ausgaben bitte in den Notizen ergänzen.`;
+}
+$("teamCount").addEventListener("change",renderTeams);
+["startTime","gameMin","gapMin"].forEach(id=>$(id).addEventListener("change",buildSchedule));
+["checkin","welcome","warmup","lunch"].forEach(id=>$(id).addEventListener("change",renderProgram));
+$("resume").addEventListener("change",buildSchedule);
+$("teams").addEventListener("input",()=>{buildSchedule();});
+$("title").addEventListener("input",()=>document.title=$("title").value);
+renderTeams();updateBudget();
+</script>
+</body>
+</html>
