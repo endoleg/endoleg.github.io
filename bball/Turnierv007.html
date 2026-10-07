@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BCW Mini-Turnierplaner</title>
+<style>
+  :root { color-scheme: light; --navy:#172554; --blue:#2563eb; --bg:#f1f5f9; --ok:#16a34a; --warn:#b45309; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:#172033; font:16px/1.5 system-ui,sans-serif; }
+  header { background:var(--navy); color:white; padding:24px max(20px,calc((100% - 1200px)/2)); }
+  header h1 { margin:0 0 5px; }
+  main { max-width:1200px; margin:24px auto; padding:0 16px 60px; }
+  section,.card { background:white; border:1px solid #dbe2ea; border-radius:12px; padding:20px; margin:16px 0; }
+  h2 { margin:0 0 14px; color:var(--navy); }
+  h3 { margin:18px 0 8px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; }
+  label { display:block; font-weight:650; margin:8px 0 4px; }
+  input,select,textarea,button { font:inherit; }
+  input,select,textarea { width:100%; padding:9px 10px; border:1px solid #b9c5d3; border-radius:7px; background:white; }
+  textarea { min-height:160px; resize:vertical; }
+  textarea.tall { min-height:220px; }
+  button,.button { background:var(--blue); color:white; border:0; border-radius:8px; padding:10px 14px; cursor:pointer; font-weight:700; }
+  button.secondary { background:#475569; }
+  button:hover { filter:brightness(.94); }
+  .toolbar { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
+  .muted { color:#526174; }
+  .notice { background:#eff6ff; border-left:4px solid var(--blue); padding:10px 14px; border-radius:6px; }
+  .warn-box { background:#fff7ed; border-left:4px solid var(--warn); padding:10px 14px; border-radius:6px; margin:8px 0; color:#9a3412; font-weight:600; }
+  .table-wrap { overflow:auto; }
+  table { width:100%; border-collapse:collapse; margin:8px 0 18px; min-width:700px; }
+  th,td { border:1px solid #cbd5e1; padding:8px; text-align:left; vertical-align:middle; }
+  th { background:#e2e8f0; }
+  td input { min-width:65px; }
+  .checklist label { font-weight:400; display:flex; gap:8px; align-items:flex-start; }
+  .checklist input[type="checkbox"] { width:auto; margin-top:5px; flex-shrink:0; }
+  .checklist input[type="text"] { flex:1; min-width:0; padding:4px 8px; font-weight:400; }
+  .team-fields { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:8px; }
+  .pill { display:inline-block; padding:3px 9px; border-radius:99px; background:#dbeafe; }
+  .small { font-size:.9rem; }
+  .toast { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#111827; color:#fff; padding:10px 18px; border-radius:10px; z-index:50; box-shadow:0 4px 20px rgba(0,0,0,.25); display:none; }
+  .toast.show { display:block; }
+  .tie { background:#fef3c7 !important; }
+  @media print {
+    body { background:white; font-size:9.5pt; }
+    header { background:white; color:black; padding:0 0 8px; border-bottom:2px solid #111; }
+    header h1 { font-size:14pt; }
+    main { margin:0; max-width:none; padding:0; }
+    section,.card { box-shadow:none; break-inside:avoid; padding:6px 8px; margin:4px 0; border:1px solid #ccc; }
+    button,.toolbar,.no-print,.toast { display:none!important; }
+    input,select,textarea { border:0; padding:0; background:transparent; }
+    table { min-width:0; font-size:8.5pt; page-break-inside:auto; }
+    tr { page-break-inside:avoid; }
+    th,td { padding:3px 4px; }
+    h2 { font-size:11pt; margin:4px 0 6px; }
+    h3 { font-size:10pt; margin:6px 0 4px; }
+    .notice,.muted { font-size:8pt; }
+    /* Kompakter Spielplan für Aushang */
+    #schedule table { font-size:8pt; }
+    #schedule th, #schedule td { padding:2px 3px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="pageTitle">BCW Mini-Turnierplaner</h1>
+  <div>Planung, Zeitplan, Spielberichte und Organisation · V006</div>
+</header>
+
+<main>
+  <div class="toolbar no-print">
+    <button onclick="window.print()">Drucken / als PDF speichern</button>
+    <button class="secondary" onclick="exportJSON()">Planung als JSON exportieren</button>
+    <button class="secondary" onclick="document.getElementById('jsonFile').click()">JSON importieren</button>
+    <input id="jsonFile" type="file" accept=".json,application/json" hidden>
+    <button class="secondary" onclick="saveLocal(true)">Im Browser speichern</button>
+    <button class="secondary" onclick="loadLocal()">Gespeicherte Planung laden</button>
+    <button class="secondary" onclick="if(confirm('Wirklich alles zurücksetzen?')){localStorage.removeItem(STORAGE_KEY);location.reload()}">Zurücksetzen</button>
+  </div>
+
+  <section>
+    <h2>Turnier-Einstellungen</h2>
+    <div class="grid">
+      <div><label for="title">Turniername</label><input id="title" value="BCW Mini Turnier"></div>
+      <div><label for="date">Datum</label><input id="date" type="date"></div>
+      <div><label for="teamCount">Anzahl Teams</label>
+        <select id="teamCount">
+          <option value="8">8 Teams — 2 Gruppen à 4</option>
+          <option value="6">6 Teams — 2 Gruppen à 3</option>
+          <option value="4">4 Teams — 1 Gruppe, Halbfinale, Finale</option>
+          <option value="3">3 Teams — Hin- &amp; Rückrunde</option>
+        </select>
+      </div>
+      <div><label for="startTime">Spielbeginn</label><input id="startTime" type="time" value="10:00"></div>
+      <div><label for="gameMin">Spielzeit pro Spiel (Minuten)</label><input id="gameMin" type="number" min="1" value="20"></div>
+      <div><label for="gapMin">Pause zwischen Spielblöcken (Minuten)</label><input id="gapMin" type="number" min="0" value="10"></div>
+      <div><label for="courts">Spielfelder</label><input id="courts" type="number" min="1" value="2"></div>
+      <div><label for="checkin">Check-in</label><input id="checkin" type="time" value="09:30"></div>
+      <div><label for="welcome">Begrüßung</label><input id="welcome" type="time" value="09:40"></div>
+      <div><label for="warmup">Aufwärmen</label><input id="warmup" type="time" value="09:45"></div>
+      <div><label for="lunch">Mittagspause</label><input id="lunch" type="time" value="13:00"></div>
+      <div><label for="resume">Spielfortsetzung nach Mittagspause</label><input id="resume" type="time" value="14:00"></div>
+    </div>
+    <p class="notice" id="formatNote"></p>
+    <h3>Teams</h3>
+    <div id="teams" class="team-fields"></div>
+    <div class="toolbar no-print"><button onclick="buildSchedule()">Spielplan aktualisieren</button></div>
+  </section>
+
+  <section>
+    <h2>Spielplan</h2>
+    <p class="muted small no-print">Vorrundenspiele nach Gruppen. Platzierungsspiele werden automatisch mit den aktuellen Tabellenständen und Ergebnissen der vorherigen Runden befüllt.</p>
+    <div id="schedule"></div>
+  </section>
+
+  <section>
+    <h2>Ergebnisse &amp; Gruppenstände</h2>
+    <p class="muted small">Ergebnisse eintragen → Tabelle und Platzierungsspiele aktualisieren sich automatisch. Sortierung: Siege → Punktedifferenz → erzielte Punkte → direkter Vergleich. Bei verbleibendem Gleichstand erscheint eine Warnung.</p>
+    <div id="standings"></div>
+  </section>
+
+  <section>
+    <h2>Endplatzierung</h2>
+    <div id="finalRanking"></div>
+  </section>
+
+  <section>
+    <h2>Turnier-Grundlagen</h2>
+    <div class="grid">
+      <div><label>Turnierbeschreibung</label><textarea id="desc" class="tall">8 Teams — 2 Gruppen à 4 Teams (ggf. 6 Teams — 2 Gruppen à 3 Teams).
+Kleine Varianten: 4 Teams (Vorrunde jeder gegen jeden, Halbfinale 1–4 / 2–3, Spiel um Platz 3 und Finale) und 3 Teams (Hin- und Rückrunde mit Endtabelle).
+Jeder gegen jeden in der Gruppe.
+Bei 8 Teams: mindestens 5 Spiele à 20 Minuten pro Team (3 Gruppenspiele + 2 Platzierungsspiele).
+Bei 6 Teams: 4 Spiele à 20 Minuten pro Team.
+Danach werden alle Plätze ausgespielt.
+2 Spielfelder; 10 Minuten Pause zwischen den Spielen.</textarea></div>
+      <div><label>Schiedsrichter &amp; Kampfgericht</label><textarea id="refs">4 Schiedsrichter werden vom BCW gestellt. Bitte mit unterschiedlichen Pfeifen pro Spielfeld, um Unterscheidungen zu ermöglichen (könnte ein Problem sein).
+Jedes Gast-Team stellt ein Kampfgericht für Spiele, an denen es nicht beteiligt ist. Im besten Falle durch teambegleitende Eltern.</textarea></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Regelwerk</h2>
+    <p>Gespielt wird orientiert an den offiziellen DBB-Miniregeln mit folgenden Vereinfachungen:</p>
+    <ul>
+      <li>Spielzeit: 4 × 5 Minuten ungestoppte Zeit an der Hallenanzeige; für Parallelspiele ausgewiesen.</li>
+      <li>Zwischen Vierteln und Halbzeit wird nur gewechselt, keine Pause.</li>
+      <li>Keine Auszeiten.</li>
+      <li>Spielerwechsel während Spielunterbrechungen (kein fliegender Wechsel).</li>
+      <li>Jeder teilnehmende Spieler muss eingesetzt werden (sofern gesund und unverletzt).</li>
+      <li>Keine Verlängerung nach Ablauf der Zeit. Platzierung per Punktdifferenz am Ende der Gruppenphase bzw. aller Spiele.</li>
+      <li>Ausnahme Finale: 2 Minuten gestoppte Verlängerung.</li>
+      <li>Keine Freiwürfe:
+        <ul>
+          <li>Ab dem 5. Teamfoul im Spiel: 1 Punkt + Einwurf für das gefoulte Team.</li>
+          <li>Foul im Wurf ohne Korberfolg: 1 Punkt + Einwurf für das gefoulte Team.</li>
+          <li>Foul im Wurf mit Korberfolg: 2 Punkte + Einwurf für das gefoulte Team.</li>
+          <li>Technisches/unsportliches Foul: 2 Punkte + Einwurf für das gefoulte Team.</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Zeitplan &amp; Rahmenprogramm</h2>
+    <p class="muted small no-print">Check-in, Begrüßung, Aufwärmen, Spielbeginn, Mittagspause und Spielfortsetzung kommen aus den Einstellungen. Siegerehrung = Ende des Finals + 10 Min, Turnierende = Siegerehrung + 30 Min.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Uhrzeit</th><th>Programmpunkt</th></tr></thead>
+        <tbody id="programBody"></tbody>
+      </table>
+    </div>
+    <p><strong>Danach Rückbau — Viele Hände, schnelles Ende.</strong></p>
+  </section>
+
+  <section>
+    <h2>Verpflegung, Gebühren &amp; Sponsoring</h2>
+    <div class="grid">
+      <div><label>Verpflegung</label><textarea id="food">Während des gesamten Turniers stehen Speisen und Getränke zu moderaten Preisen zur Verfügung.</textarea></div>
+      <div><label>Teilnahmegebühr pro Team (€)</label><input id="fee" type="number" value="0" min="0" step="0.50"></div>
+      <div><label>Event-Sponsoring pro Partner (€)</label><input id="sponsor" type="number" value="0" min="0" step="0.50"></div>
+      <div><label>Ausgaben / Notizen</label><textarea id="expenses" class="tall">4 Schiedsrichter (60 € pro Kopf = 240 €)
+Werbematerial, Messewand, Drucksachen, ggf. T-Shirts für Teilnehmer
+Preise (Pokal, Medaille)</textarea></div>
+    </div>
+    <h3>Kalkulation</h3>
+    <p id="budget"></p>
+  </section>
+
+  <section>
+    <h2>Aufbau-Checkliste</h2>
+    <div class="checklist" id="checklist">
+      <label><input type="checkbox" data-key="c1"> Mülleimer</label>
+      <label><input type="checkbox" data-key="c2"> Turnierleitung: Beschilderung</label>
+      <label><input type="checkbox" data-key="c3"> Turnierleitung: 1 Tisch</label>
+      <label><input type="checkbox" data-key="c4"> Turnierleitung: 2 Stühle</label>
+      <label><input type="checkbox" data-key="c5"> Turnierleitung: Messewand/Fotowand</label>
+      <label><input type="checkbox" data-key="c6"> Turnierleitung: Hallenanzeigebedienung</label>
+      <label><input type="checkbox" data-key="c7"> Verpflegungsstand: Beschilderung</label>
+      <label><input type="checkbox" data-key="c8"> Verpflegungsstand: Preisliste</label>
+      <label><input type="checkbox" data-key="c9"> Verpflegungsstand: 1 Tisch</label>
+      <label><input type="checkbox" data-key="c10"> Verpflegungsstand: 2 Stühle</label>
+      <label><input type="checkbox" data-key="c11"> 2 Spielerbänke pro Spielfeld</label>
+      <label><input type="checkbox" data-key="c12"> 1 Kampfgericht pro Spielfeld: 1 Tisch, 2 Stühle</label>
+      <label><input type="checkbox" data-key="c13"> Spielbogen für jedes Kampfgericht</label>
+      <label><input type="checkbox" data-key="c14"> 2 Stifte pro Kampfgericht</label>
+    </div>
+    <div class="toolbar no-print">
+      <button type="button" class="secondary" onclick="addChecklistItem()">Eintrag hinzufügen</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Siegerehrung</h2>
+    <ul>
+      <li>Platz 1 bekommt einen Pokal.</li>
+      <li>Alle bekommen eine Medaille.</li>
+      <li>Ggf. auch Urkunde, aber nur als Notlösung (ordentliches Papier, bitte!).</li>
+    </ul>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = "bcwPlan_v6";
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const timeToMinutes = t => { const [h,m] = String(t||"0:0").split(":").map(Number); return (h||0)*60+(m||0); };
+const fmt = n => `${String(Math.floor(n/60)%24).padStart(2,"0")}:${String(n%60).padStart(2,"0")}`;
+const fmtTime = t => t ? t + " Uhr" : "—";
+
+let matches = [];          // {id, phase, round, court, a, b, official, time, scoreA, scoreB}
+let awardTime = "";
+let endTimeCalc = "";
+let saveTimer = null;
+
+function readTeams() {
+  return [...document.querySelectorAll(".team-name")].map(x => x.value.trim());
+}
+function perGroup() {
+  const c = Number($("teamCount").value);
+  return c > 4 ? c / 2 : c;
+}
+function teamCode(group, n) {
+  const teams = readTeams();
+  const idx = group === "A" ? n - 1 : perGroup() + n - 1;
+  return teams[idx] || `${group}${n}`;
+}
+
+function toast(msg) {
+  const t = $("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(t._tm);
+  t._tm = setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+/* ========== Teams & Format ========== */
+function renderTeams() {
+  const count = Number($("teamCount").value), per = perGroup(), old = readTeams();
+  $("teams").innerHTML = "";
+  for (let i = 0; i < count; i++) {
+    const v = old[i] || `Team ${i + 1}`;
+    $("teams").insertAdjacentHTML("beforeend",
+      `<div><label for="team${i}">${i < per ? "Gruppe A" : "Gruppe B"} — Team ${i % per + 1}</label>
+       <input class="team-name" id="team${i}" value="${esc(v)}"></div>`);
+  }
+  $("formatNote").textContent = {
+    8: "8 Teams: 2 Gruppen à 4. Drei Gruppenspiele pro Team; danach Platzierungsspiele um die Plätze 1–8.",
+    6: "6 Teams: 2 Gruppen à 3. Zwei Gruppenspiele pro Team; danach Halbfinale/Platzierungsspiele und Finale.",
+    4: "4 Teams: eine Gruppe, jeder gegen jeden (3 Spiele). Danach Halbfinale 1–4 und 2–3, anschließend Spiel um Platz 3 und Finale parallel (5 Spiele pro Team). Da alle Teams spielen, übernimmt die Turnierleitung das Kampfgericht.",
+    3: "3 Teams: Hin- und Rückrunde (6 Spiele, 4 pro Team), gespielt auf einem Feld; das jeweils spielfreie Team stellt das Kampfgericht. Die Endtabelle entscheidet über die Platzierung."
+  }[count];
+  updateProgramDefaults();
+  buildSchedule();
+}
+
+/* ========== Schedule generation ========== */
+function buildSchedule() {
+  const count = Number($("teamCount").value), per = perGroup();
+  const oldScores = {};
+  matches.forEach(m => { if (m.scoreA !== "" || m.scoreB !== "") oldScores[m.id] = { a: m.scoreA, b: m.scoreB }; });
+
+  const slots = [];
+  let mid = 0;
+  const push = (phase, round, court, a, b, official) => {
+    const id = "m" + (mid++);
+    const prev = oldScores[id] || {};
+    slots.push({ id, phase, round, court, a, b, official: official || "", time: "", scoreA: prev.a ?? "", scoreB: prev.b ?? "" });
+  };
+
+  if (count === 3) {
+    const g = [["A1","A2","A3"],["A1","A3","A2"],["A2","A3","A1"]];
+    g.forEach((x, i) => push("Hinrunde", i + 1, 1, x[0], x[1], x[2]));
+    g.forEach((x, i) => push("Rückrunde", i + 4, 1, x[1], x[0], x[2]));
+  } else if (count === 4) {
+    const rows = [
+      [["A1","A2"],["A3","A4"]],
+      [["A1","A3"],["A2","A4"]],
+      [["A1","A4"],["A2","A3"]]
+    ];
+    rows.forEach((row, i) => row.forEach((x, c) => push("Vorrunde", i + 1, c + 1, x[0], x[1], "Turnierleitung")));
+    push("Halbfinale", "HF-1", 1, "1. Gruppe A", "4. Gruppe A", "Turnierleitung");
+    push("Halbfinale", "HF-2", 2, "2. Gruppe A", "3. Gruppe A", "Turnierleitung");
+    push("Endrunde", "Spiel um Platz 3", 1, "Verlierer HF-1", "Verlierer HF-2", "Turnierleitung");
+    push("Endrunde", "FINALE", 2, "Sieger HF-1", "Sieger HF-2", "Turnierleitung");
+  } else if (count === 8) {
+    const rows = [
+      [["A1","A2","B4"],["B1","B2","A4"]],
+      [["A3","A4","B1"],["B3","B4","A1"]],
+      [["A1","A3","B2"],["B1","B3","A2"]],
+      [["A2","A4","B3"],["B2","B4","A3"]],
+      [["A1","A4","B2"],["B1","B4","A2"]],
+      [["A2","A3","B1"],["B2","B3","A1"]]
+    ];
+    rows.forEach((row, i) => row.forEach((x, c) => push("Vorrunde", i + 1, c + 1, x[0], x[1], x[2])));
+    // HF 1–4
+    push("Halbfinale Plätze 1–4", "HF-1", 1, "1. Gruppe A", "2. Gruppe B", "3. Gruppe B");
+    push("Halbfinale Plätze 1–4", "HF-2", 2, "1. Gruppe B", "2. Gruppe A", "3. Gruppe A");
+    // 5–8
+    push("Spiele Plätze 5–8", "P5-1", 1, "3. Gruppe A", "4. Gruppe B", "2. Gruppe A");
+    push("Spiele Plätze 5–8", "P5-2", 2, "3. Gruppe B", "4. Gruppe A", "2. Gruppe B");
+    // Endrunde
+    push("Endrunde", "Spiel um Platz 3", 1, "Verlierer HF-1", "Verlierer HF-2", "Sieger P5-1");
+    push("Endrunde", "Spiel um Platz 7", 2, "Verlierer P5-1", "Verlierer P5-2", "Sieger HF-1");
+    push("Endrunde", "Spiel um Platz 5", 1, "Sieger P5-1", "Sieger P5-2", "Verlierer HF-2");
+    push("Endrunde", "FINALE", 2, "Sieger HF-1", "Sieger HF-2", "Verlierer P5-2");
+  } else { // 6
+    const rows = [
+      [["A1","A2","B3"],["B1","B2","A3"]],
+      [["A1","A3","B2"],["B1","B3","A2"]],
+      [["A2","A3","B1"],["B2","B3","A1"]]
+    ];
+    rows.forEach((row, i) => row.forEach((x, c) => push("Vorrunde", i + 1, c + 1, x[0], x[1], x[2])));
+    push("Halbfinale Plätze 1–2", "HF-1", 1, "1. Gruppe A", "2. Gruppe B", "3. Gruppe B");
+    push("Halbfinale Plätze 1–2", "HF-2", 2, "1. Gruppe B", "2. Gruppe A", "3. Gruppe A");
+    push("Spiele Plätze 3–6", "P3", 1, "3. Gruppe A", "3. Gruppe B", "2. Gruppe A");
+    push("Spiele Plätze 3–6", "P5", 2, "Verlierer HF-1", "Verlierer HF-2", "Sieger HF-1");
+    push("Finale", "FINALE", 1, "Sieger HF-1", "Sieger HF-2", "Sieger P3");
+  }
+
+  // Zeiten berechnen
+  const start = timeToMinutes($("startTime").value);
+  const dur = Number($("gameMin").value) || 20;
+  const gap = Number($("gapMin").value) || 0;
+  const resumeStart = timeToMinutes($("resume").value);
+  const useResume = $("resume").value !== "";
+  const resumeBlock = count === 8 ? 7 : count === 6 ? 5 : 4;
+  let block = 0;
+  let lastEndMin = start;
+
+  slots.forEach(s => {
+    if (s.court === 1) block++;
+    const blockStart = (!useResume || block < resumeBlock)
+      ? start + (block - 1) * (dur + gap)
+      : resumeStart + (block - resumeBlock) * (dur + gap);
+    const blockEnd = blockStart + dur;
+    s.time = `${fmt(blockStart)}–${fmt(blockEnd)}`;
+    lastEndMin = Math.max(lastEndMin, blockEnd);
+  });
+
+  matches = slots;
+  awardTime = fmt(lastEndMin + 10);
+  endTimeCalc = fmt(lastEndMin + 10 + 30);
+
+  renderMatches();
+  renderStandings();
+  renderFinalRanking();
+  renderProgram();
+  scheduleSave();
+}
+
+/* ========== Resolve placeholders ========== */
+function getGroupStandings() {
+  const count = Number($("teamCount").value), per = perGroup();
+  const stats = {};
+  for (let i = 0; i < count; i++) {
+    const group = i < per ? "A" : "B";
+    const code = group + (i % per + 1);
+    stats[code] = { code, name: readTeams()[i] || `Team ${i + 1}`, group, w: 0, l: 0, pf: 0, pa: 0, diff: 0, h2h: {} };
+  }
+
+  // Nur Vorrunden-/Hin-/Rückrundenspiele für Gruppenstände
+  matches.forEach(m => {
+    if (!["Vorrunde", "Hinrunde", "Rückrunde"].includes(m.phase)) return;
+    if (!/^([AB][1-4])$/.test(m.a) || !/^([AB][1-4])$/.test(m.b)) return;
+    if (m.scoreA === "" || m.scoreB === "") return;
+    const x = Number(m.scoreA), y = Number(m.scoreB);
+    const sa = stats[m.a], sb = stats[m.b];
+    if (!sa || !sb) return;
+    sa.pf += x; sa.pa += y; sb.pf += y; sb.pa += x;
+    if (x > y) { sa.w++; sb.l++; sa.h2h[m.b] = 1; sb.h2h[m.a] = 0; }
+    else if (y > x) { sb.w++; sa.l++; sb.h2h[m.a] = 1; sa.h2h[m.b] = 0; }
+  });
+  Object.values(stats).forEach(s => s.diff = s.pf - s.pa);
+
+  const result = {};
+  for (const g of (count > 4 ? ["A", "B"] : ["A"])) {
+    const arr = Object.values(stats).filter(s => s.group === g);
+    arr.sort((a, b) => {
+      if (b.w !== a.w) return b.w - a.w;
+      if (b.diff !== a.diff) return b.diff - a.diff;
+      if (b.pf !== a.pf) return b.pf - a.pf;
+      // Head-to-Head
+      if (a.h2h[b.code] !== undefined) return a.h2h[b.code] ? -1 : 1;
+      if (b.h2h[a.code] !== undefined) return b.h2h[a.code] ? 1 : -1;
+      return 0;
+    });
+    result[g] = arr;
+  }
+  return result;
+}
+
+function getMatchResult(roundKey) {
+  const m = matches.find(x => String(x.round) === roundKey);
+  if (!m || m.scoreA === "" || m.scoreB === "") return null;
+  const a = Number(m.scoreA), b = Number(m.scoreB);
+  if (a === b) return null; // Unentschieden – manuell
+  return a > b ? { winner: m.a, loser: m.b, winnerName: resolve(m.a), loserName: resolve(m.b) }
+               : { winner: m.b, loser: m.a, winnerName: resolve(m.b), loserName: resolve(m.a) };
+}
+
+function resolve(code) {
+  if (!code) return "";
+  const s = String(code);
+
+  // Direkte Team-Codes A1, B2 …
+  const m1 = s.match(/^([AB])([1-4])$/);
+  if (m1) return teamCode(m1[1], Number(m1[2]));
+
+  // "n. Gruppe X"
+  const m2 = s.match(/^(\d)\.\s*Gruppe\s*([AB])$/i);
+  if (m2) {
+    const standings = getGroupStandings();
+    const g = m2[2].toUpperCase();
+    const pos = Number(m2[1]) - 1;
+    if (standings[g] && standings[g][pos]) return standings[g][pos].name;
+    return s; // noch Platzhalter
+  }
+
+  // Sieger / Verlierer HF-x / P5-x / P3 …
+  const m3 = s.match(/^(Sieger|Verlierer)\s+(.+)$/i);
+  if (m3) {
+    const res = getMatchResult(m3[2]);
+    if (!res) return s;
+    return m3[1].toLowerCase() === "sieger" ? res.winnerName : res.loserName;
+  }
+
+  return s;
+}
+
+/* ========== Render matches ========== */
+function renderMatches() {
+  let html = "", phase = "";
+  matches.forEach((m, idx) => {
+    if (m.phase !== phase) {
+      if (phase) html += "</tbody></table></div>";
+      phase = m.phase;
+      html += `<h3>${esc(phase)}</h3><div class="table-wrap"><table><thead><tr>
+        <th>Zeit</th><th>Runde</th><th>Feld</th><th>Spiel</th><th>Kampfgericht</th><th>Ergebnis</th></tr></thead><tbody>`;
+    }
+    const nameA = resolve(m.a);
+    const nameB = resolve(m.b);
+    const off = resolve(m.official) || "—";
+    html += `<tr>
+      <td>${m.time}</td>
+      <td>${esc(m.round)}</td>
+      <td>${m.court}</td>
+      <td>${esc(nameA)} – ${esc(nameB)}</td>
+      <td>${esc(off)}</td>
+      <td>
+        <input aria-label="Punkte ${esc(nameA)}" type="number" min="0" data-id="${m.id}" data-side="a" value="${m.scoreA}" placeholder="A" style="width:4.5em"> :
+        <input aria-label="Punkte ${esc(nameB)}" type="number" min="0" data-id="${m.id}" data-side="b" value="${m.scoreB}" placeholder="B" style="width:4.5em">
+      </td>
+    </tr>`;
+  });
+  if (phase) html += "</tbody></table></div>";
+  $("schedule").innerHTML = html;
+
+  $("schedule").querySelectorAll("input[data-id]").forEach(inp => {
+    inp.addEventListener("input", e => {
+      const id = e.target.dataset.id;
+      const side = e.target.dataset.side;
+      const m = matches.find(x => x.id === id);
+      if (!m) return;
+      if (side === "a") m.scoreA = e.target.value;
+      else m.scoreB = e.target.value;
+      renderStandings();
+      renderMatches();          // Namen in späteren Spielen aktualisieren
+      renderFinalRanking();
+      scheduleSave();
+    });
+  });
+}
+
+/* ========== Standings with tie warning ========== */
+function renderStandings() {
+  const count = Number($("teamCount").value);
+  const standings = getGroupStandings();
+  let out = "";
+  const groups = count > 4 ? ["A", "B"] : ["A"];
+
+  for (const g of groups) {
+    const arr = standings[g] || [];
+    const title = count === 3 ? "Endtabelle (Hin- und Rückrunde)" : count === 4 ? "Tabelle Vorrunde" : "Gruppe " + g;
+    out += `<h3>${title}</h3>`;
+
+    // Gleichstand-Erkennung
+    const ties = [];
+    for (let i = 0; i < arr.length - 1; i++) {
+      const a = arr[i], b = arr[i + 1];
+      if (a.w === b.w && a.diff === b.diff && a.pf === b.pf && a.h2h[b.code] === undefined) {
+        ties.push(`${a.name} / ${b.name}`);
+      }
+    }
+    if (ties.length) {
+      out += `<div class="warn-box">Gleichstand – bitte manuell entscheiden: ${ties.map(esc).join("; ")}</div>`;
+    }
+
+    out += `<div class="table-wrap"><table><thead><tr>
+      <th>Platz</th><th>Team</th><th>Siege</th><th>Niederlagen</th><th>Punkte</th><th>Gegenspunkte</th><th>Diff</th></tr></thead><tbody>`;
+    arr.forEach((s, i) => {
+      const next = arr[i + 1];
+      const isTie = next && s.w === next.w && s.diff === next.diff && s.pf === next.pf && s.h2h[next.code] === undefined;
+      out += `<tr class="${isTie ? "tie" : ""}"><td>${i + 1}</td><td>${esc(s.name)}</td><td>${s.w}</td><td>${s.l}</td>
+        <td>${s.pf}</td><td>${s.pa}</td><td>${s.diff > 0 ? "+" : ""}${s.diff}</td></tr>`;
+    });
+    out += "</tbody></table></div>";
+  }
+  $("standings").innerHTML = out;
+}
+
+/* ========== Final ranking ========== */
+function renderFinalRanking() {
+  const count = Number($("teamCount").value);
+  const places = {}; // place -> teamName
+
+  if (count === 3) {
+    const st = getGroupStandings()["A"] || [];
+    st.forEach((s, i) => places[i + 1] = s.name);
+  } else if (count === 4) {
+    const fin = getMatchResult("FINALE");
+    const p3 = getMatchResult("Spiel um Platz 3");
+    if (fin) { places[1] = fin.winnerName; places[2] = fin.loserName; }
+    if (p3) { places[3] = p3.winnerName; places[4] = p3.loserName; }
+  } else if (count === 6) {
+    const fin = getMatchResult("FINALE");
+    const p5 = getMatchResult("P5");
+    const p3 = getMatchResult("P3");
+    if (fin) { places[1] = fin.winnerName; places[2] = fin.loserName; }
+    if (p5) { places[5] = p5.winnerName; places[6] = p5.loserName; }
+    // Platz 3/4 aus P3 + Verlierer der anderen? Vereinfacht: P3-Sieger = 3, P3-Verlierer = 4
+    if (p3) { places[3] = p3.winnerName; places[4] = p3.loserName; }
+  } else if (count === 8) {
+    const fin = getMatchResult("FINALE");
+    const p3 = getMatchResult("Spiel um Platz 3");
+    const p5 = getMatchResult("Spiel um Platz 5");
+    const p7 = getMatchResult("Spiel um Platz 7");
+    if (fin) { places[1] = fin.winnerName; places[2] = fin.loserName; }
+    if (p3) { places[3] = p3.winnerName; places[4] = p3.loserName; }
+    if (p5) { places[5] = p5.winnerName; places[6] = p5.loserName; }
+    if (p7) { places[7] = p7.winnerName; places[8] = p7.loserName; }
+  }
+
+  const maxP = count;
+  let html = `<div class="table-wrap"><table><thead><tr><th>Platz</th><th>Team</th></tr></thead><tbody>`;
+  let filled = 0;
+  for (let p = 1; p <= maxP; p++) {
+    const name = places[p] || "—";
+    if (places[p]) filled++;
+    html += `<tr><td>${p}</td><td>${esc(name)}</td></tr>`;
+  }
+  html += "</tbody></table></div>";
+  if (filled < maxP) {
+    html = `<p class="muted small">Noch nicht alle Platzierungsspiele ausgetragen bzw. Ergebnisse eingetragen.</p>` + html;
+  }
+  $("finalRanking").innerHTML = html;
+}
+
+/* ========== Program & Budget ========== */
+function renderProgram() {
+  const six = Number($("teamCount").value) === 6;
+  const rows = [
+    [$("checkin").value, "Check-in bei der Turnierleitung"],
+    [$("welcome").value, "Begrüßung durch Turnierleitung"],
+    [$("warmup").value, "Aufwärmen"],
+    [$("startTime").value, "Spielbeginn"],
+    [$("lunch").value, "Mittagspause" + (six ? " (bei 6 Teams 12 Uhr)" : "")],
+    [$("resume").value, Number($("teamCount").value) === 3 ? "Weiter mit der Rückrunde" : "Weiter mit den Platzierungsspielen"],
+    [awardTime, "Siegerehrung (10 Min nach Finalende)"],
+    [endTimeCalc, "Turnierende (30 Min nach Siegerehrung)"]
+  ];
+  $("programBody").innerHTML = rows.filter(([t]) => t).map(([t, label]) =>
+    `<tr><td>${esc(fmtTime(t))}</td><td>${esc(label)}</td></tr>`
+  ).join("");
+}
+
+function updateProgramDefaults() {
+  const c = Number($("teamCount").value);
+  const d = { 8: ["13:00", "14:00"], 6: ["12:00", "13:00"], 4: ["", ""], 3: ["", ""] }[c];
+  if (["", "12:00", "13:00"].includes($("lunch").value)) $("lunch").value = d[0];
+  if (["", "13:00", "14:00"].includes($("resume").value)) $("resume").value = d[1];
+}
+
+function updateBudget() {
+  $("budget").textContent = `Bekannte Schiedsrichterkosten: 4 × 60 € = 240 €. Teilnahmegebühr und Sponsoring können oben bearbeitet werden; weitere Ausgaben bitte in den Notizen ergänzen.`;
+}
+
+function addChecklistItem() {
+  const div = $("checklist");
+  const label = document.createElement("label");
+  const key = "c" + Date.now();
+  label.innerHTML = `<input type="checkbox" data-key="${key}"> <input type="text" placeholder="Neuer Eintrag…" value="">`;
+  div.appendChild(label);
+  label.querySelector('input[type="text"]').focus();
+  scheduleSave();
+}
+
+/* ========== Persistence ========== */
+function collectState() {
+  return {
+    version: 6,
+    settings: {
+      title: $("title").value, date: $("date").value, teamCount: $("teamCount").value,
+      startTime: $("startTime").value, gameMin: $("gameMin").value, gapMin: $("gapMin").value,
+      courts: $("courts").value, checkin: $("checkin").value, welcome: $("welcome").value,
+      warmup: $("warmup").value, lunch: $("lunch").value, resume: $("resume").value
+    },
+    teams: readTeams(),
+    scores: matches.map(m => ({ id: m.id, a: m.scoreA, b: m.scoreB })),
+    notes: {
+      desc: $("desc").value, refs: $("refs").value, food: $("food").value,
+      fee: $("fee").value, sponsor: $("sponsor").value, expenses: $("expenses").value
+    },
+    checklist: [...document.querySelectorAll("#checklist label")].map(l => {
+      const cb = l.querySelector('input[type="checkbox"]');
+      const tx = l.querySelector('input[type="text"]');
+      return { key: cb?.dataset.key, checked: !!cb?.checked, text: tx ? tx.value : l.textContent.trim() };
+    })
+  };
+}
+
+function applyState(d) {
+  if (!d) return;
+  Object.entries(d.settings || {}).forEach(([k, v]) => { if ($(k)) $(k).value = v; });
+  renderTeams();
+  (d.teams || []).forEach((v, i) => { const el = $(`team${i}`); if (el) el.value = v; });
+  // Scores nach buildSchedule setzen
+  buildSchedule();
+  if (Array.isArray(d.scores)) {
+    d.scores.forEach(s => {
+      const m = matches.find(x => x.id === s.id);
+      if (m) { m.scoreA = s.a ?? ""; m.scoreB = s.b ?? ""; }
+    });
+  }
+  if (d.notes) {
+    if (d.notes.desc !== undefined) $("desc").value = d.notes.desc;
+    if (d.notes.refs !== undefined) $("refs").value = d.notes.refs;
+    if (d.notes.food !== undefined) $("food").value = d.notes.food;
+    if (d.notes.fee !== undefined) $("fee").value = d.notes.fee;
+    if (d.notes.sponsor !== undefined) $("sponsor").value = d.notes.sponsor;
+    if (d.notes.expenses !== undefined) $("expenses").value = d.notes.expenses;
+  }
+  if (Array.isArray(d.checklist)) {
+    // Bestehende + dynamische Einträge wiederherstellen
+    const box = $("checklist");
+    box.innerHTML = "";
+    d.checklist.forEach(item => {
+      const label = document.createElement("label");
+      if (item.text && !item.key?.startsWith("c") || item.key) {
+        label.innerHTML = `<input type="checkbox" data-key="${item.key || ""}" ${item.checked ? "checked" : ""}> ${item.text && item.key?.length > 3 ? `<input type="text" value="${esc(item.text)}">` : esc(item.text || "")}`;
+        // Einfacher: Text als Label-Inhalt wenn kein Freitext-Input
+        if (!item.key || item.key.length <= 3) {
+          label.innerHTML = `<input type="checkbox" data-key="${item.key || ""}" ${item.checked ? "checked" : ""}> ${esc(item.text || "")}`;
+        } else {
+          label.innerHTML = `<input type="checkbox" data-key="${item.key}" ${item.checked ? "checked" : ""}> <input type="text" value="${esc(item.text || "")}">`;
+        }
+      }
+      box.appendChild(label);
+    });
+  }
+  renderMatches();
+  renderStandings();
+  renderFinalRanking();
+  renderProgram();
+  document.title = $("title").value || "BCW Mini-Turnierplaner";
+}
+
+function scheduleSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => saveLocal(false), 400);
+}
+
+function saveLocal(showAlert) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(collectState()));
+    if (showAlert) toast("Planung gespeichert (inkl. Ergebnisse)");
+    else toast("Auto-gespeichert");
+  } catch (e) {
+    toast("Speichern fehlgeschlagen – bitte JSON exportieren");
+  }
+}
+
+function loadLocal() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) { alert("Keine gespeicherte Planung gefunden."); return; }
+    applyState(JSON.parse(raw));
+    toast("Gespeicherte Planung geladen");
+  } catch (e) {
+    alert("Gespeicherte Daten konnten nicht geladen werden.");
+  }
+}
+
+function exportJSON() {
+  const data = collectState();
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }));
+  a.download = `bcw-turnierplanung-${$("date").value || "export"}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast("JSON exportiert");
+}
+
+$("jsonFile").addEventListener("change", async e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  try {
+    const d = JSON.parse(await f.text());
+    applyState(d);
+    saveLocal(false);
+    toast("JSON importiert");
+  } catch (err) {
+    alert("Die JSON-Datei konnte nicht eingelesen werden.");
+  }
+  e.target.value = "";
+});
+
+/* ========== Events ========== */
+$("teamCount").addEventListener("change", () => { renderTeams(); scheduleSave(); });
+["startTime", "gameMin", "gapMin", "resume"].forEach(id => $(id).addEventListener("change", () => { buildSchedule(); scheduleSave(); }));
+["checkin", "welcome", "warmup", "lunch"].forEach(id => $(id).addEventListener("change", () => { renderProgram(); scheduleSave(); }));
+$("teams").addEventListener("input", () => { buildSchedule(); scheduleSave(); });
+$("title").addEventListener("input", () => { document.title = $("title").value; $("pageTitle").textContent = $("title").value; scheduleSave(); });
+document.querySelectorAll("textarea, #fee, #sponsor, #date, #courts").forEach(el => {
+  el.addEventListener("input", scheduleSave);
+});
+$("checklist").addEventListener("change", scheduleSave);
+$("checklist").addEventListener("input", scheduleSave);
+
+// Auto-load beim Start
+try {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (raw) {
+    applyState(JSON.parse(raw));
+  } else {
+    renderTeams();
+    updateBudget();
+  }
+} catch {
+  renderTeams();
+  updateBudget();
+}
+updateBudget();
+</script>
+</body>
+</html>
