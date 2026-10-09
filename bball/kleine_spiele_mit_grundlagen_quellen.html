@@ -627,7 +627,7 @@ toTop.addEventListener('click',()=>{window.scrollTo({top:0});search.focus({preve
 
 /* Druck: Auswahlknopf druckt die Auswahl, Browserdruck (Strg+P) die sichtbaren Karten.
    Ab PRINT_LIMIT Karten wird nicht automatisch gedruckt, damit nicht versehentlich Hunderte Seiten entstehen. */
-const PRINT_LIMIT=30;
+const PRINT_LIMIT=80;
 let printMode='visible',printAt=0;
 const pagesFor=list=>Math.max(1,Math.ceil(list.reduce((a,c)=>a+c._len,0)/2200));
 function preparePrint(){
@@ -643,7 +643,7 @@ function preparePrint(){
   head.classList.toggle('hint',tooMany);
   if(tooMany){
     for(const c of cards)c.classList.remove('print-picked');
-    head.textContent='Hinweis: '+n+' Karten sind sichtbar – das wären rund '+pagesFor(cards.filter(c=>!c.hidden))+' Seiten. Bitte Filter setzen oder Karten ankreuzen und „Auswahl drucken“ verwenden.';
+    head.textContent='Hinweis: '+n+' Karten sind sichtbar – das wären rund '+pagesFor(cards.filter(c=>!c.hidden))+' Seiten. Bitte Filter setzen oder die gewünschten Karten ankreuzen und unten in der Leiste auf „Drucken“ tippen. Der normale Browser-Druck ist bei so vielen Karten gesperrt.';
   }else{
     head.textContent='Kleine Spiele und Spielformen – '+n+(n===1?' Karte':' Karten')+' – '+new Date().toLocaleDateString('de-DE');
   }
