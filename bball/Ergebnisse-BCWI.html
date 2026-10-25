@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta
+    name="description"
+    content="Aktuelle Basketballspiele und Ergebnisse im Vereinsspielplan."
+  >
+  <meta name="theme-color" content="#f39402">
+
+  <title>Basketball · Vereinsspielplan</title>
+
+  <!-- Offizielles Basketball-Bund-Widget -->
+  <script
+    defer
+    src="https://www.basketball-bund.net/rest/widget/widgetjs"
+  ></script>
+
+  <style>
+    :root {
+      color-scheme: light;
+      --color-primary: #f39402;
+      --color-background: #f4f5f7;
+      --color-surface: #ffffff;
+      --color-text: #222222;
+      --color-muted: #606773;
+      --color-border: #e5e7eb;
+      --radius-card: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-width: 280px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--color-background);
+      color: var(--color-text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      line-height: 1.6;
+    }
+
+    .siteHeader {
+      padding: 44px 20px 56px;
+      background: #222222;
+      color: #ffffff;
+      text-align: center;
+      border-top: 6px solid var(--color-primary);
+    }
+
+    .siteHeader__label {
+      margin: 0 0 10px;
+      color: var(--color-primary);
+      font-size: 0.8rem;
+      font-weight: 750;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .siteHeader__title {
+      margin: 0;
+      font-size: clamp(1.9rem, 6vw, 3rem);
+      line-height: 1.2;
+    }
+
+    .siteHeader__description {
+      max-width: 44ch;
+      margin: 14px auto 0;
+      color: #d5d7dc;
+    }
+
+    .mainContent {
+      flex: 1;
+      width: 100%;
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 28px 16px 40px;
+    }
+
+    .scheduleCard {
+      overflow: hidden;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      box-shadow: 0 12px 36px rgb(0 0 0 / 6%);
+    }
+
+    .scheduleCard__header {
+      padding: 22px 20px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .scheduleCard__title {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    .scheduleCard__description {
+      margin: 6px 0 0;
+      color: var(--color-muted);
+      font-size: 0.925rem;
+    }
+
+    .scheduleCard__content {
+      padding: 20px 12px;
+    }
+
+    .widgetContainer {
+      width: 100%;
+      max-width: 500px;
+      min-height: 700px;
+      margin-inline: auto;
+    }
+
+    .widgetContainer iframe {
+      display: block;
+      max-width: 100%;
+      border: 0;
+    }
+
+    .widgetMessage {
+      max-width: 500px;
+      margin: 0 auto 16px;
+      padding: 14px 16px;
+      background: #fff5e5;
+      border: 1px solid #efcf9d;
+      border-radius: 10px;
+      color: #68420b;
+      font-size: 0.925rem;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .siteFooter {
+      padding: 0 20px 24px;
+      color: var(--color-muted);
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    @media (min-width: 600px) {
+      .scheduleCard__header {
+        padding: 24px 28px;
+      }
+
+      .scheduleCard__content {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Seitenkopf -->
+  <header class="siteHeader">
+    <p class="siteHeader__label">Basketball</p>
+    <h1 class="siteHeader__title">Spiele &amp; Ergebnisse</h1>
+    <p class="siteHeader__description">
+      Der Vereinsspielplan auf einen Blick – mit Begegnungen,
+      Spielzeiten und Ergebnissen.
+    </p>
+  </header>
+
+  <!-- Hauptinhalt mit Vereinswidget -->
+  <main class="mainContent">
+    <section class="scheduleCard" aria-labelledby="scheduleTitle">
+      <header class="scheduleCard__header">
+        <h2 class="scheduleCard__title" id="scheduleTitle">
+          Vereinsspielplan
+        </h2>
+        <p class="scheduleCard__description">
+          Heim- und Auswärtsspiele · Zeitraum: 8 Tage
+        </p>
+      </header>
+
+      <div class="scheduleCard__content">
+        <p
+          class="widgetMessage"
+          id="widgetError"
+          role="alert"
+          hidden
+        >
+          Der Spielplan konnte nicht gestartet werden.
+          Bitte prüfen Sie Ihre Internetverbindung und laden Sie
+          die Seite erneut.
+        </p>
+
+        <noscript>
+          <p class="widgetMessage">
+            Bitte aktivieren Sie JavaScript, um den Spielplan anzuzeigen.
+          </p>
+        </noscript>
+
+        <div
+          class="widgetContainer"
+          id="widget_1792926868456"
+          role="region"
+          aria-label="Basketball-Vereinsspielplan"
+        ></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="siteFooter">
+    Spielplandaten über basketball-bund.net
+  </footer>
+
+  <script>
+    // Startet das Widget nach dem Laden des Dokuments und des externen Scripts.
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("widget_1792926868456");
+      const errorMessage = document.getElementById("widgetError");
+
+      try {
+        if (typeof window.widget?.vereinswidget !== "function") {
+          throw new Error("Das Widget-Script ist nicht verfügbar.");
+        }
+
+        // Auf kleinen Bildschirmen die verfügbare Breite verwenden.
+        const widgetWidth = Math.min(
+          500,
+          Math.floor(container.getBoundingClientRect().width)
+        );
+
+        window.widget.vereinswidget("widget_1792926868456", {
+          iframeWidth: widgetWidth,
+          iframeHeight: 700,
+          showRefreshButton: true,
+          titleColor: "FFFFFF",
+          titleBgColor: "F39402",
+          tapColor: "FFFFFF",
+          tapBgColor: "333333",
+          colorMatchGroup: "666666",
+          bgColorMatchGroup: "F0F0F0",
+          colorMatchListItem: "000000",
+          bgColorMatchListItem: "FFFFFF",
+          showKuerzelInSpiele: false,
+          vereinsId: "846",
+          homeMatchesOnlyInit: false,
+          rangeDays: 8
+        });
+
+        // Das vom Anbieter erzeugte iframe zugänglich beschriften.
+        const iframe = container.querySelector("iframe");
+
+        if (iframe && !iframe.title) {
+          iframe.title = "Basketballspiele und Ergebnisse des Vereins";
+        }
+      } catch (error) {
+        container.hidden = true;
+        errorMessage.hidden = false;
+        console.error("Fehler beim Starten des Basketball-Widgets:", error);
+      }
+    });
+  </script>
+</body>
+</html>
