@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Box-Score-Rechner</title><style>
+:root{--bg:#fff;--fg:#1a1a1a;--card:#f1eeea;--ac:#e8590c;--mut:#6b6b6b;box-sizing:border-box;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141414;--fg:#f2f2f2;--card:#232323;--ac:#ff8a3d;--mut:#9a9a9a}}
+:root[data-theme="dark"]{--bg:#141414;--fg:#f2f2f2;--card:#232323;--ac:#ff8a3d;--mut:#9a9a9a}
+*{box-sizing:border-box}body{margin:0 auto;background:var(--bg);color:var(--fg);font:16px/1.4 system-ui,-apple-system,Segoe UI,sans-serif;padding:16px;max-width:1100px}
+h1{font-size:1.4rem;margin:0}button,input,select{font:inherit;color:var(--fg)}button{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer}button.s{background:var(--card);color:var(--fg)}
+input,select{background:var(--card);border:1px solid #8884;border-radius:8px;padding:8px;width:100%}.card{background:var(--card);border-radius:14px;padding:14px;margin-bottom:12px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}label{font-size:.8rem;color:var(--mut);display:block}
+.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.score-pill{background:var(--ac);color:#fff;font-weight:800;font-size:1.1rem;padding:4px 12px;border-radius:99px}
+table{width:100%;border-collapse:collapse}th{font-size:.7rem;color:var(--mut);text-align:center;padding-bottom:4px;white-space:nowrap}th.grp{border-bottom:1px solid #8883;padding:0 2px 2px}td{padding:3px 1px}
+.num-box{display:flex;align-items:center;justify-content:center;gap:2px}
+.num-box input{padding:5px 1px;text-align:center;width:36px;font-weight:600}
+.st-btn{padding:4px 6px;border-radius:6px;font-size:.85rem;background:var(--bg);color:var(--fg);border:1px solid #8883;line-height:1}
+td:first-child input{text-align:left;min-width:95px}td.c{text-align:center;font-weight:700;padding:0 6px}td.sep,th.sep{border-left:1px solid #8883}
+.w{overflow-x:auto}tfoot td{font-weight:700;text-align:center;padding-top:6px}tfoot tr.t td{border-top:1px solid #8883}tfoot tr.q td{font-weight:500;font-size:.75rem;color:var(--mut)}pre{white-space:pre-wrap;font:inherit;margin:0;font-size:.92rem}
+.hint{font-size:.8rem;color:var(--mut);margin:0 0 10px}.pt{display:none}
+@page{size:A4 landscape;margin:10mm}
+@media print{
+  :root,body{--bg:#fff;--fg:#000;--card:#fff;--mut:#444;background:#fff;color:#000}
+  body{padding:0;max-width:none;font-size:11px}
+  .noprint,.st-btn,td:last-child,th:last-child{display:none!important}
+  .pt{display:block;margin:0 0 6px;font-size:12px}
+  .card{background:#fff;border:0;padding:0;margin-bottom:8px}.card.w{overflow:visible}
+  .score-pill{background:none;color:#000;border:1px solid #000}
+  input{border:0!important;background:none!important;padding:0!important;color:#000!important;-moz-appearance:textfield;appearance:textfield}
+  input::-webkit-inner-spin-button,input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+  .num-box input{width:26px}td:first-child input{min-width:0;width:100px}
+  th,td{border-bottom:1px solid #ccc;color:#000}th{color:#444}
+  #gcard input{font-size:14px;font-weight:700}#gcard label{display:none}
+  pre{font-size:10.5px}tr{break-inside:avoid}
+}</style></head><body>
+<div class="hdr">
+  <h1>📊 Box-Score-Rechner</h1>
+  <div class="score-pill" id="totPts">0 PTS</div>
+</div>
+<div class="pt" id="ptDate"></div>
+<div class="card" id="gcard"><label>Spiel / Gegner</label><input id="g" placeholder="z. B. Heimspiel gegen die Eagles"></div>
+<div class="card w">
+  <p class="hint noprint">Bei „Tr.“ (Treffer) zählt der +-Button die Wurfversuche automatisch mit. Bei einem Fehlwurf drückst du nur „Vers.“ – dieser Fehlwurf zählt in der EFF negativ. PTS = 2 × 2er-Treffer + 3 × 3er-Treffer + Freiwurf-Treffer.</p>
+  <table><thead id="th"></thead><tbody id="b"></tbody><tfoot><tr class="t" id="f"></tr><tr class="q" id="fq"></tr></tfoot></table>
+</div>
+<div class="row noprint" style="margin-bottom:12px">
+  <button id="add">+ Spieler</button>
+  <button id="pdf">🖨️ Als PDF drucken</button>
+  <button class="s" id="cp">Bericht kopieren</button>
+  <button class="s" id="rst">Werte 0</button>
+  <button class="s" id="new8">Neu: 8 Spieler</button>
+</div>
+<div class="card"><label>Spielbericht</label><pre id="rep"></pre></div>
+<script>
+const B=document.getElementById("b"),KEY="bb_boxscore_v3",START=8;let n=0;
+const COLS=[
+ {k:"a2",h:"Vers.",g:"2er",in:1,sep:1},{k:"m2",h:"Tr.",g:"2er",in:1,pair:"a2"},
+ {k:"a3",h:"Vers.",g:"3er",in:1,sep:1},{k:"m3",h:"Tr.",g:"3er",in:1,pair:"a3"},
+ {k:"aF",h:"Vers.",g:"Freiwurf",in:1,sep:1},{k:"mF",h:"Tr.",g:"Freiwurf",in:1,pair:"aF"},
+ {k:"pts",h:"PTS",g:"",sep:1},
+ {k:"or",h:"OREB",g:"Rebounds",in:1,sep:1},{k:"dr",h:"DREB",g:"Rebounds",in:1},{k:"reb",h:"REB",g:"Rebounds"},
+ {k:"as",h:"AST",g:"",in:1,sep:1},{k:"st",h:"STL",g:"",in:1},{k:"bl",h:"BLK",g:"",in:1},{k:"to",h:"TOV",g:"",in:1},
+ {k:"eff",h:"EFF",g:"",sep:1}];
+const el=id=>document.getElementById(id);
+
+function head(){
+  let g1="<tr><th></th>",g2='<tr><th style="text-align:left">Spieler</th>',i=0;
+  while(i<COLS.length){
+    const c=COLS[i];let span=1;
+    if(c.g){while(i+span<COLS.length&&COLS[i+span].g===c.g)span++}
+    g1+='<th class="grp'+(c.sep?" sep":"")+'" colspan="'+span+'">'+c.g+"</th>";
+    for(let j=0;j<span;j++)g2+='<th class="'+(COLS[i+j].sep?"sep":"")+'">'+COLS[i+j].h+"</th>";
+    i+=span;
+  }
+  el("th").innerHTML=g1+"<th></th></tr>"+g2+"<th></th></tr>";
+}
+
+function makeCell(c,val,prevInp){
+  const td=document.createElement("td");if(c.sep)td.className="sep";
+  td.innerHTML='<div class="num-box"><input type="number" inputmode="numeric" min="0" data-k="'+c.k+'" value="'+(val||0)+'"><button type="button" class="st-btn">+</button></div>';
+  const inp=td.querySelector("input");
+  td.querySelector("button").onclick=()=>{
+    inp.value=(+inp.value||0)+1;
+    if(c.pair&&prevInp)prevInp.value=Math.max(+prevInp.value||0,+inp.value);
+    calc();
+  };
+  return td;
+}
+
+function add(data){
+  n++;const tr=document.createElement("tr");
+  const name=data?data.n:("Spieler "+n);
+  const tdName=document.createElement("td");
+  tdName.innerHTML='<input value="'+String(name).replace(/"/g,"&quot;")+'">';
+  tr.appendChild(tdName);tr._c={};
+  let prev=null;
+  COLS.forEach(c=>{
+    if(c.in){const td=makeCell(c,data&&data.v?data.v[c.k]:0,prev);tr.appendChild(td);prev=td.querySelector("input")}
+    else{const td=document.createElement("td");td.className="c"+(c.sep?" sep":"");td.textContent="0";tr.appendChild(td);tr._c[c.k]=td;prev=null}
+  });
+  const tdDel=document.createElement("td");
+  tdDel.innerHTML='<button type="button" class="s" style="padding:4px 8px">✕</button>';
+  tdDel.querySelector("button").onclick=()=>{tr.remove();calc()};
+  tr.appendChild(tdDel);
+  B.appendChild(tr);calc();
+}
+
+B.oninput=()=>calc();
+
+const pct=(m,a)=>a>0?Math.round(m/a*100)+" %":"–";
+function calc(){
+  const T={};COLS.forEach(c=>T[c.k]=0);const rows=[];
+  [...B.children].forEach(tr=>{
+    const v={};
+    tr.querySelectorAll("input[data-k]").forEach(i=>v[i.dataset.k]=Math.max(0,+i.value||0));
+    [["a2","m2"],["a3","m3"],["aF","mF"]].forEach(([a,m])=>{
+      if(v[m]>v[a]){v[a]=v[m];tr.querySelector('[data-k="'+a+'"]').value=v[a]}
+    });
+    v.pts=2*v.m2+3*v.m3+v.mF;v.reb=v.or+v.dr;
+    // NBA-EFF: (PTS+REB+AST+STL+BLK) - (FGA-FGM) - (FTA-FTM) - TOV
+    v.eff=v.pts+v.reb+v.as+v.st+v.bl-((v.a2+v.a3)-(v.m2+v.m3))-(v.aF-v.mF)-v.to;
+    ["pts","reb","eff"].forEach(k=>tr._c[k].textContent=v[k]);
+    COLS.forEach(c=>T[c.k]+=v[c.k]);
+    rows.push({n:tr.querySelector("input").value,v});
+  });
+  el("totPts").textContent=T.pts+" PTS";
+  el("f").innerHTML='<td style="text-align:left">Team</td>'+COLS.map(c=>"<td"+(c.sep?' class="sep"':"")+">"+T[c.k]+"</td>").join("")+"<td></td>";
+  const q={m2:pct(T.m2,T.a2),m3:pct(T.m3,T.a3),mF:pct(T.mF,T.aF)};
+  el("fq").innerHTML='<td style="text-align:left">Quote</td>'+COLS.map(c=>"<td"+(c.sep?' class="sep"':"")+">"+(q[c.k]||"")+"</td>").join("")+"<td></td>";
+
+  const top=(k,l)=>{if(!rows.length)return"";const m=Math.max(...rows.map(r=>r.v[k]));return m>0?l+": "+rows.filter(r=>r.v[k]==m).map(r=>r.n).join(", ")+" ("+m+")\n":""};
+  const best=rows.length?rows.reduce((a,b)=>b.v.eff>a.v.eff?b:a):null;
+  const fg=(T.m2+T.m3),fga=(T.a2+T.a3);
+  const gTitle=el("g").value;
+  const lines=rows.filter(r=>COLS.some(c=>c.in&&r.v[c.k]>0)).map(r=>{const v=r.v;
+    return "• "+r.n+": "+v.pts+" PTS | 2er "+v.m2+"/"+v.a2+" | 3er "+v.m3+"/"+v.a3+" | FW "+v.mF+"/"+v.aF+" | REB "+v.reb+" (O "+v.or+", D "+v.dr+") | AST "+v.as+" | STL "+v.st+" | BLK "+v.bl+" | TOV "+v.to+" | EFF "+v.eff}).join("\n");
+  el("rep").textContent=
+    (gTitle||"Spielbericht")+"\n\n"+
+    "Team: "+T.pts+" PTS | "+T.reb+" REB (O "+T.or+", D "+T.dr+") | "+T.as+" AST | "+T.st+" STL | "+T.bl+" BLK | "+T.to+" TOV | EFF "+T.eff+"\n"+
+    "Würfe: 2er "+T.m2+"/"+T.a2+" ("+pct(T.m2,T.a2)+") | 3er "+T.m3+"/"+T.a3+" ("+pct(T.m3,T.a3)+") | FW "+T.mF+"/"+T.aF+" ("+pct(T.mF,T.aF)+") | Feldwurf gesamt "+fg+"/"+fga+" ("+pct(fg,fga)+")\n\n"+
+    top("pts","Topscorer")+top("or","Meiste Off. Rebounds")+top("dr","Meiste Def. Rebounds")+top("reb","Meiste Rebounds gesamt")+top("as","Meiste Assists")+top("st","Meiste Steals")+top("bl","Meiste Blocks")+
+    (best&&best.v.eff>0?"MVP / Effizientester Spieler: "+best.n+" (EFF "+best.v.eff+")\n":"")+
+    (lines?"\nEinzelwerte:\n"+lines+"\n":"")+
+    "\nEFF (NBA-Formel) = PTS + REB + AST + STL + BLK − Fehlwürfe (Feld) − Fehlwürfe (Freiwurf) − TOV. Würfe als Treffer/Versuche.";
+  try{localStorage.setItem(KEY,JSON.stringify({g:gTitle,rows}))}catch(e){}
+}
+
+function fresh(){B.innerHTML="";n=0;for(let i=0;i<START;i++)add()}
+el("g").oninput=calc;
+el("add").onclick=()=>add();
+el("rst").onclick=()=>{[...B.children].forEach(tr=>tr.querySelectorAll("input[data-k]").forEach(i=>i.value=0));calc()};
+el("new8").onclick=()=>{if(confirm("Alle Spieler und Werte löschen und mit 8 neuen Spielern starten?")){fresh()}};
+el("cp").onclick=()=>{
+  try{navigator.clipboard.writeText(el("rep").textContent);const b=el("cp");b.textContent="Kopiert ✓";setTimeout(()=>b.textContent="Bericht kopieren",1500)}catch(e){}
+};
+const oldTitle=document.title;
+el("pdf").onclick=()=>{
+  const d=new Date().toLocaleDateString("de-DE"),g=el("g").value.trim();
+  el("ptDate").textContent="Box Score · "+d;
+  document.title=("Box-Score "+(g?g+" ":"")+d.replace(/\./g,"-")).trim();
+  calc();window.print();
+};
+addEventListener("afterprint",()=>{document.title=oldTitle});
+
+head();
+try{
+  const saved=JSON.parse(localStorage.getItem(KEY)||"null");
+  if(saved&&saved.rows&&saved.rows.length){el("g").value=saved.g||"";saved.rows.forEach(r=>add(r))}
+  else fresh();
+}catch(e){fresh()}
+</script></body></html>
