@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Intervall-Timer</title><style>
+:root{--bg:#fff;--fg:#1a1a1a;--card:#f1eeea;--ac:#e8590c;--mut:#6b6b6b;box-sizing:border-box;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141414;--fg:#f2f2f2;--card:#232323;--ac:#ff8a3d;--mut:#9a9a9a}}
+:root[data-theme="dark"]{--bg:#141414;--fg:#f2f2f2;--card:#232323;--ac:#ff8a3d;--mut:#9a9a9a}
+*{box-sizing:border-box}body{margin:0 auto;background:var(--bg);color:var(--fg);font:16px/1.4 system-ui,-apple-system,Segoe UI,sans-serif;padding:16px;max-width:720px}
+h1{font-size:1.4rem;margin:0 0 12px}button,input,select{font:inherit;color:var(--fg)}button{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:12px 16px;font-weight:600;cursor:pointer}button.s{background:var(--card);color:var(--fg)}
+input,select{background:var(--card);border:1px solid #8884;border-radius:8px;padding:8px;width:100%}.card{background:var(--card);border-radius:14px;padding:14px;margin-bottom:12px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}label{font-size:.8rem;color:var(--mut);display:block}
+#disp{transition:background .15s;padding:22px 14px}
+#t{font-size:min(24vw,6.2rem);font-weight:800;text-align:center;font-variant-numeric:tabular-nums;line-height:1.1}
+#ph{text-align:center;font-size:1.5rem;font-weight:800;letter-spacing:.1em}.g{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.presets{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+.presets button{padding:8px 6px;font-size:.78rem}</style></head><body>
+<h1>🏀 Intervall-Timer</h1>
+<div class="presets">
+  <button type="button" class="s" data-w="45" data-r="15" data-n="8">🎯 Wurf-Drill<br><small>45s / 15s × 8</small></button>
+  <button type="button" class="s" data-w="20" data-r="10" data-n="8">🔥 Tabata<br><small>20s / 10s × 8</small></button>
+  <button type="button" class="s" data-w="30" data-r="30" data-n="6">🏃 Suicides<br><small>30s / 30s × 6</small></button>
+</div>
+<div class="card" id="disp">
+  <div id="ph">BEREIT</div>
+  <div id="t">00:45</div>
+  <div id="rd" style="text-align:center;color:var(--mut);margin-top:4px">Runde 0 / 8</div>
+</div>
+<div class="card g">
+  <div><label>Arbeit (Sek.)</label><input id="w" type="number" value="45" min="1"></div>
+  <div><label>Pause (Sek.)</label><input id="r" type="number" value="15" min="0"></div>
+  <div><label>Runden</label><input id="n" type="number" value="8" min="1"></div>
+</div>
+<div class="row">
+  <button id="go" style="flex:2;font-size:1.1rem">Start (5s Vorlauf)</button>
+  <button class="s" id="rs" style="flex:1">Reset</button>
+</div>
+<script>
+const $=i=>document.getElementById(i);let AC,iv=null,st=null,wakeLock=null;
+
+async function setWake(on){try{if(on&&"wakeLock"in navigator)wakeLock=await navigator.wakeLock.request("screen");else if(wakeLock){await wakeLock.release();wakeLock=null}}catch(e){}}
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&iv)setWake(true)});
+
+function beep(f,d){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f;o.connect(g);g.connect(AC.destination);g.gain.value=.3;o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function whistle(){beep(2600,.16);setTimeout(()=>beep(2850,.28),190)}
+
+const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+
+function show(){
+  if(!st)return;
+  $("t").textContent=fmt(Math.max(0,Math.ceil(st.left)));
+  $("ph").textContent=st.ph;
+  $("rd").textContent="Runde "+st.rd+" / "+st.N;
+  $("disp").style.background=st.ph==="ARBEIT"?"#2f9e4466":st.ph==="PAUSE"?"#f0a40066":st.ph==="VORLAUF"?"#1c6dd055":"";
+}
+
+function begin(ph,rd){
+  st.ph=ph;st.rd=rd;st.c=-1;
+  st.left=ph==="VORLAUF"?5:ph==="ARBEIT"?st.W:st.R;
+  if(ph==="ARBEIT")whistle();
+  else if(ph==="PAUSE")beep(440,.45);
+}
+
+function tick(){
+  const now=Date.now();st.left-=(now-st.last)/1000;st.last=now;
+  const c=Math.ceil(st.left);
+  if(c!==st.c&&c<=3&&c>0)beep(660,.12);
+  st.c=c;
+  if(st.left<=0){
+    if(st.ph==="VORLAUF")begin("ARBEIT",1);
+    else if(st.ph==="ARBEIT"){
+      if(st.rd>=st.N)return fin();
+      if(st.R>0)begin("PAUSE",st.rd);else begin("ARBEIT",st.rd+1);
+    }else begin("ARBEIT",st.rd+1);
+  }
+  show();
+}
+
+function fin(){
+  clearInterval(iv);iv=null;setWake(false);
+  $("ph").textContent="FERTIG ✓";$("t").textContent="00:00";$("disp").style.background="";
+  whistle();setTimeout(whistle,550);
+  $("go").textContent="Start (5s Vorlauf)";st=null;
+}
+
+$("go").onclick=()=>{
+  if(iv){clearInterval(iv);iv=null;setWake(false);$("go").textContent="Weiter";return}
+  if(!st){st={W:+$("w").value||45,R:+$("r").value||0,N:+$("n").value||1};begin("VORLAUF",1)}
+  setWake(true);st.last=Date.now();iv=setInterval(tick,100);$("go").textContent="Pause";show();
+};
+
+function resetUI(){
+  clearInterval(iv);iv=null;st=null;setWake(false);
+  $("go").textContent="Start (5s Vorlauf)";$("ph").textContent="BEREIT";
+  $("t").textContent=fmt(+$("w").value||0);$("rd").textContent="Runde 0 / "+$("n").value;
+  $("disp").style.background="";
+}
+$("rs").onclick=resetUI;
+["w","r","n"].forEach(id=>$(id).oninput=()=>{if(!st)resetUI()});
+document.querySelectorAll(".presets button").forEach(b=>b.onclick=()=>{
+  $("w").value=b.dataset.w;$("r").value=b.dataset.r;$("n").value=b.dataset.n;resetUI();
+});
+</script></body></html>
