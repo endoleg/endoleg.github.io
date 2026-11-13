@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Dribbling-Reaktionstrainer</title><style>
+:root{--bg:#fff;--fg:#1a1a1a;--card:#f1eeea;--ac:#e8590c;--mut:#6b6b6b;box-sizing:border-box;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141414;--fg:#f2f2f2;--card:#232323;--ac:#ff8a3d;--mut:#9a9a9a}}
+:root[data-theme="dark"]{--bg:#141414;--fg:#f2f2f2;--card:#232323;--ac:#ff8a3d;--mut:#9a9a9a}
+*{box-sizing:border-box}body{margin:0 auto;background:var(--bg);color:var(--fg);font:16px/1.4 system-ui,-apple-system,Segoe UI,sans-serif;padding:16px;max-width:720px}
+h1{font-size:1.4rem;margin:0 0 12px}h2{font-size:1rem;margin:0 0 8px}button,input,select{font:inherit;color:var(--fg)}button{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:12px 16px;font-weight:600;cursor:pointer}
+input,select{background:var(--card);border:1px solid #8884;border-radius:8px;padding:8px;width:100%}.card{background:var(--card);border-radius:14px;padding:14px;margin-bottom:12px}label{font-size:.8rem;color:var(--mut);display:block;margin-bottom:4px}
+#s{height:44vh;min-height:250px;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:800;text-align:center;background:#444;transition:background .1s;user-select:none;padding:12px}
+#big{font-size:min(28vw,8.5rem);line-height:1}#lb{font-size:1.8rem;padding:0 8px}#hd{font-size:1.3rem;margin-top:8px;min-height:1.6rem;opacity:.95}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:10px}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.chk{display:flex;align-items:center;gap:8px;font-size:.9rem;margin-top:10px;cursor:pointer}.chk input{width:auto}
+.mv{display:grid;grid-template-columns:auto 1fr 110px 18px;gap:8px;align-items:center;padding:5px 0;border-top:1px solid #8883}.mv:first-of-type{border-top:0}
+.mv input[type=range]{padding:0;border:0;background:none}.mv input[type=checkbox]{width:20px;height:20px}.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.sm{font-size:.8rem;color:var(--mut)}
+</style></head><body>
+<h1>⚡ Dribbling-Reaktionstrainer</h1>
+<div id="s"><div id="big">🏀</div><div id="lb">Start drücken</div><div id="hd"></div></div>
+<p id="cnt" style="text-align:center;color:var(--mut);margin:8px 0">Signale: 0 · Zeit: 00:00</p>
+
+<div class="card">
+  <h2>Training</h2>
+  <div class="g">
+    <div><label>Modus</label><select id="md"><option value="0">Farben (Moves)</option><option value="1">Richtungen</option><option value="2" selected>Beides gemischt</option></select></div>
+    <div><label>Tempo (Sek.)</label><select id="sp"><option value="1">1.0 Sek. (Pro)</option><option value="1.5">1.5 Sek. (Schnell)</option><option value="2" selected>2.0 Sek. (Normal)</option><option value="3">3.0 Sek. (Einsteiger)</option><option value="rnd">Zufällig (1.2–2.8s)</option></select></div>
+  </div>
+  <label class="chk"><input type="checkbox" id="ramp"> 📈 Tempo-Steigerung: alle 30 Sek. etwa 15 % schneller</label>
+  <label class="chk"><input type="checkbox" id="tts" checked> 🔊 Befehle laut ansagen (Kopf oben halten!)</label>
+</div>
+
+<div class="card">
+  <h2>Sätze und Pausen</h2>
+  <div class="g3">
+    <div><label>Sätze (0 = endlos)</label><input type="number" id="sets" min="0" max="20" value="4"></div>
+    <div><label>Satzdauer (Sek.)</label><input type="number" id="dur" min="10" max="600" value="60"></div>
+    <div><label>Pause (Sek.)</label><input type="number" id="rest" min="0" max="120" value="20"></div>
+  </div>
+  <p class="sm" style="margin:8px 0 0">Satzbeginn: aufsteigender Dreiklang. Satzende: tiefer Ton. Die letzten 3 Sek. der Pause werden gepiept.</p>
+</div>
+
+<div class="card">
+  <h2>Hand-Hinweis</h2>
+  <select id="hand"><option value="off">Aus</option><option value="rnd">Zufällig (50/50)</option><option value="weak">Überwiegend schwache Hand (70 %)</option><option value="alt">Abwechselnd</option></select>
+</div>
+
+<div class="card">
+  <h2>Moves und Häufigkeit</h2>
+  <p class="sm" style="margin:0 0 6px">Haken setzen = Move aktiv. Regler: höher = kommt häufiger. Der Modus oben filtert zusätzlich.</p>
+  <div id="mvs"></div>
+</div>
+<button id="go" style="width:100%;font-size:1.2rem">Training starten</button>
+
+<script>
+const $=i=>document.getElementById(i);
+const M=[
+ {k:"c0",t:0,l:"Stopp",c:"#d62828"},{k:"c1",t:0,l:"Sprint",c:"#2f9e44"},{k:"c2",t:0,l:"Crossover links",c:"#1c6dd0"},
+ {k:"c3",t:0,l:"Crossover rechts",c:"#d99b00"},{k:"c4",t:0,l:"Hinter dem Rücken",c:"#7048e8"},{k:"c5",t:0,l:"Durch die Beine",c:"#0b9e8f"},
+ {k:"d0",t:1,l:"Links",a:"←"},{k:"d1",t:1,l:"Rechts",a:"→"},{k:"d2",t:1,l:"Vorwärts",a:"↑"},{k:"d3",t:1,l:"Rückwärts",a:"↓"}];
+const KEY="bb_drib_v3",HT={weak:"Schwache Hand",strong:"Starke Hand"};
+let iv=null,wakeLock=null,AC,ph="idle",phEnd=0,last=0,nextSig=0,act=0,n=0,setNo=0,cfg,lastKey="",altH=false,cntM={},shownRest=-1,startTs=0;
+
+$("mvs").innerHTML=M.map(m=>`<div class="mv"><input type="checkbox" id="on_${m.k}" checked><span><span class="dot" style="background:${m.c||"#2b2d42"}"></span>${m.a?m.a+" ":""}${m.l}</span><input type="range" id="w_${m.k}" min="1" max="5" value="1"><span class="sm" id="wv_${m.k}">1</span></div>`).join("");
+
+function getCfg(){return{md:$("md").value,sp:$("sp").value,tts:$("tts").checked,ramp:$("ramp").checked,hand:$("hand").value,sets:$("sets").value,dur:$("dur").value,rest:$("rest").value,mv:M.map(m=>({on:$("on_"+m.k).checked,w:+$("w_"+m.k).value}))}}
+function setCfg(c){
+  ["md","sp","hand","sets","dur","rest"].forEach(k=>{if(c[k]!==undefined)$(k).value=c[k]});
+  if(c.tts!==undefined)$("tts").checked=c.tts;if(c.ramp!==undefined)$("ramp").checked=c.ramp;
+  (c.mv||[]).forEach((v,i)=>{if(M[i]){$("on_"+M[i].k).checked=v.on;$("w_"+M[i].k).value=v.w}});
+}
+function wlabels(){M.forEach(m=>$("wv_"+m.k).textContent=$("w_"+m.k).value)}
+function save(){wlabels();try{localStorage.setItem(KEY,JSON.stringify(getCfg()))}catch(e){}}
+try{setCfg(JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
+wlabels();document.body.addEventListener("input",save);document.body.addEventListener("change",save);
+
+async function setWake(on){try{if(on&&"wakeLock"in navigator)wakeLock=await navigator.wakeLock.request("screen");else if(wakeLock){await wakeLock.release();wakeLock=null}}catch(e){}}
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&iv)setWake(true)});
+function tone(f,d,v,delay){setTimeout(()=>{try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f;o.connect(g);g.connect(AC.destination);g.gain.value=v||.15;o.start();o.stop(AC.currentTime+d)}catch(e){}},delay||0)}
+function beep(){tone(750,.07)}
+function speak(t,force){if(!(cfg.tts||force)||!("speechSynthesis"in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="de-DE";u.rate=1.25;speechSynthesis.speak(u)}
+const mmss=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(Math.floor(s%60)).padStart(2,"0");
+const clamp=(v,a,b,d)=>{v=parseInt(v,10);return isNaN(v)?d:Math.max(a,Math.min(b,v))};
+
+function show(bg,big,lb,hd,fs){$("s").style.background=bg;$("big").textContent=big;$("lb").textContent=lb;$("lb").style.fontSize=fs||"2rem";$("hd").textContent=hd||""}
+function steps(){return cfg.ramp?Math.floor(act/30000):0}
+function status(){
+  const rem=cfg.sets>0?mmss(Math.ceil(Math.max(0,phEnd-Date.now())/1000)):mmss(act/1000);
+  $("cnt").textContent=`Satz ${setNo}/${cfg.sets>0?cfg.sets:"∞"} · ${rem} · Signale: ${n}`+(cfg.ramp?` · Stufe ${steps()+1}`:"");
+}
+function pickHand(){
+  if(cfg.hand=="off")return null;
+  if(cfg.hand=="alt"){altH=!altH;return altH?"weak":"strong"}
+  if(cfg.hand=="weak")return Math.random()<.7?"weak":"strong";
+  return Math.random()<.5?"weak":"strong";
+}
+function pick(){
+  let c=M.map((m,i)=>({m,w:cfg.mv[i].w,on:cfg.mv[i].on})).filter(x=>x.on&&(cfg.md==2||x.m.t==cfg.md));
+  if(c.length>1)c=c.filter(x=>x.m.k!==lastKey);
+  let r=Math.random()*c.reduce((a,x)=>a+x.w,0);
+  for(const x of c){r-=x.w;if(r<=0)return x.m}
+  return c[c.length-1].m;
+}
+function sig(){
+  const m=pick(),h=pickHand();lastKey=m.k;n++;cntM[m.l]=(cntM[m.l]||0)+1;
+  if(!cfg.tts)beep();
+  const ht=h?HT[h]:"";
+  if(m.t==0)show(m.c,"",m.l,h?"✋ "+ht:"","2.4rem");else show("#2b2d42",m.a,m.l,h?"✋ "+ht:"","1.6rem");
+  if(h)$("hd").style.color=h=="weak"?"#ffd43b":"#fff";
+  speak(h?m.l+", "+ht:m.l);
+  const base=cfg.sp==="rnd"?(1200+Math.random()*1600):(+cfg.sp*1000);
+  nextSig=Date.now()+Math.max(600,base*Math.pow(.85,steps()));
+  status();
+}
+function startSet(){
+  setNo++;ph="work";phEnd=cfg.sets>0?Date.now()+cfg.dur*1000:Infinity;
+  tone(520,.12,.2,0);tone(660,.12,.2,160);tone(880,.2,.2,320);
+  show("#0b6e4f","GO","Satz "+setNo+(cfg.sets>0?" von "+cfg.sets:""),"","2rem");
+  speak("Satz "+setNo+", los",true);nextSig=Date.now()+1400;status();
+}
+function endSet(){
+  tone(220,.6,.25,0);
+  if(setNo>=cfg.sets||cfg.sets<=0){finish();return}
+  if(cfg.rest>0){ph="rest";phEnd=Date.now()+cfg.rest*1000;shownRest=-1;speak("Pause",true)}
+  else startSet();
+}
+function finish(){
+  const el=mmss(act/1000);stop(true);
+  const det=Object.entries(cntM).map(([k,v])=>k+" "+v).join(" · ");
+  show("#444","✅","Fertig",`${n} Signale in ${el}`,"2rem");
+  $("cnt").textContent=det||"Keine Signale";speak("Training beendet",true);
+}
+function tick(){
+  const now=Date.now(),dt=now-last;last=now;
+  if(ph=="work"){act+=dt;status();if(now>=phEnd)endSet();else if(now>=nextSig&&phEnd-now>600)sig()}
+  else if(ph=="rest"){
+    const r=Math.ceil((phEnd-now)/1000);
+    if(r!==shownRest){shownRest=r;show("#1f2a44",r,"Pause","Nächster Satz: "+(setNo+1),"2rem");if(r<=3&&r>0)tone(600,.1,.2);$("cnt").textContent=`Pause nach Satz ${setNo}/${cfg.sets} · Signale: ${n}`}
+    if(now>=phEnd)startSet();
+  }
+}
+function stop(keepText){
+  clearInterval(iv);iv=null;ph="idle";setWake(false);if("speechSynthesis"in window)speechSynthesis.cancel();
+  $("go").textContent="Training starten";
+  if(!keepText){show("#444","🏀","Gestoppt","");$("cnt").textContent=`Signale: ${n} · Zeit: ${mmss(act/1000)}`}
+}
+$("go").onclick=()=>{
+  if(iv){stop();return}
+  const c=getCfg();
+  c.sets=clamp(c.sets,0,20,4);c.dur=clamp(c.dur,10,600,60);c.rest=clamp(c.rest,0,120,20);
+  $("sets").value=c.sets;$("dur").value=c.dur;$("rest").value=c.rest;save();
+  if(!M.some((m,i)=>c.mv[i].on&&(c.md==2||m.t==c.md))){show("#444","⚠️","Keine Moves aktiv","Bitte mindestens einen Move auswählen (und Modus prüfen).","1.6rem");return}
+  cfg=c;n=0;act=0;setNo=0;lastKey="";cntM={};altH=false;last=Date.now();
+  $("go").textContent="Stopp";setWake(true);
+  if(!c.tts)beep();
+  startSet();iv=setInterval(tick,100);
+};
+</script></body></html>
