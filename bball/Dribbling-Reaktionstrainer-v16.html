@@ -1,0 +1,211 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Dribbling-Reaktionstrainer</title><style>
+:root{--bg:#fff;--fg:#1a1a1a;--card:#f1eeea;--ac:#e8590c;--mut:#6b6b6b;box-sizing:border-box;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141414;--fg:#f2f2f2;--card:#232323;--ac:#ff8a3d;--mut:#9a9a9a}}
+:root[data-theme="dark"]{--bg:#141414;--fg:#f2f2f2;--card:#232323;--ac:#ff8a3d;--mut:#9a9a9a}
+*{box-sizing:border-box}body{margin:0 auto;background:var(--bg);color:var(--fg);font:16px/1.4 system-ui,-apple-system,Segoe UI,sans-serif;padding:16px;max-width:720px}
+h1{font-size:1.4rem;margin:0 0 12px}h2{font-size:1rem;margin:0 0 8px}button,input,select{font:inherit;color:var(--fg)}button{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:12px 16px;font-weight:600;cursor:pointer}
+input,select{background:var(--card);border:1px solid #8884;border-radius:8px;padding:8px;width:100%}.card{background:var(--card);border-radius:14px;padding:14px;margin-bottom:12px}label{font-size:.8rem;color:var(--mut);display:block;margin-bottom:4px}
+#s{height:44vh;min-height:250px;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:800;text-align:center;background:#444;transition:background .1s;user-select:none;padding:12px}
+#big{font-size:min(28vw,8.5rem);line-height:1}#lb{font-size:1.8rem;padding:0 8px}#hd{font-size:1.3rem;margin-top:8px;min-height:1.6rem;opacity:.95}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:10px}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.chk{display:flex;align-items:center;gap:8px;font-size:.9rem;margin-top:10px;cursor:pointer}.chk input{width:auto}
+.mv{display:grid;grid-template-columns:auto 1fr 110px 18px;gap:8px;align-items:center;padding:5px 0;border-top:1px solid #8883}.mv:first-of-type{border-top:0}
+.mv input[type=range]{padding:0;border:0;background:none}.mv input[type=checkbox]{width:20px;height:20px}.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.sm{font-size:.8rem;color:var(--mut)}#grid{display:grid;grid-template-columns:repeat(3,28px);gap:4px;justify-content:center;margin:10px auto 0}#grid i{display:block;width:28px;height:28px;border-radius:6px}
+</style></head><body>
+<h1>⚡ Dribbling-Reaktionstrainer</h1>
+<div id="s"><div id="big">🏀</div><div id="lb">Start drücken</div><div id="hd"></div></div>
+<div id="grid"></div><p class="sm" id="gridcap" style="text-align:center;margin:6px 0 0">Dein Spot: Mitte = Startpunkt, oben = vorne. Du entfernst dich höchstens einen Schritt vom Start.</p>
+<p id="cnt" style="text-align:center;color:var(--mut);margin:8px 0">Signale: 0 · Zeit: 00:00</p>
+
+<div class="card" style="border:2px solid var(--ac)">
+  <label class="chk" style="margin:0;font-size:1.1rem;font-weight:700;color:var(--fg)"><input type="checkbox" id="low" style="width:24px;height:24px"> 🏠 Wenig Platz (alles auf der Stelle)</label>
+  <p class="sm" style="margin:6px 0 0">Ein Klick, und es gibt keine Läufe nach links, rechts, vorwärts oder rückwärts. Du bleibst auf einem Fleck. Es kommen Handwechsel, hinter dem Rücken, durch die Beine sowie tief und hoch dribbeln.</p>
+</div>
+
+<div class="card">
+  <h2>Training</h2>
+  <div class="g">
+    <div><label>Modus</label><select id="md"><option value="0">Nur Handwechsel</option><option value="1">Richtungen (bei Wenig Platz: Dribbeln)</option><option value="2" selected>Beides gemischt</option></select></div>
+    <div><label>Mindestabstand (Sek.)</label><select id="sp"><option value="1">1.0 Sek. (Pro)</option><option value="1.5">1.5 Sek. (Schnell)</option><option value="2" selected>2.0 Sek. (Normal)</option><option value="3">3.0 Sek. (Einsteiger)</option><option value="rnd">Zufällig (1.2–2.8s)</option></select></div>
+  </div>
+  <label class="chk"><input type="checkbox" id="ramp"> 📈 Tempo-Steigerung: alle 30 Sek. etwa 15 % schneller (pro Satz neu)</label>
+  <details style="margin-top:10px"><summary style="cursor:pointer;font-weight:700">Erweitert: Anteil Handwechsel, Sprechtempo, Sprachtest</summary>
+  <div style="margin-top:10px"><label>Anteil Handwechsel (im Modus „Beides“)</label><select id="swp"><option value="50">50 % Handwechsel</option><option value="65" selected>65 % Handwechsel</option><option value="80">80 % Handwechsel</option></select></div>
+  <p class="sm" style="margin:6px 0 0">Bei „Ansagen + schwache Hand bevorzugen“ verschiebt sich der Anteil je nach Ballhand: In der starken Hand kommen mehr Handwechsel, in der schwachen weniger.</p>
+  <p class="sm" style="margin:6px 0 0">Mit Sprachausgabe wartet die Seite auf das Ende der Ansage. Der tatsächliche Abstand kann daher größer sein als der Mindestabstand.</p>
+  <div style="margin-top:10px"><label>Sprechtempo der Ansagen</label><select id="vr"><option value="0.8">Langsam</option><option value="0.95" selected>Normal</option><option value="1.15">Schnell</option></select></div>
+  <div style="margin-top:10px"><button type="button" id="vt" style="background:var(--bg);color:var(--fg);border:1px solid #8884">🔊 Sprachtest</button> <span class="sm" id="vtr"></span></div>
+  </details>
+  <label class="chk"><input type="checkbox" id="tts" checked> 🔊 Befehle laut ansagen (Kopf oben halten!)</label>
+</div>
+
+<div class="card">
+  <h2>Sätze und Pausen</h2>
+  <div class="g3">
+    <div><label>Sätze (0 = endlos)</label><input type="number" id="sets" min="0" max="20" value="4"></div>
+    <div><label>Satzdauer (Sek.)</label><input type="number" id="dur" min="10" max="600" value="60"></div>
+    <div><label>Pause (Sek.)</label><input type="number" id="rest" min="0" max="120" value="20"></div>
+  </div>
+  <p class="sm" style="margin:8px 0 0">Bei mehreren Sätzen sind mindestens 5 Sek. Pause nötig, damit alle zum Startpunkt zurückkönnen. Satzbeginn: aufsteigender Dreiklang. Satzende: tiefer Ton. Die letzten 3 Sek. der Pause werden gepiept.</p>
+</div>
+
+<div class="card">
+  <h2>Hand</h2>
+  <p class="sm" style="margin:0 0 8px">Das Programm merkt sich, in welcher Hand der Ball ist. Start in der Schreibhand: Rechtshänder „Dribbling rechts“, Linkshänder „Dribbling links“. Handwechsel, hinter dem Rücken und durch die Beine wechseln die Hand. Die Richtungen laufen mit der Ballhand. Die schwache Hand wird gelb angezeigt.</p>
+  <div class="g">
+    <div><label>Ich bin</label><select id="dom"><option value="R">Rechtshänder</option><option value="L">Linkshänder</option></select></div>
+    <div><label>Hand-Ansage</label><select id="hand"><option value="off">Aus (nur intern merken)</option><option value="show" selected>Ballhand ansagen</option><option value="weak">Ansagen + schwache Hand bevorzugen</option></select></div>
+  </div>
+</div>
+
+<div class="card">
+  <details><summary style="cursor:pointer;font-weight:700;font-size:1rem">Moves und Häufigkeit (antippen zum Ändern)</summary>
+  <p class="sm" style="margin:0 0 6px">Haken = Move aktiv. Regler: höher = häufiger, aber nur innerhalb der Gruppe (Handwechsel oder Richtung). Das Verhältnis der Gruppen legt „Anteil Handwechsel“ oben fest.</p>
+  <div id="mvs" style="margin-top:8px"></div></details>
+</div>
+<button id="go" style="width:100%;font-size:1.2rem">Training starten</button>
+
+<script>
+const $=i=>document.getElementById(i);
+const M=[
+ {k:"c2",t:0,l:"Handwechsel",c:"#1c6dd0",w:2,sw:1},
+ {k:"c3",t:0,l:"Hinter dem Rücken",c:"#7048e8",sw:1},{k:"c4",t:0,l:"Durch die Beine",c:"#0b9e8f",sw:1},
+ {k:"d0",dx:-1,dy:0,t:1,l:"Links",a:"←",hd:1,dir:"nach links"},{k:"d1",dx:1,dy:0,t:1,l:"Rechts",a:"→",hd:1,dir:"nach rechts"},{k:"d2",dx:0,dy:1,t:1,l:"Vorwärts",a:"↑",hd:1,dir:"vorwärts"},{k:"d3",dx:0,dy:-1,t:1,l:"Rückwärts",a:"↓",hd:1,dir:"rückwärts"},
+ {k:"s0",t:1,l:"Tief dribbeln",a:"🔽",hd:1,st:1},{k:"s1",t:1,l:"Hoch dribbeln",a:"🔼",hd:1,st:1}];
+const KEY="bb_drib_main";
+let pos={x:0,y:0},actSet=0,ball="R",iv=null,wakeLock=null,AC,ph="idle",phEnd=0,last=0,nextSig=0,act=0,n=0,setNo=0,cfg,lastKey="",cntM={},shownRest=-1,startTs=0;
+
+$("mvs").innerHTML=M.map(m=>`<div class="mv"><input type="checkbox" id="on_${m.k}" checked><span><span class="dot" style="background:${m.c||"#2b2d42"}"></span>${m.a?m.a+" ":""}${m.l}${m.st?" (nur Wenig Platz)":""}${m.dir?" (nur normal)":""}</span><input type="range" id="w_${m.k}" min="1" max="5" value="${m.w||1}"><span class="sm" id="wv_${m.k}">${m.w||1}</span></div>`).join("");
+
+function getCfg(){return{md:$("md").value,sp:$("sp").value,tts:$("tts").checked,ramp:$("ramp").checked,hand:$("hand").value,low:$("low").checked,dom:$("dom").value,swp:$("swp").value,vr:$("vr").value,sets:$("sets").value,dur:$("dur").value,rest:$("rest").value,mv:M.map(m=>({on:$("on_"+m.k).checked,w:+$("w_"+m.k).value}))}}
+function setCfg(c){
+  ["md","sp","hand","dom","swp","vr","sets","dur","rest"].forEach(k=>{if(c[k]!==undefined)$(k).value=c[k]});
+  if(c.tts!==undefined)$("tts").checked=c.tts;if(c.low!==undefined)$("low").checked=c.low;if(c.ramp!==undefined)$("ramp").checked=c.ramp;
+  if(c.mv&&!Array.isArray(c.mv))M.forEach(m=>{const v=c.mv[m.k];if(v){$("on_"+m.k).checked=!!v.on;if(v.w>=1&&v.w<=5)$("w_"+m.k).value=v.w}});
+}
+function wlabels(){M.forEach(m=>$("wv_"+m.k).textContent=$("w_"+m.k).value)}
+function save(){wlabels();try{const c=getCfg(),o={...c,mv:{}};M.forEach((m,i)=>o.mv[m.k]=c.mv[i]);localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}}
+try{setCfg(JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
+wlabels();drawGrid();applyLow();$("low").addEventListener("change",applyLow);document.body.addEventListener("input",save);document.body.addEventListener("change",save);
+
+async function setWake(on){try{if(on&&"wakeLock"in navigator)wakeLock=await navigator.wakeLock.request("screen");else if(wakeLock){await wakeLock.release();wakeLock=null}}catch(e){}}
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&iv){setWake(true);unlockAudio()}});
+function unlockAudio(){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state!=="running")AC.resume()}catch(e){}}
+function tone(f,d,v,delay){setTimeout(()=>{try{unlockAudio();const o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f;o.connect(g);g.connect(AC.destination);g.gain.value=v||.15;o.start();o.stop(AC.currentTime+d)}catch(e){}},delay||0)}
+function beep(){tone(750,.07)}
+let spk=false,spkEnd=0,spkStart=0,spkMax=0,spkId=0;
+function speak(t,force){
+  if(!(cfg.tts||force)||!("speechSynthesis"in window))return;
+  if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel();const id=++spkId,u=new SpeechSynthesisUtterance(t);
+  u.lang="de-DE";u.rate=+cfg.vr||.95;
+  spk=true;spkStart=Date.now();spkMax=dur(t)+1500;
+  u.onend=u.onerror=()=>{if(id===spkId){spk=false;spkEnd=Date.now()}};
+  speechSynthesis.speak(u);
+}
+function speechFree(){if(spk&&Date.now()-spkStart>spkMax){spk=false;spkEnd=Date.now()}return !spk&&Date.now()>=spkEnd+300}
+const mmss=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(Math.floor(s%60)).padStart(2,"0");
+const clamp=(v,a,b,d)=>{v=parseInt(v,10);return isNaN(v)?d:Math.max(a,Math.min(b,v))};
+
+function show(bg,big,lb,hd,fs){$("s").style.background=bg;$("big").textContent=big;$("lb").textContent=lb;$("lb").style.fontSize=fs||"2rem";$("hd").textContent=hd||""}
+function steps(){return cfg.ramp?Math.floor(actSet/30000):0}
+function status(){
+  const rem=cfg.sets>0?mmss(Math.ceil(Math.max(0,phEnd-Date.now())/1000)):mmss(act/1000);
+  $("cnt").textContent=`Satz ${setNo}/${cfg.sets>0?cfg.sets:"∞"} · ${rem} · Signale: ${n}`+(cfg.ramp?` · Stufe ${steps()+1}`:"");
+}
+const hn=h=>h=="L"?"links":"rechts";
+const hw=h=>"der "+(h=="L"?"linken":"rechten")+" Hand";
+const dur=t=>t.length*70/(+cfg.vr||.95)+700;
+function applyLow(){const l=$("low").checked;$("grid").style.display=l?"none":"";$("gridcap").style.display=l?"none":""}
+function drawGrid(){let h="";for(let y=1;y>=-1;y--)for(let x=-1;x<=1;x++){const on=pos.x==x&&pos.y==y,st=x==0&&y==0;h+='<i style="background:'+(on?"var(--ac)":"var(--card)")+';outline:'+(st?"2px solid var(--fg)":"1px solid #8884")+'"></i>'}$("grid").innerHTML=h}
+function weakH(){return cfg.dom=="R"?"L":"R"}
+function pick(){
+  let c=M.map((m,i)=>({m,w:cfg.mv[i].w,on:cfg.mv[i].on})).filter(x=>x.on&&(cfg.md==2||x.m.t==cfg.md)&&(cfg.low?!x.m.dir:!x.m.st)&&(!x.m.dir||(Math.abs(pos.x+x.m.dx)<=1&&Math.abs(pos.y+x.m.dy)<=1)));
+  if(c.length>1)c=c.filter(x=>x.m.k!==lastKey);
+  const gs=c.filter(x=>x.m.sw),gd=c.filter(x=>x.m.dir||x.m.st);
+  if(gs.length&&gd.length){
+    let p=(+cfg.swp||65)/100;
+    if(cfg.hand=="weak")p=ball==weakH()?p*.5:Math.min(.95,p*1.4);
+    c=Math.random()<p?gs:gd;
+  }
+  let r=Math.random()*c.reduce((a,x)=>a+x.w,0);
+  for(const x of c){r-=x.w;if(r<=0)return x.m}
+  return c[c.length-1].m;
+}
+function sig(){
+  const m=pick();lastKey=m.k;n++;cntM[m.l]=(cntM[m.l]||0)+1;
+  if(m.sw)ball=ball=="R"?"L":"R";
+  if(m.dir){pos.x+=m.dx;pos.y+=m.dy;drawGrid()}
+  if(!cfg.tts)beep();
+  const sh=cfg.hand!="off",weak=ball==weakH(),title=m.dir?"Lauf "+m.dir:m.l;
+  let say=title,hd="";
+  if(m.sw){hd="jetzt in "+hw(ball)}
+  else{hd="mit "+hw(ball);if(sh)say=title+", "+hd}
+  if(!sh)hd="";else hd="✋ "+hd+(weak?" · schwache Hand":"");
+  if(m.t==0)show(m.c,"",title,hd,"2.4rem");else show("#2b2d42",m.a,title,hd,"1.9rem");
+  $("hd").style.color=weak?"#ffd43b":"#fff";
+  speak(say);
+  const base=cfg.sp==="rnd"?(1200+Math.random()*1600):(+cfg.sp*1000);
+  nextSig=Date.now()+Math.max(600,base*Math.pow(.85,steps()));
+  status();
+}
+function startSet(){
+  setNo++;ph="work";phEnd=cfg.sets>0?Date.now()+cfg.dur*1000:Infinity;
+  tone(520,.12,.2,0);tone(660,.12,.2,160);tone(880,.2,.2,320);
+  ball=cfg.dom=="L"?"L":"R";pos={x:0,y:0};drawGrid();const say="Satz "+setNo+", los. Dribbling "+hn(ball);
+  show("#0b6e4f","GO","Satz "+setNo+(cfg.sets>0?" von "+cfg.sets:""),"✋ Dribbling "+hn(ball),"2rem");$("hd").style.color="#fff";
+  speak(say,true);nextSig=Date.now()+600;status();
+}
+function endSet(){
+  tone(220,.6,.25,0);
+  if(setNo>=cfg.sets||cfg.sets<=0){finish();return}
+  if(cfg.rest>0){ph="rest";phEnd=Date.now()+cfg.rest*1000;shownRest=-1;speak(cfg.low?"Pause.":"Pause. Zurück zum Startpunkt.",true)}
+  else startSet();
+}
+function finish(){
+  const el=mmss(act/1000);stop(true);
+  const det=Object.entries(cntM).map(([k,v])=>k+" "+v).join(" · ");
+  show("#444","✅","Fertig",`${n} Signale in ${el}`,"2rem");
+  $("cnt").textContent=det||"Keine Signale";speak("Training beendet",true);
+}
+function tick(){
+  const now=Date.now(),dt=now-last;last=now;
+  if(ph=="work"){act+=dt;actSet+=dt;status();if(now>=phEnd)endSet();else if(now>=nextSig&&speechFree()&&phEnd-now>600)sig()}
+  else if(ph=="rest"){
+    const r=Math.ceil((phEnd-now)/1000);
+    if(r!==shownRest){shownRest=r;show("#1f2a44",r,"Pause",(cfg.low?"":"Zurück zum Startpunkt · ")+"nächster Satz: "+(setNo+1),"2rem");if(r<=3&&r>0)tone(600,.1,.2);$("cnt").textContent=`Pause nach Satz ${setNo}/${cfg.sets} · Signale: ${n}`}
+    if(now>=phEnd)startSet();
+  }
+}
+function stop(keepText){
+  clearInterval(iv);iv=null;ph="idle";spk=false;spkId++;setWake(false);if("speechSynthesis"in window)speechSynthesis.cancel();
+  $("go").textContent="Training starten";
+  if(!keepText){show("#444","🏀","Gestoppt","");$("cnt").textContent=`Signale: ${n} · Zeit: ${mmss(act/1000)}`}
+}
+$("vt").onclick=()=>{
+  const out=$("vtr");
+  if(!("speechSynthesis"in window)){out.textContent="Sprachausgabe nicht verfügbar.";return}
+  speechSynthesis.cancel();const t="Lauf nach links, mit der linken Hand",u=new SpeechSynthesisUtterance(t);
+  u.lang="de-DE";u.rate=+$("vr").value||.95;let t0=0,done=false;out.textContent="Test läuft …";
+  u.onstart=()=>{t0=Date.now()};
+  u.onend=()=>{done=true;const d=(Date.now()-(t0||Date.now()))/1000;const sp=$("sp").value==="rnd"?1.2:+$("sp").value;
+    out.textContent="Ende erkannt ✓ · Ansage dauert "+d.toFixed(1)+" s. Empfehlung: Mindestabstand mindestens "+Math.ceil(d+.3)+" s."+(d+.3>sp?" ⚠️ Dein Mindestabstand ("+sp+" s) ist kürzer als die Ansage: Tempo und Steigerung wirken dann kaum.":"")};
+  u.onerror=()=>{done=true;out.textContent="Fehler bei der Sprachausgabe. Gerät oder Stimme prüfen."};
+  speechSynthesis.speak(u);
+  setTimeout(()=>{if(!done)out.textContent="Kein Ende gemeldet – das Training wartet dann nur die Notbremse ab (länger als nötig)."},9000);
+};
+$("go").onclick=()=>{
+  unlockAudio();
+  if(iv){if(n>0)finish();else stop();return}
+  const c=getCfg();
+  c.sets=clamp(c.sets,0,20,4);c.dur=clamp(c.dur,10,600,60);c.rest=clamp(c.rest,0,120,20);if(c.sets!==1&&c.sets!==0&&c.rest<5)c.rest=5;
+  $("sets").value=c.sets;$("dur").value=c.dur;$("rest").value=c.rest;save();
+  if(!M.some((m,i)=>c.mv[i].on&&(c.md==2||m.t==c.md)&&(c.low?!m.dir:!m.st))){show("#444","⚠️","Keine Moves aktiv","Bitte mindestens einen Move auswählen (und Modus prüfen).","1.6rem");return}
+  const en=k=>!c.low&&M.some((m,i)=>m.k==k&&c.mv[i].on&&(c.md==2||m.t==c.md));
+  if(en("d0")!=en("d1")||en("d2")!=en("d3")){show("#444","⚠️","Gegenrichtung fehlt","Bitte Links und Rechts bzw. Vorwärts und Rückwärts gemeinsam aktivieren, sonst kommt man nicht zum Start zurück.","1.5rem");return}
+  cfg=c;n=0;pos={x:0,y:0};act=0;setNo=0;lastKey="";cntM={};last=Date.now();
+  $("go").textContent="Training beenden";setWake(true);
+  if(!c.tts)beep();
+  startSet();iv=setInterval(tick,100);
+};
+</script></body></html>
