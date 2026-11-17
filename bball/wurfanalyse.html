@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wurfanalyse U12/U14</title>
+<style>
+:root{--bg:#10151c;--card:#1a222d;--line:#2b3746;--txt:#eef2f7;--mut:#9aa8b8;--acc:#ff7a1a;--ok:#2ecc71;--bad:#e74c3c}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding-bottom:70px}
+header{padding:12px 16px;background:#0b0f14;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+header h1{margin:0;font-size:18px}header small{color:var(--mut)}
+main{max-width:760px;margin:0 auto;padding:12px}
+section{display:none}section.on{display:block}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#0b0f14;border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:6}
+nav button{flex:1;background:none;border:0;color:var(--mut);padding:12px 4px;font-size:13px}
+nav button.on{color:var(--acc);font-weight:700}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px}
+.stage{position:relative;background:#000;border-radius:12px;overflow:hidden;aspect-ratio:16/9;width:100%}
+.stage video,.stage canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+.grid{position:absolute;inset:0;pointer-events:none;display:none;
+background-image:linear-gradient(to right,rgba(255,255,255,.35) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.35) 1px,transparent 1px);background-size:33.333% 33.333%}
+.grid.on{display:block}
+.ts{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.65);color:#fff;font:600 14px ui-monospace,Menlo,monospace;padding:4px 8px;border-radius:6px;pointer-events:none;white-space:pre}
+.rec{position:absolute;right:10px;top:10px;color:#fff;background:var(--bad);padding:2px 8px;border-radius:10px;font-size:12px;display:none}
+.rec.on{display:block;animation:b 1s infinite}@keyframes b{50%{opacity:.4}}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+button.b,select,input[type=text]{background:#263243;color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:11px 14px;font-size:15px}
+button.b.pri{background:var(--acc);border-color:var(--acc);color:#111;font-weight:700}
+button.b.red{background:var(--bad);border-color:var(--bad);font-weight:700}
+button.b.sel{outline:2px solid var(--acc)}
+button.b:disabled{opacity:.4}
+.big{font-size:18px;padding:14px 20px}
+input[type=range]{width:100%}
+.mut{color:var(--mut);font-size:14px}
+.marks{display:flex;flex-direction:column;gap:6px}
+.mark{display:flex;justify-content:space-between;align-items:center;background:#202b39;border-radius:8px;padding:6px 10px}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;padding:2px 12px}
+summary{padding:12px 0;font-weight:700;cursor:pointer}
+details p,details li{color:#d6dde6}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{border:1px solid var(--line);padding:6px;text-align:center}
+td:first-child,th:first-child{text-align:left}
+.cell{min-width:34px;padding:6px 0;border-radius:6px;background:#263243;border:1px solid var(--line);color:var(--txt);font-size:16px}
+.cell.p{background:var(--ok);color:#06210f}.cell.m{background:var(--bad)}.cell.n{background:#566}
+.tag{display:inline-block;font-size:12px;padding:1px 7px;border-radius:8px;background:#33445a;margin-right:4px}
+.warn{border-left:4px solid var(--acc)}
+</style>
+</head>
+<body>
+<header><h1>🏀 Wurfanalyse U12/U14</h1><small>Aufnahme · Zeitlupe · Zeitstempel – alles nur auf deinem Gerät</small></header>
+<main>
+
+<!-- AUFNAHME -->
+<section id="s-rec" class="on">
+  <div class="stage" id="recStage">
+    <video id="live" playsinline muted autoplay></video>
+    <canvas id="rc" style="display:none"></canvas>
+    <div class="grid" id="grid1"></div>
+    <div class="ts" id="liveTs">Kamera aus</div>
+    <div class="rec" id="recDot">● REC</div>
+  </div>
+  <div class="row">
+    <button class="b pri" id="btnCam">Kamera starten</button>
+    <button class="b" id="btnFlip" disabled>Kamera wechseln</button>
+    <button class="b" id="btnGrid">Raster</button>
+  </div>
+  <div class="row">
+    <label class="mut">Bildrate:&nbsp;
+      <select id="fpsSel"><option value="240">max. (240)</option><option value="120">120 fps</option><option value="60" selected>60 fps</option><option value="30">30 fps</option></select></label>
+    <label class="mut">Auflösung:&nbsp;
+      <select id="resSel"><option value="1080">1080p</option><option value="720" selected>720p</option></select></label>
+  </div>
+  <div class="card mut" id="camInfo">Hinweis: Browser liefern oft nur 30–60 fps. Für echte Zeitlupe (120/240 fps) nimm unten mit der Kamera-App deines Handys auf und lade das Video im Tab „Analyse“.</div>
+  <div class="row">
+    <input type="text" id="kid" placeholder="Kürzel (z. B. Kind 7)" style="flex:1;min-width:140px" maxlength="20">
+    <button class="b" id="btnThrow" disabled>Wurf <span id="thrN">1</span> ✚</button>
+    <button class="b" id="btnMarkRec" disabled>⚑ Marke</button>
+  </div>
+  <div class="row">
+    <button class="b red big" id="btnRec" disabled>● Aufnahme starten</button>
+  </div>
+  <div class="card">
+    <b>Oder: Kamera-App des Handys (echte Zeitlupe)</b>
+    <p class="mut" style="margin:4px 0 8px">Öffnet die Kamera. Auf dem iPhone ggf. auf „Slo-Mo“ wischen, bei Android „Zeitlupe“ wählen. Danach das Video übernehmen.</p>
+    <label class="b pri" style="display:inline-block;cursor:pointer">📹 Mit Kamera-App aufnehmen
+      <input type="file" id="fileCap" accept="video/*" capture="environment" hidden></label>
+    <label class="b" style="display:inline-block;cursor:pointer">📁 Video aus Galerie
+      <input type="file" id="fileGal" accept="video/*" hidden></label>
+  </div>
+</section>
+
+<!-- ANALYSE -->
+<section id="s-ana">
+  <div class="card mut" id="noVid">Noch kein Video. Nimm im Tab „Aufnahme“ eines auf oder lade eines aus der Galerie.</div>
+  <div id="anaBox" style="display:none">
+    <div class="stage" id="anaStage">
+      <video id="pv" playsinline controls controlslist="nodownload"></video>
+      <div class="grid" id="grid2"></div>
+      <div class="ts" id="pvTs">0:00.000</div>
+    </div>
+    <div class="card" style="margin-top:10px">
+      <input type="range" id="seek" min="0" max="1000" value="0">
+      <div class="row" style="justify-content:center">
+        <button class="b" id="fbk">⏮ −1 Bild</button>
+        <button class="b pri big" id="pp">▶︎</button>
+        <button class="b" id="ffw">+1 Bild ⏭</button>
+      </div>
+      <div class="row" id="speeds" style="justify-content:center">
+        <button class="b" data-s="0.1">0,1×</button>
+        <button class="b" data-s="0.25">0,25×</button>
+        <button class="b sel" data-s="0.5">0,5×</button>
+        <button class="b" data-s="1">1×</button>
+      </div>
+      <div class="row" style="justify-content:center;align-items:center">
+        <span class="mut">Bildrate des Videos:</span>
+        <select id="fpsPlay"><option value="24">24</option><option value="30" selected>30</option><option value="60">60</option><option value="120">120</option><option value="240">240</option></select>
+        <span class="mut">fps (für Einzelbild-Schritte)</span>
+      </div>
+      <div class="row" style="justify-content:center">
+        <button class="b" id="btnMarkAna">⚑ Marke setzen</button>
+        <button class="b" id="btnShot">📷 Standbild</button>
+        <button class="b" id="btnGrid2">Raster</button>
+        <button class="b" id="btnLoop">⟲ Loop</button>
+        <button class="b" id="btnSave">💾 Video</button>
+      </div>
+      <p class="mut" id="meta" style="margin:0"></p>
+    </div>
+    <div class="card"><b>Marken (Zeitstempel)</b>
+      <div class="row"><button class="b" data-q="Tiefpunkt">Tiefpunkt</button><button class="b" data-q="Release">Release</button><button class="b" data-q="Landung">Landung</button></div>
+      <div class="marks" id="marks"><span class="mut">Keine Marken. Tipp: Video anhalten, Namen antippen – setzt eine benannte Marke.</span></div>
+      <div class="row"><button class="b" id="btnCsv">Marken als CSV</button><button class="b" id="btnClr">Löschen</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOGEN -->
+<section id="s-bow">
+  <div class="card">
+    <b>Beobachtungsbogen Stufe 1</b>
+    <p class="mut">Antippen wechselt: leer → + → – → n. z. (Standwurf). Während der Würfe wird nicht angekreuzt – danach am Video.</p>
+    <div class="row"><input type="text" id="bkid" placeholder="Kürzel · Datum · Position" style="flex:1"></div>
+    <div style="overflow-x:auto"><table id="tbl"></table></div>
+    <p id="sum" class="mut"></p>
+    <div class="row"><button class="b" id="bowClr">Bogen leeren</button></div>
+    <p class="mut">Nur mit dem eigenen Wert vergleichen. „4 von 10“ gegen „6 von 10“ ist kein belastbarer Unterschied – erst ab ca. 3–4 Würfen Differenz bei zwei Kontrollen in dieselbe Richtung.</p>
+  </div>
+</section>
+
+<!-- INFO -->
+<section id="s-info">
+  <div class="card warn mut">Grundlage: Spickzettel „Wurfanalyse U12/U14 – V8“. Es zählt nur die Bewegung, nicht der Treffer. Jedes Kind wird nur mit sich selbst verglichen (keine Normwerte für U12/U14).
+  <br><span class="tag">Studie</span>belegt <span class="tag">Erfahrung</span>Trainerpraxis <span class="tag">offen</span>Quellenlage unklar <span class="tag">Vorschlag</span>ungeprüft</div>
+
+  <details open><summary>Aufbau (ohne Stativ)</summary><ul>
+    <li>Du stehst auf deiner Markierung <b>seitlich zur Wurflinie (90°)</b>, Handy quer in beiden Händen, Ellbogen am Körper.</li>
+    <li>Kamerahöhe ca. 1–1,2 m (Brusthöhe des Kindes), Abstand etwa 4–6 m (Studien: 3,7–8 m).</li>
+    <li>Nicht mitschwenken: Kind samt Ball über dem Kopf bleibt im Bild.</li>
+    <li>Jedes Mal gleich filmen. Bodenband am Wurfpunkt und Zollstock im Bild als Bezug.</li>
+    <li>Enge, kontrastreiche Kleidung, kein Fenster im Hintergrund, Halle hell.</li>
+    <li><b>Sicherheit:</b> fest stehen, nie rückwärts gehen, nicht auf den Boden schauen, außerhalb von Lauf- und Rebound-Zone. Wurf erst, wenn du bereit bist und alle anderen Bälle ruhen.</li></ul></details>
+
+  <details><summary>Ablauf pro Kind (ca. 3 Min.)</summary><ol>
+    <li>Kurz erklären. Nur Kinder mit Einwilligung filmen.</li>
+    <li>10 Würfe vom immer gleichen Punkt, ein Video pro Kind; Nummer laut rufen (Button „Wurf ✚“ setzt sie ins Video).</li>
+    <li>2–3 Würfe gemeinsam in Zeitlupe ansehen, jeden ca. 3-mal.</li>
+    <li>Nur ein kurzer, positiver Hinweis für die nächste Runde.</li></ol>
+    <p class="mut">Auswertung (Bogen) danach am Video, ca. 5 Min. pro Kind. Ohne Video geht der Bogen auch live – ein Beleg, dass Video für die Coach-Bewertung besser ist, fehlt.</p></details>
+
+  <details><summary>Die drei Kriterien (Stufe 1)</summary>
+    <table><tr><th>Kriterium</th><th>passt (+)</th><th>Beleg</th></tr>
+    <tr><td>1. Beinbeugung</td><td>sichtbare, fließende Beugung, Gleichgewicht</td><td>Studie (Erw.); Tiefe Kinder offen</td></tr>
+    <tr><td>2. Landung/Rumpf (nur Sprungwurf)</td><td>landet am Absprungpunkt, Oberkörper aufrecht</td><td>Studie (Kinder); Wirkung ungeprüft</td></tr>
+    <tr><td>3. Ellbogen</td><td>kommt vor dem Release unter/vor den Ball, geht senkrecht hoch</td><td>Erfahrung; Studien widersprüchlich</td></tr></table>
+    <p class="mut">Alles andere = „passt noch nicht“ (–). Bei Standwürfen entfällt Kriterium 2 („n. z.“).</p></details>
+
+  <details><summary>Stufe 2 & 3 (optional)</summary>
+    <p><b>Stufe 2</b> (zusätzlich ca. 45° schräg von vorn, 5 Würfe): Armführung nach dem Wurf (Arm oben-vorn, ca. 1 Sek. gehalten) wird gezählt. Handgelenk und Führhand nur als Notiz, nicht im Basiswert.</p>
+    <p><b>Stufe 3</b> (nur U14 mit Zeitlupe): Release-Zeitpunkt und Ball-Dip nur beobachten. Nicht werten: Ellbogenwinkel, Wurfzeit als Zahl, Wurfbogen in Grad, Release-Höhe als Zahl.</p></details>
+
+  <details><summary>Kinderkarte</summary>
+    <p>„Knie weich“ · „Lande dort, wo du abgesprungen bist“ · „Ellbogen zeigt zum Korb“ · (Stufe 2:) „Arm bleibt oben“ · „Hand bleibt locker“ · „Die zweite Hand ist nur Helfer“.</p>
+    <p class="mut">Das Kind bewertet sich selbst mit Daumen hoch / Mitte / runter.</p></details>
+
+  <details><summary>Handy einstellen</summary>
+    <table><tr><th>Handy</th><th>Zeitlupe</th></tr>
+    <tr><td>iPhone</td><td>Einstellungen › Kamera › Slo-Mo aufnehmen › 1080p, 120 fps (neuere Modelle auch 240). Raster an; Kind lange antippen für AE/AF-Sperre.</td></tr>
+    <tr><td>Google Pixel</td><td>Kamera › Videomodus › Zeitlupe (1/8x). Ohne: 1080p, 60 fps.</td></tr>
+    <tr><td>Samsung Galaxy</td><td>Kamera › MEHR › Zeitlupe (normal). „Superzeitlupe“ ist eher ungeeignet.</td></tr></table>
+    <p class="mut">Ohne 120 fps: mit 60 fps filmen – Stufe 1 und 2 gehen, Stufe 3 weglassen. Hohe Bildraten brauchen mehr Licht.</p></details>
+
+  <details><summary>Video & Rückmeldung</summary>
+    <ul><li>Video-Feedback <b>mit</b> kurzem Hinweis war im Sportunterricht (9–15 J.) in 7 von 8 Vergleichen besser als rein mündliches Feedback (Mödinger et al., 2022). Selbstansehen ohne Hinweis kann wirkungslos sein.</li>
+    <li>Zeitlupe, 3–5 Wiederholungen, ein Punkt pro Rückmeldung, kurze Hinweise (ca. 20 Wörter), nicht nach jedem Wurf (ca. 25 % reichen).</li>
+    <li>U12: Stufe 1 reicht. Kinder unter 12 werfen oft aus tieferer Schusstasche – nicht gegen die Kraft des Kindes coachen.</li></ul></details>
+
+  <details><summary>Datenschutz & Einwilligung</summary>
+    <ul><li>Diese Seite lädt nichts hoch; Aufnahmen bleiben im Browser bzw. werden von dir heruntergeladen.</li>
+    <li>Vor der ersten Aufnahme Cloud-Sync ausschalten (iCloud-Fotos, Google Fotos, Herstellercloud).</li>
+    <li>Nur Kinder mit Einwilligung der Eltern im Bild. Nur auf gesperrtem Trainergerät speichern, nichts in Messenger teilen, Kürzel statt Klarnamen.</li>
+    <li>Löschfrist festlegen; auch aus „Zuletzt gelöscht“ bzw. Papierkorb entfernen.</li></ul>
+    <p class="mut">Keine Rechtsberatung – Rechtslage mit Verein oder Datenschutzbeauftragtem klären.</p></details>
+
+  <details><summary>Zu dieser Seite</summary>
+    <p class="mut">Der Zeitstempel in der Browser-Aufnahme wird ins Video eingebrannt (Laufzeit, Uhrzeit, Kürzel, Wurf-Nr.). Bei Videos aus der Kamera-App wird er beim Abspielen eingeblendet (Laufzeit und Bildnummer). Die Kamera funktioniert nur über https (oder localhost). Echte 120/240-fps-Zeitlupe liefert die Kamera-App; die Seite spielt langsam ab (0,1–1×) und springt bildweise.</p></details>
+</section>
+</main>
+
+<nav>
+  <button data-t="rec" class="on">● Aufnahme</button>
+  <button data-t="ana">▶︎ Analyse</button>
+  <button data-t="bow">✔︎ Bogen</button>
+  <button data-t="info">ⓘ Infos</button>
+</nav>
+
+<script>
+const $=id=>document.getElementById(id);
+const pad=(n,l=2)=>String(n).padStart(l,'0');
+const fmt=t=>{if(!isFinite(t)||t<0)t=0;const m=Math.floor(t/60),s=Math.floor(t%60),ms=Math.floor((t*1000)%1000);return m+':'+pad(s)+'.'+pad(ms,3)};
+const clock=d=>pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear()+' '+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds())+'.'+pad(d.getMilliseconds(),3);
+
+/* Tabs */
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>show(b.dataset.t));
+function show(t){document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
+ document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='s-'+t));window.scrollTo(0,0)}
+
+/* ---------- AUFNAHME ---------- */
+let stream=null,facing='environment',rec=null,chunks=[],recStart=0,throwN=1,recMarks=[],drawing=false,actualFps=0;
+const live=$('live'),rc=$('rc'),rctx=rc.getContext('2d');
+
+async function startCam(){
+  stopCam();
+  const h=+$('resSel').value,fps=+$('fpsSel').value;
+  const tries=[
+    {video:{facingMode:{ideal:facing},width:{ideal:h*16/9},height:{ideal:h},frameRate:{ideal:fps,min:Math.min(fps,30)}},audio:false},
+    {video:{facingMode:{ideal:facing},frameRate:{ideal:fps}},audio:false},
+    {video:true,audio:false}];
+  let err;
+  for(const c of tries){try{stream=await navigator.mediaDevices.getUserMedia(c);break}catch(e){err=e}}
+  if(!stream){$('camInfo').textContent='Kamera nicht verfügbar: '+(err&&err.message||'unbekannt')+'. Seite muss über https geöffnet sein und die Kamera-Berechtigung erteilt werden. Alternativ unten die Kamera-App nutzen.';return}
+  live.srcObject=stream;await live.play().catch(()=>{});
+  const s=stream.getVideoTracks()[0].getSettings();
+  actualFps=s.frameRate||0;
+  $('camInfo').innerHTML='Aktiv: <b>'+(s.width||'?')+'×'+(s.height||'?')+'</b> bei <b>'+(Math.round(actualFps)||'?')+' fps</b>'+(actualFps&&actualFps<100?' – für Zeitlupe mit 120/240 fps die Kamera-App nutzen.':'');
+  $('btnCam').textContent='Kamera stoppen';$('btnFlip').disabled=false;$('btnRec').disabled=false;
+  $('btnThrow').disabled=false;$('btnMarkRec').disabled=false;
+  drawing=true;loop();
+}
+function stopCam(){drawing=false;if(rec&&rec.state!=='inactive')rec.stop();if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}
+  live.srcObject=null;$('btnCam').textContent='Kamera starten';$('btnRec').disabled=true;$('btnFlip').disabled=true;$('btnThrow').disabled=true;$('btnMarkRec').disabled=true;$('liveTs').textContent='Kamera aus'}
+$('btnCam').onclick=()=>stream?stopCam():startCam();
+$('btnFlip').onclick=()=>{facing=facing==='environment'?'user':'environment';startCam()};
+$('fpsSel').onchange=$('resSel').onchange=()=>{if(stream&&!(rec&&rec.state==='recording'))startCam()};
+$('btnGrid').onclick=()=>$('grid1').classList.toggle('on');
+
+function stampText(){
+  const now=new Date();const t=(rec&&rec.state==='recording')?(performance.now()-recStart)/1000:0;
+  const kid=$('kid').value.trim();
+  return ['T '+fmt(t)+(rec&&rec.state==='recording'?'  ·  Wurf '+throwN:''),clock(now)+(kid?'  ·  '+kid:'')];
+}
+function loop(){
+  if(!drawing)return;
+  const vw=live.videoWidth,vh=live.videoHeight;
+  if(vw&&(rc.width!==vw||rc.height!==vh)){rc.width=vw;rc.height=vh}
+  const lines=stampText();
+  $('liveTs').textContent=lines.join('\n');
+  if(vw){
+    rctx.drawImage(live,0,0,vw,vh);
+    const fs=Math.max(16,Math.round(vh/28));
+    rctx.font='600 '+fs+'px ui-monospace,Menlo,monospace';rctx.textBaseline='top';
+    const w=Math.max(...lines.map(l=>rctx.measureText(l).width))+fs;
+    rctx.fillStyle='rgba(0,0,0,.65)';rctx.fillRect(fs/2,fs/2,w,fs*2.5);
+    rctx.fillStyle='#fff';lines.forEach((l,i)=>rctx.fillText(l,fs,fs/2+fs*.3+i*fs*1.15));
+  }
+  if(live.requestVideoFrameCallback)live.requestVideoFrameCallback(loop);else requestAnimationFrame(loop);
+}
+function pickMime(){return ['video/mp4;codecs=avc1','video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm','video/mp4'].find(m=>window.MediaRecorder&&MediaRecorder.isTypeSupported(m))||''}
+$('btnRec').onclick=()=>{
+  if(rec&&rec.state==='recording'){rec.stop();return}
+  if(!window.MediaRecorder||!rc.captureStream){alert('Dieser Browser kann nicht aufnehmen. Bitte die Kamera-App nutzen.');return}
+  const cs=rc.captureStream(Math.max(30,Math.round(actualFps)||30));
+  const mime=pickMime();chunks=[];recMarks=[];
+  rec=new MediaRecorder(cs,mime?{mimeType:mime,videoBitsPerSecond:12e6}:{videoBitsPerSecond:12e6});
+  rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
+  rec.onstop=()=>{$('recDot').classList.remove('on');$('btnRec').textContent='● Aufnahme starten';
+    const blob=new Blob(chunks,{type:rec.mimeType||'video/webm'});
+    const dur=(performance.now()-recStart)/1000;
+    loadVideo(blob,{fromRec:true,marks:recMarks.slice(),dur,name:($('kid').value.trim()||'wurf')});show('ana')};
+  recStart=performance.now();rec.start(250);
+  $('recDot').classList.add('on');$('btnRec').textContent='■ Stopp';
+};
+$('btnThrow').onclick=()=>{if(rec&&rec.state==='recording'){recMarks.push({t:(performance.now()-recStart)/1000,label:'Wurf '+throwN})}throwN++;$('thrN').textContent=throwN};
+$('btnThrow').oncontextmenu=e=>{e.preventDefault();throwN=1;$('thrN').textContent=1};
+$('btnMarkRec').onclick=()=>{if(rec&&rec.state==='recording')recMarks.push({t:(performance.now()-recStart)/1000,label:'Marke'})};
+$('fileCap').onchange=$('fileGal').onchange=e=>{const f=e.target.files[0];if(f){loadVideo(f,{name:f.name.replace(/\.[^.]+$/,'')});show('ana')}e.target.value=''};
+
+/* ---------- ANALYSE ---------- */
+const pv=$('pv');let curUrl=null,curBlob=null,curName='wurf',marks=[],loopOn=false,speed=.5,vfps=30,recDur=0;
+function loadVideo(blob,o={}){
+  if(curUrl)URL.revokeObjectURL(curUrl);
+  curBlob=blob;curUrl=URL.createObjectURL(blob);curName=o.name||'wurf';marks=o.marks||[];recDur=o.dur||0;
+  pv.src=curUrl;pv.playbackRate=speed;
+  $('noVid').style.display='none';$('anaBox').style.display='block';
+  if(o.fromRec){const f=Math.round(actualFps)||30;vfps=f;}
+  const opt=[...$('fpsPlay').options].map(x=>+x.value);if(!opt.includes(vfps))vfps=30;$('fpsPlay').value=vfps;
+  pv.onloadedmetadata=()=>{
+    if(pv.duration===Infinity||isNaN(pv.duration)){pv.currentTime=1e7;pv.ontimeupdate=()=>{pv.ontimeupdate=null;pv.currentTime=0}}
+    $('meta').textContent=(o.fromRec?'Browser-Aufnahme':'Importiert')+' · '+pv.videoWidth+'×'+pv.videoHeight+(o.fromRec?' · Zeitstempel eingebrannt':' · Zeitstempel wird eingeblendet');
+    $('pvTs').style.display=o.fromRec?'none':'block';renderMarks()};
+  speedSet(speed);
+}
+function dur(){return isFinite(pv.duration)&&pv.duration>0?pv.duration:(recDur||0)}
+function tick(){
+  const t=pv.currentTime;$('pvTs').textContent='T '+fmt(t)+'\nBild '+Math.round(t*vfps);
+  if(document.activeElement!==$('seek')&&dur())$('seek').value=t/dur()*1000;
+  $('pp').textContent=pv.paused?'▶︎':'❚❚';
+  requestAnimationFrame(tick)}
+requestAnimationFrame(tick);
+$('seek').oninput=e=>{pv.currentTime=e.target.value/1000*dur()};
+$('pp').onclick=()=>{if(pv.paused){pv.play()}else pv.pause()};
+const step=d=>{pv.pause();pv.currentTime=Math.max(0,Math.min(dur(),pv.currentTime+d/vfps))};
+$('fbk').onclick=()=>step(-1);$('ffw').onclick=()=>step(1);
+$('fpsPlay').onchange=e=>vfps=+e.target.value;
+function speedSet(s){speed=s;pv.playbackRate=s;document.querySelectorAll('#speeds .b').forEach(b=>b.classList.toggle('sel',+b.dataset.s===s))}
+document.querySelectorAll('#speeds .b').forEach(b=>b.onclick=()=>speedSet(+b.dataset.s));
+pv.onplay=()=>{pv.playbackRate=speed};
+pv.onended=()=>{if(loopOn){pv.currentTime=0;pv.play()}};
+$('btnLoop').onclick=()=>{loopOn=!loopOn;pv.loop=loopOn;$('btnLoop').classList.toggle('sel',loopOn)};
+$('btnGrid2').onclick=()=>$('grid2').classList.toggle('on');
+function addMark(label){marks.push({t:pv.currentTime,label});marks.sort((a,b)=>a.t-b.t);renderMarks()}
+$('btnMarkAna').onclick=()=>addMark('Marke');
+document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{pv.pause();addMark(b.dataset.q)});
+function renderMarks(){
+  const box=$('marks');if(!marks.length){box.innerHTML='<span class="mut">Keine Marken. Tipp: Video anhalten, Namen antippen – setzt eine benannte Marke.</span>';return}
+  box.innerHTML='';
+  marks.forEach((m,i)=>{const d=document.createElement('div');d.className='mark';
+    d.innerHTML='<span><b>'+m.label+'</b> · '+fmt(m.t)+' · Bild '+Math.round(m.t*vfps)+'</span><span><button class="b" data-g="'+i+'">Springen</button> <button class="b" data-d="'+i+'">✕</button></span>';box.appendChild(d)});
+  box.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{pv.pause();pv.currentTime=marks[+b.dataset.g].t});
+  box.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{marks.splice(+b.dataset.d,1);renderMarks()});
+}
+$('btnClr').onclick=()=>{marks=[];renderMarks()};
+function dl(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}
+$('btnCsv').onclick=()=>{const rows=['Bezeichnung;Zeit_s;Bild'].concat(marks.map(m=>m.label+';'+m.t.toFixed(3).replace('.',',')+';'+Math.round(m.t*vfps)));dl(new Blob(['\ufeff'+rows.join('\n')],{type:'text/csv'}),curName+'_marken.csv')};
+$('btnShot').onclick=()=>{
+  const c=document.createElement('canvas');c.width=pv.videoWidth;c.height=pv.videoHeight;const x=c.getContext('2d');x.drawImage(pv,0,0);
+  if($('pvTs').style.display!=='none'){const fs=Math.max(16,Math.round(c.height/28));x.font='600 '+fs+'px ui-monospace,monospace';x.textBaseline='top';
+    const l='T '+fmt(pv.currentTime)+'  Bild '+Math.round(pv.currentTime*vfps);x.fillStyle='rgba(0,0,0,.65)';x.fillRect(fs/2,fs/2,x.measureText(l).width+fs,fs*1.6);x.fillStyle='#fff';x.fillText(l,fs,fs*.8)}
+  c.toBlob(b=>dl(b,curName+'_'+fmt(pv.currentTime).replace(/[:.]/g,'-')+'.png'),'image/png')};
+$('btnSave').onclick=()=>{if(!curBlob)return;const ext=(curBlob.type||'').includes('mp4')?'mp4':(curBlob.type||'').includes('webm')?'webm':'mp4';
+  dl(curBlob,curName+'_'+new Date().toISOString().slice(0,10)+'.'+ext)};
+
+/* ---------- BOGEN ---------- */
+const crit=['Beinbeugung','Landung/Rumpf (nur Sprung)','Ellbogen'];const states=['','p','m','n'],sym={'':'·',p:'+',m:'–',n:'n.z.'};
+let bow=JSON.parse(localStorage.getItem('wa_bow')||'null')||crit.map(()=>Array(10).fill(''));
+function drawBow(){
+  let h='<tr><th>Wurf</th>'+[...Array(10)].map((_,i)=>'<th>'+(i+1)+'</th>').join('')+'<th>+</th></tr>';
+  crit.forEach((c,r)=>{h+='<tr><td>'+c+'</td>'+bow[r].map((v,i)=>'<td><button class="cell '+v+'" data-r="'+r+'" data-c="'+i+'">'+sym[v]+'</button></td>').join('')+'<td><b>'+bow[r].filter(v=>v==='p').length+'</b></td></tr>'});
+  $('tbl').innerHTML=h;
+  $('sum').innerHTML=crit.map((c,r)=>{const n=bow[r].filter(v=>v==='n').length;return c+': <b>'+bow[r].filter(v=>v==='p').length+' von '+(10-n)+'</b>'}).join(' · ');
+  document.querySelectorAll('.cell').forEach(b=>b.onclick=()=>{const r=+b.dataset.r,c=+b.dataset.c;bow[r][c]=states[(states.indexOf(bow[r][c])+1)%4];localStorage.setItem('wa_bow',JSON.stringify(bow));drawBow()});
+}
+$('bowClr').onclick=()=>{if(confirm('Bogen leeren?')){bow=crit.map(()=>Array(10).fill(''));localStorage.setItem('wa_bow',JSON.stringify(bow));drawBow()}};
+$('bkid').value=localStorage.getItem('wa_bkid')||'';$('bkid').oninput=e=>localStorage.setItem('wa_bkid',e.target.value);
+drawBow();
+</script>
+</body>
+</html>
