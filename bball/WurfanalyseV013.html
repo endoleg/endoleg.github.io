@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wurfanalyse V13</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef1f6;--card:#fff;--ink:#101a33;--mute:#59647c;--line:#d5dbe6;--acc:#ffd23f;--accink:#101a33;--blue:#2447f5;--ok:#17894f;--bad:#cf3b2b;--okbg:#dff4e8;--badbg:#fbe1dd;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1222;--card:#161f36;--ink:#eef1f8;--mute:#9aa6c0;--line:#2a3555;--blue:#7c97ff;--ok:#4cd08a;--bad:#ff7d6e;--okbg:#12382a;--badbg:#401c18}}
+:root[data-theme="dark"]{--bg:#0c1222;--card:#161f36;--ink:#eef1f8;--mute:#9aa6c0;--line:#2a3555;--blue:#7c97ff;--ok:#4cd08a;--bad:#ff7d6e;--okbg:#12382a;--badbg:#401c18}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 Barlow,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:76px}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;letter-spacing:.2px;margin:0}
+header{padding:18px 16px 8px;max-width:760px;margin:auto}
+h1{font-size:34px;line-height:1.05}
+header p{margin:4px 0 0;color:var(--mute);font-size:15px}
+main{max-width:760px;margin:auto;padding:8px 16px 24px}
+section{display:none}section.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0}
+h2{font-size:26px;margin:14px 0 4px}h3{font-size:20px;margin:0 0 6px}
+p{margin:6px 0}.mute{color:var(--mute);font-size:14px}
+button,select,input{font:inherit;color:inherit}
+.btn{border:1.5px solid var(--ink);background:var(--card);border-radius:10px;padding:12px 14px;min-height:48px;font-weight:600;cursor:pointer}
+.btn.pri{background:var(--acc);color:var(--accink);border-color:var(--acc)}
+.btn.rec{background:var(--bad);color:#fff;border-color:var(--bad)}
+.btn:disabled{opacity:.4}
+.btn:focus-visible,.tab:focus-visible,summary:focus-visible,.cell:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.row>.btn{flex:1 1 auto}
+.stage{position:relative;background:#000;border-radius:12px;overflow:hidden;aspect-ratio:16/9}
+.stage video{width:100%;height:100%;object-fit:contain;display:block;background:#000}
+.grid{position:absolute;inset:0;pointer-events:none;display:none;background:
+linear-gradient(90deg,transparent 33.2%,rgba(255,255,255,.45) 33.3%,transparent 33.5%,transparent 66.5%,rgba(255,255,255,.45) 66.6%,transparent 66.8%),
+linear-gradient(0deg,transparent 33.2%,rgba(255,255,255,.45) 33.3%,transparent 33.5%,transparent 66.5%,rgba(255,255,255,.45) 66.6%,transparent 66.8%)}
+.grid.on{display:block}
+.badge{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.65);color:#fff;border-radius:8px;padding:2px 10px;font-weight:600;font-variant-numeric:tabular-nums}
+.badge.rec{background:var(--bad)}
+.empty{position:absolute;inset:0;display:grid;place-items:center;color:#c8d0e4;text-align:center;padding:16px;font-size:15px}
+.tl{position:relative;margin:10px 0 2px}
+.tl input[type=range]{width:100%;height:36px;margin:0;accent-color:var(--blue)}
+.ticks{position:absolute;left:0;right:0;top:0;height:8px;pointer-events:none}
+.ticks i{position:absolute;top:0;width:3px;height:12px;background:var(--acc);border:1px solid var(--ink);border-radius:2px;transform:translateX(-50%)}
+.time{font-variant-numeric:tabular-nums;font-weight:600;font-size:20px}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1 1 56px;min-height:44px;border:1.5px solid var(--line);background:var(--card);border-radius:8px;font-weight:600;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.stepper{display:flex;align-items:center;gap:8px}
+.stepper b{min-width:5.5em;text-align:center;font-size:20px;font-family:"Barlow Condensed",sans-serif}
+.stepper .btn{min-width:48px;padding:8px}
+.marks{list-style:none;margin:8px 0 0;padding:0}
+.marks li{display:flex;align-items:center;gap:8px;border-top:1px solid var(--line);padding:4px 0}
+.marks .go{flex:1;text-align:left;background:none;border:0;padding:10px 4px;font-weight:500;cursor:pointer;min-height:44px}
+.marks .go span{font-variant-numeric:tabular-nums;color:var(--mute);margin-left:6px}
+.marks .del{background:none;border:0;font-size:22px;color:var(--mute);min-width:44px;min-height:44px;cursor:pointer}
+.msg{margin:8px 0;padding:10px 12px;border-radius:8px;background:var(--badbg);display:none;font-size:15px}
+.msg.on{display:block}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.meta label{display:block;font-size:13px;color:var(--mute)}
+.meta input{width:100%;min-height:44px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);padding:6px 10px}
+table{border-collapse:collapse;width:100%}
+th{font-weight:600;font-size:14px;text-align:center;padding:4px 2px;vertical-align:bottom}
+td{padding:3px 2px;text-align:center}td:first-child{text-align:left;font-weight:600;white-space:nowrap}
+tr.cur td:first-child{color:var(--blue)}
+.cell{width:100%;min-height:46px;border-radius:8px;border:1.5px solid var(--line);background:var(--bg);font-size:20px;font-weight:700;cursor:pointer}
+.cell[data-v="+"]{background:var(--okbg);border-color:var(--ok);color:var(--ok)}
+.cell[data-v="-"]{background:var(--badbg);border-color:var(--bad);color:var(--bad)}
+.cell[data-v="n"]{font-size:14px;color:var(--mute)}
+.sum{display:grid;gap:6px;margin:6px 0}
+.sum div{display:flex;justify-content:space-between;border-bottom:1px dashed var(--line);padding:4px 0}
+.sum strong{font-family:"Barlow Condensed",sans-serif;font-size:24px}
+textarea{width:100%;min-height:150px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);padding:8px;font:14px/1.4 ui-monospace,Menlo,Consolas,monospace}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:8px 0}
+summary{cursor:pointer;padding:14px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:8px;min-height:48px}
+summary::after{content:"+";font-size:22px;line-height:1}details[open] summary::after{content:"–"}
+.body{padding:0 14px 12px}
+.body ul{margin:6px 0;padding-left:20px}.body li{margin:4px 0}
+.tag{font-size:12px;border:1px solid var(--line);border-radius:6px;padding:0 6px;color:var(--mute);white-space:nowrap}
+.tbl{overflow-x:auto}
+.tbl table td,.tbl table th{border-bottom:1px solid var(--line);padding:6px;text-align:left;vertical-align:top;font-size:14px}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+.tab{flex:1;border:0;background:none;padding:8px 2px;min-height:52px;font-weight:600;font-size:14px;color:var(--mute);border-radius:10px;cursor:pointer}
+.tab[aria-selected=true]{background:var(--acc);color:var(--accink)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+select{min-height:44px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);padding:6px 8px;width:100%}
+.set{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.set label{display:block;font-size:13px;color:var(--mute)}
+.set input{width:100%;min-height:44px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);padding:6px 10px}
+.chk{display:flex;gap:10px;align-items:center;min-height:44px}
+.chk input{width:22px;height:22px;accent-color:var(--blue)}
+.ts{white-space:pre;font:600 13px/1.35 ui-monospace,Menlo,Consolas,monospace;pointer-events:none}
+.btn.sel,.btn[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+#toast{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:12px 14px;border-radius:10px;z-index:9;display:none;text-align:center}
+#toast.on{display:block}
+#hist{list-style:none;margin:6px 0;padding:0}
+#hist li{display:flex;align-items:center;gap:6px;border-top:1px solid var(--line)}
+#hist .go{flex:1;text-align:left;background:none;border:0;padding:10px 4px;min-height:44px;cursor:pointer;font-size:14px}
+#hist .del{background:none;border:0;font-size:22px;color:var(--mute);min-width:44px;min-height:44px;cursor:pointer}
+#dlg{position:fixed;inset:0;background:rgba(0,0,0,.55);display:grid;place-items:center;z-index:20;padding:16px}
+.dbox{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;max-width:420px;width:100%}
+.dbox p{margin:0 0 12px}
+.sub{border-top:1px solid var(--line);margin-top:10px;padding-top:8px}.sub h4{margin:0;font-size:17px;font-family:"Barlow Condensed",sans-serif;color:var(--blue)}.sub p{margin:2px 0}
+#sheet th{font-size:12px}
+.hints{max-width:760px;margin:0 auto;padding:4px 16px 0}
+.hint{border-radius:10px;padding:10px 12px;margin:6px 0;font-size:15px;line-height:1.4}
+.hint-dsgvo{background:var(--acc);color:var(--accink);border:2px solid var(--ink);font-weight:500}
+.hint-video{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--blue)}
+#sheet th .tag{display:block;font-size:10px;font-weight:500;margin:2px auto 0;width:max-content;padding:0 4px}
+#hist .exp{display:block;font-size:13px;color:var(--mute);margin-top:2px}
+#hist .exp.over{color:var(--bad);font-weight:600}
+.qg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}.qg label{display:block;font-size:12px;color:var(--mute);margin-bottom:2px;line-height:1.2}#qCard h3{font-size:22px}.qs{display:flex;gap:6px}.qs .btn{min-width:48px;flex:0 0 auto}</style>
+</head>
+<body>
+<header>
+<h1>Wurfanalyse</h1>
+<p>Aufnahme machen, in Zeitlupe ansehen, Bogen ausfüllen. Jedes Kind wird nur mit sich selbst verglichen.</p>
+</header>
+<div class="hints">
+<div class="hint hint-dsgvo" role="note"><strong>Datenschutz:</strong> Nur Kinder mit Einwilligung der Eltern filmen. Vorher Cloud-Sync ausschalten (iCloud-Fotos, Google Fotos). Nichts in Messenger-Gruppen teilen. Nur Kürzel, keine Klarnamen. Diese Seite lädt nichts hoch. Details im Tab „Infos“.</div>
+<div class="hint hint-video" role="note">Ein Video mit kurzem Hinweis und Zeitlupe wirkt bei Kindern oft besser als eine rein mündliche Rückmeldung. Technik-Details können in Zeitlupe besser geprüft werden als live.</div>
+</div>
+<main>
+
+<!-- AUFNAHME -->
+<section id="s-rec" class="on">
+<div class="stage" id="liveStage">
+<video id="live" playsinline muted autoplay></video>
+<canvas id="rc" hidden></canvas>
+<div class="grid on" id="grid"></div>
+<div class="badge ts" id="liveTs">Kamera aus</div>
+<div class="badge rec" id="recBadge" hidden style="left:auto;right:8px">● REC</div>
+<div class="empty" id="liveEmpty">Kamera starten oder ein Video aus der Galerie wählen.</div>
+</div>
+<div class="msg" id="camMsg" role="alert"></div>
+<div class="card">
+<div class="row">
+<button class="btn pri" id="camOn">Kamera starten</button>
+<button class="btn" id="flipBtn" disabled>Kamera wechseln</button>
+<button class="btn" id="gridBtn" aria-pressed="true">Raster</button>
+</div>
+<div class="row" style="margin-top:8px">
+<button class="btn rec" id="recBtn" disabled>Aufnahme starten</button>
+<button class="btn" id="throwBtn" disabled>Wurf 1 (Tippzeit)</button>
+</div>
+<p class="mute">Optional: Der Button setzt einen Zeitstempel (Tippzeit, nicht der exakte Wurf). Zeitwerte der Browser-Aufnahme sind nur auf etwa 0,1–0,5 s genau: Tiefpunkt und Release immer am Bild prüfen. Beim Tippen verwackelt das Bild: nur mit Stativ oder zweiter Person nutzen, sonst die Wurfnummer ansagen. Nach dem Stopp geht es direkt in die Analyse.</p>
+</div>
+<div class="card">
+<h3>Aufnahme-Einstellungen</h3>
+<div class="set">
+<div><label for="resSel">Auflösung</label><select id="resSel"><option value="720">720p (HD)</option><option value="1080">1080p (Full HD)</option></select></div>
+<div><label for="fpsSel">Bildrate</label><select id="fpsSel"><option value="30">30 fps</option><option value="60">60 fps</option><option value="120">120 fps</option></select></div>
+<div><label for="kid2">Kürzel (kein Klarname)</label><input id="kid2" placeholder="z. B. Kind 7" maxlength="20"></div>
+</div>
+<label class="chk"><input type="checkbox" id="stampOn"> Zeitstempel ins Video einbrennen</label>
+<label class="chk"><input type="checkbox" id="stampKid"> Kürzel mit einbrennen (sonst nur Zeit und Uhrzeit)</label>
+<label class="chk"><input type="checkbox" id="micOn"> Ton aufnehmen (Wurfnummer ansagen)</label>
+<p class="mute" id="camInfo">Gewünschte Werte sind Wünsche an das Handy. Nach dem Start siehst du hier, was tatsächlich geliefert wird. Browser liefern meist nur 30–60 fps; hohe Auflösung und hohe Bildrate zusammen überfordern viele Geräte. Bildschirm während der Aufnahme nicht sperren und die App nicht wechseln.</p>
+</div>
+<div class="card">
+<h3>Echte Zeitlupe (120 fps und mehr)</h3>
+<p class="mute">Für Zeitlupe filmst du mit der Kamera-App deines Handys (Slo-Mo bzw. Zeitlupe, 120 fps) und lädst das Video hier hoch. Das Video bleibt auf deinem Gerät und wird nicht hochgeladen.</p>
+<div class="row">
+<label class="btn pri" style="text-align:center">Video aus Galerie wählen<input type="file" id="fileIn" accept="video/*" hidden></label>
+<label class="btn" style="text-align:center">Kamera-App öffnen<input type="file" id="fileCap" accept="video/*" capture="environment" hidden></label>
+</div>
+</div>
+
+<details><summary>Aufbau: so filmst du</summary><div class="body"><ul>
+<li>Du stehst seitlich zur Wurflinie (90°), 4–6 m entfernt, Handy quer, Kamera auf Brusthöhe des Kindes (ca. 1–1,2 m).</li>
+<li>720p reicht für die Analyse.</li>
+<li>Kamera still halten, nicht mitschwenken. Das Kind bleibt samt Ball über dem Kopf im Bild.</li>
+<li>Immer gleich filmen: Alle Würfe von der gleichen Position</li>
+<li>4 Würfe vom immer gleichen Punkt, ein Video pro Kind. Nummer laut rufen.</li>
+<li>Sicherheit: fest auf der Markierung stehen, nie rückwärts gehen, außerhalb von Lauf- und Rebound-Zone. Wurf erst starten, wenn alle anderen Bälle ruhen.</li>
+</ul></div></details>
+<details><summary>Handy einstellen (einmalig)</summary><div class="body"><ul>
+<li><b>iPhone:</b> Einstellungen › Kamera › Slo-Mo aufnehmen › 1080p, 120 fps. Raster an. Kind lange antippen für AE/AF-Sperre.</li>
+<li><b>Google Pixel:</b> Kamera › Videomodus › Zeitlupe. Ohne Zeitlupe: 1080p, 60 fps.</li>
+<li><b>Samsung:</b> Kamera › MEHR › Zeitlupe (normal). „Superzeitlupe“ ist eher ungeeignet.</li>
+<li>Hat das Handy keine 120 fps, filme mit 60 fps. Die Analyse geht auch damit.</li>
+<li>Im Browser stellst du Auflösung und Bildrate weiter oben auf diesem Tab ein. Empfehlung: 1080p bei 60 fps. Was das Handy wirklich liefert, steht nach dem Kamerastart dort.</li>
+<li>Hohe Bildraten brauchen mehr Licht. Speicherplatz frei, Nicht stören an, Akku voll.</li>
+</ul></div></details>
+</section>
+
+<!-- ANALYSE -->
+<section id="s-ana">
+<div class="stage" id="anaStage">
+<video id="vid" playsinline controlslist="nodownload"></video>
+<canvas id="poseCv" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none"></canvas>
+<div class="grid on" id="grid2"></div>
+<div class="badge" id="vidBadge">0:00.00</div>
+<div class="empty" id="vidEmpty">Noch kein Video. Nimm eines auf oder wähle eines aus der Galerie.</div>
+</div>
+<details id="v13Panel"><summary>V13 · Ballspur und Wurfphasen (Beta)</summary>
+<p>Video an einem ungefähr passenden Abwurfbild pausieren. Für die Farbsuche „Ballfarbe wählen“ drücken und auf die farbige Ballfläche tippen. Bei mehreren Personen zuerst das Kind im Skelett auswählen. Die Bildrate unter dem Video passend einstellen.</p>
+<div class="row"><button class="btn" id="v13Pick">Ballfarbe wählen</button><label>Erkennung <select id="v13Mode"><option value="color">Ballfarbe</option><option value="coco">KI (COCO-SSD, lädt Modell nach)</option></select></label><label>Wurfhand <select id="v13Hand"><option value="r">Rechts</option><option value="l">Links</option></select></label><button class="btn" id="v13Scan">Kurzes Fenster prüfen</button></div>
+<div class="row"><button class="btn" id="v13Release" disabled>Zum Release-Vorschlag</button><button class="btn" id="v13Low" disabled>Zum Kniebeuge-Vorschlag</button></div>
+<p id="v13Status" role="status">Die Markierungen sind Vorschläge. Prüfe das Bild und setze den Zeitstempel wie bisher manuell. Das Video bleibt im Browser.</p></details>
+<div class="tl">
+<div class="ticks" id="ticks"></div>
+<input type="range" id="seek" min="0" max="1000" value="0" aria-label="Position im Video">
+</div>
+<div class="row" style="justify-content:space-between">
+<span class="time" id="clock">0:00.00</span>
+<span class="mute" id="dur">/ 0:00.00</span>
+</div>
+<div class="card" id="qCard">
+<div class="row" style="justify-content:space-between;align-items:center"><h3 id="qN">Wurf 1</h3><div class="qs"><button class="btn" id="qM" aria-label="Vorheriger Wurf">◀</button><button class="btn" id="qP" aria-label="Nächster Wurf">▶</button></div></div>
+<div id="qCells" class="qg"></div>
+<p class="mute">Bewertung beim Ansehen: Tippe + passt, – passt noch nicht, n. z. nicht zutreffend, nochmal leert das Feld. Es sind dieselben Felder wie im Tab Bogen.</p>
+</div>
+<div class="card">
+<div class="row">
+<button class="btn pri" id="playBtn" disabled>Abspielen</button>
+<button class="btn" id="back" disabled aria-label="Ein Bild zurück">◀ Bild</button>
+<button class="btn" id="fwd" disabled aria-label="Ein Bild vor">Bild ▶</button>
+</div>
+<p class="mute" style="margin-top:10px">Tempo</p>
+<div class="seg" id="speeds">
+<button data-s="0.1" aria-pressed="false">0,1×</button>
+<button data-s="0.25" aria-pressed="true">0,25×</button>
+<button data-s="0.5" aria-pressed="false">0,5×</button>
+<button data-s="1" aria-pressed="false">1×</button>
+</div>
+<p class="mute" style="margin-top:10px">Bildrate des Videos (für den Bild-Schritt; bei Zeitlupe aus der Kamera-App meist 120 oder 240)</p>
+<div class="seg" id="fpsBtns">
+<button data-f="30" aria-pressed="true">30</button>
+<button data-f="60" aria-pressed="false">60</button>
+<button data-f="120" aria-pressed="false">120</button>
+<button data-f="240" aria-pressed="false">240</button>
+</div>
+</div>
+
+<div class="card" id="poseCard">
+<h3>Pose-Analyse (lokal, Beta)</h3>
+<p class="mute">Erkennt das Skelett direkt in deinem Browser mit MediaPipe. Das Video wird nicht hochgeladen. Nur das Programm und das Modell (ca. 9 MB) werden einmalig von Google/jsDelivr geladen. Die Werte sind 2D-Schätzungen aus einer Kamera und nur eine Hilfe für deine Beobachtung, keine Bewertung.</p>
+<div class="row">
+<button class="btn pri" id="poseOn" disabled aria-pressed="false">Skelett einblenden</button>
+<button class="btn" id="poseMeas" disabled>Messwerte an Zeitstempeln</button>
+<button class="btn" id="poseClr" disabled>Auswahl aufheben</button>
+</div>
+<label class="chk"><input type="checkbox" id="angOn"> Winkel einblenden (nur Beobachtung)</label>
+<p class="mute">Gradzahlen sind keine Zielwerte und bei Kindern nicht validiert. Vergleiche nur mit dem eigenen Wert desselben Kindes aus derselben Kameraposition.</p>
+<div id="poseLive" class="mute" style="white-space:pre-wrap;margin-top:6px"></div>
+<p class="mute" id="poseSt" role="status">Lade zuerst ein Video.</p>
+<p class="mute">Mehrere Kinder im Bild: Tippe auf das Skelett des Kindes. Die anderen werden grau gezeigt, das gewählte Skelett wird gelb gezeichnet und verfolgt.</p>
+<div id="poseOut" class="mute" style="white-space:pre-wrap"></div>
+<div class="row" style="margin-top:8px"><button class="btn" id="poseCsv" disabled>Messwerte (CSV)</button></div>
+<div class="row" style="margin-top:8px;align-items:end">
+<div><label for="poseSpd">Tempo beim Export</label><select id="poseSpd"><option value="1">1× (Original)</option><option value="0.5" selected>0,5× (ruhiger, Video wird 2× länger)</option><option value="0.25">0,25× (Video wird 4× länger)</option></select></div>
+<button class="btn pri" id="poseVid" disabled>Video mit Skelett speichern</button>
+</div>
+<p class="mute">Der Export spielt das Video einmal ab und nimmt es mit Skelett neu auf. Ohne Ton. Bildschirm währenddessen nicht sperren und nicht die App wechseln. Das Original bleibt unverändert. Das neue Video ist nur im Speicher: Speichere es danach.</p>
+</div>
+<div class="card">
+<h3>Speichern</h3>
+<div class="row">
+<button class="btn pri" id="saveVid" disabled>Video speichern</button>
+<button class="btn" id="shotBtn" disabled>Standbild (PNG)</button>
+<button class="btn" id="csvBtn">Zeitstempel (CSV)</button>
+</div>
+<div class="row" style="margin-top:8px"><button class="btn pri" id="cardBtn" disabled>Vorher/Nachher-Karte (PNG)</button></div>
+<p class="mute">Legt Tiefpunkt, Release und Landung des gewählten Wurfs auf eine Seite. Dafür braucht der Wurf alle drei Zeitstempel. Skelett nur, wenn es eingeblendet ist.</p>
+<div class="row" style="margin-top:8px">
+<button class="btn" id="gridBtn2" aria-pressed="true">Raster</button>
+<button class="btn" id="loopBtn" aria-pressed="false">Wiederholen</button>
+</div>
+<p class="mute" id="meta">Browser-Aufnahmen liegen nur im Speicher. Sichere sie vor dem Schließen mit „Video speichern“.</p>
+</div>
+<div class="card">
+<h3>Zeitstempel</h3>
+<div class="row" style="justify-content:space-between">
+<span>Wurf</span>
+<div class="stepper"><button class="btn" id="nM" aria-label="Wurfnummer kleiner">−</button><b id="nVal">Wurf 1</b><button class="btn" id="nP" aria-label="Wurfnummer größer">+</button></div>
+</div>
+<div class="seg" style="margin-top:10px" id="markBtns">
+<button data-l="Start">Start</button>
+<button data-l="Tiefpunkt">Tiefpunkt</button>
+<button data-l="Release">Release</button>
+<button data-l="Landung">Landung</button>
+</div>
+<p class="mute">Stoppe das Bild an der Stelle und tippe den Zeitstempel. Tippe in der Liste auf einen Eintrag, um dorthin zu springen. Für den Vergleich reichen 4 Würfe pro Kind. Bildnummern sind Schätzwerte und hängen von der eingestellten Bildrate ab.</p>
+<ul class="marks" id="marks"></ul>
+<div class="row"><button class="btn" id="clearMarks">Alle Zeitstempel löschen</button></div>
+</div>
+<div class="card" id="st2">
+<h3>Stufe 2 (optional)</h3>
+<p class="mute">Zusätzlich Kamera 45° schräg vor dem Kind, 4 Würfe. Alle drei Punkte werden im Bogen bewertet.</p>
+<div class="sub"><h4>Armführung nach dem Wurf</h4><p>Arm geht hoch und bleibt ca. 1 Sekunde oben. Wichtig: diagonal nach oben, nicht nur nach vorn. Wird im Bogen bewertet. <span class="tag">Erfahrung</span></p></div>
+<div class="sub"><h4>Handgelenk</h4><p>Handgelenk klappt nach vorn ab und bleibt eingefroren, bis der Ball am Korb ist. Die Finger dürfen locker bleiben. Wird im Bogen bewertet. <span class="tag">Erfahrung</span></p></div>
+<div class="sub"><h4>Stützhand</h4><p>Die zweite Hand ist nur Helfer. Wird im Bogen bewertet. <span class="tag">Erfahrung</span> Prüfpunkte:</p><ul><li>Sie stützt den Ball nur vor dem Wurf.</li><li>Sie dreht nicht mit, und der Daumen zeigt auch nach dem Wurf zum Werfer.</li><li>Sie entfernt sich nur ca. 1 cm vom Ball und geht nicht vor das Gesicht.</li><li>Ein Daumen, der drückt, führt zu wenig Backspin.</li></ul></div>
+</div>
+<details><summary>Worauf du in der Zeitlupe achtest</summary><div class="body"><ul>
+<li><b>Beinbeugung:</b> sichtbare, fließende Beugung, Kind bleibt im Gleichgewicht.</li>
+<li><b>Landung und Rumpf</b> (nur Sprungwürfe): landet am Absprungpunkt, Oberkörper aufrecht.</li>
+<li><b>Ellbogen:</b> kommt vor dem Release unter oder vor den Ball und geht senkrecht hoch. Er bewegt sich nicht seitlich: Ellbogen unter dem Ball, nicht zur Seite.</li>
+<li><b>Armführung nach dem Wurf</b> (Stufe 2): Arm geht hoch und bleibt ca. 1 Sekunde oben, diagonal nach oben, nicht nur nach vorn.</li>
+<li><b>Handgelenk</b> (Stufe 2): klappt nach vorn ab und bleibt eingefroren, bis der Ball am Korb ist. Die Finger dürfen locker bleiben.</li>
+<li><b>Stützhand</b> (Stufe 2): stützt den Ball nur vor dem Wurf, dreht nicht mit (Daumen zeigt zum Werfer), bleibt ca. 1 cm vom Ball weg und geht nicht vor das Gesicht. Ein drückender Daumen führt zu wenig Backspin.</li>
+</ul><p class="mute">Kleine Kinder dürfen tiefer abwerfen als große. Zu jedem Wurf 3-mal in Zeitlupe schauen. Dem Kind nur einen kurzen, positiven Hinweis geben.</p></div></details>
+</section>
+
+<!-- BOGEN -->
+<section id="s-bog">
+<div class="card">
+<div class="meta">
+<div><label for="kid">Kürzel (kein Klarname)</label><input id="kid" placeholder="z. B. Kind 7" maxlength="20"></div>
+<div><label for="dat">Datum</label><input id="dat" type="date"></div>
+<div><label for="gg">Körpergröße (cm)</label><input id="gg" type="number" inputmode="numeric" min="50" max="250" placeholder="150"></div>
+</div>
+</div>
+<div class="card">
+<p class="mute">Tippe auf ein Feld (Armführung, Handgelenk und Stützhand brauchen die Kamera von Stufe 2): <b>+</b> passt, <b>–</b> passt noch nicht, <b>n. z.</b> nicht zutreffend (Standwurf). Ein weiterer Tipp leert das Feld. Kleine Kinder dürfen tiefer abwerfen als große.</p>
+<p class="mute">Beleg unter jedem Kriterium: <b>Studie</b> belegt (Beinbeugung nur bei Erwachsenen, Landung/Rumpf: Wirkung auf den Erfolg ungeprüft), <b>Erf.</b> Trainerpraxis, <b>offen</b> Quellenlage unklar. Beim Ellbogen widersprechen sich die Studien: als Beobachtung nutzen, nicht als Fehler werten.</p>
+<table id="sheet"></table>
+</div>
+<div class="card">
+<h3>Basiswert</h3>
+<div class="sum" id="sum"></div>
+<p class="mute">Nur mit dem eigenen Wert vergleichen, nie zwischen Kindern. Mit 4 Würfen ist der Wert nur eine grobe Tendenz. Ein Wurf Unterschied sagt nichts. In Wachstumsschüben Veränderungen nicht als Technikfehler lesen.</p>
+<textarea id="out" readonly aria-label="Zusammenfassung"></textarea>
+<div class="row">
+<button class="btn pri" id="saveBog">Bogen speichern (CSV)</button>
+<button class="btn" id="histSave">Im Verlauf merken</button>
+<button class="btn" id="copy">Kopieren</button>
+<button class="btn" id="resetSheet">Bogen leeren</button>
+</div>
+<p class="mute">Der Bogen und deine Eingaben bleiben automatisch im Browser dieses Geräts erhalten. „Im Verlauf merken“ legt eine Kontrolle für den Vergleich nach 4–6 Wochen ab.</p>
+</div>
+<div class="card">
+<h3>Verlauf</h3>
+<div class="set" style="margin:6px 0"><div><label for="delDat">Löschfrist (laut Einwilligung)</label><input id="delDat" type="date"></div></div>
+<div class="msg" id="delMsg" role="alert"></div>
+<ul id="hist"></ul>
+<div class="row"><button class="btn" id="histCsv">Verlauf als CSV</button><button class="btn" id="wipe">Alle gespeicherten Daten löschen</button></div>
+<p class="mute">Antippen lädt einen Eintrag in den Bogen. Gespeichert wird nur das Kürzel, nie ein Video. „alt“ = vor der Umstellung auf 4 Würfe bzw. die neue Zählung gespeichert: achte auf den Nenner (z. B. /10).</p>
+</div>
+</section>
+
+
+<!-- INFOS -->
+<section id="s-inf">
+<h2>Hintergrund</h2>
+<p class="mute">Aus dem Leitfaden „Wurfanalyse U12/U14 – Stufe 1“. Kürzel: <span class="tag">Studie</span> belegt, <span class="tag">Erfahrung</span> Trainerpraxis, <span class="tag">offen</span> Quellenlage unklar, <span class="tag">Vorschlag</span> eigene Festlegung.</p>
+
+<details open><summary>Ablauf pro Kind (ca. 3 Min. am Korb)</summary><div class="body"><ul>
+<li>Kurz erklären. Nur Kinder mit Einwilligung filmen.</li>
+<li>4 Würfe vom immer gleichen Punkt, ein Video pro Kind. Ob der Ball trifft, wird nicht notiert.</li>
+<li>Danach 2–3 der 4 Würfe gemeinsam in Zeitlupe ansehen, jeden ca. 3-mal. Das Kind darf wählen.</li>
+<li>Nur ein kurzer, positiver Hinweis für die nächste Runde.</li>
+<li>Bewertung am Video danach, ca. 5 Minuten pro Kind <span class="tag">Schätzung</span>. Während der Würfe wird nicht angekreuzt.</li>
+</ul></div></details>
+
+<details><summary>Die drei Kriterien (Stufe 1)</summary><div class="body tbl"><table>
+<tr><th>Kriterium</th><th>Passt (+)</th><th>Beleg</th></tr>
+<tr><td>1. Beinbeugung vor dem Wurf</td><td>Sichtbare, fließende Beugung, Kind bleibt im Gleichgewicht</td><td><span class="tag">Studie, Erwachsene</span> Tiefe für Kinder <span class="tag">offen</span></td></tr>
+<tr><td>2. Landung und Rumpf (nur Sprungwürfe)</td><td>Landet am Absprungpunkt, Oberkörper aufrecht</td><td><span class="tag">Studie, Kinder</span> Wirkung auf Wurferfolg ungeprüft</td></tr>
+<tr><td>3. Ellbogen</td><td>Kommt vor dem Release unter/vor den Ball und geht senkrecht hoch</td><td><span class="tag">Erfahrung</span> Studien widersprechen sich <span class="tag">offen</span></td></tr>
+<tr><td>4. Armführung nach dem Wurf (Stufe 2)</td><td>Arm geht hoch, bleibt ca. 1 s oben, diagonal nach oben</td><td><span class="tag">Erfahrung</span> Trainerpraxis</td></tr>
+<tr><td>5. Handgelenk (Stufe 2)</td><td>Klappt nach vorn ab und bleibt eingefroren, Finger locker</td><td><span class="tag">Erfahrung</span> Trainerpraxis</td></tr>
+<tr><td>6. Stützhand (Stufe 2)</td><td>Stützt nur vor dem Wurf, dreht nicht mit, Daumen drückt nicht</td><td><span class="tag">Erfahrung</span> Trainerpraxis</td></tr>
+</table><p class="mute">Alles andere zählt als „passt noch nicht“. Bei Standwürfen entfällt Kriterium 2.</p></div></details>
+
+<details><summary>Kinderkarte</summary><div class="body"><ul>
+<li>„Knie weich“</li><li>„Lande dort, wo du abgesprungen bist“</li><li>„Ellbogen zeigt zum Korb“</li>
+<li>Stufe 2: „Arm bleibt oben, diagonal“, „Handgelenk klappt ab und bleibt“, „Die zweite Hand ist nur Helfer“</li>
+</ul><p class="mute">Das Kind bewertet sich selbst mit Daumen hoch, Mitte oder runter.</p></div></details>
+
+<details><summary>Stufe 3 (optional, nur U14)</summary><div class="body"><ul>
+<li><b>Stufe 3</b> (mit Zeitlupe): Release-Zeitpunkt und Ball-Dip nur beobachten. 12-Jährige lösen den Ball im Aufstieg, das ist altersüblich und kein Fehler.</li>
+<li>Release-Winkel (z. B. 47–53° bei HomeCourt) und Eintrittswinkel (z. B. 45° bei NOAH) sind verschiedene Größen und dürfen nicht miteinander verglichen werden. <span class="tag">Erfahrung</span></li>
+<li>Nicht werten: Ellbogenwinkel, Wurfzeit als Zahl, Wurfbogen in Grad, Release-Höhe als Zahl.</li>
+</ul></div></details>
+
+
+<details><summary>Verlauf und Aussagekraft</summary><div class="body"><ul>
+<li>Alle 4–6 Wochen gleich aufgebaut wiederholen. Körpergröße notieren.</li>
+<li>In Wachstumsschüben nicht jede Veränderung als Technikfehler lesen.</li>
+<li>Zahlen nie als Vergleich zwischen Kindern oder als Note benutzen.</li>
+<li>Kinder unter 12 haben oft nicht die Kraft für eine Pause im Sprung und werfen aus tieferer Schusstasche. Nicht gegen die Kraft des Kindes coachen. <span class="tag">Erfahrung</span></li>
+<li>Für U12 reicht Stufe 1. Es gibt keine Normwerte für U12/U14.</li>
+</ul></div></details>
+
+<details><summary>Video als Rückmeldung: was belegt ist</summary><div class="body"><ul>
+<li>Video mit kurzem Hinweis wirkt bei Kindern und Jugendlichen im Sportunterricht oft besser als rein mündliche Rückmeldung (Review, 11 Studien, 9–15 Jahre). <span class="tag">Studie</span></li>
+<li>Selbstansehen ohne Hinweise kann unwirksam sein. Jüngere Kinder profitieren weniger.</li>
+<li>Zeitlupe, 3–5 Wiederholungen, ein Punkt pro Rückmeldung, kurze Hinweise, nicht nach jedem Wurf.</li>
+<li>Für deine eigene Bewertung ist Video bequem (wiederholbar), aber kein belegter Vorteil.</li>
+</ul></div></details>
+
+<details><summary>Datenschutz und Einwilligung</summary><div class="body"><ul>
+<li>Keine Rechtsberatung: Kläre die Rechtslage mit Verein oder Datenschutzbeauftragtem.</li>
+<li>Einwilligung der Eltern vor der ersten Aufnahme. Im Bild nur Kinder mit Einwilligung.</li>
+<li>Cloud-Sync aus und prüfen (iCloud-Fotos, Google Fotos, Herstellercloud), bevor das erste Video entsteht.</li>
+<li>Nur auf einem gesperrten Trainergerät speichern. Nichts in Messenger-Gruppen teilen. Kürzel statt Klarnamen.</li>
+<li>Löschfrist festlegen, auch aus „Zuletzt gelöscht“ bzw. dem Papierkorb löschen.</li>
+<li>Diese Seite lädt nichts hoch. Bogen, Verlauf und Einstellungen liegen im Browser dieses Geräts, mit Kürzel statt Namen. „Alle gespeicherten Daten löschen“ (Tab Bogen) entfernt sie.</li>
+<li>Videos werden nur gespeichert, wenn du „Video speichern“ tippst. Danach liegen sie auf dem Gerät: Cloud-Sync prüfen und die Löschfrist einhalten.</li>
+</ul></div></details>
+</section>
+</main>
+
+<div id="toast" role="status"></div>
+<div id="dlg" role="dialog" aria-modal="true" hidden><div class="dbox"><p id="dTxt"></p><div class="row"><button class="btn" id="dNo">Abbrechen</button><button class="btn pri" id="dYes">OK</button></div></div></div>
+<nav role="tablist" aria-label="Bereiche">
+<button class="tab" role="tab" aria-selected="true" data-t="rec">Aufnahme</button>
+<button class="tab" role="tab" aria-selected="false" data-t="ana">Analyse</button>
+<button class="tab" role="tab" aria-selected="false" data-t="bog">Bogen</button>
+<button class="tab" role="tab" aria-selected="false" data-t="inf">Infos</button>
+</nav>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+const pad=(n,l=2)=>String(n).padStart(l,'0');
+function fmt(t,d){if(!isFinite(t)||t<0)t=0;const m=Math.floor(t/60),s=t-m*60;return m+':'+(s<10?'0':'')+s.toFixed(d)}
+const clock=d=>pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear()+' '+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds());
+const hhmm=()=>{const d=new Date();return pad(d.getHours())+pad(d.getMinutes())};
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>e.classList.remove('on'),3500)}
+function show(t){document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='s-'+t));
+  document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===t));window.scrollTo(0,0)}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>show(b.dataset.t));
+function fitStage(id,w,h){const e=$(id);if(w&&h){e.style.aspectRatio=w+'/'+h;e.style.maxWidth=Math.round(70*w/h)+'vh';e.style.margin='0 auto'}else{e.style.aspectRatio='';e.style.maxWidth='';e.style.margin=''}}
+function ask(t,ok){return new Promise(res=>{$('dTxt').textContent=t;$('dYes').textContent=ok||'OK';const d=$('dlg');d.hidden=false;
+  const done=v=>{d.hidden=true;$('dYes').onclick=$('dNo').onclick=null;res(v)};$('dYes').onclick=()=>done(true);$('dNo').onclick=()=>done(false);$('dYes').focus()})}
+function msg(t){const m=$('camMsg');m.textContent=t||'';m.classList.toggle('on',!!t)}
+
+/* ---------- Speichern ---------- */
+const embedded=(()=>{try{return window.self!==window.top}catch(e){return true}})();
+const dlP=(window.claude&&claude.use)?claude.use('downloads').catch(()=>null):Promise.resolve(null);
+async function saveFile(data,name){
+  const d=await dlP;
+  if(d){
+    try{await d.save({filename:name,data});toast('Gespeichert: '+name);return true}
+    catch(e){if(e&&e.code==='declined')return false;
+      if(e&&e.code==='rejected_extension'){toast('Dieses Dateiformat ist hier nicht erlaubt.');return false}}
+  }
+  const b=data instanceof Blob?data:new Blob([data],{type:'text/plain'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},2000);toast(embedded?'Download angestoßen: '+name+'. Prüfe, ob die Datei wirklich in den Downloads liegt. Bis dahin gilt das Video als nicht gesichert.':'Download angestoßen: '+name+'. Prüfe deine Downloads.');return !embedded}
+const safe=s=>(s||'wurf').replace(/[^\wäöüÄÖÜß-]+/g,'_');
+const csvCell=v=>String(v).replace(/[;\n\r]/g,' ');
+
+/* ---------- Einstellungen ---------- */
+const S=LS.get('wa_set',{res:'1080',fps:'60',stamp:true,mic:true,kid:false});
+$('resSel').value=S.res;$('fpsSel').value=S.fps;$('stampOn').checked=S.stamp!==false;$('micOn').checked=S.mic!==false;$('stampKid').checked=!!S.kid;
+if(!$('resSel').value)$('resSel').value='1080';if(!$('fpsSel').value)$('fpsSel').value='60';
+
+/* ---------- Aufnahme ---------- */
+let stream=null,facing='environment',rec=null,chunks=[],recStart=0,rThrow=1,recMarks=[],actual={w:0,h:0,f:0},unsaved=false,recStamp=false;
+const live=$('live'),rc=$('rc'),rctx=rc.getContext('2d');
+function gridToggle(ids,b){const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);ids.forEach(i=>$(i).classList.toggle('on',on))}
+$('gridBtn').onclick=function(){gridToggle(['grid'],this)};
+$('gridBtn2').onclick=function(){gridToggle(['grid2'],this)};
+async function startCam(){
+  stopCam();msg('');
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.MediaRecorder){
+    msg('Dieser Browser erlaubt hier keine Kameraaufnahme. Nutze „Kamera-App öffnen“ oder „Video aus Galerie wählen“.');return}
+  const h=+$('resSel').value,f=+$('fpsSel').value,mic=$('micOn').checked;
+  const v=(fr)=>({facingMode:{ideal:facing},width:{ideal:Math.round(h*16/9)},height:{ideal:h},frameRate:fr?{ideal:f}:undefined});
+  const tries=[{video:v(1),audio:mic},{video:v(1),audio:false},{video:v(0),audio:false},{video:true,audio:false}];
+  let err;
+  for(const c of tries){if(c.audio===false&&!mic&&tries.indexOf(c)===1)continue;
+    try{stream=await navigator.mediaDevices.getUserMedia(c);break}catch(e){err=e}}
+  if(!stream){msg('Kamera nicht verfügbar'+(err&&err.name?' ('+err.name+')':'')+'. Erlaube den Kamerazugriff. Wenn die Seite eingebettet ist, blockiert der Browser die Kamera eventuell: Nutze dann „Kamera-App öffnen“.');return}
+  live.srcObject=stream;try{await live.play()}catch(e){}
+  const s=stream.getVideoTracks()[0].getSettings();
+  actual={w:s.width||0,h:s.height||0,f:s.frameRate||0};
+  let t='Aktiv: '+(actual.w||'?')+'×'+(actual.h||'?')+' bei '+(Math.round(actual.f)||'?')+' fps'+(stream.getAudioTracks().length?', mit Ton':', ohne Ton')+'.';
+  if(actual.f&&actual.f<f*0.9)t+=' Gewünscht waren '+f+' fps: Das Gerät liefert weniger. Senke die Auflösung oder nutze für Zeitlupe die Kamera-App.';
+  $('camInfo').textContent=t;
+  $('liveEmpty').hidden=true;$('camOn').textContent='Kamera stoppen';
+  ['flipBtn','recBtn'].forEach(i=>$(i).disabled=false);
+}
+function stopCam(){
+  if(rec&&rec.state==='recording')rec.stop();
+  if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}
+  live.srcObject=null;fitStage('liveStage');$('liveEmpty').hidden=false;$('camOn').textContent='Kamera starten';
+  ['flipBtn','recBtn','throwBtn'].forEach(i=>$(i).disabled=true);
+}
+$('camOn').onclick=()=>stream?stopCam():startCam();
+$('flipBtn').onclick=()=>{facing=facing==='environment'?'user':'environment';startCam()};
+['resSel','fpsSel','stampOn','stampKid','micOn'].forEach(i=>$(i).onchange=e=>{
+  LS.set('wa_set',{res:$('resSel').value,fps:$('fpsSel').value,stamp:$('stampOn').checked,mic:$('micOn').checked,kid:$('stampKid').checked});
+  if(e.target.id!=='stampKid'&&stream&&!(rec&&rec.state==='recording'))startCam()});
+['loadedmetadata','resize'].forEach(ev=>live.addEventListener(ev,()=>{if(live.videoWidth)fitStage('liveStage',live.videoWidth,live.videoHeight)}));
+function recording(){return rec&&rec.state==='recording'}
+function stampLines(){
+  const t=recording()?(performance.now()-recStart)/1000:0,k=$('stampKid').checked?$('kid').value.trim():'';
+  return ['T '+fmt(t,3)+(recording()&&rThrow>1?'  ·  Wurf '+(rThrow-1):''),clock(new Date())+(k?'  ·  '+k:'')]}
+setInterval(()=>{$('liveTs').textContent=stream?stampLines().join('\n'):'Kamera aus';
+  if(recording())$('recBadge').textContent='● '+fmt((performance.now()-recStart)/1000,1)},100);
+function drawFrame(){
+  if(!recording()||!recStamp)return;
+  const vw=live.videoWidth,vh=live.videoHeight;
+  if(vw){if(rc.width!==vw||rc.height!==vh){rc.width=vw;rc.height=vh}
+    rctx.drawImage(live,0,0,vw,vh);
+    const L=stampLines(),fs=Math.max(16,Math.round(vh/28));
+    rctx.font='600 '+fs+'px ui-monospace,Menlo,monospace';rctx.textBaseline='top';
+    const w=Math.max(...L.map(l=>rctx.measureText(l).width))+fs;
+    rctx.fillStyle='rgba(0,0,0,.65)';rctx.fillRect(fs/2,fs/2,w,fs*2.5);
+    rctx.fillStyle='#fff';L.forEach((l,i)=>rctx.fillText(l,fs,fs/2+fs*.3+i*fs*1.15))}
+  if(live.requestVideoFrameCallback)live.requestVideoFrameCallback(drawFrame);else requestAnimationFrame(drawFrame)}
+function pickMime(){return ['video/mp4;codecs=avc1','video/mp4','video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'].find(m=>MediaRecorder.isTypeSupported(m))||''}
+$('recBtn').onclick=async()=>{
+  if(recording()){rec.stop();return}
+  if(!stream)return;
+  if(unsaved&&!(await ask('Die letzte Aufnahme ist noch nicht gespeichert. Trotzdem ersetzen?','Ersetzen')))return;
+  recStamp=$('stampOn').checked&&!!rc.captureStream;
+  let src=stream;
+  if(recStamp){rc.width=live.videoWidth||1280;rc.height=live.videoHeight||720;
+    src=rc.captureStream(Math.max(30,Math.round(actual.f)||30));
+    stream.getAudioTracks().forEach(t=>src.addTrack(t))}
+  const hh=actual.h||+$('resSel').value,bps=hh>=2160?30e6:hh>=1080?16e6:8e6,mime=pickMime();
+  chunks=[];recMarks=[];rThrow=1;
+  try{rec=new MediaRecorder(src,Object.assign({videoBitsPerSecond:bps},mime?{mimeType:mime}:{}))}
+  catch(e){msg('Aufnahme konnte nicht gestartet werden. Nutze „Kamera-App öffnen“.');return}
+  rec.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
+  const stamped=recStamp,R=rec;
+  rec.onstop=()=>{
+    $('recBadge').hidden=true;$('recBtn').textContent='Aufnahme starten';$('throwBtn').disabled=true;
+    const blob=new Blob(chunks,{type:R.mimeType||'video/webm'});
+    loadVideo(blob,{name:safe($('kid').value)+'_'+today()+'_'+hhmm(),fps:Math.round(actual.f)||30,burned:stamped,
+      marks:recMarks.map(m=>({t:m.t,n:m.n,l:'Tippzeit'})),next:1});
+    unsaved=true;show('ana');
+    if(!actual.f)toast('Bildrate unbekannt, auf 30 gesetzt. Bitte unter „Bildrate des Videos“ prüfen.')};
+  recStart=performance.now();rec.onstart=()=>{recStart=performance.now()};rec.start(500);
+  $('recBadge').hidden=false;$('recBtn').textContent='Aufnahme stoppen';
+  $('throwBtn').disabled=false;$('throwBtn').textContent='Wurf 1 (Tippzeit)';drawFrame()};
+$('throwBtn').onclick=function(){
+  if(!recording())return;
+  recMarks.push({t:(performance.now()-recStart)/1000,n:rThrow});rThrow++;
+  this.textContent='Wurf '+rThrow+' (Tippzeit)';if(navigator.vibrate)navigator.vibrate(30)};
+async function fromFile(e){const inp=e.target,f=inp.files&&inp.files[0];if(!f)return;
+  if(unsaved&&!(await ask('Die letzte Aufnahme ist noch nicht gespeichert. Trotzdem ersetzen?','Ersetzen'))){inp.value='';return}
+  loadVideo(f,{name:safe(f.name.replace(/\.[^.]+$/,'')),fps:30,burned:false,marks:[],next:1});unsaved=false;show('ana');
+  toast('Bildrate steht auf 30. Bei Zeitlupe-Videos (120/240 fps) unter „Bildrate des Videos“ anpassen.');inp.value=''}
+$('fileIn').onchange=fromFile;$('fileCap').onchange=fromFile;
+window.addEventListener('beforeunload',e=>{if(unsaved){e.preventDefault();e.returnValue=''}});
+
+/* ---------- Analyse ---------- */
+const vid=$('vid');
+const frameOf=t=>Math.floor(t*vfps+0.001);
+let markers=[],nNo=1,vfps=30,speed=0.25,seeking=false,curUrl=null,curBlob=null,curName='wurf',burned=false;
+function setVfps(v){const o=[24,30,60,120,240];vfps=o.reduce((a,b)=>Math.abs(b-v)<Math.abs(a-v)?b:a);
+  document.querySelectorAll('#fpsBtns button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.f===vfps))}
+function loadVideo(blob,o){
+  if(curUrl)URL.revokeObjectURL(curUrl);
+  curBlob=blob;curUrl=URL.createObjectURL(blob);curName=o.name||'wurf';burned=!!o.burned;
+  markers=o.marks||[];nNo=Math.min(o.next||1,99);setVfps(o.fps||30);
+  vid.src=curUrl;vid.playbackRate=speed;$('vidEmpty').hidden=true;
+  ['playBtn','back','fwd','saveVid','shotBtn'].forEach(i=>$(i).disabled=false);
+  $('meta').textContent=(o.burned?'Zeitstempel ins Video eingebrannt. ':'')+'Browser-Aufnahmen liegen nur im Speicher: sichere sie mit „Video speichern“.';
+  renderN();renderMarks()}
+vid.addEventListener('loadedmetadata',()=>{
+  fitStage('anaStage',vid.videoWidth,vid.videoHeight);
+  if(vid.duration===Infinity){vid.currentTime=1e101;
+    vid.addEventListener('timeupdate',function f(){vid.removeEventListener('timeupdate',f);vid.currentTime=0;upd()})}
+  vid.playbackRate=speed;upd()});
+vid.addEventListener('durationchange',upd);
+vid.addEventListener('resize',()=>{if(vid.videoWidth)fitStage('anaStage',vid.videoWidth,vid.videoHeight)});
+function upd(){
+  const d=isFinite(vid.duration)?vid.duration:0,c=vid.currentTime||0;
+  $('clock').textContent=fmt(c,2);$('vidBadge').textContent='T '+fmt(c,3)+' · Bild ca. '+frameOf(c);$('dur').textContent='/ '+fmt(d,2);
+  if(!seeking&&d)$('seek').value=Math.round(c/d*1000);
+  $('playBtn').textContent=vid.paused?'Abspielen':'Pause';renderTicks()}
+(function loop(){upd();requestAnimationFrame(loop)})();
+$('playBtn').onclick=()=>{if(vid.paused){vid.playbackRate=speed;vid.play()}else vid.pause()};
+function step(d){vid.pause();const du=isFinite(vid.duration)?vid.duration:1e9;const f=frameOf(vid.currentTime)+d;vid.currentTime=Math.max(0,Math.min(du,(f+0.5)/vfps))}
+$('back').onclick=()=>step(-1);$('fwd').onclick=()=>step(1);
+$('seek').oninput=function(){seeking=true;if(isFinite(vid.duration))vid.currentTime=this.value/1000*vid.duration};
+$('seek').onchange=()=>{seeking=false};$('seek').addEventListener('pointerup',()=>{seeking=false});
+function seg(id,key,fn){$(id).addEventListener('click',function(e){const b=e.target.closest('button');if(!b)return;
+  this.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));fn(parseFloat(b.dataset[key]))})}
+seg('speeds','s',v=>{speed=v;vid.playbackRate=v});seg('fpsBtns','f',v=>{vfps=v});
+$('loopBtn').onclick=function(){const on=this.getAttribute('aria-pressed')!=='true';this.setAttribute('aria-pressed',on);vid.loop=on};
+function renderN(){$('nVal').textContent='Wurf '+nNo;renderSheetCur()}
+$('nM').onclick=()=>{nNo=Math.max(1,nNo-1);renderN()};$('nP').onclick=()=>{nNo=Math.min(N,nNo+1);renderN()};
+$('markBtns').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||!vid.src)return;
+  markers.push({t:vid.currentTime,n:nNo,l:b.dataset.l});
+  if(b.dataset.l==='Landung'&&nNo<N){nNo++;renderN()}renderMarks()});
+const sorted=()=>markers.slice().sort((a,b)=>a.t-b.t);
+function renderMarks(){
+  const ul=$('marks');ul.innerHTML='';
+  sorted().forEach(m=>{
+    const li=document.createElement('li'),g=document.createElement('button'),x=document.createElement('button'),s=document.createElement('span');
+    g.className='go';g.textContent='Wurf '+m.n+' · '+m.l;s.textContent=fmt(m.t,2)+' · Bild ca. '+frameOf(m.t);g.appendChild(s);
+    g.onclick=()=>{vid.pause();vid.currentTime=m.t};
+    x.className='del';x.textContent='×';x.setAttribute('aria-label','Zeitstempel löschen');
+    x.onclick=()=>{markers.splice(markers.indexOf(m),1);renderMarks()};
+    li.appendChild(g);li.appendChild(x);ul.appendChild(li)});
+  renderTicks();buildOut()}
+function renderTicks(){
+  const d=isFinite(vid.duration)?vid.duration:0;let h='';
+  if(d)markers.forEach(m=>{h+='<i style="left:'+(m.t/d*100)+'%"></i>'});
+  if($('ticks').dataset.h!==h){$('ticks').innerHTML=h;$('ticks').dataset.h=h}}
+$('clearMarks').onclick=()=>{markers=[];renderMarks()};
+$('csvBtn').onclick=()=>{
+  if(!markers.length){toast('Noch keine Zeitstempel gesetzt.');return}
+  const rows=['Wurf;Marke;Zeit_s;Bild_ca'].concat(sorted().map(m=>m.n+';'+m.l+';'+m.t.toFixed(3).replace('.',',')+';'+frameOf(m.t)));
+  saveFile(new Blob(['\ufeff'+rows.join('\n')],{type:'text/csv'}),curName+'_zeitstempel.csv')};
+function vext(b){const t=(b.type||'').toLowerCase(),n=(b.name||'').toLowerCase();
+  if(/\.mov$/.test(n)||t.includes('quicktime'))return 'mov';if(t.includes('webm'))return 'webm';return 'mp4'}
+$('saveVid').onclick=async()=>{if(!curBlob)return;if(await saveFile(curBlob,curName+'.'+vext(curBlob)))unsaved=false};
+$('shotBtn').onclick=()=>{
+  if(!vid.videoWidth)return;
+  const c=document.createElement('canvas');c.width=vid.videoWidth;c.height=vid.videoHeight;const x=c.getContext('2d');x.drawImage(vid,0,0);
+  if(poseShow&&lastSel)drawPoseOn(x,lastSel,c.width,c.height,$('angOn').checked);
+  const fs=Math.max(16,Math.round(c.height/28)),l='T '+fmt(vid.currentTime,3)+'  Bild ca. '+frameOf(vid.currentTime);
+  x.font='600 '+fs+'px ui-monospace,monospace';x.textBaseline='top';
+  const y=burned?fs*3.3:fs/2;x.fillStyle='rgba(0,0,0,.65)';x.fillRect(fs/2,y,x.measureText(l).width+fs,fs*1.6);
+  x.fillStyle='#fff';x.fillText(l,fs,y+fs*.3);
+  c.toBlob(b=>b&&saveFile(b,curName+'_'+fmt(vid.currentTime,2).replace(/[:.]/g,'-')+'.png'),'image/png')};
+
+/* ---------- Pose (MediaPipe, lokal im Browser) ---------- */
+const POSE_VER='0.10.14',POSE_CDN='https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@'+POSE_VER,
+POSE_MODEL='https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/latest/pose_landmarker_full.task';
+let lmk=null,poseLoading=null,poseShow=false,poseRows=[];
+const pcv=$('poseCv'),pctx=pcv.getContext('2d');
+const BONES=[[11,12],[11,13],[13,15],[12,14],[14,16],[11,23],[12,24],[23,24],[23,25],[25,27],[24,26],[26,28],[27,31],[28,32],[15,19],[16,20]];
+function poseSt(t){$('poseSt').textContent=t}
+async function loadPose(){
+  if(lmk)return lmk;if(poseLoading)return poseLoading;
+  poseLoading=(async()=>{
+    poseSt('Lade Pose-Modell (einmalig, braucht Internet) …');
+    const mod=await import(POSE_CDN+'/vision_bundle.mjs');
+    const fs=await mod.FilesetResolver.forVisionTasks(POSE_CDN+'/wasm');
+    const mk=d=>mod.PoseLandmarker.createFromOptions(fs,{baseOptions:{modelAssetPath:POSE_MODEL,delegate:d},runningMode:'VIDEO',numPoses:5,minPoseDetectionConfidence:.4,minTrackingConfidence:.4});
+    try{lmk=await mk('GPU')}catch(e){lmk=await mk('CPU')}
+    poseSt('Pose-Modell bereit.');return lmk})();
+  try{return await poseLoading}catch(e){poseLoading=null;poseSt('Modell konnte nicht geladen werden ('+(e&&e.message||e)+'). Internet prüfen oder Seite nicht eingebettet öffnen.');throw e}}
+let lastAll=[],lastSel=null,target=null,lost=false;
+const hipC=p=>((p[23].visibility??1)>.3&&(p[24].visibility??1)>.3)?mid(p[23],p[24]):mid(p[11],p[12]);
+const torsoS=(p,ar)=>{const a=mid(p[11],p[12]),b=hipC(p);return Math.hypot((a.x-b.x)*ar,a.y-b.y)};
+function bbox(p){let x0=1,y0=1,x1=0,y1=0;p.forEach(q=>{if((q.visibility??1)<.3)return;x0=Math.min(x0,q.x);y0=Math.min(y0,q.y);x1=Math.max(x1,q.x);y1=Math.max(y1,q.y)});return{x0,y0,x1,y1,a:Math.max(0,x1-x0)*Math.max(0,y1-y0)}}
+function detect(){
+  lastAll=[];lastSel=null;lost=false;
+  if(!lmk||!vid.videoWidth)return null;
+  const r=lmk.detectForVideo(vid,performance.now());
+  if(!r||!r.landmarks||!r.landmarks.length)return null;
+  lastAll=r.landmarks;const ar=vid.videoWidth/vid.videoHeight;let best=null;
+  if(target){
+    let bd=1e9;lastAll.forEach(p=>{const c=hipC(p),d=Math.hypot((c.x-target.x)*ar,c.y-target.y);if(d<bd){bd=d;best=p}});
+    if(bd>Math.max(.3,target.s*2)){lost=true;best=null}
+    else{const c=hipC(best);target.x=c.x;target.y=c.y;target.s=torsoS(best,ar)||target.s}
+  }else{let bh=-1;lastAll.forEach(p=>{const ys=p.map(q=>q.y),h=Math.max(...ys)-Math.min(...ys);if(h>bh){bh=h;best=p}})}
+  lastSel=best;return best}
+function drawPoseOn(c,p,w,h,showAng){
+  c.lineWidth=Math.max(3,h/200);c.strokeStyle='#ffd23f';c.lineCap='round';
+  BONES.forEach(([a,b])=>{if((p[a].visibility??1)<.4||(p[b].visibility??1)<.4)return;
+    c.beginPath();c.moveTo(p[a].x*w,p[a].y*h);c.lineTo(p[b].x*w,p[b].y*h);c.stroke()});
+  c.fillStyle='#2447f5';
+  [11,12,13,14,15,16,23,24,25,26,27,28].forEach(i=>{if((p[i].visibility??1)<.4)return;c.beginPath();c.arc(p[i].x*w,p[i].y*h,Math.max(4,h/120),0,7);c.fill()});
+  if(!showAng)return;
+  const fs=Math.max(14,Math.round(h/34));c.font='700 '+fs+'px system-ui,Arial,sans-serif';c.textBaseline='middle';
+  [[23,25,27,'Knie L',1],[24,26,28,'Knie R',0],[11,13,15,'Ell. L',1],[12,14,16,'Ell. R',0]].forEach(([a,b,d,n,left])=>{
+    if([a,b,d].some(i=>(p[i].visibility??1)<.5))return;
+    const v=ang(p[a],p[b],p[d]);if(v==null)return;
+    const txt=n+' '+v+'°',tw=c.measureText(txt).width,pad=fs*.3,
+      x=p[b].x*w+(left?-fs*.7-tw-pad*2:fs*.7),y=p[b].y*h;
+    c.fillStyle='rgba(0,0,0,.72)';c.fillRect(x,y-fs*.7,tw+pad*2,fs*1.4);
+    c.fillStyle='#fff';c.textAlign='left';c.fillText(txt,x+pad,y)})}
+function drawPose(p){
+  const w=vid.videoWidth,h=vid.videoHeight;if(!w)return;
+  if(pcv.width!==w||pcv.height!==h){pcv.width=w;pcv.height=h}
+  pctx.clearRect(0,0,w,h);if(!poseShow)return;
+  if(lastAll.length>1){pctx.lineWidth=Math.max(2,h/300);pctx.strokeStyle='rgba(255,255,255,.6)';
+    lastAll.forEach(q=>{if(q===p)return;BONES.forEach(([a,b])=>{if((q[a].visibility??1)<.4||(q[b].visibility??1)<.4)return;pctx.beginPath();pctx.moveTo(q[a].x*w,q[a].y*h);pctx.lineTo(q[b].x*w,q[b].y*h);pctx.stroke()})})}
+  if(p)drawPoseOn(pctx,p,w,h,$('angOn').checked)}
+function readout(p){
+  const el=$('poseLive');
+  if(!$('angOn').checked){el.textContent='';return}
+  if(!p){el.textContent='Keine Person erkannt.';return}
+  const v=i=>(p[i].visibility??1)>=.5,A=(a,b,c)=>v(a)&&v(b)&&v(c)?ang(p[a],p[b],p[c])+'°':'–',
+    sh=mid(p[11],p[12]),hp=mid(p[23],p[24]),
+    ru=Math.round(Math.atan2(Math.abs(sh.x-hp.x),Math.abs(hp.y-sh.y))*180/Math.PI);
+  el.textContent='Knie L '+A(23,25,27)+' · R '+A(24,26,28)+'\nEllbogen L '+A(11,13,15)+' · R '+A(12,14,16)+'\nRumpfneigung '+ru+'° (L/R = linke/rechte Körperseite des Kindes)'}
+function liveDraw(){
+  if(!poseShow||!lmk)return;
+  try{const p=detect();drawPose(p);readout(p);if(lost)poseSt('Das ausgewählte Kind wurde nicht gefunden. Tippe es erneut an oder hebe die Auswahl auf.')}catch(e){}
+  if(!vid.paused&&!vid.ended){vid.requestVideoFrameCallback?vid.requestVideoFrameCallback(liveDraw):requestAnimationFrame(liveDraw)}}
+vid.addEventListener('play',liveDraw);
+['seeked','pause'].forEach(ev=>vid.addEventListener(ev,()=>{if(poseShow&&lmk&&!measuring)liveDraw()}));
+$('poseOn').onclick=async function(){
+  if(poseShow){poseShow=false;this.setAttribute('aria-pressed','false');this.textContent='Skelett einblenden';drawPose(null);poseSt('Skelett ausgeblendet.');return}
+  try{await loadPose()}catch(e){return}
+  poseShow=true;this.setAttribute('aria-pressed','true');this.textContent='Skelett ausblenden';poseSt('Skelett aktiv. Bei mehreren Personen wird die größte Person genommen.');liveDraw()};
+$('anaStage').addEventListener('click',e=>{
+  if(!poseShow||!lastAll.length||!vid.videoWidth)return;
+  const r=$('anaStage').getBoundingClientRect(),vw=vid.videoWidth,vh=vid.videoHeight,sc=Math.min(r.width/vw,r.height/vh),
+    ox=(r.width-vw*sc)/2,oy=(r.height-vh*sc)/2,nx=(e.clientX-r.left-ox)/(vw*sc),ny=(e.clientY-r.top-oy)/(vh*sc),pd=.03;
+  let pick=null,pa=1e9;
+  lastAll.forEach(p=>{const b=bbox(p);if(nx>=b.x0-pd&&nx<=b.x1+pd&&ny>=b.y0-pd&&ny<=b.y1+pd&&b.a<pa){pa=b.a;pick=p}});
+  if(!pick){let bd=.2;lastAll.forEach(p=>{const c=hipC(p),d=Math.hypot(c.x-nx,c.y-ny);if(d<bd){bd=d;pick=p}})}
+  if(!pick){poseSt('Dort wurde keine Person erkannt.');return}
+  const c=hipC(pick);target={x:c.x,y:c.y,s:torsoS(pick,vw/vh)};lastSel=pick;lost=false;$('poseClr').disabled=false;
+  drawPose(pick);if(vid.paused)readout(pick);poseSt('Kind ausgewählt. Das Skelett folgt dieser Person.')});
+$('poseClr').onclick=function(){target=null;lost=false;this.disabled=true;poseSt('Auswahl aufgehoben: Es wird wieder die größte Person genommen.');if(poseShow&&lmk)liveDraw()};
+const ang=(a,b,c)=>{const v1=[a.x-b.x,a.y-b.y],v2=[c.x-b.x,c.y-b.y],d=Math.hypot(...v1)*Math.hypot(...v2);
+  return d?Math.round(Math.acos(Math.max(-1,Math.min(1,(v1[0]*v2[0]+v1[1]*v2[1])/d)))*180/Math.PI):null};
+const mid=(a,b)=>({x:(a.x+b.x)/2,y:(a.y+b.y)/2});
+function metrics(p){
+  const sh=mid(p[11],p[12]),hp=mid(p[23],p[24]),torso=Math.hypot(sh.x-hp.x,sh.y-hp.y)||1;
+  const vis=i=>(p[i].visibility??1)>=.5;
+  const side=(p[15].y<p[16].y)?'L':'R',W=side==='L'?15:16,E=side==='L'?13:14,S=side==='L'?11:12;
+  const kn=[[23,25,27],[24,26,28]].filter(t=>t.every(vis)).map(t=>ang(p[t[0]],p[t[1]],p[t[2]]));
+  return{
+    knie:kn.length?Math.min(...kn):null,
+    ellbogen:[S,E,W].every(vis)?ang(p[S],p[E],p[W]):null,
+    ellbogenSeitlich:vis(E)&&vis(W)?+((p[E].x-p[W].x)/torso).toFixed(2):null,
+    rumpf:Math.round(Math.atan2(Math.abs(sh.x-hp.x),Math.abs(hp.y-sh.y))*180/Math.PI),
+    hueftX:hp.x,torso,arm:side}}
+let measuring=false;
+function seekTo(t){return new Promise(res=>{let done=false;const f=()=>{if(done)return;done=true;vid.removeEventListener('seeked',f);setTimeout(res,60)};
+  vid.addEventListener('seeked',f);vid.currentTime=t;setTimeout(f,1500)})}
+$('poseMeas').onclick=async()=>{
+  const need=markers.filter(m=>['Start','Tiefpunkt','Release','Landung'].includes(m.l));
+  if(!need.length){poseSt('Setze zuerst Zeitstempel (Start, Tiefpunkt, Release, Landung).');return}
+  try{await loadPose()}catch(e){return}
+  measuring=true;vid.pause();const back=vid.currentTime;poseRows=[];
+  const start={};
+  for(const m of sorted()){
+    poseSt('Messe Wurf '+m.n+' · '+m.l+' …');
+    await seekTo(m.t);const p=detect();
+    if(!p){poseRows.push({n:m.n,l:m.l,t:m.t,ok:false});continue}
+    const x=metrics(p);if(m.l==='Start')start[m.n]=x;
+    const row={n:m.n,l:m.l,t:m.t,ok:true,...x};
+    if(m.l==='Landung'&&start[m.n])row.versatz=+((x.hueftX-start[m.n].hueftX)/start[m.n].torso).toFixed(2);
+    poseRows.push(row)}
+  await seekTo(back);measuring=false;
+  const out=[];
+  const agg=a=>{const v=a.filter(x=>x!=null);return v.length?Math.round(v.reduce((s,x)=>s+x,0)/v.length):null};
+  const cur={knie:agg(poseRows.filter(r=>r.ok&&r.l==='Tiefpunkt').map(r=>r.knie)),ell:agg(poseRows.filter(r=>r.ok&&r.l==='Release').map(r=>r.ellbogen)),rumpf:agg(poseRows.filter(r=>r.ok&&r.l==='Landung').map(r=>r.rumpf))};
+  const kid=$('kid').value.trim(),dat=$('dat').value||today(),P=LS.get('wa_pose',{});
+  const prev=kid?(P[kid]||[]).filter(e=>e.dat!==dat&&e.dat<dat).sort((a,b)=>a.dat.localeCompare(b.dat)).pop():null;
+  const cmp=(n,c,p)=>c==null?n+': nicht messbar':p==null?n+': '+c+'° (erster Wert, dient als Basis für später)':n+': '+c+'° (letztes Mal '+p+'°, Unterschied '+(c-p>0?'+':'')+(c-p)+'°)';
+  out.push('Eigener Verlauf'+(kid?' ('+kid+')':'')+':');
+  if(!kid)out.push('Kein Kürzel eingetragen: Ohne Kürzel gibt es keinen Vergleich mit früheren Werten.');
+  out.push(cmp('Knie am Tiefpunkt (Mittel)',cur.knie,prev&&prev.knie),cmp('Ellbogen am Release (Mittel)',cur.ell,prev&&prev.ell),cmp('Rumpfneigung bei Landung (Mittel)',cur.rumpf,prev&&prev.rumpf),'','Einzelne Würfe:');
+  if(kid){P[kid]=(P[kid]||[]).filter(e=>e.dat!==dat).concat([{dat,knie:cur.knie,ell:cur.ell,rumpf:cur.rumpf}]).slice(-20);LS.set('wa_pose',P)}
+  poseRows.forEach(r=>{
+    const h='Wurf '+r.n+' · '+r.l+' ('+fmt(r.t,2)+'): ';
+    if(!r.ok){out.push(h+'keine Person sicher erkannt. Bild prüfen.');return}
+    let s=h;
+    if(r.l==='Tiefpunkt')s+='Knie '+(r.knie??'?')+'°';
+    else if(r.l==='Release')s+='Ellbogen '+(r.ellbogen??'?')+'°, Ellbogen seitlich zum Handgelenk '+(r.ellbogenSeitlich??'?')+' Rumpflängen (Wurfarm '+r.arm+')';
+    else if(r.l==='Landung')s+='Rumpfneigung '+r.rumpf+'°'+(r.versatz!=null?', Hüftversatz seit Start '+r.versatz+' Rumpflängen':'');
+    else s+='Rumpfneigung '+r.rumpf+'°';
+    out.push(s)});
+  $('poseOut').textContent=out.join('\n')+'\n\nKeine Zielwerte. Nur der Vergleich mit dem eigenen Wert desselben Kindes aus derselben Kameraposition zählt, und auch das nur als grobe Schätzung. In Wachstumsschüben Veränderungen nicht als Technikfehler lesen. Immer am Bild gegenprüfen.';
+  $('poseCsv').disabled=false;poseSt('Fertig. '+poseRows.filter(r=>r.ok).length+' von '+poseRows.length+' Zeitstempeln ausgewertet.');
+  if(poseShow)liveDraw()};
+$('poseCsv').onclick=()=>{
+  const h='Wurf;Marke;Zeit_s;Knie_Grad;Ellbogen_Grad;Ellbogen_seitlich_Rumpf;Rumpfneigung_Grad;Huefte_Versatz_Rumpf;Wurfarm\n';
+  const b=poseRows.map(r=>[r.n,r.l,r.t.toFixed(3),r.knie??'',r.ellbogen??'',r.ellbogenSeitlich??'',r.rumpf??'',r.versatz??'',r.arm??''].map(csvCell).join(';')).join('\n');
+  saveFile(new Blob(['\ufeff'+h+b],{type:'text/csv'}),safe(curName)+'_pose.csv')};
+let exporting=false,exportEnd=null;
+$('angOn').onchange=()=>{if(poseShow&&lmk&&!measuring)liveDraw()};
+$('poseVid').onclick=async function(){
+  if(exporting){exporting=false;if(exportEnd)exportEnd();return}
+  if(!vid.src||!vid.videoWidth)return;
+  if(!window.MediaRecorder||!HTMLCanvasElement.prototype.captureStream){poseSt('Dieser Browser kann kein Video mit Skelett aufnehmen.');return}
+  try{await loadPose()}catch(e){return}
+  const sp=+$('poseSpd').value,old={t:vid.currentTime,rate:vid.playbackRate,muted:vid.muted,loop:vid.loop};
+  exporting=true;measuring=true;this.textContent='Export abbrechen';['poseOn','poseMeas'].forEach(i=>$(i).disabled=true);
+  vid.pause();vid.loop=false;vid.muted=true;await seekTo(0);
+  const w=vid.videoWidth,h=vid.videoHeight,ec=document.createElement('canvas');ec.width=w;ec.height=h;
+  const x=ec.getContext('2d'),mime=pickMime(),parts=[];
+  let R,ok=false;
+  try{
+    R=new MediaRecorder(ec.captureStream(30),Object.assign({videoBitsPerSecond:h>=1080?12e6:6e6},mime?{mimeType:mime}:{}));
+    R.ondataavailable=e=>{if(e.data&&e.data.size)parts.push(e.data)};
+    const stopped=new Promise(r=>R.onstop=r),fin=new Promise(r=>{exportEnd=r});
+    vid.addEventListener('ended',exportEnd,{once:true});
+    const frame=()=>{
+      if(!exporting)return;
+      x.drawImage(vid,0,0,w,h);let p=null;try{p=detect()}catch(e){}
+      if(p)drawPoseOn(x,p,w,h,$('angOn').checked);
+      const d=isFinite(vid.duration)&&vid.duration>0?Math.round(vid.currentTime/vid.duration*100)+' %':fmt(vid.currentTime,1);
+      poseSt('Exportiere … '+d);
+      if(!vid.ended)(vid.requestVideoFrameCallback?vid.requestVideoFrameCallback(frame):requestAnimationFrame(frame))};
+    vid.playbackRate=sp;R.start();await vid.play();
+    vid.requestVideoFrameCallback?vid.requestVideoFrameCallback(frame):requestAnimationFrame(frame);
+    await fin;
+    ok=exporting;vid.pause();
+    if(ok){x.drawImage(vid,0,0,w,h)}
+    R.stop();await stopped;
+    if(ok){const b=new Blob(parts,{type:R.mimeType||'video/webm'});
+      const saved=await saveFile(b,safe(curName)+'_skelett.'+vext(b));
+      poseSt(saved===false?'Export abgebrochen.':'Video mit Skelett erstellt.')}
+    else poseSt('Export abgebrochen.')
+  }catch(e){poseSt('Export fehlgeschlagen ('+(e&&e.message||e)+').')}
+  exporting=false;exportEnd=null;measuring=false;
+  vid.playbackRate=old.rate;vid.muted=old.muted;vid.loop=old.loop;
+  await seekTo(old.t);this.textContent='Video mit Skelett speichern';poseReady();
+  if(poseShow)liveDraw()};
+function poseReady(){['poseOn','poseMeas','poseVid'].forEach(i=>$(i).disabled=!vid.src);if(vid.src)poseSt('Bereit. „Skelett einblenden“ lädt beim ersten Mal das Modell.')}
+vid.addEventListener('loadedmetadata',()=>{target=null;lastAll=[];lastSel=null;$('poseClr').disabled=true;$('cardBtn').disabled=false;poseReady();drawPose(null);poseRows=[];$('poseOut').textContent='';$('poseCsv').disabled=true});
+
+/* ---------- Bogen ---------- */
+const CR=['Beinbeugung','Landung/Rumpf','Ellbogen','Armführung','Handgelenk','Stützhand'],EV=['Studie','Studie','offen','Erf.','Erf.','Erf.'],ORDER=['','+','-','n'],MK=['kid','dat','gg'];
+const N=4;
+const blank=()=>Array.from({length:N},()=>CR.map(()=>''));
+const fit=a=>Array.from({length:N},(_,i)=>CR.map((_,j)=>(a&&a[i]&&a[i][j])||''));
+let sh=LS.get('wa_sh',null);sh=Array.isArray(sh)?fit(sh):blank();
+const M=LS.get('wa_meta',{});MK.forEach(k=>$(k).value=M[k]||'');$('dat').value=M.dat||today();$('kid2').value=M.kid||'';
+const meta=()=>{const o={};MK.forEach(k=>o[k]=$(k).value);return o};
+const sym=v=>v==='-'?'–':v==='n'?'n. z.':v;
+function renderSheet(){
+  let h='<tr><th></th>'+CR.map((c,j)=>'<th>'+c+'<span class="tag">'+EV[j]+'</span></th>').join('')+'</tr>';
+  for(let i=0;i<N;i++){h+='<tr data-r="'+i+'"><td>Wurf '+(i+1)+'</td>';
+    for(let j=0;j<CR.length;j++){const v=sh[i][j];
+      h+='<td><button class="cell" data-i="'+i+'" data-j="'+j+'" data-v="'+v+'" aria-label="Wurf '+(i+1)+', '+CR[j]+'">'+sym(v)+'</button></td>'}
+    h+='</tr>'}
+  $('sheet').innerHTML=h;renderSheetCur();buildOut()}
+function renderSheetCur(){document.querySelectorAll('#sheet tr[data-r]').forEach(r=>r.classList.toggle('cur',+r.dataset.r===nNo-1));renderQuick()}
+function renderQuick(){
+  $('qN').textContent='Bewertung Wurf '+nNo;
+  $('qCells').innerHTML=CR.map((c,j)=>{const v=sh[nNo-1][j];
+    return '<div><label>'+c+' <span class="tag" style="display:inline">'+EV[j]+'</span></label><button class="cell" data-j="'+j+'" data-v="'+v+'" aria-label="Wurf '+nNo+', '+c+'">'+sym(v)+'</button></div>'}).join('')}
+$('qCells').addEventListener('click',e=>{const b=e.target.closest('.cell');if(!b)return;
+  const j=+b.dataset.j,r=sh[nNo-1];r[j]=ORDER[(ORDER.indexOf(r[j])+1)%4];renderSheet()});
+$('qM').onclick=()=>$('nM').click();$('qP').onclick=()=>$('nP').click();
+$('cardBtn').onclick=async()=>{
+  if(!vid.src||!vid.videoWidth)return;
+  const want=['Tiefpunkt','Release','Landung'],ms=want.map(l=>sorted().find(m=>m.n===nNo&&m.l===l));
+  if(ms.some(m=>!m)){toast('Wurf '+nNo+': Es fehlen Zeitstempel für '+want.filter((l,i)=>!ms[i]).join(', ')+'.');return}
+  if(exporting)return;
+  const old=vid.currentTime,w=vid.videoWidth,h=vid.videoHeight,fr=[];
+  vid.pause();measuring=true;
+  try{
+    for(const m of ms){await seekTo(m.t);const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.drawImage(vid,0,0,w,h);
+      if(poseShow&&lmk){try{const p=detect();if(p)drawPoseOn(x,p,w,h,$('angOn').checked)}catch(e){}}
+      fr.push(c)}
+  }finally{await seekTo(old);measuring=false}
+  const land=w>=h,pw=land?1200:600,ph=Math.round(pw*h/w),g=30,head=120,cap=80,
+    W=land?pw+2*g:3*pw+4*g,H=land?head+3*(ph+cap)+g:head+ph+cap+2*g,
+    cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d');
+  x.fillStyle='#fff';x.fillRect(0,0,W,H);x.fillStyle='#101a33';x.textBaseline='middle';
+  x.font='700 46px system-ui,Arial,sans-serif';
+  const kid=$('kid').value.trim(),dd=$('dat').value;
+  x.fillText('Wurfanalyse · '+(kid||'ohne Kürzel')+(dd?' · '+dd.split('-').reverse().join('.'):'')+' · Wurf '+nNo,g,head/2);
+  fr.forEach((c,i)=>{
+    const px=land?g:g+i*(pw+g),py=land?head+i*(ph+cap):head;
+    x.drawImage(c,px,py,pw,ph);
+    x.fillStyle='#101a33';x.font='600 36px system-ui,Arial,sans-serif';
+    x.fillText(want[i]+' · T '+fmt(ms[i].t,2),px,py+ph+cap/2)});
+  cv.toBlob(b=>b&&saveFile(b,curName+'_wurf'+nNo+'_karte.png'),'image/png')};
+
+$('sheet').addEventListener('click',e=>{const b=e.target.closest('.cell');if(!b)return;
+  const i=+b.dataset.i,j=+b.dataset.j;sh[i][j]=ORDER[(ORDER.indexOf(sh[i][j])+1)%4];
+  b.dataset.v=sh[i][j];b.textContent=sym(sh[i][j]);buildOut()});
+const counts=()=>CR.map((c,j)=>{let p=0,nz=0,o=0;sh.forEach(row=>{if(row[j]==='+')p++;else if(row[j]==='n')nz++;else if(row[j]==='')o++});return{c,p,r:N-nz,o}});
+function buildOut(){
+  const cs=counts(),m=meta();
+  $('sum').innerHTML=cs.map(x=>'<div><span>'+x.c+' +</span><strong>'+x.p+' von '+(x.r||'–')+(x.o?' <small class="mute">('+x.o+' offen)</small>':'')+'</strong></div>').join('');
+  const L=['Wurfanalyse','Kürzel: '+(m.kid||'-')+'  Datum: '+(m.dat||'-')+'','Körpergröße: '+(m.gg?m.gg+' cm':'-'),''];
+  cs.forEach(x=>L.push(x.c+' +: '+x.p+' von '+(x.r||'-')+(x.o?' ('+x.o+' Felder ohne Eintrag)':'')+(x.c==='Landung/Rumpf'?' (nur Sprungwürfe)':'')));
+  if(markers.length){L.push('','Zeitstempel:');sorted().forEach(k=>L.push('Wurf '+k.n+' '+k.l+' '+fmt(k.t,2)))}
+  $('out').value=L.join('\n');LS.set('wa_sh',sh);LS.set('wa_meta',m)}
+MK.forEach(k=>$(k).addEventListener('input',()=>{if(k==='kid')$('kid2').value=$('kid').value;buildOut()}));
+$('kid2').addEventListener('input',()=>{$('kid').value=$('kid2').value;buildOut()});
+$('resetSheet').onclick=async()=>{if(await ask('Bogen, Kürzel und Körpergröße leeren? (Datum bleibt)','Leeren')){sh=blank();['kid','kid2','gg'].forEach(i=>$(i).value='');renderSheet()}};
+$('copy').onclick=function(){const t=$('out').value,b=this;
+  const ok=()=>{b.textContent='Kopiert';setTimeout(()=>{b.textContent='Kopieren'},1500)};
+  const fb=()=>{$('out').select();try{document.execCommand('copy');ok()}catch(e){}};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,fb);else fb()};
+$('saveBog').onclick=()=>{
+  const m=meta(),rows=['Kürzel;'+csvCell(m.kid),'Datum;'+csvCell(m.dat),'Körpergröße_cm;'+csvCell(m.gg),'','Wurf;'+CR.join(';')];
+  sh.forEach((r,i)=>rows.push((i+1)+';'+r.map(v=>v==='n'?'n.z.':v).join(';')));
+  rows.push('');counts().forEach(x=>rows.push(x.c+' +;'+x.p+' von '+x.r));
+  saveFile(new Blob(['\ufeff'+rows.join('\n')],{type:'text/csv'}),'bogen_'+safe(m.kid)+'_'+(m.dat||today())+'.csv')};
+
+/* ---------- Verlauf ---------- */
+function chkDel(){const d=$('delDat').value;LS.set('wa_del',d);const m=$('delMsg'),over=!!d&&d<today();
+  m.textContent=over?'Die Löschfrist ('+d+') ist abgelaufen. Lösche Verlauf, Bogen und alle gespeicherten Videos (auch „Zuletzt gelöscht“).':'';m.classList.toggle('on',over);if(typeof renderHist==='function'&&Array.isArray(H))renderHist();return over}
+$('delDat').value=LS.get('wa_del','');$('delDat').addEventListener('input',chkDel);
+let H=LS.get('wa_hist',[]);
+function renderHist(){
+  const ul=$('hist');ul.innerHTML='';
+  if(!H.length){ul.innerHTML='<li class="mute" style="padding:8px 0">Noch keine Einträge.</li>';return}
+  H.slice().sort((a,b)=>(a.kid||'').localeCompare(b.kid||'')||(a.dat||'').localeCompare(b.dat||'')).forEach(e=>{
+    const li=document.createElement('li'),g=document.createElement('button'),x=document.createElement('button');
+    g.className='go';g.textContent=(e.kid||'-')+' · '+(e.dat||'-')+' · Bein '+e.cs[0].p+'/'+e.cs[0].r+' · Landung '+e.cs[1].p+'/'+e.cs[1].r+' · Ellbogen '+e.cs[2].p+'/'+e.cs[2].r+(e.cs[5]?' · Arm '+e.cs[3].p+'/'+e.cs[3].r+' · Handgelenk '+e.cs[4].p+'/'+e.cs[4].r+' · Stützhand '+e.cs[5].p+'/'+e.cs[5].r:'')+(e.v>=2?'':' · alt (andere Zählung, Nenner prüfen)');
+    const dl=$('delDat').value,ex=document.createElement('span');ex.className='exp';
+    if(!dl)ex.textContent='Löschfrist fehlt: oben im Feld „Löschfrist“ eintragen';
+    else{const dd=dl.split('-');ex.textContent=(dl<today()?'Abgelaufen am ':'Löschen bis ')+dd[2]+'.'+dd[1]+'.'+dd[0];ex.classList.toggle('over',dl<today())}
+    g.appendChild(ex);
+    g.onclick=()=>{sh=fit(JSON.parse(JSON.stringify(e.sh)));MK.forEach(k=>$(k).value=e[k]||'');$('kid2').value=e.kid||'';renderSheet();toast(e.sh.length>N?'Eintrag geladen (nur die ersten '+N+' Würfe)':'Eintrag geladen')};
+    x.className='del';x.textContent='×';x.setAttribute('aria-label','Eintrag löschen');
+    x.onclick=()=>{H=H.filter(h=>h.id!==e.id);LS.set('wa_hist',H);renderHist()};
+    li.appendChild(g);li.appendChild(x);ul.appendChild(li)})}
+$('histSave').onclick=async()=>{if(!$('kid').value.trim()&&!(await ask('Kein Kürzel eingetragen. Trotzdem im Verlauf merken?','Merken')))return;const open=counts().reduce((a,x)=>a+x.o,0);if(open&&!(await ask(open+' Felder sind noch leer. Trotzdem im Verlauf merken?','Merken')))return;H.push(Object.assign({id:Date.now(),v:2,sh:JSON.parse(JSON.stringify(sh)),cs:counts()},meta()));LS.set('wa_hist',H);renderHist();toast('Im Verlauf gemerkt')};
+$('histCsv').onclick=()=>{
+  if(!H.length){toast('Der Verlauf ist noch leer.');return}
+  const rows=['Kürzel;Datum;Körpergröße_cm;'+CR.map(c=>c+' plus;'+c+' bewertet').join(';')];
+  H.forEach(e=>rows.push([e.kid,e.dat,e.gg].map(csvCell).join(';')+';'+CR.map((_,k)=>e.cs[k]?e.cs[k].p+';'+e.cs[k].r:';').join(';')));
+  saveFile(new Blob(['\ufeff'+rows.join('\n')],{type:'text/csv'}),'verlauf_wurfanalyse.csv')};
+$('wipe').onclick=async()=>{if(!(await ask('Bogen, Verlauf und Einstellungen auf diesem Gerät löschen?','Löschen')))return;
+  ['wa_set','wa_sh','wa_meta','wa_hist','wa_del','wa_pose'].forEach(LS.del);H=[];$('delDat').value='';chkDel();sh=blank();MK.forEach(k=>$(k).value='');$('dat').value=today();$('kid2').value='';renderSheet();renderHist();toast('Gelöscht')};
+renderSheet();renderN();renderMarks();renderHist();if(chkDel())toast('Löschfrist abgelaufen: bitte Daten löschen.');
+})();
+
+(()=>{
+const stage=$('anaStage'), overlay=document.createElement('canvas'), buf=document.createElement('canvas');
+overlay.style.cssText=$('poseCv').style.cssText;stage.append(overlay);
+const ctx=overlay.getContext('2d'), px=buf.getContext('2d',{willReadFrequently:true});
+const status=t=>{$('v13Status').textContent=t};
+let hue=null,pick=false,busy=false,rows=[],release=null,low=null,coco=null;
+const hsv=(r,g,b)=>{let m=Math.max(r,g,b),d=m-Math.min(r,g,b);return [d?((m===r?(g-b)/d:m===g?2+(b-r)/d:4+(r-g)/d)*60+360)%360:0,m?d/m:0,m/255]};
+function frame(){buf.width=192;buf.height=Math.max(16,Math.round(192*vid.videoHeight/vid.videoWidth));px.drawImage(vid,0,0,buf.width,buf.height);return px.getImageData(0,0,buf.width,buf.height).data}
+$('v13Pick').onclick=()=>{if(busy||!vid.videoWidth)return;vid.pause();pick=true;status('Tippe auf eine farbige Fläche des Balls im Standbild.')};
+stage.addEventListener('click',e=>{if(!pick||busy)return;e.stopImmediatePropagation();const r=vid.getBoundingClientRect(),k=Math.min(r.width/vid.videoWidth,r.height/vid.videoHeight),w=k*vid.videoWidth,h=k*vid.videoHeight,x=(e.clientX-r.left-(r.width-w)/2)/w,y=(e.clientY-r.top-(r.height-h)/2)/h;if(x<0||y<0||x>=1||y>=1)return;
+const data=frame(),i=4*(Math.floor(y*buf.height)*buf.width+Math.floor(x*buf.width)),c=hsv(...data.slice(i,i+3));if(c[1]<.24||c[2]<.18){status('Zu wenig Farbe. Tippe erneut auf die farbige Ballfläche.');return}hue=c;pick=false;$('v13Mode').value='color';status('Ballfarbe gewählt. Gehe ungefähr zum Abwurf und starte die Prüfung.');},true);
+function color(hand){const data=frame(),w=buf.width,h=buf.height,mask=new Uint8Array(w*h);for(let i=0;i<mask.length;i++){const [a,b,c]=hsv(data[4*i],data[4*i+1],data[4*i+2]),d=Math.abs(a-hue[0]);mask[i]=Math.min(d,360-d)<=16&&b>=Math.max(.23,hue[1]*.55)&&c>=Math.max(.16,hue[2]*.5)}
+let best=null,score=Infinity;for(let i=0;i<mask.length;i++){if(!mask[i])continue;const q=[i];mask[i]=0;let sx=0,sy=0;for(let j=0;j<q.length;j++){const p=q[j],x=p%w,y=Math.floor(p/w);sx+=x;sy+=y;for(const n of [x?p-1:-1,x<w-1?p+1:-1,p-w,p+w])if(mask[n]){mask[n]=0;q.push(n)}}if(q.length<7||q.length>w*h*.025)continue;const b={x:sx/q.length/w,y:sy/q.length/h,r:Math.sqrt(q.length/Math.PI)/h},d=dist(b,hand);if(d<.32&&d<score){best=b;score=d}}return best}
+const dist=(a,b)=>Math.hypot((a.x-b.x)*vid.videoWidth/vid.videoHeight,a.y-b.y);
+const script=src=>new Promise((resolve,reject)=>{const el=document.createElement('script');el.src=src;el.onload=resolve;el.onerror=()=>reject(new Error('KI-Modell konnte nicht geladen werden.'));document.head.append(el)});
+async function ai(hand){const ds=await coco.detect(vid,10,.35);return ds.filter(p=>p.class==='sports ball').map(p=>{const [x,y,w,h]=p.bbox;return {x:(x+w/2)/vid.videoWidth,y:(y+h/2)/vid.videoHeight,r:(w+h)/4/vid.videoHeight}}).filter(p=>dist(p,hand)<.32).sort((a,b)=>dist(a,hand)-dist(b,hand))[0]||null}
+function draw(){if(!vid.videoWidth)return;overlay.width=vid.videoWidth;overlay.height=vid.videoHeight;const w=overlay.width,h=overlay.height,t=vid.currentTime,fps=+vfps||30;let prev=null;
+for(const r of rows){if(r.t>t+.55/fps)break;if(r.t<t-.30||!r.b){prev=null;continue}ctx.strokeStyle='#29f7d0';ctx.lineWidth=Math.max(2,h/250);if(prev){ctx.beginPath();ctx.moveTo(prev.x*w,prev.y*h);ctx.lineTo(r.b.x*w,r.b.y*h);ctx.stroke()}if(Math.abs(r.t-t)<=.55/fps){ctx.beginPath();ctx.arc(r.b.x*w,r.b.y*h,Math.max(5,r.b.r*h),0,2*Math.PI);ctx.stroke()}prev=r.b}}
+function clear(){rows=[];low=release=null;$('v13Release').disabled=$('v13Low').disabled=true;draw()}
+for(const ev of ['seeked','timeupdate','loadedmetadata'])vid.addEventListener(ev,draw);vid.addEventListener('emptied',()=>{clear();hue=null;pick=false});
+$('v13Release').onclick=()=>{if(release!=null&&!busy){vid.pause();vid.currentTime=release}};
+$('v13Low').onclick=()=>{if(low!=null&&!busy){vid.pause();vid.currentTime=low}};
+$('v13Scan').onclick=async()=>{if(busy||measuring||!vid.videoWidth||!Number.isFinite(vid.duration))return;const mode=$('v13Mode').value;if(mode==='color'&&!hue){status('Wähle zuerst die Ballfarbe im Standbild.');return}
+clear();pick=false;busy=true;measuring=true;vid.pause();const old=vid.currentTime,src=vid.currentSrc,saved=target?{...target}:null, left=$('v13Hand').value==='l',fps=+vfps||30,list=[];const controls=[$('v13Scan'),$('poseMeas'),$('poseOn')],disabled=controls.map(x=>x.disabled);controls.forEach(x=>x.disabled=true);
+try{status('Modelle werden vorbereitet …');await loadPose();if(mode==='coco'&&!coco){if(!window.tf)await script('https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js');if(!window.cocoSsd)await script('https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js');coco=await window.cocoSsd.load({base:'lite_mobilenet_v2'})}
+const start=Math.max(0,old-(mode==='coco'?.45:.8)),end=Math.min(vid.duration-.001,old+.22),stride=mode==='coco'?Math.max(1,Math.ceil(fps/30)):1;
+for(let n=0;start+n/fps<=end;n+=stride){const t=start+n/fps;if(vid.currentSrc!==src)throw new Error('Video wurde gewechselt.');vid.pause();if(Math.abs(vid.currentTime-t)>1e-5)await new Promise((ok,no)=>{const done=()=>{clearTimeout(timer);ok()};const timer=setTimeout(()=>{vid.removeEventListener('seeked',done);no(new Error('Ein Videobild konnte nicht geladen werden.'))},1800);vid.addEventListener('seeked',done,{once:true});vid.currentTime=t});if(vid.currentSrc!==src)throw new Error('Video wurde gewechselt.');
+const p=detect(),hand=p?.[left?15:16],b=hand&&(hand.visibility??0)>=.55?(mode==='coco'?await ai(hand):color(hand)):null,ix=left?[23,25,27]:[24,26,28],kn=p&&ix.every(i=>(p[i].visibility??0)>=.55)?ang(...ix.map(i=>({...p[i],x:p[i].x*vid.videoWidth/vid.videoHeight}))):null;
+list.push({t,b,d:b?dist(b,hand):null,kn});if(n%(stride*6)===0)status('Prüfe Videobilder … '+Math.min(100,Math.round(100*(t-start)/Math.max(.001,end-start)))+' %')}
+if(vid.currentSrc!==src)throw new Error('Video wurde gewechselt.');rows=list;
+for(let i=1;i+2<list.length;i++){const [a,b,c,d]=list.slice(i-1,i+3);if([a,b,c,d].some(q=>!q.b))continue;const r=Math.max(a.b.r,b.b.r,.012);if(a.d<=2.3*r&&b.d>2.3*r&&c.d>b.d&&d.d>=c.d&&[dist(a.b,b.b),dist(b.b,c.b),dist(c.b,d.b)].every(x=>x<.095)){release=b.t;break}}
+const seq=list.filter(q=>q.t<(release??old));let best=Infinity;for(let i=2;i+2<seq.length;i++){const [a,b,c,d,e]=seq.slice(i-2,i+3);if([a,b,c,d,e].some(q=>q.kn==null))continue;if(c.kn<=b.kn&&c.kn<=d.kn&&a.kn>=c.kn+1&&e.kn>=c.kn+1&&c.kn<best){best=c.kn;low=c.t}}
+$('v13Release').disabled=release==null;$('v13Low').disabled=low==null;status('Release: '+(release==null?'kein plausibler Vorschlag':release.toFixed(3)+' s')+' · Kniebeuge: '+(low==null?'kein plausibler Vorschlag':low.toFixed(3)+' s')+'. Bitte manuell kontrollieren.');
+}catch(e){clear();status('Analyse abgebrochen: '+e.message)}finally{if(vid.currentSrc===src){target=saved;vid.pause();vid.currentTime=release??old}measuring=false;busy=false;controls.forEach((x,i)=>x.disabled=disabled[i]);draw()}};
+})();
+
+</script>
+</body>
+</html>
