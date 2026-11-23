@@ -49,7 +49,7 @@ input,select{background:var(--card);border:1px solid #8884;border-radius:8px;pad
     </div>
   </div>
   <div class="camp-tools" id="campTools">
-    <span style="color:var(--mut)">🔔 Signale: Halbzeit & 3 Min. vor Ende (Gong) · Ende (Alarm)</span>
+    <span style="color:var(--mut)">🔔 Signale: Halbzeit &amp; 3 Min. vor Ende (Gong) · Ende (Alarm)</span>
     <div class="row">
       <button type="button" class="s" id="testGongBtn">🔔 Gong testen</button>
       <button type="button" class="s" id="testAlarmBtn">🚨 Alarm testen</button>
@@ -72,15 +72,15 @@ document.addEventListener("visibilitychange",()=>{if(document.visibilityState===
 function unlockAudio(){if(muted)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state!=="running")AC.resume()}catch(e){}}
 function beep(f,d,vol=.28){if(muted)return;try{unlockAudio();const o=AC.createOscillator(),g=AC.createGain();o.type=softTone?"sine":"triangle";o.frequency.value=f;o.connect(g);g.connect(AC.destination);g.gain.value=softTone?vol*.55:vol;o.start();g.gain.exponentialRampToValueAtTime(0.001,AC.currentTime+d);o.stop(AC.currentTime+d)}catch(e){}}
 
-// Tiefer, lang ausklingender Gong für das Camp
 function gong(count=1){
   if(muted)return;
+  unlockAudio();
   const strike=(delay)=>{
     setTimeout(()=>{
       try{
-        unlockAudio();
+        if(!AC)return;
         const now=AC.currentTime;
-        const freqs=[196,293.66,392,587.33]; // G3 + Obertöne
+        const freqs=[196,293.66,392,587.33];
         const vols=[0.42,0.22,0.14,0.08];
         freqs.forEach((f,idx)=>{
           const o=AC.createOscillator(),g=AC.createGain();
@@ -99,9 +99,9 @@ function gong(count=1){
   if(count>1)strike(650);
 }
 
-// Durchdringender Alarm für Stationsende
 function campAlarm(){
   if(muted)return;
+  unlockAudio();
   const tones=[880,659.25,880,659.25,1046.5];
   tones.forEach((f,i)=>setTimeout(()=>beep(f,0.28,0.42),i*260));
 }
@@ -166,16 +166,13 @@ function tick(){
   const now=Date.now();st.left-=(now-st.last)/1000;st.last=now;
   const c=Math.ceil(st.left);
 
-  // Camp-Signale während der Stationszeit
   if(st.camp&&st.ph==="STATION"&&st.left>0){
     const half=st.W/2;
-    // Halbzeit-Gong (nur wenn Stationszeit mind. 2 Min. beträgt)
     if(!st.halfFired&&st.W>=120&&st.left<=half){
       st.halfFired=true;
       gong(1);
       st.customMeta="🔔 Halbzeit! ("+fmt(half)+" vorbei)";
     }
-    // 3-Minuten-Warnung (nur wenn Stationszeit > 4 Min., damit es sich nicht mit Halbzeit doppelt)
     if(!st.threeMinFired&&st.W>240&&st.left<=180){
       st.threeMinFired=true;
       gong(2);
@@ -183,7 +180,6 @@ function tick(){
     }
   }
 
-  // 3-2-1 Countdown-Piepsen
   if(c!==st.c&&c<=3&&c>0){
     if(st.camp)beep(523,.14,.25);
     else beep(softTone?523:660,.12,.2);
@@ -301,7 +297,7 @@ document.querySelectorAll("#presetBar button").forEach(b=>{
 
 $("savePreset").onclick=()=>{
   const {rawW,rawR,N}=getVals();
-  const name=prompt("Name für dein Preset (z. B. "+ (campMode?"Vormittags-Camp":"Athletik A") +"):")?.trim();
+  const name=prompt("Name für dein Preset (z. B. "+(campMode?"Vormittags-Camp":"Athletik A")+"):")?.trim();
   if(!name)return;
   try{
     const list=JSON.parse(localStorage.getItem("customPresets")||"[]");
@@ -320,4 +316,5 @@ document.addEventListener("keydown",e=>{
 renderCustomPresets();
 resetUI();
 </script></body></html>
+
 
