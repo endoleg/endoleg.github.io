@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Box-Score-Rechner v6 kompakt</title>
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 8px;
+    font-family: Arial, sans-serif;
+    background: #f2f4f7;
+    color: #222;
+  }
+
+  .app {
+    max-width: 1200px;
+    margin: auto;
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  h1 {
+    margin: 0 0 8px;
+    font-size: 19px;
+  }
+
+  h2 {
+    margin: 10px 0 6px;
+    font-size: 15px;
+  }
+
+  .game-header {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  label {
+    display: block;
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 2px;
+  }
+
+  input {
+    width: 100%;
+    padding: 5px;
+    font-size: 12px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+  }
+
+  .hint {
+    background: #eef6ff;
+    border-left: 3px solid #2b7cff;
+    padding: 5px 7px;
+    font-size: 11px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+
+  .players {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .player {
+    border: 1px solid #d8dde3;
+    border-radius: 6px;
+    padding: 6px;
+    background: #fafbfc;
+  }
+
+  .player-name {
+    width: 100%;
+    padding: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 5px;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3px;
+    font-size: 9px;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+
+  .stat {
+    background: #fff;
+    border: 1px solid #d8dde3;
+    border-radius: 4px;
+    padding: 2px;
+  }
+
+  .stat strong {
+    display: block;
+    font-size: 12px;
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+  }
+
+  button {
+    font-size: 10px;
+    font-weight: bold;
+    padding: 5px 2px;
+    min-height: 26px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .make { background: #1f8a44; color: #fff; }
+  .miss { background: #d9534f; color: #fff; }
+  .ft { background: #f0ad4e; color: #222; }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+  }
+
+  .actions button {
+    font-size: 11px;
+    padding: 6px 8px;
+    min-height: 30px;
+    background: #2b7cff;
+    color: #fff;
+    border-radius: 5px;
+  }
+
+  .secondary { background: #6c757d; }
+  .excel { background: #217346; }
+
+  .report {
+    margin-top: 10px;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px;
+  }
+
+  th, td {
+    border: 1px solid #ccc;
+    padding: 3px;
+    text-align: center;
+  }
+
+  th { background: #eef2f7; }
+
+  .eff-info {
+    font-size: 10px;
+    color: #555;
+    margin-top: 6px;
+  }
+
+  @media (max-width: 700px) {
+    .game-header {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .players {
+      grid-template-columns: 1fr;
+    }
+
+    button {
+      font-size: 12px;
+      min-height: 36px;
+    }
+
+    .actions button {
+      flex: 1 1 45%;
+      font-size: 12px;
+      min-height: 38px;
+    }
+
+    table {
+      font-size: 11px;
+    }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .app { box-shadow: none; padding: 0; }
+    button, .hint { display: none; }
+  }
+</style>
+</head>
+
+<body>
+<div class="app">
+  <h1>Box-Score-Rechner v6</h1>
+
+  <div class="game-header">
+    <div>
+      <label for="gameTitle">Spieltitel</label>
+      <input id="gameTitle" placeholder="Testspiel">
+    </div>
+
+    <div>
+      <label for="teamName">Team</label>
+      <input id="teamName" placeholder="Mein Team">
+    </div>
+
+    <div>
+      <label for="opponent">Gegner</label>
+      <input id="opponent" placeholder="Gegner">
+    </div>
+
+    <div>
+      <label for="gameDate">Datum</label>
+      <input id="gameDate" type="date">
+    </div>
+
+    <div>
+      <label for="gameLocation">Ort</label>
+      <input id="gameLocation" placeholder="Ort">
+    </div>
+  </div>
+
+  <div class="hint">
+    <strong>Hinweis:</strong> Treffer zählen den Versuch automatisch. Bei Fehlwürfen zusätzlich „Vers.“ drücken.
+  </div>
+
+  <h2>Spieler</h2>
+  <div class="players" id="players"></div>
+
+  <div class="actions">
+    <button onclick="addPlayer()">+ Spieler</button>
+    <button class="secondary" onclick="undoLast()">↩ Undo</button>
+    <button onclick="printReport()">PDF</button>
+    <button class="secondary" onclick="copyReport()">Kopieren</button>
+    <button class="excel" onclick="exportCsv()">Excel</button>
+    <button class="secondary" onclick="resetAll()">Zurücksetzen</button>
+  </div>
+
+  <div class="report" id="report"></div>
+
+  <p class="eff-info">
+    <strong>EFF:</strong> Punkte minus Fehlwürfe. Ein höherer Wert bedeutet in der Regel eine produktivere Leistung.
+  </p>
+</div>
+
+<script>
+let players = [];
+let history = [];
+
+function createPlayer(name) {
+  return {
+    name: name || "",
+    pts: 0,
+    twoMade: 0,
+    threeMade: 0,
+    ftMade: 0,
+    attempts: 0,
+    misses: 0
+  };
+}
+
+function createInitialPlayers() {
+  players = [];
+  history = [];
+
+  for (let i = 0; i < 8; i++) {
+    players.push(createPlayer(""));
+  }
+
+  render();
+}
+
+function addPlayer() {
+  players.push(createPlayer(""));
+  render();
+}
+
+function render() {
+  const container = document.getElementById("players");
+  container.innerHTML = "";
+
+  for (let i = 0; i < players.length; i++) {
+    const p = players[i];
+    const div = document.createElement("div");
+    div.className = "player";
+
+    div.innerHTML =
+      '<input class="player-name" placeholder="Spieler ' + (i + 1) + '" value="' + p.name + '" oninput="setPlayerName(' + i + ', this.value)">' +
+
+      '<div class="stats">' +
+        '<div class="stat"><span>Pkt</span><strong>' + p.pts + '</strong></div>' +
+        '<div class="stat"><span>Vers.</span><strong>' + p.attempts + '</strong></div>' +
+        '<div class="stat"><span>Fehlw.</span><strong>' + p.misses + '</strong></div>' +
+        '<div class="stat"><span>EFF</span><strong>' + calculateEff(p) + '</strong></div>' +
+      '</div>' +
+
+      '<div class="buttons">' +
+        '<button class="make" onclick="addTwo(' + i + ')">2er Treffer</button>' +
+        '<button class="miss" onclick="addAttempt(' + i + ')">2er Vers.</button>' +
+        '<button class="make" onclick="addThree(' + i + ')">3er Treffer</button>' +
+
+        '<button class="miss" onclick="addAttempt(' + i + ')">3er Vers.</button>' +
+        '<button class="ft" onclick="addFt(' + i + ')">FW Treffer</button>' +
+        '<button class="miss" onclick="addFtAttempt(' + i + ')">FW Vers.</button>' +
+      '</div>';
+
+    container.appendChild(div);
+  }
+
+  renderReport();
+}
+
+function setPlayerName(index, value) {
+  players[index].name = value;
+  renderReport();
+}
+
+function addTwo(index) {
+  saveHistory(index);
+  players[index].twoMade++;
+  players[index].attempts++;
+  players[index].pts += 2;
+  render();
+}
+
+function addThree(index) {
+  saveHistory(index);
+  players[index].threeMade++;
+  players[index].attempts++;
+  players[index].pts += 3;
+  render();
+}
+
+function addFt(index) {
+  saveHistory(index);
+  players[index].ftMade++;
+  players[index].pts += 1;
+  render();
+}
+
+function addAttempt(index) {
+  saveHistory(index);
+  players[index].attempts++;
+  players[index].misses++;
+  render();
+}
+
+function addFtAttempt(index) {
+  saveHistory(index);
+  players[index].attempts++;
+  players[index].misses++;
+  render();
+}
+
+function saveHistory(index) {
+  history.push({
+    index: index,
+    before: {
+      name: players[index].name,
+      pts: players[index].pts,
+      twoMade: players[index].twoMade,
+      threeMade: players[index].threeMade,
+      ftMade: players[index].ftMade,
+      attempts: players[index].attempts,
+      misses: players[index].misses
+    }
+  });
+}
+
+function undoLast() {
+  const last = history.pop();
+
+  if (!last) {
+    alert("Keine weitere Aktion zum Rückgängigmachen.");
+    return;
+  }
+
+  players[last.index] = last.before;
+  render();
+}
+
+function calculateEff(player) {
+  return player.pts - player.misses;
+}
+
+function getGameInfo() {
+  return {
+    title: document.getElementById("gameTitle").value || "Basketballspiel",
+    team: document.getElementById("teamName").value || "Mein Team",
+    opponent: document.getElementById("opponent").value || "Gegner",
+    date: document.getElementById("gameDate").value || new Date().toISOString().slice(0, 10),
+    location: document.getElementById("gameLocation").value || "Ort nicht angegeben"
+  };
+}
+
+function renderReport() {
+  const info = getGameInfo();
+  const report = document.getElementById("report");
+
+  let html = "<h2>Spielbericht</h2>";
+  html += "<p><strong>" + info.title + "</strong><br>";
+  html += info.team + " vs. " + info.opponent + "<br>";
+  html += info.date + " | " + info.location + "</p>";
+
+  html += "<table><thead><tr>";
+  html += "<th>Spieler</th><th>Pkt</th><th>2er</th><th>3er</th><th>FW</th><th>Vers.</th><th>Fehlw.</th><th>EFF</th>";
+  html += "</tr></thead><tbody>";
+
+  for (let i = 0; i < players.length; i++) {
+    const p = players[i];
+
+    html += "<tr>";
+    html += "<td>" + (p.name || "Spieler " + (i + 1)) + "</td>";
+    html += "<td>" + p.pts + "</td>";
+    html += "<td>" + p.twoMade + "</td>";
+    html += "<td>" + p.threeMade + "</td>";
+    html += "<td>" + p.ftMade + "</td>";
+    html += "<td>" + p.attempts + "</td>";
+    html += "<td>" + p.misses + "</td>";
+    html += "<td>" + calculateEff(p) + "</td>";
+    html += "</tr>";
+  }
+
+  html += "</tbody></table>";
+  report.innerHTML = html;
+}
+
+function printReport() {
+  window.print();
+}
+
+function copyReport() {
+  const info = getGameInfo();
+  let text = "";
+
+  text += info.title + "\n";
+  text += info.team + " vs. " + info.opponent + "\n";
+  text += info.date + " | " + info.location + "\n\n";
+  text += "Spieler;Punkte;2er;3er;Freiwürfe;Versuche;Fehlwürfe;EFF\n";
+
+  for (let i = 0; i < players.length; i++) {
+    const p = players[i];
+
+    text += [
+      p.name || "Spieler " + (i + 1),
+      p.pts,
+      p.twoMade,
+      p.threeMade,
+      p.ftMade,
+      p.attempts,
+      p.misses,
+      calculateEff(p)
+    ].join(";");
+
+    text += "\n";
+  }
+
+  navigator.clipboard.writeText(text)
+    .then(function() {
+      alert("Bericht kopiert. In Excel einfügen und mit „Text in Spalten“ verarbeiten.");
+    })
+    .catch(function() {
+      alert("Kopieren nicht möglich.");
+    });
+}
+
+function exportCsv() {
+  const info = getGameInfo();
+  let csv = "";
+
+  csv += "Spieltitel;" + info.title + "\n";
+  csv += "Team;" + info.team + "\n";
+  csv += "Gegner;" + info.opponent + "\n";
+  csv += "Datum;" + info.date + "\n";
+  csv += "Ort;" + info.location + "\n\n";
+  csv += "Spieler;Punkte;2er-Treffer;3er-Treffer;Freiwurf-Treffer;Wurfversuche;Fehlwürfe;EFF\n";
+
+  for (let i = 0; i < players.length; i++) {
+    const p = players[i];
+
+    csv += [
+      p.name || "Spieler " + (i + 1),
+      p.pts,
+      p.twoMade,
+      p.threeMade,
+      p.ftMade,
+      p.attempts,
+      p.misses,
+      calculateEff(p)
+    ].join(";");
+
+    csv += "\n";
+  }
+
+  const blob = new Blob(["\ufeff" + csv], {
+    type: "text/csv;charset=utf-8;"
+  });
+
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "Boxscore.csv";
+  link.click();
+}
+
+function resetAll() {
+  if (!confirm("Alle Spieler und Statistiken zurücksetzen?")) return;
+
+  document.getElementById("gameTitle").value = "";
+  document.getElementById("teamName").value = "";
+  document.getElementById("opponent").value = "";
+  document.getElementById("gameDate").value = "";
+  document.getElementById("gameLocation").value = "";
+
+  createInitialPlayers();
+}
+
+createInitialPlayers();
+</script>
+</body>
+</html>
