@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basketball Shot-Chart & Zonen-Vergleich</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-elevated: #1e293b;
+      --bg-card: #162032;
+      --border: #334155;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent: #f97316;
+      --accent-hover: #ea580c;
+      --accent-soft: rgba(249, 115, 22, 0.15);
+      --blue: #38bdf8;
+      --green: #22c55e;
+      --yellow: #eab308;
+      --red: #ef4444;
+      --court-bg: #1e293b;
+      --court-line: #cbd5e1;
+      --zone-empty: rgba(148, 163, 184, 0.14);
+      --zone-hover: rgba(249, 115, 22, 0.35);
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+    }
+
+    [data-theme="light"] {
+      --bg: #f1f5f9;
+      --bg-elevated: #ffffff;
+      --bg-card: #ffffff;
+      --border: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --accent: #ea580c;
+      --accent-hover: #c2410c;
+      --accent-soft: rgba(234, 88, 12, 0.12);
+      --court-bg: #f8fafc;
+      --court-line: #334155;
+      --zone-empty: rgba(100, 116, 139, 0.12);
+      --zone-hover: rgba(234, 88, 12, 0.25);
+      --shadow: 0 8px 20px -6px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+      min-height: 100vh;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    /* Header */
+    header {
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: #fff;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.35);
+    }
+
+    .brand h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .brand p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    button, select, input[type="text"], input[type="number"] {
+      font-family: inherit;
+      font-size: 0.85rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      padding: 0.45rem 0.75rem;
+      transition: all 0.15s ease;
+    }
+
+    button {
+      cursor: pointer;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--bg-elevated);
+    }
+
+    button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    button.primary:hover {
+      background: var(--accent-hover);
+      color: #fff;
+    }
+
+    button.active-mode {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Main Layout */
+    main {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* Legend & Control Strip */
+    .control-bar {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.85rem 1.15rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.8rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--text-muted);
+    }
+
+    .swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .mode-switch {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    /* Comparison Grid */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 1050px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.15rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .panel-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.65rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .badge {
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-a {
+      background: rgba(56, 189, 248, 0.18);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+
+    .badge-b {
+      background: rgba(249, 115, 22, 0.18);
+      color: #fb923c;
+      border: 1px solid rgba(249, 115, 22, 0.4);
+    }
+
+    .title-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .title-input {
+      font-size: 1rem !important;
+      font-weight: 700;
+      width: 100%;
+      background: var(--bg) !important;
+    }
+
+    .sub-input {
+      font-size: 0.8rem !important;
+      color: var(--text-muted) !important;
+      width: 100%;
+    }
+
+    /* KPI Strip */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.5rem;
+    }
+
+    @media (max-width: 550px) {
+      .kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .kpi-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.55rem 0.5rem;
+      text-align: center;
+    }
+
+    .kpi-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .kpi-val {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-top: 0.1rem;
+    }
+
+    .kpi-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* Court Wrapper */
+    .court-container {
+      position: relative;
+      width: 100%;
+      background: var(--court-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    svg.court-svg {
+      width: 100%;
+      max-width: 540px;
+      height: auto;
+      display: block;
+      user-select: none;
+    }
+
+    .court-zone {
+      cursor: pointer;
+      transition: fill 0.2s ease, stroke-width 0.15s ease, opacity 0.2s;
+      stroke: var(--court-line);
+      stroke-width: 1.5;
+    }
+
+    .court-zone:hover {
+      stroke: var(--accent);
+      stroke-width: 3;
+      filter: brightness(1.12);
+    }
+
+    .court-zone.selected-zone {
+      stroke: #ffffff;
+      stroke-width: 3.5;
+    }
+
+    .court-marking {
+      fill: none;
+      stroke: var(--court-line);
+      stroke-width: 2;
+      pointer-events: none;
+    }
+
+    .zone-label-pct {
+      font-size: 13px;
+      font-weight: 800;
+      fill: #ffffff;
+      text-anchor: middle;
+      pointer-events: none;
+      paint-order: stroke;
+      stroke: rgba(15, 23, 42, 0.85);
+      stroke-width: 3.5px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .zone-label-frac {
+      font-size: 10.5px;
+      font-weight: 600;
+      fill: #f8fafc;
+      text-anchor: middle;
+      pointer-events: none;
+      paint-order: stroke;
+      stroke: rgba(15, 23, 42, 0.85);
+      stroke-width: 3px;
+    }
+
+    .zone-label-name {
+      font-size: 8.5px;
+      font-weight: 600;
+      fill: #e2e8f0;
+      text-anchor: middle;
+      pointer-events: none;
+      paint-order: stroke;
+      stroke: rgba(15, 23, 42, 0.85);
+      stroke-width: 2.5px;
+    }
+
+    /* Quick Editor inside Panel */
+    .zone-editor {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .zone-editor-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .zone-editor-title {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--accent);
+    }
+
+    .zone-inputs {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .num-field {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .num-field input {
+      width: 64px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .btn-hit {
+      background: rgba(34, 197, 94, 0.16);
+      border-color: rgba(34, 197, 94, 0.5);
+      color: #4ade80;
+    }
+    .btn-hit:hover {
+      background: #22c55e;
+      color: #fff;
+    }
+
+    .btn-miss {
+      background: rgba(239, 68, 68, 0.16);
+      border-color: rgba(239, 68, 68, 0.5);
+      color: #f87171;
+    }
+    .btn-miss:hover {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    /* Free Throw Bar */
+    .ft-bar {
+      width: 100%;
+      max-width: 540px;
+      margin-top: 0.5rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.55rem 0.85rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .ft-bar:hover {
+      border-color: var(--accent);
+    }
+
+    /* Comparison Analytics Section */
+    .analytics-panel {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .analytics-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    th, td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    th:first-child, td:first-child {
+      text-align: left;
+      font-weight: 600;
+    }
+
+    th {
+      background: var(--bg);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    tr:hover td {
+      background: rgba(148, 163, 184, 0.06);
+    }
+
+    .diff-pos { color: #4ade80; font-weight: 700; }
+    .diff-neg { color: #f87171; font-weight: 700; }
+    .diff-neu { color: var(--text-muted); }
+
+    /* Visual Bar Comparison */
+    .bars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .bar-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem;
+    }
+
+    .bar-card-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.45rem;
+      font-size: 0.78rem;
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 10px;
+      background: var(--bg-elevated);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar-fill-a {
+      height: 100%;
+      background: #38bdf8;
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    .bar-fill-b {
+      height: 100%;
+      background: #fb923c;
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    /* Print Styles */
+    @media print {
+      header .toolbar, .zone-editor, .control-bar .mode-switch {
+        display: none !important;
+      }
+      body {
+        background: #fff !important;
+        color: #000 !important;
+      }
+      .panel, .analytics-panel, .control-bar {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">🏀</div>
+    <div>
+      <h1>Shot-Chart & Zonen-Vergleich</h1>
+      <p>Visuelle Wurfquoten-Analyse nach Feldzonen • Vergleich A vs. B</p>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <select id="presetSelect" title="Beispiel-Szenario laden">
+      <option value="">📂 Beispiel / Vorlage laden...</option>
+      <option value="players">Spieler-Vergleich: Guard vs. Wing</option>
+      <option value="games">Spiel-Vergleich: Heimspiel vs. Auswärts</option>
+      <option value="halves">Halbzeit-Vergleich: 1. HZ vs. 2. HZ</option>
+    </select>
+    <button onclick="swapSides()" title="Seite A und B tauschen">⇄ A/B Tauschen</button>
+    <button onclick="exportJSON()" title="Als JSON-Datei sichern">💾 Export</button>
+    <button onclick="document.getElementById('importFile').click()" title="JSON-Datei laden">📥 Import</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)" />
+    <button onclick="window.print()" title="Drucken oder als PDF speichern">🖨️ PDF/Druck</button>
+    <button onclick="toggleTheme()" id="themeBtn" title="Hell/Dunkel wechseln">☀️ Light</button>
+  </div>
+</header>
+
+<main>
+  <!-- Legende & Ansichtsmodus -->
+  <div class="control-bar">
+    <div class="legend" id="legendBox">
+      <strong>Farbskala (Trefferquote):</strong>
+      <span class="legend-item"><span class="swatch" style="background: rgba(148,163,184,0.2)"></span> Keine Würfe</span>
+      <span class="legend-item"><span class="swatch" style="background: rgba(239, 68, 68, 0.72)"></span> Kalt (&lt; 30%)</span>
+      <span class="legend-item"><span class="swatch" style="background: rgba(249, 115, 22, 0.72)"></span> Unter Schnitt (30–39%)</span>
+      <span class="legend-item"><span class="swatch" style="background: rgba(234, 179, 8, 0.75)"></span> Solide (40–49%)</span>
+      <span class="legend-item"><span class="swatch" style="background: rgba(34, 197, 94, 0.78)"></span> Hot (50–64%)</span>
+      <span class="legend-item"><span class="swatch" style="background: rgba(16, 185, 129, 0.9)"></span> Elite (≥ 65%)</span>
+    </div>
+
+    <div class="mode-switch">
+      <span style="font-size:0.8rem; color:var(--text-muted);">Karten-Ansicht:</span>
+      <button id="modePctBtn" class="active-mode" onclick="setColorMode('pct')">Trefferquote (%)</button>
+      <button id="modeVolBtn" onclick="setColorMode('vol')">Wurfanteil (%)</button>
+      <button id="modeDiffBtn" onclick="setColorMode('diff')">Direkt-Differenz (A − B)</button>
+    </div>
+  </div>
+
+  <!-- Zwei Courts nebeneinander -->
+  <section class="comparison-grid">
+    <!-- PANEL A -->
+    <div class="panel" id="panelA">
+      <div class="panel-header">
+        <div class="title-group">
+          <span class="badge badge-a">Slot A</span>
+          <div style="flex:1">
+            <input type="text" class="title-input" id="nameA" value="Spieler / Spiel A" oninput="updateMeta('A')" />
+            <input type="text" class="sub-input" id="subA" value="z.B. Saison 2026 • Heimspiele" oninput="updateMeta('A')" style="margin-top:4px;" />
+          </div>
+        </div>
+        <button onclick="resetSlot('A')" title="Alle Werte in Slot A auf 0 setzen">↺ Reset A</button>
+      </div>
+
+      <!-- KPIs A -->
+      <div class="kpi-grid" id="kpisA"></div>
+
+      <!-- SVG Court A -->
+      <div class="court-container">
+        <svg class="court-svg" id="courtSvgA" viewBox="0 0 500 470"></svg>
+        <div class="ft-bar" id="ftBarA" onclick="selectZone('A', 'ft')"></div>
+      </div>
+
+      <!-- Zonen-Editor A -->
+      <div class="zone-editor" id="editorA"></div>
+    </div>
+
+    <!-- PANEL B -->
+    <div class="panel" id="panelB">
+      <div class="panel-header">
+        <div class="title-group">
+          <span class="badge badge-b">Slot B</span>
+          <div style="flex:1">
+            <input type="text" class="title-input" id="nameB" value="Spieler / Spiel B" oninput="updateMeta('B')" />
+            <input type="text" class="sub-input" id="subB" value="z.B. Saison 2026 • Auswärtsspiele" oninput="updateMeta('B')" style="margin-top:4px;" />
+          </div>
+        </div>
+        <button onclick="resetSlot('B')" title="Alle Werte in Slot B auf 0 setzen">↺ Reset B</button>
+      </div>
+
+      <!-- KPIs B -->
+      <div class="kpi-grid" id="kpisB"></div>
+
+      <!-- SVG Court B -->
+      <div class="court-container">
+        <svg class="court-svg" id="courtSvgB" viewBox="0 0 500 470"></svg>
+        <div class="ft-bar" id="ftBarB" onclick="selectZone('B', 'ft')"></div>
+      </div>
+
+      <!-- Zonen-Editor B -->
+      <div class="zone-editor" id="editorB"></div>
+    </div>
+  </section>
+
+  <!-- Detail-Vergleich & Auswertung -->
+  <section class="analytics-panel">
+    <div class="analytics-header">
+      <div>
+        <h2 style="font-size:1.05rem;">📊 Zonen- & Effizienz-Vergleich im Detail</h2>
+        <p style="font-size:0.8rem; color:var(--text-muted);">Gegenüberstellung nach Distanz-Kategorien und einzelnen Feldzonen</p>
+      </div>
+      <div id="summaryVerdict" style="font-size:0.85rem; font-weight:600; color:var(--accent);"></div>
+    </div>
+
+    <!-- Balken-Vergleich nach Hauptkategorien -->
+    <div class="bars-grid" id="categoryBars"></div>
+
+    <!-- Vollständige Zonen-Tabelle -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Feldzone</th>
+            <th>Typ</th>
+            <th id="thNameA">Slot A</th>
+            <th>Quote A</th>
+            <th>Anteil A</th>
+            <th id="thNameB">Slot B</th>
+            <th>Quote B</th>
+            <th>Anteil B</th>
+            <th>Diff (A − B)</th>
+          </tr>
+        </thead>
+        <tbody id="comparisonTableBody"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+  // Definition der 11 Zonen (10 Feldzonen + Freiwurf)
+  const ZONES = [
+    {
+      id: 'ra',
+      name: 'Restricted Area (Korb)',
+      short: 'Am Korb',
+      group: 'Paint / Zone',
+      pts: 2,
+      // Halbkreis unter dem Korb
+      path: 'M 210,55 L 290,55 A 40,40 0 0,1 210,55 Z',
+      labelPos: { x: 250, y: 76 }
+    },
+    {
+      id: 'paint',
+      name: 'Zone / Paint (Non-RA)',
+      short: 'Paint',
+      group: 'Paint / Zone',
+      pts: 2,
+      // Freiwurfraum ohne Restricted Area
+      path: 'M 170,10 L 330,10 L 330,190 L 170,190 Z',
+      labelPos: { x: 250, y: 145 }
+    },
+    {
+      id: 'mid_base_l',
+      name: 'Mitteldistanz Baseline Links',
+      short: 'Mid Base L',
+      group: 'Mitteldistanz',
+      pts: 2,
+      path: 'M 45,10 L 170,10 L 170,120 L 45,120 Z',
+      labelPos: { x: 108, y: 70 }
+    },
+    {
+      id: 'mid_base_r',
+      name: 'Mitteldistanz Baseline Rechts',
+      short: 'Mid Base R',
+      group: 'Mitteldistanz',
+      pts: 2,
+      path: 'M 330,10 L 455,10 L 455,120 L 330,120 Z',
+      labelPos: { x: 392, y: 70 }
+    },
+    {
+      id: 'mid_wing_l',
+      name: 'Mitteldistanz Wing / Ellbow Links',
+      short: 'Mid Wing L',
+      group: 'Mitteldistanz',
+      pts: 2,
+      path: 'M 45,120 L 170,120 L 170,190 L 250,190 L 250,275 C 145,275 75,215 45,140 Z',
+      labelPos: { x: 135, y: 205 }
+    },
+    {
+      id: 'mid_wing_r',
+      name: 'Mitteldistanz Wing / Ellbow Rechts',
+      short: 'Mid Wing R',
+      group: 'Mitteldistanz',
+      pts: 2,
+      path: 'M 455,120 L 330,120 L 330,190 L 250,190 L 250,275 C 355,275 425,215 455,140 Z',
+      labelPos: { x: 365, y: 205 }
+    },
+    {
+      id: 'three_corner_l',
+      name: 'Dreier Ecke (Corner) Links',
+      short: '3P Ecke L',
+      group: 'Dreier',
+      pts: 3,
+      path: 'M 10,10 L 45,10 L 45,140 L 10,140 Z',
+      labelPos: { x: 27.5, y: 80 }
+    },
+    {
+      id: 'three_corner_r',
+      name: 'Dreier Ecke (Corner) Rechts',
+      short: '3P Ecke R',
+      group: 'Dreier',
+      pts: 3,
+      path: 'M 455,10 L 490,10 L 490,140 L 455,140 Z',
+      labelPos: { x: 472.5, y: 80 }
+    },
+    {
+      id: 'three_wing_l',
+      name: 'Dreier Wing Links',
+      short: '3P Wing L',
+      group: 'Dreier',
+      pts: 3,
+      path: 'M 10,140 L 45,140 C 70,205 120,255 190,270 L 155,460 L 10,460 Z',
+      labelPos: { x: 85, y: 335 }
+    },
+    {
+      id: 'three_wing_r',
+      name: 'Dreier Wing Rechts',
+      short: '3P Wing R',
+      group: 'Dreier',
+      pts: 3,
+      path: 'M 490,140 L 455,140 C 430,205 380,255 310,270 L 345,460 L 490,460 Z',
+      labelPos: { x: 415, y: 335 }
+    },
+    {
+      id: 'three_top',
+      name: 'Dreier Top of the Key (Mitte)',
+      short: '3P Top',
+      group: 'Dreier',
+      pts: 3,
+      path: 'M 190,270 C 230,278 270,278 310,270 L 345,460 L 155,460 Z',
+      labelPos: { x: 250, y: 365 }
+    },
+    {
+      id: 'ft',
+      name: 'Freiwurf (Free Throw)',
+      short: 'Freiwurf',
+      group: 'Freiwurf',
+      pts: 1,
+      path: null,
+      labelPos: null
+    }
+  ];
+
+  function createEmptyShots() {
+    const obj = {};
+    ZONES.forEach(z => { obj[z.id] = { m: 0, a: 0 }; });
+    return obj;
+  }
+
+  let state = {
+    theme: 'dark',
+    colorMode: 'pct', // 'pct' | 'vol' | 'diff'
+    selected: { A: 'ra', B: 'ra' },
+    A: {
+      name: 'Lukas Weber (#7)',
+      sub: 'Schnitt letzte 5 Spiele • Point Guard',
+      shots: createEmptyShots()
+    },
+    B: {
+      name: 'Jonas Becker (#14)',
+      sub: 'Schnitt letzte 5 Spiele • Small Forward',
+      shots: createEmptyShots()
+    }
+  };
+
+  // Presets zum sofortigen Ausprobieren
+  const PRESETS = {
+    players: {
+      A: {
+        name: 'Lukas Weber (#7) – Guard',
+        sub: 'Saison-Schnitt • Penetration & Pull-Up',
+        shots: {
+          ra: { m: 24, a: 36 }, paint: { m: 11, a: 24 },
+          mid_base_l: { m: 4, a: 9 }, mid_base_r: { m: 5, a: 11 },
+          mid_wing_l: { m: 9, a: 20 }, mid_wing_r: { m: 12, a: 22 },
+          three_corner_l: { m: 6, a: 14 }, three_corner_r: { m: 5, a: 13 },
+          three_wing_l: { m: 14, a: 35 }, three_wing_r: { m: 11, a: 31 },
+          three_top: { m: 15, a: 38 }, ft: { m: 34, a: 40 }
+        }
+      },
+      B: {
+        name: 'Jonas Becker (#14) – Wing',
+        sub: 'Saison-Schnitt • Catch & Shoot + Cuts',
+        shots: {
+          ra: { m: 31, a: 42 }, paint: { m: 14, a: 26 },
+          mid_base_l: { m: 6, a: 15 }, mid_base_r: { m: 3, a: 10 },
+          mid_wing_l: { m: 5, a: 14 }, mid_wing_r: { m: 4, a: 12 },
+          three_corner_l: { m: 16, a: 32 }, three_corner_r: { m: 14, a: 30 },
+          three_wing_l: { m: 10, a: 28 }, three_wing_r: { m: 12, a: 27 },
+          three_top: { m: 7, a: 22 }, ft: { m: 22, a: 31 }
+        }
+      }
+    },
+    games: {
+      A: {
+        name: 'Heimspiel vs. Frankfurt',
+        sub: 'Sieg 78:69 • Hohe Pace & Fastbreaks',
+        shots: {
+          ra: { m: 14, a: 19 }, paint: { m: 6, a: 12 },
+          mid_base_l: { m: 2, a: 4 }, mid_base_r: { m: 3, a: 5 },
+          mid_wing_l: { m: 3, a: 7 }, mid_wing_r: { m: 2, a: 6 },
+          three_corner_l: { m: 4, a: 8 }, three_corner_r: { m: 3, a: 7 },
+          three_wing_l: { m: 3, a: 9 }, three_wing_r: { m: 4, a: 9 },
+          three_top: { m: 2, a: 7 }, ft: { m: 14, a: 18 }
+        }
+      },
+      B: {
+        name: 'Auswärtsspiel vs. Gießen',
+        sub: 'Niederlage 64:71 • Zonenverteidigung',
+        shots: {
+          ra: { m: 7, a: 15 }, paint: { m: 4, a: 13 },
+          mid_base_l: { m: 1, a: 5 }, mid_base_r: { m: 2, a: 6 },
+          mid_wing_l: { m: 4, a: 11 }, mid_wing_r: { m: 3, a: 10 },
+          three_corner_l: { m: 2, a: 9 }, three_corner_r: { m: 3, a: 8 },
+          three_wing_l: { m: 3, a: 11 }, three_wing_r: { m: 2, a: 10 },
+          three_top: { m: 2, a: 9 }, ft: { m: 11, a: 19 }
+        }
+      }
+    },
+    halves: {
+      A: {
+        name: '1. Halbzeit (Q1 + Q2)',
+        sub: 'Frische Beine & gute Ballbewegung',
+        shots: {
+          ra: { m: 9, a: 12 }, paint: { m: 4, a: 7 },
+          mid_base_l: { m: 2, a: 3 }, mid_base_r: { m: 1, a: 3 },
+          mid_wing_l: { m: 2, a: 4 }, mid_wing_r: { m: 3, a: 5 },
+          three_corner_l: { m: 3, a: 5 }, three_corner_r: { m: 2, a: 4 },
+          three_wing_l: { m: 2, a: 5 }, three_wing_r: { m: 3, a: 6 },
+          three_top: { m: 2, a: 4 }, ft: { m: 8, a: 10 }
+        }
+      },
+      B: {
+        name: '2. Halbzeit (Q3 + Q4)',
+        sub: 'Müdigkeit & mehr erzwungene Würfe',
+        shots: {
+          ra: { m: 5, a: 11 }, paint: { m: 3, a: 9 },
+          mid_base_l: { m: 1, a: 4 }, mid_base_r: { m: 1, a: 5 },
+          mid_wing_l: { m: 1, a: 6 }, mid_wing_r: { m: 2, a: 7 },
+          three_corner_l: { m: 1, a: 5 }, three_corner_r: { m: 1, a: 6 },
+          three_wing_l: { m: 1, a: 7 }, three_wing_r: { m: 2, a: 7 },
+          three_top: { m: 1, a: 6 }, ft: { m: 9, a: 15 }
+        }
+      }
+    }
+  };
+
+  function init() {
+    const saved = localStorage.getItem('bball_shotchart_v1');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        state = { ...state, ...parsed };
+      } catch (e) {
+        loadPreset('players', false);
+      }
+    } else {
+      loadPreset('players', false);
+    }
+
+    document.documentElement.setAttribute('data-theme', state.theme || 'dark');
+    updateThemeBtn();
+
+    document.getElementById('presetSelect').addEventListener('change', (e) => {
+      if (e.target.value) {
+        loadPreset(e.target.value, true);
+        e.target.value = '';
+      }
+    });
+
+    renderAll();
+  }
+
+  function saveState() {
+    localStorage.setItem('bball_shotchart_v1', JSON.stringify(state));
+  }
+
+  function loadPreset(key, save = true) {
+    const p = PRESETS[key];
+    if (!p) return;
+    state.A = JSON.parse(JSON.stringify(p.A));
+    state.B = JSON.parse(JSON.stringify(p.B));
+    if (save) saveState();
+    renderAll();
+  }
+
+  function toggleTheme() {
+    state.theme = state.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', state.theme);
+    updateThemeBtn();
+    saveState();
+  }
+
+  function updateThemeBtn() {
+    const btn = document.getElementById('themeBtn');
+    btn.textContent = state.theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+  }
+
+  function setColorMode(mode) {
+    state.colorMode = mode;
+    document.getElementById('modePctBtn').classList.toggle('active-mode', mode === 'pct');
+    document.getElementById('modeVolBtn').classList.toggle('active-mode', mode === 'vol');
+    document.getElementById('modeDiffBtn').classList.toggle('active-mode', mode === 'diff');
+
+    const legend = document.getElementById('legendBox');
+    if (mode === 'pct') {
+      legend.innerHTML = `
+        <strong>Farbskala (Trefferquote):</strong>
+        <span class="legend-item"><span class="swatch" style="background: rgba(148,163,184,0.2)"></span> Keine Würfe</span>
+        <span class="legend-item"><span class="swatch" style="background: rgba(239, 68, 68, 0.72)"></span> Kalt (&lt; 30%)</span>
+        <span class="legend-item"><span class="swatch" style="background: rgba(249, 115, 22, 0.72)"></span> Unter Schnitt (30–39%)</span>
+        <span class="legend-item"><span class="swatch" style="background: rgba(234, 179, 8, 0.75)"></span> Solide (40–49%)</span>
+        <span class="legend-item"><span class="swatch" style="background: rgba(34, 197, 94, 0.78)"></span> Hot (50–64%)</span>
+        <span class="legend-item"><span class="swatch" style="background: rgba(16, 185, 129, 0.9)"></span> Elite (≥ 65%)</span>
+      `;
+    } else if (mode === 'vol') {
+      legend.innerHTML = `
+        <strong>Farbskala (Anteil an allen Feldwürfen):</strong>
+        <span class="legend-item"><span class="swatch" style="background: rgba(148,163,184,0.2)"></span> 0%</span>
+        <span class="legend-item"><span class="swatch" style="background: rgba(56, 189, 248, 0.3)"></span> Wenig (&lt; 8%)</span>
+        <span class="legend-item"><span class="swatch" style="background: rgba(56, 189, 248, 0.55)"></span> Mittel (8–15%)</span>
+        <span class="legend-item"><span class="swatch" style="background: rgba(56, 189, 248, 0.85)"></span> Fokus-Zone (&gt; 15%)</span>
+      `;
+    } else {
+      legend.innerHTML = `
+        <strong>Differenz-Modus (Quote A minus Quote B):</strong>
+        <span class="legend-item"><span class="swatch" style="background: rgba(34, 197, 94, 0.8)"></span> Vorteil A (+5% oder mehr)</span>
+        <span class="legend-item"><span class="swatch" style="background: rgba(234, 179, 8, 0.55)"></span> Ausgeglichen (±5%)</span>
+        <span class="legend-item"><span class="swatch" style="background: rgba(239, 68, 68, 0.8)"></span> Vorteil B (−5% oder mehr)</span>
+      `;
+    }
+    renderAll();
+  }
+
+  function updateMeta(slot) {
+    state[slot].name = document.getElementById('name' + slot).value;
+    state[slot].sub = document.getElementById('sub' + slot).value;
+    saveState();
+    renderAnalytics();
+  }
+
+  function selectZone(slot, zoneId) {
+    state.selected[slot] = zoneId;
+    renderSlot(slot);
+  }
+
+  function adjustShot(slot, zoneId, deltaM, deltaA) {
+    const s = state[slot].shots[zoneId];
+    s.m = Math.max(0, s.m + deltaM);
+    s.a = Math.max(s.m, Math.max(0, s.a + deltaA));
+    saveState();
+    renderAll();
+  }
+
+  function setShotExact(slot, zoneId, made, att) {
+    let m = Math.max(0, parseInt(made, 10) || 0);
+    let a = Math.max(0, parseInt(att, 10) || 0);
+    if (m > a) a = m;
+    state[slot].shots[zoneId] = { m, a };
+    saveState();
+    renderAll();
+  }
+
+  function resetSlot(slot) {
+    if (!confirm(`Wirklich alle Wurfdaten in Slot ${slot} auf 0 zurücksetzen?`)) return;
+    state[slot].shots = createEmptyShots();
+    saveState();
+    renderAll();
+  }
+
+  function swapSides() {
+    const temp = state.A;
+    state.A = state.B;
+    state.B = temp;
+    saveState();
+    renderAll();
+  }
+
+  function calcStats(slotData) {
+    let fgM = 0, fgA = 0;
+    let twoM = 0, twoA = 0;
+    let threeM = 0, threeA = 0;
+    let ftM = slotData.shots.ft.m, ftA = slotData.shots.ft.a;
+
+    ZONES.forEach(z => {
+      if (z.id === 'ft') return;
+      const { m, a } = slotData.shots[z.id];
+      fgM += m;
+      fgA += a;
+      if (z.pts === 2) {
+        twoM += m;
+        twoA += a;
+      } else if (z.pts === 3) {
+        threeM += m;
+        threeA += a;
+      }
+    });
+
+    const pts = (twoM * 2) + (threeM * 3) + ftM;
+    const fgPct = fgA > 0 ? (fgM / fgA) * 100 : 0;
+    const twoPct = twoA > 0 ? (twoM / twoA) * 100 : 0;
+    const threePct = threeA > 0 ? (threeM / threeA) * 100 : 0;
+    const ftPct = ftA > 0 ? (ftM / ftA) * 100 : 0;
+    const efgPct = fgA > 0 ? ((fgM + 0.5 * threeM) / fgA) * 100 : 0;
+
+    return {
+      fgM, fgA, fgPct,
+      twoM, twoA, twoPct,
+      threeM, threeA, threePct,
+      ftM, ftA, ftPct,
+      efgPct, pts
+    };
+  }
+
+  function getZoneFill(slot, zoneId, statsA, statsB) {
+    const s = state[slot].shots[zoneId];
+    const totalFGA = slot === 'A' ? statsA.fgA : statsB.fgA;
+
+    if (state.colorMode === 'pct') {
+      if (s.a === 0) return 'var(--zone-empty)';
+      const pct = (s.m / s.a) * 100;
+      if (pct >= 65) return 'rgba(16, 185, 129, 0.85)';
+      if (pct >= 50) return 'rgba(34, 197, 94, 0.74)';
+      if (pct >= 40) return 'rgba(234, 179, 8, 0.72)';
+      if (pct >= 30) return 'rgba(249, 115, 22, 0.72)';
+      return 'rgba(239, 68, 68, 0.72)';
+    }
+
+    if (state.colorMode === 'vol') {
+      if (s.a === 0 || totalFGA === 0) return 'var(--zone-empty)';
+      const share = (s.a / totalFGA) * 100;
+      if (share >= 16) return 'rgba(56, 189, 248, 0.85)';
+      if (share >= 8) return 'rgba(56, 189, 248, 0.52)';
+      return 'rgba(56, 189, 248, 0.28)';
+    }
+
+    if (state.colorMode === 'diff') {
+      const sA = state.A.shots[zoneId];
+      const sB = state.B.shots[zoneId];
+      if (sA.a === 0 || sB.a === 0) return 'var(--zone-empty)';
+      const pctA = (sA.m / sA.a) * 100;
+      const pctB = (sB.m / sB.a) * 100;
+      const diff = pctA - pctB;
+      if (slot === 'A') {
+        if (diff >= 5) return 'rgba(34, 197, 94, 0.78)';
+        if (diff <= -5) return 'rgba(239, 68, 68, 0.72)';
+        return 'rgba(234, 179, 8, 0.52)';
+      } else {
+        if (diff <= -5) return 'rgba(34, 197, 94, 0.78)';
+        if (diff >= 5) return 'rgba(239, 68, 68, 0.72)';
+        return 'rgba(234, 179, 8, 0.52)';
+      }
+    }
+    return 'var(--zone-empty)';
+  }
+
+  function renderSlot(slot) {
+    const data = state[slot];
+    const statsA = calcStats(state.A);
+    const statsB = calcStats(state.B);
+    const stats = slot === 'A' ? statsA : statsB;
+
+    document.getElementById('name' + slot).value = data.name;
+    document.getElementById('sub' + slot).value = data.sub;
+
+    // KPIs
+    document.getElementById('kpis' + slot).innerHTML = `
+      <div class="kpi-box">
+        <div class="kpi-label">Punkte</div>
+        <div class="kpi-val" style="color:var(--accent)">${stats.pts}</div>
+        <div class="kpi-sub">Gesamt</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">FG% (Feld)</div>
+        <div class="kpi-val">${stats.fgPct.toFixed(1)}%</div>
+        <div class="kpi-sub">${stats.fgM}/${stats.fgA}</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">eFG%</div>
+        <div class="kpi-val">${stats.efgPct.toFixed(1)}%</div>
+        <div class="kpi-sub">Effektiv</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">2P / 3P</div>
+        <div class="kpi-val" style="font-size:0.95rem">${stats.twoPct.toFixed(0)}% / ${stats.threePct.toFixed(0)}%</div>
+        <div class="kpi-sub">${stats.twoM}/${stats.twoA} • ${stats.threeM}/${stats.threeA}</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label">Freiwurf</div>
+        <div class="kpi-val">${stats.ftPct.toFixed(1)}%</div>
+        <div class="kpi-sub">${stats.ftM}/${stats.ftA}</div>
+      </div>
+    `;
+
+    // SVG Court
+    const svg = document.getElementById('courtSvg' + slot);
+    const selectedId = state.selected[slot];
+
+    // Reihenfolge für SVG-Layering (große Zonen unten, kleinere innen drüber)
+    const renderOrder = [
+      'three_wing_l', 'three_wing_r', 'three_top',
+      'three_corner_l', 'three_corner_r',
+      'mid_wing_l', 'mid_wing_r',
+      'mid_base_l', 'mid_base_r',
+      'paint', 'ra'
+    ];
+
+    let pathsHtml = '';
+    let labelsHtml = '';
+
+    renderOrder.forEach(zId => {
+      const z = ZONES.find(item => item.id === zId);
+      const s = data.shots[z.id];
+      const fill = getZoneFill(slot, z.id, statsA, statsB);
+      const isSel = selectedId === z.id ? 'selected-zone' : '';
+      const pctText = s.a > 0 ? `${((s.m / s.a) * 100).toFixed(0)}%` : '–';
+      const fracText = `${s.m}/${s.a}`;
+
+      pathsHtml += `
+        <path d="${z.path}"
+              class="court-zone ${isSel}"
+              style="fill:${fill}"
+              onclick="selectZone('${slot}', '${z.id}')">
+          <title>${z.name}: ${s.m}/${s.a} (${pctText})</title>
+        </path>
+      `;
+
+      labelsHtml += `
+        <text x="${z.labelPos.x}" y="${z.labelPos.y - 5}" class="zone-label-pct">${pctText}</text>
+        <text x="${z.labelPos.x}" y="${z.labelPos.y + 8}" class="zone-label-frac">${fracText}</text>
+        <text x="${z.labelPos.x}" y="${z.labelPos.y + 19}" class="zone-label-name">${z.short}</text>
+      `;
+    });
+
+    svg.innerHTML = `
+      <!-- Spielfeld-Hintergrund -->
+      <rect x="10" y="10" width="480" height="450" rx="6" fill="none" stroke="var(--court-line)" stroke-width="2.5" />
+
+      <!-- Interaktive Zonen -->
+      ${pathsHtml}
+
+      <!-- FIBA Linien Overlay -->
+      <rect x="170" y="10" width="160" height="190" class="court-marking" />
+      <circle cx="250" cy="190" r="60" class="court-marking" />
+      <path d="M 190,190 A 60,60 0 0,1 310,190" stroke-dasharray="6,6" class="court-marking" />
+      <!-- Dreierlinie -->
+      <path d="M 45,10 L 45,140 C 75,220 150,275 250,275 C 350,275 425,220 455,140 L 455,10" class="court-marking" style="stroke-width:2.5" />
+      <!-- Brett & Ring -->
+      <line x1="220" y1="42" x2="280" y2="42" class="court-marking" style="stroke-width:3" />
+      <circle cx="250" cy="55" r="9" class="court-marking" style="stroke:var(--accent); stroke-width:2.5" />
+      <!-- Mittelkreis oben/unten -->
+      <path d="M 190,460 A 60,60 0 0,1 310,460" class="court-marking" />
+
+      <!-- Beschriftungen -->
+      ${labelsHtml}
+    `;
+
+    // Freiwurf-Leiste
+    const ft = data.shots.ft;
+    const ftPct = ft.a > 0 ? ((ft.m / ft.a) * 100).toFixed(1) + '%' : '–';
+    const ftBar = document.getElementById('ftBar' + slot);
+    ftBar.style.borderColor = selectedId === 'ft' ? 'var(--accent)' : 'var(--border)';
+    ftBar.innerHTML = `
+      <span style="font-weight:700; font-size:0.85rem;">🎯 Freiwürfe (FT)</span>
+      <span style="font-size:0.85rem;">
+        <strong>${ft.m} / ${ft.a}</strong> (${ftPct})
+      </span>
+      <div style="display:flex; gap:0.35rem;" onclick="event.stopPropagation()">
+        <button class="btn-hit" style="padding:0.25rem 0.5rem;" onclick="adjustShot('${slot}','ft',1,1)">+1 Treffer</button>
+        <button class="btn-miss" style="padding:0.25rem 0.5rem;" onclick="adjustShot('${slot}','ft',0,1)">+1 Fehlwurf</button>
+      </div>
+    `;
+
+    // Zonen-Editor unten im Panel
+    const selZone = ZONES.find(z => z.id === selectedId) || ZONES[0];
+    const selData = data.shots[selZone.id];
+    const selPct = selData.a > 0 ? ((selData.m / selData.a) * 100).toFixed(1) + '%' : '0.0%';
+
+    document.getElementById('editor' + slot).innerHTML = `
+      <div class="zone-editor-top">
+        <div>
+          <span style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Aktive Zone bearbeiten:</span>
+          <div class="zone-editor-title">${selZone.name} (${selZone.pts} Pkt)</div>
+        </div>
+        <div style="font-size:0.85rem; font-weight:700;">Quote: ${selPct}</div>
+      </div>
+
+      <div class="zone-inputs">
+        <div class="num-field">
+          <label>Treffer:</label>
+          <input type="number" min="0" value="${selData.m}"
+                 onchange="setShotExact('${slot}', '${selZone.id}', this.value, ${selData.a})" />
+        </div>
+        <div class="num-field">
+          <label>Versuche:</label>
+          <input type="number" min="0" value="${selData.a}"
+                 onchange="setShotExact('${slot}', '${selZone.id}', ${selData.m}, this.value)" />
+        </div>
+        <button class="btn-hit" onclick="adjustShot('${slot}', '${selZone.id}', 1, 1)">+1 Treffer</button>
+        <button class="btn-miss" onclick="adjustShot('${slot}', '${selZone.id}', 0, 1)">+1 Fehlwurf</button>
+        <button onclick="setShotExact('${slot}', '${selZone.id}', 0, 0)" title="Zone leeren">0/0</button>
+      </div>
+    `;
+  }
+
+  function renderAnalytics() {
+    const statsA = calcStats(state.A);
+    const statsB = calcStats(state.B);
+
+    document.getElementById('thNameA').textContent = state.A.name || 'Slot A';
+    document.getElementById('thNameB').textContent = state.B.name || 'Slot B';
+
+    // Kurzfazit oben rechts
+    const efgDiff = statsA.efgPct - statsB.efgPct;
+    const verdictEl = document.getElementById('summaryVerdict');
+    if (statsA.fgA === 0 && statsB.fgA === 0) {
+      verdictEl.textContent = 'Klicke auf eine Feldzone, um Würfe einzutragen.';
+    } else if (Math.abs(efgDiff) < 0.5) {
+      verdictEl.textContent = `Nahezu identische Effizienz (eFG%: ${statsA.efgPct.toFixed(1)}% vs. ${statsB.efgPct.toFixed(1)}%)`;
+    } else if (efgDiff > 0) {
+      verdictEl.textContent = `Vorteil ${state.A.name}: +${efgDiff.toFixed(1)}% höhere eFG%`;
+    } else {
+      verdictEl.textContent = `Vorteil ${state.B.name}: +${Math.abs(efgDiff).toFixed(1)}% höhere eFG%`;
+    }
+
+    // Hauptkategorien für Balkenvergleich
+    const categories = [
+      {
+        title: 'Paint / Zone Gesamt',
+        mA: state.A.shots.ra.m + state.A.shots.paint.m,
+        aA: state.A.shots.ra.a + state.A.shots.paint.a,
+        mB: state.B.shots.ra.m + state.B.shots.paint.m,
+        aB: state.B.shots.ra.a + state.B.shots.paint.a
+      },
+      {
+        title: 'Mitteldistanz Gesamt',
+        mA: state.A.shots.mid_base_l.m + state.A.shots.mid_base_r.m + state.A.shots.mid_wing_l.m + state.A.shots.mid_wing_r.m,
+        aA: state.A.shots.mid_base_l.a + state.A.shots.mid_base_r.a + state.A.shots.mid_wing_l.a + state.A.shots.mid_wing_r.a,
+        mB: state.B.shots.mid_base_l.m + state.B.shots.mid_base_r.m + state.B.shots.mid_wing_l.m + state.B.shots.mid_wing_r.m,
+        aB: state.B.shots.mid_base_l.a + state.B.shots.mid_base_r.a + state.B.shots.mid_wing_l.a + state.B.shots.mid_wing_r.a
+      },
+      {
+        title: 'Dreier Gesamt (3P)',
+        mA: statsA.threeM, aA: statsA.threeA,
+        mB: statsB.threeM, aB: statsB.threeA
+      },
+      {
+        title: 'Freiwürfe (FT)',
+        mA: statsA.ftM, aA: statsA.ftA,
+        mB: statsB.ftM, aB: statsB.ftA
+      }
+    ];
+
+    document.getElementById('categoryBars').innerHTML = categories.map(c => {
+      const pA = c.aA > 0 ? (c.mA / c.aA) * 100 : 0;
+      const pB = c.aB > 0 ? (c.mB / c.aB) * 100 : 0;
+      return `
+        <div class="bar-card">
+          <div class="bar-card-title">
+            <span>${c.title}</span>
+            <span style="color:var(--text-muted); font-weight:400;">Quote %</span>
+          </div>
+          <div class="bar-row">
+            <span style="width:22px; font-weight:700; color:#38bdf8;">A</span>
+            <div class="bar-track"><div class="bar-fill-a" style="width:${Math.min(100, pA)}%"></div></div>
+            <span style="width:76px; text-align:right;"><strong>${pA.toFixed(1)}%</strong> (${c.mA}/${c.aA})</span>
+          </div>
+          <div class="bar-row" style="margin-bottom:0;">
+            <span style="width:22px; font-weight:700; color:#fb923c;">B</span>
+            <div class="bar-track"><div class="bar-fill-b" style="width:${Math.min(100, pB)}%"></div></div>
+            <span style="width:76px; text-align:right;"><strong>${pB.toFixed(1)}%</strong> (${c.mB}/${c.aB})</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Tabelle aller Zonen
+    const tbody = document.getElementById('comparisonTableBody');
+    tbody.innerHTML = ZONES.map(z => {
+      const sA = state.A.shots[z.id];
+      const sB = state.B.shots[z.id];
+      const pA = sA.a > 0 ? (sA.m / sA.a) * 100 : null;
+      const pB = sB.a > 0 ? (sB.m / sB.a) * 100 : null;
+
+      const shareA = (z.id !== 'ft' && statsA.fgA > 0) ? ((sA.a / statsA.fgA) * 100).toFixed(1) + '%' : '–';
+      const shareB = (z.id !== 'ft' && statsB.fgA > 0) ? ((sB.a / statsB.fgA) * 100).toFixed(1) + '%' : '–';
+
+      let diffHtml = '<span class="diff-neu">–</span>';
+      if (pA !== null && pB !== null) {
+        const d = pA - pB;
+        const sign = d > 0 ? '+' : '';
+        const cls = d > 0.5 ? 'diff-pos' : (d < -0.5 ? 'diff-neg' : 'diff-neu');
+        diffHtml = `<span class="${cls}">${sign}${d.toFixed(1)}%</span>`;
+      }
+
+      return `
+        <tr>
+          <td>${z.name}</td>
+          <td><span style="font-size:0.75rem; color:var(--text-muted);">${z.pts} Pkt</span></td>
+          <td>${sA.m} / ${sA.a}</td>
+          <td><strong>${pA !== null ? pA.toFixed(1) + '%' : '–'}</strong></td>
+          <td style="color:var(--text-muted);">${shareA}</td>
+          <td>${sB.m} / ${sB.a}</td>
+          <td><strong>${pB !== null ? pB.toFixed(1) + '%' : '–'}</strong></td>
+          <td style="color:var(--text-muted);">${shareB}</td>
+          <td>${diffHtml}</td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function renderAll() {
+    renderSlot('A');
+    renderSlot('B');
+    renderAnalytics();
+  }
+
+  function exportJSON() {
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `shot-chart-vergleich-${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function importJSON(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const imported = JSON.parse(e.target.result);
+        if (imported.A && imported.B) {
+          state = { ...state, ...imported };
+          saveState();
+          renderAll();
+        } else {
+          alert('Ungültiges Dateiformat.');
+        }
+      } catch (err) {
+        alert('Fehler beim Lesen der JSON-Datei.');
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+  }
+
+  init();
+</script>
+</body>
+</html>
