@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zeitplan-Generator Spielfest (BCW v03)</title>
+  <style>
+    :root {
+      --primary: #0b5fff;
+      --primary-dark: #0043c6;
+      --bg-soft: #f5f7fb;
+      --border: #d0d7de;
+      --text: #111827;
+      --muted: #57606a;
+    }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 16px;
+      color: var(--text);
+      line-height: 1.45;
+    }
+    h1 { margin-bottom: 6px; font-size: 1.75rem; }
+    h3 { margin: 16px 0 8px; }
+    .muted { color: var(--muted); font-size: 14px; }
+
+    /* Einklappbarer Konzepttext */
+    details.concept-box {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin: 14px 0 18px;
+    }
+    details.concept-box summary {
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--primary);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    details.concept-box summary::-webkit-details-marker { display: none; }
+    details.concept-box summary::before {
+      content: "▶";
+      font-size: 12px;
+      transition: transform 0.2s ease;
+    }
+    details.concept-box[open] summary::before {
+      transform: rotate(90deg);
+    }
+    .concept-content {
+      margin-top: 12px;
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+
+    /* Kinderzahl-Assistent */
+    .assistant-box {
+      background: #eef4ff;
+      border: 1px solid #bfd4ff;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+    }
+    .assistant-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+    .assistant-input {
+      flex: 0 0 180px;
+    }
+    .assistant-result {
+      flex: 1 1 320px;
+      background: #fff;
+      border: 1px solid #c9d8f8;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+    .assistant-actions {
+      margin-top: 8px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .assistant-actions button {
+      width: auto;
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+
+    /* Formular-Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+    input, select, button {
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 16px;
+      padding: 10px;
+      border: 1px solid #bbb;
+      border-radius: 8px;
+    }
+    button {
+      cursor: pointer;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      font-weight: 700;
+    }
+    button:hover { background: var(--primary-dark); }
+    button.secondary {
+      background: #e9eef7;
+      color: var(--text);
+      border: 1px solid #c9d5ea;
+    }
+    button.secondary:hover { background: #dce4f2; }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .toolbar button {
+      width: auto;
+      min-width: 180px;
+    }
+
+    .error { color: #b00020; font-weight: 700; margin-top: 10px; }
+    .ok { color: #0b6b2f; font-weight: 700; margin-top: 10px; }
+
+    /* Kompakte Zusammenfassung */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .summary-card {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    .summary-card .val {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .summary-card .lbl {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Filter-Leiste */
+    .filter-bar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      background: #fafafa;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 14px;
+    }
+    .filter-bar > div {
+      flex: 1 1 160px;
+    }
+    .filter-bar button {
+      width: auto;
+      padding: 10px 14px;
+      font-size: 14px;
+    }
+
+    /* Tabelle & Mobile-Optimierung */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 14px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px 10px;
+      text-align: left;
+    }
+    th { background: var(--bg-soft); }
+    tr.row-info td { background: #f9fafb; color: #374151; }
+    tr.row-break td { background: #fffbeb; }
+
+    @media (max-width: 680px) {
+      table, thead, tbody, th, td, tr { display: block; }
+      thead { display: none; }
+      tr {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-bottom: 10px;
+        padding: 8px;
+        background: #fff;
+      }
+      td {
+        border: none;
+        padding: 4px 6px;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-size: 15px;
+      }
+      td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: var(--muted);
+        flex-shrink: 0;
+      }
+    }
+
+    pre {
+      white-space: pre-wrap;
+      background: #f7f7f7;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 12px;
+      overflow: auto;
+      font-size: 14px;
+    }
+    #textWrap { display: block; margin-top: 16px; }
+
+    @media print {
+      #generateBtn, #copyTxtBtn, #printBtn, #status, .grid, .assistant-box, .filter-bar, details.concept-box {
+        display: none !important;
+      }
+      body { margin: 0; max-width: none; padding: 0; }
+      table, thead, tbody, th, td, tr { display: table; }
+      thead { display: table-header-group; }
+      tr { display: table-row; border: none; margin: 0; padding: 0; }
+      td, th { display: table-cell; border: 1px solid #ddd; padding: 6px; }
+      td::before { content: none; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Zeitplan-Generator für ein BCW-Spielfest</h1>
+  <p class="muted">Internes BCW-Minispielfest (U10 / U12) – maximale Nettospielzeit, minimale Organisation.</p>
+
+  <!-- Einklappbarer Konzepttext (Standard: eingeklappt) -->
+  <details class="concept-box">
+    <summary>Mehr Infos: BCW-Minispielfest-Konzept, Regeln &amp; Tipps</summary>
+    <div class="concept-content muted">
+      <p>
+        Diesen Zeitplan-Generator für das Spielfest kann man vor Ort am Handy nutzen: Der Zeitplan-Generator hilft vor allem bei der üblichen Variante, also einer (!) Leistungsgruppe. Wenn es doch 2 Leistungsgruppen gibt, sollte trotzdem ein Plan genutzt werden, der für beide Gruppen gilt.
+      </p>
+      <p><strong>Ziel:</strong> Erster 3×3-Kontakt, maximale Nettospielzeit, minimale Organisation über 1 Hauptcoach plus 2–3 Eltern-Helfer als Court-Monitore.</p>
+      <p>
+        <strong>Format:</strong> Wann immer es geht, wird im 3 gegen 3 gespielt, ansonsten 2 gegen 2.
+        Gemischt männlich/weiblich, auf maximal 4 Körben, ohne Schiedsrichter, ohne Tabelle, ohne Finale, ohne „Turniersieger“.
+        Vorteil gegenüber einem typischen Turnier: Es wird kaum gewartet. Zeit wird intensiv genutzt. Mehr Ballkontakte als bei 4 gegen 4.
+      </p>
+      <p>
+        <strong>Rahmenbedingungen:</strong>
+        Korbhöhe: 2,60 m, Körbe/Felder: 2–4 Körbe (Halbfeld), parallel 3×3-Betrieb. Material: 1 Stoppuhr (Handy), 1 Pfeife für Headcoach, 1 Hallenschlüssel, mind. 4 Bälle, Markierungshemdchen (oder helle / dunkle T-Shirts).
+        Spielfest-Dauer insgesamt: 150 Minuten (Gesamtzeit von 10:00 bis 12:30 Uhr inklusive Check-in, Pausen und Abschluss). Spielzeit und Zeitaufwand pro Spiel: 7 Minuten realer Spielbetrieb, Zeit durchlaufend, keine Stoppuhr für „Matchzeit“, 3 Minuten Wechselzeit → 10 Minuten pro Spielslot. Es kann bei Bedarf auch auf 10 Min. Spielzeit hochgegangen werden.
+        Wechselzeit also: 3 Minuten zwischen zwei Spielen (ggf. Korbwechsel, ggf. kurze Trinkpause, Neuordnung).
+      </p>
+      <p>
+        <strong>Nettospielzeit:</strong>
+        Da alle Kinder immer gleichzeitig auf den 2–4 Körben spielen und es nicht immer Auswechselspieler gibt, ist jedes Kind in allen Spielslots (aufgeteilt in Block 1–3) aktiv auf dem Feld. Die Nettospielzeit pro Kind beträgt somit bis zu 63 Minuten (9 Spiele à 7 Minuten).
+        Das ist sehr viel im Vergleich zu klassischen Turnieren / Spielen – ohne die Kinder körperlich zu überanstrengen.
+      </p>
+      <p>
+        <strong>Team-Grundstruktur und Flexibilität:</strong>
+        Grundstruktur: 4–8 Teams (A–H), 3 Spieler je Team, maximal 24 Kinder. Nach jeder Zwischenpause: potenziell kleine Anpassungen innerhalb der Leistungsgruppen (gleichmäßige Teams, keine „Super-Teams“).
+        Flexibilität bei Ausfällen: Fällt ein Kind aus, wird auf 3 Körben gespielt, der 4. bleibt leer oder es wird 2 gegen 2 auf dem 4. Korb gespielt. Gerne auch mal eine Runde mit 1–2 reinen Mädchenteams spielen lassen. Das motiviert!
+      </p>
+      <ul>
+        <li><strong>24 Kinder:</strong> Format: 3 gegen 3, Körbe: 4, Teams: 8 Teams à 3, Leistungsklassen: 2 (je 4 Teams / 12 Kinder), keine Auswechselspieler, Betreuung: 4–5 Court-Monitore</li>
+        <li><strong>20–23 Kinder:</strong> Format: Mix aus 3 gegen 3 und 2 gegen 2, Körbe: 4, Teams: 8 Teams (4 Teams à 3 / 4 Teams à 2–3), Leistungsklassen: 2 (LK1: 4 Teams à 3, LK2: 2 gegen 2 mit 2–3 Kindern), Betreuung: 4–5 Court-Monitore</li>
+        <li><strong>19 Kinder:</strong> Format: 3 gegen 3 mit Rotationskind, Körbe: 3 (+ optional Skills-Korb), Teams: 6 (5 Teams à 3 / 1 Team à 4), 1 Wechselspieler im 4er-Team, Betreuung: 3–4 Court-Monitore</li>
+        <li><strong>18 Kinder:</strong> Format: 3 gegen 3, Körbe: 3, Teams: 6 Teams à 3, keine Auswechselspieler, 6er-Zeitplan, Betreuung: 3–4 Court-Monitore</li>
+        <li><strong>17 Kinder:</strong> Format: 3 gegen 3 mit Rotationskindern, Körbe: 2, Teams: 4 (3 Teams à 4 / 1 Team à 5), 1 Leistungsklasse, Team mit 5 Kindern (2 Wechselspieler), kein 5-Team-Spielplan vorgesehen, Betreuung: flexibel (0–3 Court-Monitore möglich)</li>
+        <li><strong>13–16 Kinder:</strong> Format: 3 gegen 3 + 1 Auswechselspieler, Körbe: 2, Teams: 4 Teams à 3–4, Leistungsklassen: 1, Betreuung: flexibel (0–3 Court-Monitore möglich)</li>
+        <li><strong>10–12 Kinder:</strong> Format (2 Optionen): 2 gegen 2 + Auswechselspieler auf 2 Körben, oder: 3 gegen 3 (1 Korb) + 2 gegen 2 (1 Korb), Teams: 4 Teams à 2–3, Leistungsklassen: 1, Betreuung: flexibel (0–3 Court-Monitore möglich)</li>
+        <li><strong>8–9 Kinder:</strong> Format: 3 gegen 3 + Auswechselspieler, Körbe: 1, Teams: 2–3, Zeitplan: komplett spontan, Betreuung: keine Court-Monitore nötig</li>
+        <li><strong>1–7 Kinder:</strong> Spielfest: nicht möglich, Alternative: Sondertraining, Zeitplan: spontan, Betreuung: keine Court-Monitore nötig</li>
+      </ul>
+      <p style="color:#111827;">
+        <strong>
+          Wichtig: Alle Kinder begrüßen und klar machen, wer Headcoach ist. Markierungshemdchen benutzen (oder Kinder haben helle und dunkle T-Shirts dabei). Pfeife benutzen!
+          Es ist empfehlenswert mitten im Spielfest auf jeden Fall mindestens einmal die Teamzusammenstellungen und Gegenspieler und bei Bedarf auch mal das Format anzupassen.
+          Hilfreiche Hinweise und Bestärkungen in den Spielpausen für einzelne Kinder haben sich als hilfreich erwiesen.
+          Jedes Kind kann gerne individuell mit Tipps versorgt werden. Feedback ist also grundsätzlich erwünscht, so lange es den Kindern hilft und ihnen ein gutes Gefühl gibt.
+        </strong>
+      </p>
+      <p><a href="https://www.bcwiesbaden.de/internes-bcw-minispielfest-konzept-zweieinhalb-stunden/" target="_blank" rel="noopener">https://www.bcwiesbaden.de/internes-bcw-minispielfest-konzept-zweieinhalb-stunden/</a></p>
+    </div>
+  </details>
+
+  <!-- Kinderzahl-Assistent -->
+  <div class="assistant-box">
+    <div class="assistant-row">
+      <div class="assistant-input">
+        <label for="kidsCount">Kinderzahl-Assistent (optional)</label>
+        <input id="kidsCount" type="number" min="1" max="30" placeholder="z. B. 16" />
+      </div>
+      <div class="assistant-result" id="assistantOutput">
+        Gib die anwesende Kinderzahl ein, um Empfehlungen zu Format (3v3 / 2v2 / Rotation), Teamanzahl und Körben zu erhalten.
+      </div>
+    </div>
+  </div>
+
+  <!-- Eingabeparameter -->
+  <div class="grid">
+    <div>
+      <label for="teams">Anzahl Teams</label>
+      <input id="teams" type="number" min="2" max="8" value="4" />
+    </div>
+    <div>
+      <label for="courts">Anzahl Körbe gleichzeitig nutzbar</label>
+      <select id="courts">
+        <option value="2" selected>2 Körbe</option>
+        <option value="3">3 Körbe</option>
+        <option value="4">4 Körbe</option>
+      </select>
+    </div>
+    <div>
+      <label for="gameMinutes">Spieldauer pro Spiel (Minuten)</label>
+      <input id="gameMinutes" type="number" min="1" value="7" />
+    </div>
+    <div>
+      <label for="switchMinutes">Wechselzeit zwischen Spielen (Minuten)</label>
+      <input id="switchMinutes" type="number" min="0" value="3" />
+    </div>
+    <div>
+      <label for="startTime">Startzeit</label>
+      <input id="startTime" type="time" value="09:45" />
+    </div>
+    <div>
+      <label for="endTime">Endzeit Turnier</label>
+      <input id="endTime" type="time" value="12:30" />
+    </div>
+    <div>
+      <label for="checkinMinutes">Begrüßung / Check-In vor Start (Minuten)</label>
+      <input id="checkinMinutes" type="number" min="0" value="30" />
+    </div>
+    <div>
+      <label for="breakMinutes">Pause nach komplettem Durchlauf (Minuten)</label>
+      <input id="breakMinutes" type="number" min="0" value="10" />
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <button id="generateBtn">Spielplan erzeugen</button>
+    <button class="secondary" id="copyTxtBtn">Plan als Text kopieren</button>
+    <button class="secondary" id="printBtn">Drucken</button>
+  </div>
+
+  <div id="status"></div>
+  <div id="summary"></div>
+
+  <!-- Filter für Tabelle -->
+  <div class="filter-bar" id="filterBar" style="display:none;">
+    <div>
+      <label for="filterTeam">Filter: Team</label>
+      <select id="filterTeam">
+        <option value="ALL">Alle Teams</option>
+      </select>
+    </div>
+    <div>
+      <label for="filterCourt">Filter: Korb</label>
+      <select id="filterCourt">
+        <option value="ALL">Alle Körbe</option>
+      </select>
+    </div>
+    <div>
+      <button class="secondary" id="resetFilterBtn" type="button">Filter zurücksetzen</button>
+    </div>
+  </div>
+
+  <div id="tableWrap"></div>
+  <div id="textWrap"><h3>Textformat</h3><pre></pre></div>
+
+  <p class="muted"><strong>Viel Spaß!</strong></p>
+
+  <script>
+    const teamNames = n => Array.from({length: n}, (_, i) => String.fromCharCode(65 + i));
+    const pad = n => String(n).padStart(2, '0');
+    const addMinutes = (t, m) => {
+      const p = t.split(':');
+      if (p.length !== 2) return t;
+      const d = new Date();
+      d.setHours(parseInt(p[0], 10) || 0, parseInt(p[1], 10) || 0, 0, 0);
+      d.setMinutes(d.getMinutes() + (Number(m) || 0));
+      return pad(d.getHours()) + ':' + pad(d.getMinutes());
+    };
+    const timeToMinutes = t => {
+      const p = t.split(':').map(Number);
+      return Number.isFinite(p[0]) && Number.isFinite(p[1]) ? p[0] * 60 + p[1] : NaN;
+    };
+    const timeGte = (a, b) => {
+      const am = timeToMinutes(a), bm = timeToMinutes(b);
+      return Number.isFinite(am) && Number.isFinite(bm) && am >= bm;
+    };
+    const fits = (t, m, end) => timeToMinutes(addMinutes(t, m)) <= timeToMinutes(end);
+    const roundRobin = teams => {
+      const arr = teams.slice();
+      if (arr.length % 2 === 1) arr.push('BYE');
+      const n = arr.length, r = n - 1, h = n / 2, out = [];
+      for (let x = 0; x < r; x++) {
+        const pairs = [];
+        for (let i = 0; i < h; i++) {
+          const a = arr[i], b = arr[n - 1 - i];
+          if (a !== 'BYE' && b !== 'BYE') pairs.push([a, b]);
+        }
+        out.push(pairs);
+        arr.splice(1, 0, arr.pop());
+      }
+      return out;
+    };
+
+    const IMPORTANT_NOTE = 'Wichtig: Alle Kinder begrüßen und klar machen, wer Headcoach ist. Markierungshemdchen benutzen (oder Kinder haben helle und dunkle T-Shirts dabei). Pfeife benutzen! Es ist empfehlenswert mitten im Spielfest auf jeden Fall mindestens einmal die Teamzusammenstellungen und Gegenspieler und bei Bedarf auch mal das Format anzupassen. Hilfreiche Hinweise und Bestärkungen in den Spielpausen für einzelne Kinder haben sich als hilfreich erwiesen. Jedes Kind kann gerne individuell mit Tipps versorgt werden. Feedback ist also grundsätzlich erwünscht, so lange es den Kindern hilft und ihnen ein gutes Gefühl gibt.';
+
+    let lastSchedule = [];
+    let lastTeamList = [];
+    let lastCourtsCount = 2;
+
+    // Kinderzahl-Assistent Logik
+    function updateKidsAssistant() {
+      const val = Number(document.getElementById('kidsCount').value);
+      const out = document.getElementById('assistantOutput');
+      if (!val || val < 1) {
+        out.innerHTML = 'Gib die anwesende Kinderzahl ein, um Empfehlungen zu Format (3v3 / 2v2 / Rotation), Teamanzahl und Körben zu erhalten.';
+        return;
+      }
+
+      let rec = null;
+      if (val <= 7) {
+        out.innerHTML = `<strong>${val} Kinder:</strong> Reguläres Spielfest nicht vorgesehen. <em>Alternative:</em> Sondertraining mit spontanem Ablauf (keine Court-Monitore nötig).`;
+        return;
+      } else if (val <= 9) {
+        rec = {
+          title: '3 gegen 3 + Auswechselspieler (spontan)',
+          teams: 2,
+          courts: 2,
+          text: `${val} Kinder: 3 gegen 3 + Auswechselspieler auf 1 Korb (2–3 Teams, spontaner Ablauf, keine Court-Monitore nötig).`
+        };
+      } else if (val <= 12) {
+        rec = {
+          title: '2 gegen 2 + Auswechselspieler (oder Mix 3v3 / 2v2)',
+          teams: 4,
+          courts: 2,
+          text: `${val} Kinder: 4 Teams à 2–3 Kinder auf 2 Körben (2 gegen 2 + Wechselspieler oder 1 Korb 3v3 + 1 Korb 2v2, 1 Leistungsklasse, 0–3 Court-Monitore).`
+        };
+      } else if (val <= 16) {
+        rec = {
+          title: '3 gegen 3 + 1 Auswechselspieler',
+          teams: 4,
+          courts: 2,
+          text: `${val} Kinder: 4 Teams à 3–4 Kinder auf 2 Körben (3 gegen 3 + Rotationsspieler, 1 Leistungsklasse, 0–3 Court-Monitore).`
+        };
+      } else if (val === 17) {
+        rec = {
+          title: '3 gegen 3 mit Rotationskindern',
+          teams: 4,
+          courts: 2,
+          text: `17 Kinder: 4 Teams (3 Teams à 4 / 1 Team à 5 Kinder mit 2 Wechselspielern) auf 2 Körben, 1 Leistungsklasse, 0–3 Court-Monitore.`
+        };
+      } else if (val === 18) {
+        rec = {
+          title: '3 gegen 3 ohne Auswechselspieler (6er-Plan)',
+          teams: 6,
+          courts: 3,
+          text: `18 Kinder: 6 Teams à 3 Kinder auf 3 Körben (kein Auswechselspieler, 3–4 Court-Monitore).`
+        };
+      } else if (val === 19) {
+        rec = {
+          title: '3 gegen 3 mit 1 Rotationskind',
+          teams: 6,
+          courts: 3,
+          text: `19 Kinder: 6 Teams (5 Teams à 3 / 1 Team à 4 Kinder mit 1 Wechselspieler) auf 3 Körben (+ optional Skills-Korb), 3–4 Court-Monitore.`
+        };
+      } else if (val <= 23) {
+        rec = {
+          title: 'Mix aus 3 gegen 3 und 2 gegen 2',
+          teams: 8,
+          courts: 4,
+          text: `${val} Kinder: 8 Teams auf 4 Körben (LK1: 4 Teams à 3 im 3v3; LK2: 4 Teams à 2–3 im 2v2, 4–5 Court-Monitore).`
+        };
+      } else {
+        rec = {
+          title: '3 gegen 3 auf 4 Körben (2 Leistungsklassen)',
+          teams: 8,
+          courts: 4,
+          text: `${val} Kinder: 8 Teams à 3 Kinder auf 4 Körben (2 Leistungsklassen à 4 Teams / 12 Kinder, keine Auswechselspieler, 4–5 Court-Monitore).`
+        };
+      }
+
+      out.innerHTML = `
+        <strong>Empfehlung: ${rec.title}</strong><br/>
+        <span>${rec.text}</span>
+        <div class="assistant-actions">
+          <button type="button" class="secondary" onclick="applyAssistant(${rec.teams}, ${rec.courts})">
+            Werte übernehmen (${rec.teams} Teams, ${rec.courts} Körbe)
+          </button>
+        </div>
+      `;
+    }
+
+    function applyAssistant(teams, courts) {
+      document.getElementById('teams').value = teams;
+      document.getElementById('courts').value = String(courts);
+      buildSchedule();
+    }
+
+    function getFormattedText(schedule) {
+      const lines = schedule.map(s =>
+        s.Typ === 'Spiel'
+          ? `R${s.Runde} ${s.Zeit} Korb ${s.Korb}: ${s.Spiel}`
+          : `${s.Zeit}: ${s.Spiel}`
+      ).join('\n');
+      return `${lines}\n\n${IMPORTANT_NOTE}\n\nViel Spaß!`;
+    }
+
+    function renderTable() {
+      const tableWrap = document.getElementById('tableWrap');
+      const teamFilter = document.getElementById('filterTeam').value;
+      const courtFilter = document.getElementById('filterCourt').value;
+
+      const filtered = lastSchedule.filter(s => {
+        if (s.Typ !== 'Spiel') return true;
+        const matchTeam = teamFilter === 'ALL' || (s.Teams && s.Teams.includes(teamFilter));
+        const matchCourt = courtFilter === 'ALL' || String(s.Korb) === courtFilter;
+        return matchTeam && matchCourt;
+      });
+
+      const rowsHtml = filtered.map(s => {
+        const rowClass = s.Typ === 'Pause' ? 'row-break' : (s.Typ !== 'Spiel' ? 'row-info' : '');
+        return `<tr class="${rowClass}">
+          <td data-label="Typ">${s.Typ}</td>
+          <td data-label="Runde">${s.Runde || '–'}</td>
+          <td data-label="Zeit">${s.Zeit}</td>
+          <td data-label="Korb">${s.Korb || '–'}</td>
+          <td data-label="Eintrag">${s.Spiel}</td>
+        </tr>`;
+      }).join('');
+
+      tableWrap.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Typ</th>
+              <th>Runde</th>
+              <th>Zeit</th>
+              <th>Korb</th>
+              <th>Eintrag</th>
+            </tr>
+          </thead>
+          <tbody>${rowsHtml}</tbody>
+        </table>
+      `;
+    }
+
+    function updateFilterOptions(teams, courts) {
+      const filterBar = document.getElementById('filterBar');
+      const teamSel = document.getElementById('filterTeam');
+      const courtSel = document.getElementById('filterCourt');
+
+      const prevTeam = teamSel.value;
+      const prevCourt = courtSel.value;
+
+      teamSel.innerHTML = '<option value="ALL">Alle Teams</option>' +
+        teams.map(t => `<option value="${t}">Team ${t}</option>`).join('');
+      courtSel.innerHTML = '<option value="ALL">Alle Körbe</option>' +
+        Array.from({length: courts}, (_, i) => `<option value="${i + 1}">Korb ${i + 1}</option>`).join('');
+
+      teamSel.value = teams.includes(prevTeam) ? prevTeam : 'ALL';
+      courtSel.value = Number(prevCourt) >= 1 && Number(prevCourt) <= courts ? prevCourt : 'ALL';
+      filterBar.style.display = 'flex';
+    }
+
+    function buildSchedule() {
+      const status = document.getElementById('status');
+      const summary = document.getElementById('summary');
+      const tableWrap = document.getElementById('tableWrap');
+      const textWrap = document.getElementById('textWrap');
+      const filterBar = document.getElementById('filterBar');
+
+      status.innerHTML = '';
+      summary.innerHTML = '';
+      tableWrap.innerHTML = '';
+      textWrap.innerHTML = '<h3>Textformat</h3><pre></pre>';
+      filterBar.style.display = 'none';
+
+      const n = Number(document.getElementById('teams').value);
+      const courts = Number(document.getElementById('courts').value);
+      const gameMinutes = Math.max(1, Number(document.getElementById('gameMinutes').value));
+      const switchMinutes = Math.max(0, Number(document.getElementById('switchMinutes').value));
+      const startTime = document.getElementById('startTime').value;
+      const endTime = document.getElementById('endTime').value;
+      const checkinMinutes = Math.max(0, Number(document.getElementById('checkinMinutes').value));
+      const breakMinutes = Math.max(0, Number(document.getElementById('breakMinutes').value));
+
+      // Plausibilitätsprüfungen
+      if (!Number.isInteger(n) || n < 2 || n > 8) {
+        status.innerHTML = '<div class="error">Bitte zwischen 2 und 8 Teams eingeben.</div>';
+        return;
+      }
+      if (![2, 3, 4].includes(courts)) {
+        status.innerHTML = '<div class="error">Bitte nur 2, 3 oder 4 Körbe auswählen.</div>';
+        return;
+      }
+      if (!startTime || !endTime) {
+        status.innerHTML = '<div class="error">Bitte Startzeit und Endzeit eingeben.</div>';
+        return;
+      }
+      const startMin = timeToMinutes(startTime);
+      const endMin = timeToMinutes(endTime);
+      if (!Number.isFinite(startMin) || !Number.isFinite(endMin) || endMin <= startMin) {
+        status.innerHTML = '<div class="error">Plausibilitätsfehler: Die Endzeit muss nach der Startzeit liegen.</div>';
+        return;
+      }
+      if (startMin + checkinMinutes + gameMinutes > endMin) {
+        status.innerHTML = '<div class="error">Plausibilitätsfehler: Die Zeit zwischen Start und Ende reicht nicht für Check-In und mindestens ein Spiel.</div>';
+        return;
+      }
+
+      const teams = teamNames(n);
+      const baseRounds = roundRobin(teams);
+      const schedule = [];
+      let currentTime = startTime;
+      let roundNo = 1;
+
+      schedule.push({
+        Typ: 'Info',
+        Runde: '',
+        Zeit: currentTime,
+        Korb: '',
+        Spiel: `Check-In, Begrüßung, Einteilung, Warm-up (${checkinMinutes} Min.)`
+      });
+      currentTime = addMinutes(currentTime, checkinMinutes);
+
+      // Bestehende Spielplan- & Pausenlogik beibehalten
+      while (!timeGte(currentTime, endTime)) {
+        let addedAny = false;
+
+        for (const pairs of baseRounds) {
+          if (timeGte(currentTime, endTime)) break;
+          if (!fits(currentTime, gameMinutes, endTime)) break;
+
+          for (let i = 0; i < pairs.length && i < courts; i++) {
+            const p = pairs[i];
+            schedule.push({
+              Typ: 'Spiel',
+              Runde: roundNo,
+              Zeit: currentTime,
+              Korb: i + 1,
+              Teams: [p[0], p[1]],
+              Spiel: p[0] + ' - ' + p[1]
+            });
+            addedAny = true;
+          }
+
+          currentTime = addMinutes(currentTime, gameMinutes);
+
+          if (!timeGte(currentTime, endTime) && switchMinutes > 0 && fits(currentTime, switchMinutes, endTime)) {
+            schedule.push({
+              Typ: 'Wechselzeit',
+              Runde: '',
+              Zeit: currentTime,
+              Korb: '',
+              Spiel: `Wechselzeit (${switchMinutes} Min.)`
+            });
+            currentTime = addMinutes(currentTime, switchMinutes);
+          }
+
+          roundNo++;
+        }
+
+        if (!timeGte(currentTime, endTime) && breakMinutes > 0 && fits(currentTime, breakMinutes, endTime)) {
+          schedule.push({
+            Typ: 'Pause',
+            Runde: '',
+            Zeit: currentTime,
+            Korb: '',
+            Spiel: `Pause (${breakMinutes} Min.)`
+          });
+          currentTime = addMinutes(currentTime, breakMinutes);
+        }
+
+        if (!addedAny) break;
+      }
+
+      schedule.push({
+        Typ: 'Verabschiedung',
+        Runde: '',
+        Zeit: currentTime,
+        Korb: '',
+        Spiel: 'Verabschiedung / Ende des Turniers'
+      });
+
+      lastSchedule = schedule;
+      lastTeamList = teams;
+      lastCourtsCount = courts;
+
+      // Kennzahlen für kompakte Zusammenfassung berechnen
+      const games = schedule.filter(s => s.Typ === 'Spiel');
+      const totalGames = games.length;
+      const totalRounds = roundNo - 1;
+      const gamesPerTeamCounts = {};
+      teams.forEach(t => gamesPerTeamCounts[t] = 0);
+      games.forEach(g => {
+        gamesPerTeamCounts[g.Teams[0]]++;
+        gamesPerTeamCounts[g.Teams[1]]++;
+      });
+      const counts = Object.values(gamesPerTeamCounts);
+      const minGames = counts.length ? Math.min(...counts) : 0;
+      const maxGames = counts.length ? Math.max(...counts) : 0;
+      const gameCountLabel = minGames === maxGames ? `${minGames} Spiele` : `${minGames}–${maxGames} Spiele`;
+      const netPlayLabel = minGames === maxGames
+        ? `${minGames * gameMinutes} Min.`
+        : `${minGames * gameMinutes}–${maxGames * gameMinutes} Min.`;
+
+      summary.innerHTML = `
+        <div class="summary-grid">
+          <div class="summary-card">
+            <div class="val">${totalGames} (${totalRounds} Runden)</div>
+            <div class="lbl">Spiele gesamt</div>
+          </div>
+          <div class="summary-card">
+            <div class="val">${netPlayLabel}</div>
+            <div class="lbl">Nettospielzeit / Team (${gameCountLabel})</div>
+          </div>
+          <div class="summary-card">
+            <div class="val">${startTime} – ${currentTime}</div>
+            <div class="lbl">Rechnerisches Ende (Limit: ${endTime})</div>
+          </div>
+        </div>
+        <div class="ok">Plan erstellt. Das letzte Spiel wird ausgelassen, wenn es über die Endzeit gehen würde.</div>
+      `;
+
+      updateFilterOptions(teams, courts);
+      renderTable();
+
+      const textOutput = getFormattedText(schedule);
+      textWrap.innerHTML = '<h3>Textformat</h3><pre></pre>';
+      textWrap.querySelector('pre').textContent = textOutput;
+    }
+
+    function printPlan() { window.print(); }
+
+    async function copyTxt() {
+      if (!lastSchedule.length) buildSchedule();
+      if (!lastSchedule.length) return;
+      const txt = getFormattedText(lastSchedule);
+      try {
+        await navigator.clipboard.writeText(txt);
+        document.getElementById('status').innerHTML = '<div class="ok">Text (identisch zum Textformat) in die Zwischenablage kopiert.</div>';
+      } catch (e) {
+        document.getElementById('status').innerHTML = '<div class="error">Text konnte nicht in die Zwischenablage kopiert werden.</div>';
+      }
+    }
+
+    document.getElementById('kidsCount').addEventListener('input', updateKidsAssistant);
+    document.getElementById('generateBtn').addEventListener('click', buildSchedule);
+    document.getElementById('copyTxtBtn').addEventListener('click', copyTxt);
+    document.getElementById('printBtn').addEventListener('click', printPlan);
+    document.getElementById('filterTeam').addEventListener('change', renderTable);
+    document.getElementById('filterCourt').addEventListener('change', renderTable);
+    document.getElementById('resetFilterBtn').addEventListener('click', () => {
+      document.getElementById('filterTeam').value = 'ALL';
+      document.getElementById('filterCourt').value = 'ALL';
+      renderTable();
+    });
+
+    buildSchedule();
+  </script>
+</body>
+</html>
