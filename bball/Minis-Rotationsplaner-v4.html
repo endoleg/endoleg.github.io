@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>Minibasketball Rotations-Planer</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #102027;
+      --muted: #607d8b;
+      --line: #d9e2ec;
+      --accent: #1565c0;
+      --accent2: #0f4c81;
+      --danger: #c62828;
+      --warning: #ef6c00;
+      --ok: #2e7d32;
+      --active-bg: #e3f2fd;
+      --active-text: #0d47a1;
+      --shadow: 0 10px 30px rgba(16, 32, 39, .08);
+      --radius: 16px;
+      --radiusSm: 12px;
+    }
+
+    [data-theme="dark"] {
+      --bg: #1a1f24;
+      --card: #242b33;
+      --text: #e8eef4;
+      --muted: #90a4ae;
+      --line: #37474f;
+      --accent: #42a5f5;
+      --accent2: #2196f3;
+      --danger: #ef5350;
+      --warning: #ffa726;
+      --ok: #66bb6a;
+      --active-bg: #1e3a5f;
+      --active-text: #90caf9;
+      --shadow: 0 10px 30px rgba(0, 0, 0, .3);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+      transition: background 0.3s ease, color 0.3s ease;
+      padding-bottom: env(safe-area-inset-bottom, 16px);
+    }
+    button, input, select {
+      font: inherit;
+      touch-action: manipulation;
+    }
+    button { cursor: pointer; }
+
+    .app {
+      max-width: 1520px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: end;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    h1 { margin: 0; font-size: clamp(1.3rem, 2.5vw, 2rem); }
+    .subtitle { color: var(--muted); margin: 4px 0 0; max-width: 75ch; font-size: 0.92rem; }
+
+    /* Mobile Tab Navigation (Standardmäßig auf Desktop ausgeblendet) */
+    .mobile-tabs {
+      display: none;
+    }
+    .mobile-period-bar {
+      display: none;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.05fr 2.4fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 1180px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 1.08rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .section-divider {
+      border: 0;
+      border-top: 1px solid var(--line);
+      margin: 14px 0;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .meta-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .meta-field.full {
+      grid-column: 1 / -1;
+    }
+    .meta-field label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .meta-field input, .meta-field select {
+      border: 1px solid var(--line);
+      border-radius: var(--radiusSm);
+      padding: 8px 10px;
+      background: #fff;
+      color: var(--text);
+      font-size: 0.95rem;
+      min-height: 40px;
+    }
+    [data-theme="dark"] .meta-field input,
+    [data-theme="dark"] .meta-field select {
+      background: #2c353f;
+    }
+
+    .rules-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      background: rgba(21, 101, 192, 0.05);
+      border: 1px solid var(--line);
+      border-radius: var(--radiusSm);
+      padding: 10px;
+      margin-top: 8px;
+    }
+    [data-theme="dark"] .rules-bar {
+      background: rgba(66, 165, 245, 0.08);
+    }
+    .rule-mini {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .rule-mini label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .rule-mini input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 6px;
+      text-align: center;
+      background: #fff;
+      color: var(--text);
+      font-weight: 700;
+      min-height: 38px;
+    }
+    [data-theme="dark"] .rule-mini input {
+      background: #2c353f;
+    }
+
+    .kader-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .btn-control {
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 9px 8px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 0.88rem;
+      min-height: 42px;
+      transition: background 0.1s;
+    }
+    [data-theme="dark"] .btn-control {
+      background: #2c353f;
+    }
+    .btn-control:hover:not(:disabled) { background: #f1f5f9; }
+    [data-theme="dark"] .btn-control:hover:not(:disabled) { background: #37474f; }
+    .btn-control:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .btn-control.minus { color: var(--danger); }
+    .btn-control.plus { color: var(--ok); }
+
+    .player-input-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .player-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      padding: 4px 6px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      transition: opacity 0.2s, background 0.2s;
+    }
+    .player-row.absent {
+      opacity: 0.75;
+      background: rgba(96, 125, 139, 0.08);
+      border-color: rgba(96, 125, 139, 0.25);
+    }
+    .player-row .row-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      width: 20px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .absent-toggle {
+      border: 1px solid #a5d6a7;
+      background: #e8f5e9;
+      color: #1b5e20;
+      border-radius: 8px;
+      padding: 6px 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+      min-height: 38px;
+    }
+    .absent-toggle.is-absent {
+      background: #607d8b;
+      border-color: #455a64;
+      color: #fff;
+    }
+    .player-row input.p-num {
+      width: 54px;
+      border: 1px solid var(--line);
+      border-radius: var(--radiusSm);
+      padding: 7px 5px;
+      text-align: center;
+      background: #fff;
+      color: var(--text);
+      min-height: 38px;
+    }
+    .player-row input.p-name {
+      flex: 1;
+      min-width: 90px;
+      border: 1px solid var(--line);
+      border-radius: var(--radiusSm);
+      padding: 7px 10px;
+      background: #fff;
+      color: var(--text);
+      min-height: 38px;
+    }
+    [data-theme="dark"] .player-row input.p-num,
+    [data-theme="dark"] .player-row input.p-name {
+      background: #2c353f;
+    }
+    .live-count-pill {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--active-bg);
+      color: var(--active-text);
+      white-space: nowrap;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 9px 13px;
+      font-weight: 700;
+      background: var(--accent);
+      color: #fff;
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: transform .05s ease, background .15s ease, opacity .15s ease;
+    }
+    .btn:hover:not(:disabled) { background: var(--accent2); }
+    .btn:active:not(:disabled) { transform: translateY(1px); }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .btn.secondary { background: #78909c; }
+    .btn.secondary:hover:not(:disabled) { background: #607d8b; }
+    .btn.success { background: var(--ok); }
+    .btn.success:hover:not(:disabled) { background: #256628; }
+    .btn.small { padding: 7px 12px; font-size: 0.86rem; border-radius: 10px; min-height: 40px; }
+    .btn.print-btn { background: #37474f; }
+    .btn.print-btn:hover:not(:disabled) { background: #263238; }
+
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .theme-toggle:hover {
+      background: var(--active-bg);
+      color: var(--active-text);
+    }
+
+    .action-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .toast-banner {
+      position: fixed;
+      bottom: max(16px, env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #102027;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      font-size: 0.88rem;
+      font-weight: 600;
+      display: none;
+      max-width: 92vw;
+      text-align: center;
+    }
+    [data-theme="dark"] .toast-banner {
+      background: var(--accent);
+      color: #0b1929;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      position: relative;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+      min-width: 820px;
+    }
+    th, td {
+      padding: 9px 4px;
+      border: 1px solid var(--line);
+    }
+    th {
+      background: #f8fafc;
+      font-size: 0.88rem;
+    }
+    [data-theme="dark"] th {
+      background: #2c353f;
+    }
+
+    /* Sticky erste Spalte */
+    th.sticky-col,
+    td.sticky-col {
+      position: sticky;
+      left: 0;
+      z-index: 2;
+    }
+    th.sticky-col {
+      background: #f1f5f9;
+      z-index: 3;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.06);
+    }
+    [data-theme="dark"] th.sticky-col {
+      background: #262e37;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.35);
+    }
+    td.sticky-col {
+      background: var(--card);
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+    }
+    [data-theme="dark"] td.sticky-col {
+      background: var(--card);
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .player-cell-name {
+      text-align: left;
+      font-weight: bold;
+      min-width: 165px;
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+    .player-cell-name.placeholder-name {
+      color: var(--muted);
+      font-weight: normal;
+      font-style: italic;
+    }
+    .player-cell-name.is-absent-cell {
+      background: rgba(198, 40, 40, 0.08);
+      color: var(--danger);
+    }
+    .absent-tag {
+      display: inline-block;
+      margin-left: 4px;
+      font-size: 0.68rem;
+      padding: 1px 5px;
+      border-radius: 999px;
+      background: var(--danger);
+      color: #fff;
+      font-style: normal;
+      vertical-align: middle;
+    }
+
+    .slot-cell {
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.1s ease;
+      font-weight: bold;
+      font-size: 1.05rem;
+    }
+    .slot-cell.active {
+      background-color: #c8e6c9;
+      color: #1b5e20;
+      box-shadow: inset 0 0 0 2px #2e7d32;
+    }
+    [data-theme="dark"] .slot-cell.active {
+      background-color: #1b5e20;
+      color: #c8e6c9;
+      box-shadow: inset 0 0 0 2px #66bb6a;
+    }
+    .slot-cell.active::before {
+      content: "🏀";
+    }
+    .slot-cell.bench {
+      background-color: #fff3e0;
+      color: #bf360c;
+      box-shadow: inset 0 0 0 2px #ef6c00;
+    }
+    [data-theme="dark"] .slot-cell.bench {
+      background-color: #4e342e;
+      color: #ffcc80;
+      box-shadow: inset 0 0 0 2px #ffa726;
+    }
+    .slot-cell.bench::before {
+      content: "🛑";
+      font-size: 0.85rem;
+    }
+    .slot-cell.absent-slot {
+      background-color: rgba(198, 40, 40, 0.08);
+      color: var(--danger);
+      cursor: not-allowed;
+      font-size: 0.78rem;
+    }
+    .slot-cell.absent-slot::before {
+      content: "—";
+    }
+
+    .count-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 0.84rem;
+      white-space: nowrap;
+    }
+    .badge-ok { background: #e8f5e9; color: var(--ok); }
+    .badge-min { background: #fff8e1; color: var(--warning); border: 1px solid #ffe082; }
+    .badge-danger { background: #ffe0e0; color: var(--danger); }
+    [data-theme="dark"] .badge-ok {
+      background: #1b5e20;
+      color: #a5d6a7;
+    }
+    [data-theme="dark"] .badge-min {
+      background: #4e342e;
+      color: #ffcc80;
+      border-color: #8d6e63;
+    }
+    [data-theme="dark"] .badge-danger {
+      background: #b71c1c;
+      color: #ef9a9a;
+    }
+
+    .court-count-row td {
+      font-weight: bold;
+      background: #f1f5f9;
+    }
+    [data-theme="dark"] .court-count-row td {
+      background: #2c353f;
+    }
+
+    .sub-count-row td {
+      font-size: 0.82rem;
+      color: var(--muted);
+      background: #f8fafc;
+    }
+    [data-theme="dark"] .sub-count-row td {
+      background: #232a32;
+      color: var(--muted);
+    }
+
+    .alert-box {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radiusSm);
+      background: #fff3e0;
+      border: 1px solid #ffe0b2;
+      color: #e65100;
+      display: none;
+      font-size: 0.9rem;
+    }
+    [data-theme="dark"] .alert-box {
+      background: #3e2723;
+      border-color: #5d4037;
+      color: #ffcc80;
+    }
+    .alert-box ul { margin: 6px 0 0; padding-left: 18px; }
+
+    .ok-box {
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: var(--radiusSm);
+      background: #e8f5e9;
+      border: 1px solid #c8e6c9;
+      color: var(--ok);
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: none;
+    }
+    [data-theme="dark"] .ok-box {
+      background: #1b5e20;
+      border-color: #2e7d32;
+      color: #a5d6a7;
+    }
+
+    .print-meta-header {
+      display: none;
+    }
+    .print-notes-box {
+      display: none;
+    }
+
+    .info-footer {
+      margin-top: 14px;
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    /* ==================== SMARTPHONE OPTIMIERUNG ==================== */
+    @media (max-width: 768px) {
+      .app {
+        padding: 10px 10px 24px;
+      }
+
+      /* Verhindert Auto-Zoom auf iOS beim Antippen von Inputs */
+      input, select {
+        font-size: 16px !important;
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+      .subtitle {
+        display: none;
+      }
+      .header-actions {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+      }
+      .header-actions .btn,
+      .header-actions .theme-toggle {
+        padding: 8px 4px;
+        font-size: 0.78rem;
+        border-radius: 10px;
+        min-height: 40px;
+        justify-content: center;
+      }
+      .btn-label-full {
+        display: none;
+      }
+
+      /* Sticky Tab-Umschalter oben für schnellen Wechsel am Spielfeldrand */
+      .mobile-tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        background: var(--card);
+        padding: 6px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        margin-bottom: 10px;
+        position: sticky;
+        top: 6px;
+        z-index: 50;
+      }
+      .mobile-tab-btn {
+        border: 0;
+        background: transparent;
+        color: var(--muted);
+        padding: 10px 8px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 0.88rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        min-height: 42px;
+      }
+      .mobile-tab-btn.active {
+        background: var(--accent);
+        color: #fff;
+      }
+      .tab-warn-dot {
+        background: var(--warning);
+        color: #fff;
+        font-size: 0.72rem;
+        padding: 1px 6px;
+        border-radius: 999px;
+        display: none;
+      }
+      .tab-warn-dot.visible {
+        display: inline-block;
+      }
+
+      /* Immer nur den gewählten Tab anzeigen */
+      .grid section[data-tab-panel] {
+        display: none;
+      }
+      .grid section[data-tab-panel].mobile-visible {
+        display: block;
+      }
+
+      .card {
+        padding: 12px;
+        border-radius: 14px;
+      }
+      .card h2 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+      }
+      .hint {
+        display: none;
+      }
+
+      .meta-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .action-toolbar {
+        flex-direction: column;
+      }
+      .action-toolbar .btn {
+        width: 100%;
+        min-height: 44px;
+      }
+
+      /* Schnellauswahl-Leiste für einzelne Zehntel (kein horizontales Scrollen nötig!) */
+      .mobile-period-bar {
+        display: flex;
+        gap: 5px;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .mobile-period-bar::-webkit-scrollbar {
+        display: none;
+      }
+      .period-pill {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        background: var(--bg);
+        color: var(--text);
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        min-height: 36px;
+      }
+      .period-pill.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .period-pill.pill-error {
+        border-color: var(--danger);
+        color: var(--danger);
+      }
+      .period-pill.active.pill-error {
+        background: var(--danger);
+        color: #fff;
+      }
+
+      /* Kompakte Matrix-Tabelle auf dem Smartphone */
+      table {
+        min-width: 640px;
+      }
+      .player-cell-name {
+        min-width: 118px;
+        max-width: 132px;
+        font-size: 0.84rem;
+        padding: 8px 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      th, td {
+        padding: 10px 3px;
+        font-size: 0.84rem;
+      }
+      .slot-cell {
+        min-width: 44px;
+        height: 44px;
+        font-size: 1.1rem;
+      }
+
+      /* Fokus-Modus: Einzelnes Zehntel füllt die gesamte Breite ohne Scrollen */
+      table.single-period-mode {
+        min-width: 100% !important;
+        width: 100% !important;
+      }
+      table.single-period-mode .player-cell-name {
+        max-width: none;
+        width: 52%;
+        font-size: 0.94rem;
+      }
+      table.single-period-mode .slot-cell {
+        width: 28%;
+        height: 48px;
+        font-size: 1.2rem;
+      }
+      table.single-period-mode .slot-cell.active::after {
+        content: " Feld";
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+      table.single-period-mode .slot-cell.bench::after {
+        content: " Bank";
+        font-size: 0.82rem;
+        font-weight: 600;
+      }
+    }
+
+    /* ==================== PRINT STYLES ==================== */
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 10mm;
+      }
+      body {
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 10pt;
+        padding: 0;
+      }
+      [data-theme="dark"] body {
+        background: #fff !important;
+        color: #000 !important;
+      }
+      .app {
+        padding: 0;
+        max-width: 100%;
+      }
+      .header p,
+      .header-actions,
+      .mobile-tabs,
+      .mobile-period-bar,
+      .grid section:first-child,
+      .alert-box,
+      .ok-box,
+      .toast-banner,
+      .hint {
+        display: none !important;
+      }
+      .grid {
+        display: block;
+      }
+      .grid section[data-tab-panel="matrix"] {
+        display: block !important;
+      }
+      .card {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        background: transparent !important;
+      }
+      .print-meta-header {
+        display: flex !important;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 12px;
+        border: 1px solid #000;
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        font-size: 9.5pt;
+        background: #f9f9f9 !important;
+      }
+      th.sticky-col,
+      td.sticky-col {
+        position: static !important;
+        box-shadow: none !important;
+      }
+      table, table.single-period-mode {
+        min-width: 100% !important;
+        page-break-inside: avoid;
+      }
+      [data-period-col] {
+        display: table-cell !important;
+      }
+      th, td {
+        padding: 6px 4px !important;
+        border: 1px solid #000 !important;
+        font-size: 10pt;
+        color: #000 !important;
+      }
+      th {
+        background: #f0f0f0 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .court-count-row td {
+        background: #e5e5e5 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .sub-count-row td {
+        background: #f7f7f7 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .slot-cell.active {
+        background-color: #c8e6c9 !important;
+        color: #1b5e20 !important;
+        box-shadow: inset 0 0 0 2px #2e7d32 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .slot-cell.bench {
+        background-color: #fff3e0 !important;
+        color: #bf360c !important;
+        box-shadow: inset 0 0 0 2px #ef6c00 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .slot-cell.active::after,
+      .slot-cell.bench::after {
+        content: none !important;
+      }
+      .slot-cell.bench::before {
+        content: "" !important;
+      }
+      .slot-cell.absent-slot::before {
+        content: "krank/fehlt" !important;
+        font-size: 7.5pt !important;
+      }
+      .count-badge {
+        border: 1px solid #666;
+        background: transparent !important;
+        color: #000 !important;
+      }
+      .print-notes-box {
+        display: block !important;
+        margin-top: 10px;
+        border: 1px solid #000;
+        padding: 8px 10px;
+        font-size: 9.5pt;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app">
+    <header class="header">
+      <div>
+        <h1>Mini-Rotations-Planer 🏀</h1>
+        <p class="subtitle">Wechselzeit-Rechner für Liga-Spiele. Sichert 4 Spieler auf dem Feld, passt sich flexibel deiner Teamgröße an und speichert automatisch im Browser.</p>
+      </div>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" title="Farbschema wechseln">🌙<span class="btn-label-full"> Dunkel</span></button>
+        <button class="btn secondary" id="undoBtn" disabled title="Letzte Änderung rückgängig machen">↩️<span class="btn-label-full"> Rückgängig</span></button>
+        <button class="btn secondary" id="shareBtn" title="Als Text für WhatsApp/Chat kopieren">📋<span class="btn-label-full"> Für Chat kopieren</span></button>
+        <button class="btn print-btn" id="printBtn" title="Als PDF drucken">🖨️<span class="btn-label-full"> Als PDF drucken</span></button>
+        <button class="btn secondary" id="clearBtn" title="Plan zurücksetzen">🗑️<span class="btn-label-full"> Zurücksetzen</span></button>
+      </div>
+    </header>
+
+    <!-- Mobile Tab Bar -->
+    <nav class="mobile-tabs" aria-label="Ansicht wechseln">
+      <button type="button" class="mobile-tab-btn active" data-target-tab="matrix">
+        🏀 Wechsel-Matrix <span class="tab-warn-dot" id="tabWarnBadge">0</span>
+      </button>
+      <button type="button" class="mobile-tab-btn" data-target-tab="setup">
+        👥 Kader & Regeln
+      </button>
+    </nav>
+
+    <div class="grid">
+      <section class="card" data-tab-panel="setup">
+        <h2>Spiel- & Regelkonfiguration</h2>
+        <div class="meta-grid">
+          <div class="meta-field">
+            <label for="teamNameInput">Eigenes Team</label>
+            <input type="text" id="teamNameInput" placeholder="z. B. Dragons U10">
+          </div>
+          <div class="meta-field">
+            <label for="opponentInput">Gegner</label>
+            <input type="text" id="opponentInput" placeholder="z. B. Tigers">
+          </div>
+          <div class="meta-field">
+            <label for="gameDateInput">Datum</label>
+            <input type="date" id="gameDateInput">
+          </div>
+          <div class="meta-field">
+            <label for="rulePresetSelect">Regelwerk</label>
+            <select id="rulePresetSelect">
+              <option value="dbb">DBB Minis Standard (2–8)</option>
+              <option value="fair">Fokus Ausgleich (3–7)</option>
+              <option value="custom">Benutzerdefiniert</option>
+            </select>
+          </div>
+          <div class="meta-field full">
+            <label for="coachNotesInput">Trainer-Notizen (für Ausdruck & Bank)</label>
+            <input type="text" id="coachNotesInput" placeholder="z. B. Trikots weiß, Mia erst ab Z2 fit, Fokus Passspiel">
+          </div>
+        </div>
+
+        <div class="rules-bar">
+          <div class="rule-mini">
+            <label for="minPlayInput">Min. Zehntel</label>
+            <input type="number" id="minPlayInput" min="0" max="10" value="2">
+          </div>
+          <div class="rule-mini">
+            <label for="maxPlayInput">Max. Zehntel</label>
+            <input type="number" id="maxPlayInput" min="1" max="10" value="8">
+          </div>
+          <div class="rule-mini">
+            <label for="courtSizeInput">Feldgröße</label>
+            <input type="number" id="courtSizeInput" min="1" max="6" value="4">
+          </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <h2>
+          <span>Kadergröße anpassen</span>
+          <span class="live-count-pill" id="activeRosterBadge">12 / 12 aktiv</span>
+        </h2>
+        <div class="kader-controls">
+          <button class="btn-control minus" id="removePlayerBtn">− Letzten entfernen</button>
+          <button class="btn-control plus" id="addPlayerBtn">+ Spieler hinzufügen</button>
+        </div>
+
+        <h2>Kader & Einsatzstatus</h2>
+        <div class="player-input-list" id="playerInputs"></div>
+
+        <div class="action-toolbar">
+          <button class="btn small success" id="autoRotateBtn">✨ Faire Rotation vorschlagen</button>
+          <button class="btn small" id="loadDemoBtn">Beispiel-Team laden</button>
+        </div>
+
+        <div class="info-footer">
+          <strong>Hinweise:</strong><br>
+          • <strong>Aktiv / Inaktiv:</strong> Der komplette Kader bleibt eingetragen. Inaktive Spieler werden in der Wechsel-Matrix ausgeblendet und nicht für das Spiel geplant.<br>
+          • <strong>Wechsel/Z:</strong> Zeigt an, wie viele Spieler zum vorherigen Zehntel gewechselt haben.<br>
+          • Alle Eingaben werden automatisch lokal in diesem Browser gespeichert.
+        </div>
+      </section>
+
+      <section class="card mobile-visible" data-tab-panel="matrix">
+        <h2>
+          <span>Wechsel-Matrix <span class="hint" style="font-weight:normal; font-size:0.85rem; color:var(--muted);">👉 Klicke auf ein Feld zum Wechseln</span></span>
+          <span class="live-count-pill" id="liveSelectionInfo">Letzter Klick: –</span>
+        </h2>
+
+        <!-- Mobile Schnellfilter für einzelne Zehntel -->
+        <div class="mobile-period-bar" id="mobilePeriodBar" aria-label="Zehntel-Fokus wählen"></div>
+
+        <div class="print-meta-header" id="printMetaHeader"></div>
+
+        <div class="table-wrap">
+          <table id="matrixTable">
+            <thead>
+              <tr>
+                <th class="sticky-col" style="text-align:left;">Trikot / Spieler</th>
+                <th data-period-col="0">Z1</th>
+                <th data-period-col="1">Z2</th>
+                <th data-period-col="2">Z3</th>
+                <th data-period-col="3">Z4</th>
+                <th data-period-col="4">Z5</th>
+                <th data-period-col="5">Z6</th>
+                <th data-period-col="6">Z7</th>
+                <th data-period-col="7">Z8</th>
+                <th data-period-col="8">Z9</th>
+                <th data-period-col="9">Z10</th>
+                <th>Gesamt</th>
+              </tr>
+            </thead>
+            <tbody id="matrixBody"></tbody>
+            <tfoot>
+              <tr class="court-count-row" id="courtCountRow"></tr>
+              <tr class="sub-count-row" id="subCountRow"></tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div class="print-notes-box" id="printNotesBox"></div>
+
+        <div class="ok-box" id="okBox">
+          ✅ Alle aktiven Regelvorgaben und Belastungsgrenzen sind aktuell erfüllt!
+        </div>
+
+        <div class="alert-box" id="alertBox">
+          <strong>Regelkonformität & Hinweise:</strong>
+          <ul id="alertList"></ul>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="toast-banner" id="toastBanner"></div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const STORAGE_KEY = "mini_basketball_planer_v2_state";
+
+      const CONFIG = {
+        MAX_PLAYERS: 12,
+        MIN_PLAYERS: 5,
+        TOTAL_PERIODS: 10,
+        MAX_CONSEC_BENCH_WARN: 4,
+        MAX_CONSEC_COURT_WARN: 5,
+        MAX_HISTORY: 30
+      };
+
+      let state = {
+        meta: {
+          teamName: "",
+          opponent: "",
+          gameDate: new Date().toISOString().slice(0, 10),
+          notes: "",
+          rulePreset: "dbb",
+          minPlay: 2,
+          maxPlay: 8,
+          courtSize: 4
+        },
+        players: [],
+        matrix: [],
+        currentPlayerCount: 12,
+        lastClickedText: "–",
+        focusedPeriod: "all" // "all" oder 0..9 für Smartphone-Einzelansicht
+      };
+
+      let historyStack = [];
+      let toastTimeout = null;
+
+      const DOM = {
+        playerInputs: document.getElementById("playerInputs"),
+        matrixTable: document.getElementById("matrixTable"),
+        matrixBody: document.getElementById("matrixBody"),
+        courtCountRow: document.getElementById("courtCountRow"),
+        subCountRow: document.getElementById("subCountRow"),
+        alertBox: document.getElementById("alertBox"),
+        alertList: document.getElementById("alertList"),
+        okBox: document.getElementById("okBox"),
+        clearBtn: document.getElementById("clearBtn"),
+        loadDemoBtn: document.getElementById("loadDemoBtn"),
+        autoRotateBtn: document.getElementById("autoRotateBtn"),
+        addPlayerBtn: document.getElementById("addPlayerBtn"),
+        removePlayerBtn: document.getElementById("removePlayerBtn"),
+        undoBtn: document.getElementById("undoBtn"),
+        shareBtn: document.getElementById("shareBtn"),
+        printBtn: document.getElementById("printBtn"),
+        themeToggle: document.getElementById("themeToggle"),
+        teamNameInput: document.getElementById("teamNameInput"),
+        opponentInput: document.getElementById("opponentInput"),
+        gameDateInput: document.getElementById("gameDateInput"),
+        coachNotesInput: document.getElementById("coachNotesInput"),
+        rulePresetSelect: document.getElementById("rulePresetSelect"),
+        minPlayInput: document.getElementById("minPlayInput"),
+        maxPlayInput: document.getElementById("maxPlayInput"),
+        courtSizeInput: document.getElementById("courtSizeInput"),
+        activeRosterBadge: document.getElementById("activeRosterBadge"),
+        liveSelectionInfo: document.getElementById("liveSelectionInfo"),
+        toastBanner: document.getElementById("toastBanner"),
+        printMetaHeader: document.getElementById("printMetaHeader"),
+        printNotesBox: document.getElementById("printNotesBox"),
+        mobilePeriodBar: document.getElementById("mobilePeriodBar"),
+        tabWarnBadge: document.getElementById("tabWarnBadge")
+      };
+
+      // ==================== TOAST & PERSISTENZ ====================
+      function showToast(msg) {
+        DOM.toastBanner.textContent = msg;
+        DOM.toastBanner.style.display = "block";
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          DOM.toastBanner.style.display = "none";
+        }, 2800);
+      }
+
+      function saveToStorage() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            meta: state.meta,
+            players: state.players,
+            matrix: state.matrix,
+            currentPlayerCount: state.currentPlayerCount
+          }));
+        } catch (err) {
+          // Ignoriert Speicherfehler
+        }
+      }
+
+      function loadFromStorage() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return false;
+          const parsed = JSON.parse(raw);
+          if (!Array.isArray(parsed.players) || !Array.isArray(parsed.matrix)) return false;
+
+          const count = Math.min(CONFIG.MAX_PLAYERS, Math.max(CONFIG.MIN_PLAYERS, parsed.players.length));
+          state.currentPlayerCount = count;
+          state.players = parsed.players.slice(0, count).map((p, i) => ({
+            id: i,
+            name: typeof p.name === "string" ? p.name : "",
+            number: p.number !== undefined ? String(p.number) : String(i + 4),
+            absent: Boolean(p.absent)
+          }));
+
+          state.matrix = Array.from({ length: count }, (_, pIdx) => {
+            const row = Array.isArray(parsed.matrix[pIdx]) ? parsed.matrix[pIdx] : [];
+            return Array.from({ length: CONFIG.TOTAL_PERIODS }, (_, perIdx) => {
+              return state.players[pIdx].absent ? false : Boolean(row[perIdx]);
+            });
+          });
+
+          if (parsed.meta) {
+            state.meta = {
+              teamName: parsed.meta.teamName || "",
+              opponent: parsed.meta.opponent || "",
+              gameDate: parsed.meta.gameDate || new Date().toISOString().slice(0, 10),
+              notes: parsed.meta.notes || "",
+              rulePreset: parsed.meta.rulePreset || "dbb",
+              minPlay: clampInt(parsed.meta.minPlay, 0, 10, 2),
+              maxPlay: clampInt(parsed.meta.maxPlay, 1, 10, 8),
+              courtSize: clampInt(parsed.meta.courtSize, 1, 6, 4)
+            };
+          }
+          return true;
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function clampInt(val, min, max, fallback) {
+        const n = parseInt(val, 10);
+        if (isNaN(n)) return fallback;
+        return Math.min(max, Math.max(min, n));
+      }
+
+      // ==================== MOBILE TABS & ZEHNTEL-FOKUS ====================
+      function switchMobileTab(targetTab) {
+        document.querySelectorAll(".mobile-tab-btn").forEach(btn => {
+          btn.classList.toggle("active", btn.dataset.targetTab === targetTab);
+        });
+        document.querySelectorAll("[data-tab-panel]").forEach(panel => {
+          panel.classList.toggle("mobile-visible", panel.dataset.tabPanel === targetTab);
+        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function renderMobilePeriodBar(periodCounts) {
+        if (!DOM.mobilePeriodBar) return;
+        let html = `<button type="button" class="period-pill ${state.focusedPeriod === "all" ? "active" : ""}" data-focus-period="all">Alle Z1–Z10</button>`;
+        for (let i = 0; i < CONFIG.TOTAL_PERIODS; i++) {
+          const isActive = state.focusedPeriod === i;
+          const isError = periodCounts[i] !== state.meta.courtSize;
+          html += `<button type="button" class="period-pill ${isActive ? "active" : ""} ${isError ? "pill-error" : ""}" data-focus-period="${i}">Z${i + 1} (${periodCounts[i]})</button>`;
+        }
+        DOM.mobilePeriodBar.innerHTML = html;
+      }
+
+      function applyPeriodVisibility() {
+        const isSingle = state.focusedPeriod !== "all";
+        DOM.matrixTable.classList.toggle("single-period-mode", isSingle);
+
+        document.querySelectorAll("[data-period-col]").forEach(cell => {
+          const colIdx = parseInt(cell.dataset.periodCol, 10);
+          if (!isSingle || colIdx === state.focusedPeriod) {
+            cell.style.display = "";
+          } else {
+            cell.style.display = "none";
+          }
+        });
+      }
+
+      // ==================== UNDO / HISTORY ====================
+      function pushHistory() {
+        const snapshot = {
+          meta: { ...state.meta },
+          players: state.players.map(p => ({ ...p })),
+          matrix: state.matrix.map(r => [...r]),
+          currentPlayerCount: state.currentPlayerCount
+        };
+        historyStack.push(snapshot);
+        if (historyStack.length > CONFIG.MAX_HISTORY) {
+          historyStack.shift();
+        }
+        updateUndoButton();
+      }
+
+      function undoLastAction() {
+        if (historyStack.length === 0) return;
+        const prev = historyStack.pop();
+        state.meta = { ...prev.meta };
+        state.players = prev.players.map(p => ({ ...p }));
+        state.matrix = prev.matrix.map(r => [...r]);
+        state.currentPlayerCount = prev.currentPlayerCount;
+
+        syncMetaInputs();
+        initPlayerInputs();
+        renderAll();
+        updateUndoButton();
+        showToast("Letzte Änderung rückgängig gemacht.");
+      }
+
+      function updateUndoButton() {
+        DOM.undoBtn.disabled = historyStack.length === 0;
+      }
+
+      // ==================== DARK MODE ====================
+      function initTheme() {
+        const savedTheme = localStorage.getItem("theme") || "light";
+        document.documentElement.setAttribute("data-theme", savedTheme);
+        updateThemeButton(savedTheme);
+      }
+
+      function toggleTheme() {
+        const current = document.documentElement.getAttribute("data-theme");
+        const next = current === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+        updateThemeButton(next);
+      }
+
+      function updateThemeButton(theme) {
+        DOM.themeToggle.innerHTML = theme === "dark"
+          ? `☀️<span class="btn-label-full"> Hell</span>`
+          : `🌙<span class="btn-label-full"> Dunkel</span>`;
+      }
+
+      // ==================== ROTATIONS-LOGIK & AUTO-VORSCHLAG ====================
+      function createEmptyMatrix(count) {
+        return Array.from({ length: count }, () => Array(CONFIG.TOTAL_PERIODS).fill(false));
+      }
+
+      function generateBalancedRotation() {
+        const n = state.currentPlayerCount;
+        const courtTarget = Math.min(state.meta.courtSize, n);
+        const minTarget = Math.min(state.meta.minPlay, CONFIG.TOTAL_PERIODS);
+        const maxTarget = Math.max(minTarget, Math.min(state.meta.maxPlay, CONFIG.TOTAL_PERIODS));
+
+        const activeIndices = state.players
+          .map((p, idx) => (!p.absent ? idx : -1))
+          .filter(idx => idx !== -1);
+
+        const nextMatrix = createEmptyMatrix(n);
+        if (activeIndices.length === 0 || courtTarget <= 0) {
+          return nextMatrix;
+        }
+
+        const totalSlotsNeeded = CONFIG.TOTAL_PERIODS * Math.min(courtTarget, activeIndices.length);
+        const playCount = {};
+        const consecPlay = {};
+        const consecBench = {};
+
+        activeIndices.forEach(idx => {
+          playCount[idx] = 0;
+          consecPlay[idx] = 0;
+          consecBench[idx] = 0;
+        });
+
+        const slotsPerPlayer = Math.floor(totalSlotsNeeded / activeIndices.length);
+        let remainder = totalSlotsNeeded % activeIndices.length;
+        const personalCaps = {};
+        activeIndices.forEach((idx, i) => {
+          const desired = slotsPerPlayer + (i < remainder ? 1 : 0);
+          personalCaps[idx] = Math.min(maxTarget, Math.max(minTarget, desired));
+        });
+
+        for (let per = 0; per < CONFIG.TOTAL_PERIODS; per++) {
+          const neededThisPeriod = Math.min(courtTarget, activeIndices.length);
+
+          const ranked = [...activeIndices].sort((a, b) => {
+            const aBelowMin = playCount[a] < minTarget ? 1 : 0;
+            const bBelowMin = playCount[b] < minTarget ? 1 : 0;
+            if (aBelowMin !== bBelowMin) return bBelowMin - aBelowMin;
+
+            const aOverMax = playCount[a] >= maxTarget ? 1 : 0;
+            const bOverMax = playCount[b] >= maxTarget ? 1 : 0;
+            if (aOverMax !== bOverMax) return aOverMax - bOverMax;
+
+            if (consecBench[a] !== consecBench[b]) return consecBench[b] - consecBench[a];
+            if (consecPlay[a] !== consecPlay[b]) return consecPlay[a] - consecPlay[b];
+            if (playCount[a] !== playCount[b]) return playCount[a] - playCount[b];
+
+            const aUnderCap = playCount[a] < personalCaps[a] ? 1 : 0;
+            const bUnderCap = playCount[b] < personalCaps[b] ? 1 : 0;
+            if (aUnderCap !== bUnderCap) return bUnderCap - aUnderCap;
+
+            return a - b;
+          });
+
+          const chosenSet = new Set(ranked.slice(0, neededThisPeriod));
+
+          activeIndices.forEach(idx => {
+            if (chosenSet.has(idx)) {
+              nextMatrix[idx][per] = true;
+              playCount[idx]++;
+              consecPlay[idx]++;
+              consecBench[idx] = 0;
+            } else {
+              nextMatrix[idx][per] = false;
+              consecBench[idx]++;
+              consecPlay[idx] = 0;
+            }
+          });
+        }
+
+        return nextMatrix;
+      }
+
+      function getDisplayName(player, index) {
+        return player.name.trim() || `Spieler ${index + 1}`;
+      }
+
+      // ==================== RENDERING ====================
+      function syncMetaInputs() {
+        DOM.teamNameInput.value = state.meta.teamName;
+        DOM.opponentInput.value = state.meta.opponent;
+        DOM.gameDateInput.value = state.meta.gameDate;
+        DOM.coachNotesInput.value = state.meta.notes;
+        DOM.rulePresetSelect.value = state.meta.rulePreset;
+        DOM.minPlayInput.value = state.meta.minPlay;
+        DOM.maxPlayInput.value = state.meta.maxPlay;
+        DOM.courtSizeInput.value = state.meta.courtSize;
+
+        const isCustom = state.meta.rulePreset === "custom";
+        DOM.minPlayInput.disabled = !isCustom;
+        DOM.maxPlayInput.disabled = !isCustom;
+      }
+
+      function initPlayerInputs() {
+        DOM.playerInputs.innerHTML = "";
+        state.players.forEach((player, idx) => {
+          const row = document.createElement("div");
+          row.className = `player-row ${player.absent ? "absent" : ""}`;
+          row.innerHTML = `
+            <span class="row-label">${idx + 1}.</span>
+            <button type="button" class="absent-toggle ${player.absent ? "is-absent" : ""}" data-absent-id="${idx}" title="Einsatzstatus umschalten">
+              ${player.absent ? "Inaktiv" : "Aktiv"}
+            </button>
+            <input type="number" inputmode="numeric" class="p-num" data-id="${idx}" value="${escapeAttr(player.number)}" placeholder="Nr.">
+            <input type="text" class="p-name" data-id="${idx}" value="${escapeAttr(player.name)}" placeholder="Spieler ${idx + 1}">
+          `;
+          DOM.playerInputs.appendChild(row);
+        });
+
+        DOM.removePlayerBtn.disabled = state.currentPlayerCount <= CONFIG.MIN_PLAYERS;
+        DOM.addPlayerBtn.disabled = state.currentPlayerCount >= CONFIG.MAX_PLAYERS;
+      }
+
+      function escapeAttr(str) {
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+
+      function renderMatrix() {
+        DOM.matrixBody.innerHTML = "";
+        const periodCounts = Array(CONFIG.TOTAL_PERIODS).fill(0);
+        let activeRosterCount = 0;
+
+        state.players.forEach((player, pIdx) => {
+          if (player.absent) return;
+          activeRosterCount++;
+          const tr = document.createElement("tr");
+
+          const nameTd = document.createElement("td");
+          nameTd.className = "player-cell-name sticky-col";
+          const numStr = player.number ? `#${player.number} ` : "";
+          const baseLabel = player.name.trim() ? numStr + player.name.trim() : numStr + `Spieler ${pIdx + 1}`;
+
+          if (!player.name.trim()) {
+            nameTd.classList.add("placeholder-name");
+          }
+          const currentTotal = state.matrix[pIdx].filter(Boolean).length;
+          nameTd.innerHTML = `${escapeAttr(baseLabel)} <span class="live-count-pill">${currentTotal}/10</span>`;
+          tr.appendChild(nameTd);
+
+          let totalPlayed = 0;
+          for (let perIdx = 0; perIdx < CONFIG.TOTAL_PERIODS; perIdx++) {
+            const td = document.createElement("td");
+            td.dataset.player = pIdx;
+            td.dataset.period = perIdx;
+            td.dataset.periodCol = perIdx;
+
+            const isPlaying = state.matrix[pIdx][perIdx];
+            if (isPlaying) {
+              totalPlayed++;
+              periodCounts[perIdx]++;
+            }
+            td.className = `slot-cell ${isPlaying ? "active" : "bench"}`;
+            tr.appendChild(td);
+          }
+
+          const totalTd = document.createElement("td");
+          let badgeClass = "badge-ok";
+          if (totalPlayed < state.meta.minPlay || totalPlayed > state.meta.maxPlay) {
+            badgeClass = "badge-danger";
+          } else if (totalPlayed === state.meta.minPlay) {
+            badgeClass = "badge-min";
+          }
+          totalTd.innerHTML = `<span class="count-badge ${badgeClass}">${totalPlayed} / 10</span>`;
+          tr.appendChild(totalTd);
+
+          DOM.matrixBody.appendChild(tr);
+        });
+
+        DOM.activeRosterBadge.textContent = `${activeRosterCount} / ${state.currentPlayerCount} aktiv`;
+
+        // Feldstärke-Fußzeile
+        let footHtml = `<td class="sticky-col" style="text-align:left; padding-left:8px;">Auf dem Feld</td>`;
+        for (let i = 0; i < CONFIG.TOTAL_PERIODS; i++) {
+          const count = periodCounts[i];
+          const style = count !== state.meta.courtSize
+            ? 'style="color: var(--danger); background: #ffe0e0;"'
+            : 'style="color: var(--ok); background: #e8f5e9;"';
+          footHtml += `<td data-period-col="${i}" ${style}>${count}</td>`;
+        }
+        footHtml += `<td>${state.meta.courtSize} Soll</td>`;
+        DOM.courtCountRow.innerHTML = footHtml;
+
+        // Wechselanzahl pro Zehntel
+        let subHtml = `<td class="sticky-col" style="text-align:left; padding-left:8px;">Wechsel/Z</td>`;
+        for (let perIdx = 0; perIdx < CONFIG.TOTAL_PERIODS; perIdx++) {
+          if (perIdx === 0) {
+            subHtml += `<td data-period-col="${perIdx}">Start</td>`;
+          } else {
+            let changes = 0;
+            for (let pIdx = 0; pIdx < state.currentPlayerCount; pIdx++) {
+              if (!state.players[pIdx].absent && state.matrix[pIdx][perIdx] !== state.matrix[pIdx][perIdx - 1]) {
+                changes++;
+              }
+            }
+            const warnStyle = changes >= state.meta.courtSize * 2 ? 'style="color: var(--warning); font-weight:700;"' : "";
+            subHtml += `<td data-period-col="${perIdx}" ${warnStyle}>${changes}</td>`;
+          }
+        }
+        subHtml += `<td>–</td>`;
+        DOM.subCountRow.innerHTML = subHtml;
+
+        renderMobilePeriodBar(periodCounts);
+        applyPeriodVisibility();
+        updatePrintHeaderAndNotes();
+        runRuleCheck(periodCounts);
+      }
+
+      function updatePrintHeaderAndNotes() {
+        const team = state.meta.teamName.trim() || "Mini-Team";
+        const opp = state.meta.opponent.trim() || "Gegner offen";
+        const dateStr = state.meta.gameDate || "–";
+        const createdAt = new Date().toLocaleString("de-DE", {
+          dateStyle: "short",
+          timeStyle: "short"
+        });
+
+        DOM.printMetaHeader.innerHTML = `
+          <div><strong>Team:</strong> ${escapeAttr(team)} &nbsp;|&nbsp; <strong>Gegner:</strong> ${escapeAttr(opp)}</div>
+          <div><strong>Datum:</strong> ${escapeAttr(dateStr)} &nbsp;|&nbsp; <strong>Regeln:</strong> ${state.meta.courtSize}v${state.meta.courtSize}, ${state.meta.minPlay}–${state.meta.maxPlay} Zehntel</div>
+          <div><strong>Erstellt:</strong> ${escapeAttr(createdAt)}</div>
+        `;
+
+        const noteText = state.meta.notes.trim() || "–";
+        DOM.printNotesBox.innerHTML = `<strong>Trainer-Notizen:</strong> ${escapeAttr(noteText)}`;
+      }
+
+      function renderAll() {
+        renderMatrix();
+        DOM.liveSelectionInfo.textContent = state.lastClickedText;
+        saveToStorage();
+      }
+
+      // ==================== REGELPRÜFUNG ====================
+      function runRuleCheck(periodCounts) {
+        const warnings = [];
+        const minAllowed = state.meta.minPlay;
+        const maxAllowed = state.meta.maxPlay;
+        const idealCourt = state.meta.courtSize;
+
+        state.players.forEach((player, pIdx) => {
+          if (player.absent) return;
+          const name = getDisplayName(player, pIdx);
+          let total = 0;
+          let consecBench = 0, maxBench = 0;
+          let consecCourt = 0, maxCourt = 0;
+
+          for (let i = 0; i < CONFIG.TOTAL_PERIODS; i++) {
+            if (state.matrix[pIdx][i]) {
+              total++;
+              consecCourt++;
+              maxBench = Math.max(maxBench, consecBench);
+              consecBench = 0;
+            } else {
+              consecBench++;
+              maxCourt = Math.max(maxCourt, consecCourt);
+              consecCourt = 0;
+            }
+          }
+          maxBench = Math.max(maxBench, consecBench);
+          maxCourt = Math.max(maxCourt, consecCourt);
+
+          if (total < minAllowed) {
+            warnings.push(`❌ <strong>${escapeAttr(name)}</strong> hat nur ${total} Einsätze (Min: ${minAllowed}).`);
+          } else if (total === minAllowed && minAllowed > 0) {
+            warnings.push(`ℹ️ <strong>${escapeAttr(name)}</strong> steht genau auf dem Minimum (${total}).`);
+          }
+
+          if (total > maxAllowed) {
+            warnings.push(`❌ <strong>${escapeAttr(name)}</strong> hat ${total} Einsätze (Max: ${maxAllowed}).`);
+          }
+          if (maxBench >= CONFIG.MAX_CONSEC_BENCH_WARN) {
+            warnings.push(`⚠️ <strong>${escapeAttr(name)}</strong> sitzt ${maxBench} Zehntel am Stück auf der Bank.`);
+          }
+          if (maxCourt >= CONFIG.MAX_CONSEC_COURT_WARN) {
+            warnings.push(`🏃‍♂️ <strong>${escapeAttr(name)}</strong> spielt ${maxCourt} Zehntel ununterbrochen.`);
+          }
+        });
+
+        periodCounts.forEach((count, idx) => {
+          if (count !== idealCourt) {
+            warnings.push(`🛑 In <strong>Zehntel Z${idx + 1}</strong> sind ${count} Spieler auf dem Feld (Soll: ${idealCourt}).`);
+          }
+        });
+
+        // Mobile Tab Badge aktualisieren
+        if (DOM.tabWarnBadge) {
+          DOM.tabWarnBadge.textContent = warnings.length;
+          DOM.tabWarnBadge.classList.toggle("visible", warnings.length > 0);
+        }
+
+        if (warnings.length > 0) {
+          DOM.alertList.innerHTML = warnings.map(w => `<li>${w}</li>`).join("");
+          DOM.alertBox.style.display = "block";
+          DOM.okBox.style.display = "none";
+        } else {
+          DOM.alertBox.style.display = "none";
+          DOM.okBox.style.display = "block";
+        }
+      }
+
+      // ==================== EVENT HANDLER ====================
+      function handleMetaChange() {
+        pushHistory();
+        state.meta.teamName = DOM.teamNameInput.value;
+        state.meta.opponent = DOM.opponentInput.value;
+        state.meta.gameDate = DOM.gameDateInput.value;
+        state.meta.notes = DOM.coachNotesInput.value;
+
+        const preset = DOM.rulePresetSelect.value;
+        state.meta.rulePreset = preset;
+
+        if (preset === "dbb") {
+          state.meta.minPlay = 2;
+          state.meta.maxPlay = 8;
+        } else if (preset === "fair") {
+          state.meta.minPlay = 3;
+          state.meta.maxPlay = 7;
+        } else {
+          state.meta.minPlay = clampInt(DOM.minPlayInput.value, 0, 10, 2);
+          state.meta.maxPlay = clampInt(DOM.maxPlayInput.value, state.meta.minPlay, 10, 8);
+        }
+
+        state.meta.courtSize = clampInt(DOM.courtSizeInput.value, 1, 6, 4);
+        syncMetaInputs();
+        renderAll();
+      }
+
+      function handleInputChange(e) {
+        const idx = parseInt(e.target.dataset.id, 10);
+        if (isNaN(idx) || !state.players[idx]) return;
+
+        if (e.target.classList.contains("p-name")) {
+          state.players[idx].name = e.target.value;
+        } else if (e.target.classList.contains("p-num")) {
+          state.players[idx].number = e.target.value;
+        }
+        renderAll();
+      }
+
+      function handlePlayerListClick(e) {
+        const btn = e.target.closest("[data-absent-id]");
+        if (!btn) return;
+        const idx = parseInt(btn.dataset.absentId, 10);
+        if (isNaN(idx) || !state.players[idx]) return;
+
+        pushHistory();
+        state.players[idx].absent = !state.players[idx].absent;
+        if (state.players[idx].absent) {
+          state.matrix[idx] = Array(CONFIG.TOTAL_PERIODS).fill(false);
+        }
+
+        initPlayerInputs();
+        renderAll();
+        const label = getDisplayName(state.players[idx], idx);
+        showToast(state.players[idx].absent ? `${label} als abwesend markiert.` : `${label} wieder aktiv.`);
+      }
+
+      function handleMatrixClick(e) {
+        const cell = e.target.closest(".slot-cell");
+        if (!cell) return;
+
+        const pIdx = parseInt(cell.dataset.player, 10);
+        const perIdx = parseInt(cell.dataset.period, 10);
+        if (isNaN(pIdx) || isNaN(perIdx)) return;
+
+        if (state.players[pIdx].absent) {
+          showToast("Inaktive Spieler können nicht eingesetzt werden.");
+          return;
+        }
+
+        pushHistory();
+        state.matrix[pIdx][perIdx] = !state.matrix[pIdx][perIdx];
+
+        const playerName = getDisplayName(state.players[pIdx], pIdx);
+        const periodTotal = state.matrix[pIdx].filter(Boolean).length;
+        const statusText = state.matrix[pIdx][perIdx] ? "Feld" : "Bank";
+        state.lastClickedText = `${playerName} Z${perIdx + 1}: ${statusText} (${periodTotal}/10)`;
+
+        renderAll();
+      }
+
+      function addPlayer() {
+        if (state.currentPlayerCount >= CONFIG.MAX_PLAYERS) return;
+        pushHistory();
+        state.currentPlayerCount++;
+        state.players.push({
+          id: state.currentPlayerCount - 1,
+          name: "",
+          number: String(state.currentPlayerCount + 3),
+          absent: false
+        });
+        state.matrix.push(Array(CONFIG.TOTAL_PERIODS).fill(false));
+
+        initPlayerInputs();
+        renderAll();
+      }
+
+      function removePlayer() {
+        if (state.currentPlayerCount <= CONFIG.MIN_PLAYERS) return;
+        pushHistory();
+        state.currentPlayerCount--;
+        state.players.pop();
+        state.matrix.pop();
+
+        initPlayerInputs();
+        renderAll();
+      }
+
+      function applyAutoRotation() {
+        pushHistory();
+        state.matrix = generateBalancedRotation();
+        state.lastClickedText = "Auto-Rotation erstellt";
+        renderAll();
+        showToast("Faire Rotation berechnet!");
+        if (window.innerWidth <= 768) {
+          switchMobileTab("matrix");
+        }
+      }
+
+      function loadDemoTeam() {
+        const demoNames = ["Noah", "Mia", "Ben", "Emma", "Elias", "Leon", "Lina", "Luis", "Sofia", "Paul", "Lucas", "Clara"];
+        pushHistory();
+
+        const count = state.currentPlayerCount;
+        state.players = Array.from({ length: count }, (_, i) => ({
+          id: i,
+          name: demoNames[i] || `Spieler ${i + 1}`,
+          number: String(i + 4),
+          absent: false
+        }));
+        state.matrix = generateBalancedRotation();
+        state.lastClickedText = `Beispiel-Team (${count}) geladen`;
+
+        initPlayerInputs();
+        renderAll();
+        showToast(`Beispiel-Team (${count} Spieler) geladen.`);
+        if (window.innerWidth <= 768) {
+          switchMobileTab("matrix");
+        }
+      }
+
+      function clearPlan() {
+        if (confirm("Gesamte Aufstellung, Namen und Spielinfos löschen?")) {
+          pushHistory();
+          state.meta.teamName = "";
+          state.meta.opponent = "";
+          state.meta.notes = "";
+          state.players = Array.from({ length: state.currentPlayerCount }, (_, i) => ({
+            id: i,
+            name: "",
+            number: String(i + 4),
+            absent: false
+          }));
+          state.matrix = createEmptyMatrix(state.currentPlayerCount);
+          state.lastClickedText = "Plan zurückgesetzt";
+
+          syncMetaInputs();
+          initPlayerInputs();
+          renderAll();
+          showToast("Plan zurückgesetzt.");
+        }
+      }
+
+      function copySummaryForChat() {
+        const team = state.meta.teamName.trim() || "Mini-Team";
+        const opp = state.meta.opponent.trim() ? ` vs. ${state.meta.opponent.trim()}` : "";
+        const dateStr = state.meta.gameDate ? ` (${state.meta.gameDate})` : "";
+
+        const lines = [`🏀 Rotationsplan: ${team}${opp}${dateStr}`];
+        state.players.forEach((p, idx) => {
+          const name = getDisplayName(p, idx);
+          const nr = p.number ? `#${p.number} ` : "";
+          if (p.absent) {
+            lines.push(`${nr}${name}: Inaktiv`);
+            return;
+          }
+          const activePeriods = [];
+          for (let per = 0; per < CONFIG.TOTAL_PERIODS; per++) {
+            if (state.matrix[idx][per]) activePeriods.push(`Z${per + 1}`);
+          }
+          lines.push(`${nr}${name} (${activePeriods.length}/10): ${activePeriods.join(", ") || "–"}`);
+        });
+
+        if (state.meta.notes.trim()) {
+          lines.push(`Notiz: ${state.meta.notes.trim()}`);
+        }
+
+        const text = lines.join("\n");
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            showToast("Für WhatsApp / Chat kopiert!");
+          }).catch(() => {
+            fallbackCopy(text);
+          });
+        } else {
+          fallbackCopy(text);
+        }
+      }
+
+      function fallbackCopy(text) {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand("copy");
+          showToast("Für WhatsApp / Chat kopiert!");
+        } catch (e) {
+          showToast("Kopieren nicht möglich.");
+        }
+        document.body.removeChild(ta);
+      }
+
+      function printPlan() {
+        updatePrintHeaderAndNotes();
+        window.print();
+      }
+
+      function setupEventListeners() {
+        DOM.playerInputs.addEventListener("input", handleInputChange);
+        DOM.playerInputs.addEventListener("click", handlePlayerListClick);
+        DOM.matrixBody.addEventListener("click", handleMatrixClick);
+
+        document.querySelectorAll(".mobile-tab-btn").forEach(btn => {
+          btn.addEventListener("click", () => switchMobileTab(btn.dataset.targetTab));
+        });
+
+        DOM.mobilePeriodBar.addEventListener("click", (e) => {
+          const pill = e.target.closest("[data-focus-period]");
+          if (!pill) return;
+          const val = pill.dataset.focusPeriod;
+          state.focusedPeriod = val === "all" ? "all" : parseInt(val, 10);
+          renderMatrix();
+        });
+
+        [
+          DOM.teamNameInput,
+          DOM.opponentInput,
+          DOM.gameDateInput,
+          DOM.coachNotesInput,
+          DOM.rulePresetSelect,
+          DOM.minPlayInput,
+          DOM.maxPlayInput,
+          DOM.courtSizeInput
+        ].forEach(el => {
+          el.addEventListener("change", handleMetaChange);
+        });
+
+        DOM.addPlayerBtn.addEventListener("click", addPlayer);
+        DOM.removePlayerBtn.addEventListener("click", removePlayer);
+        DOM.autoRotateBtn.addEventListener("click", applyAutoRotation);
+        DOM.loadDemoBtn.addEventListener("click", loadDemoTeam);
+        DOM.undoBtn.addEventListener("click", undoLastAction);
+        DOM.shareBtn.addEventListener("click", copySummaryForChat);
+        DOM.printBtn.addEventListener("click", printPlan);
+        DOM.clearBtn.addEventListener("click", clearPlan);
+        DOM.themeToggle.addEventListener("click", toggleTheme);
+      }
+
+      // ==================== INITIALISIERUNG ====================
+      function initializeApp() {
+        initTheme();
+
+        const restored = loadFromStorage();
+        if (!restored) {
+          state.currentPlayerCount = 12;
+          state.players = Array.from({ length: 12 }, (_, i) => ({
+            id: i,
+            name: "",
+            number: String(i + 4),
+            absent: false
+          }));
+          state.matrix = generateBalancedRotation();
+        }
+
+        syncMetaInputs();
+        initPlayerInputs();
+        updateUndoButton();
+        renderAll();
+        setupEventListeners();
+      }
+
+      window.addEventListener("load", initializeApp);
+    })();
+  </script>
+</body>
+</html>
