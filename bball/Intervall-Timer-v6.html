@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e8590c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Intervall-Timer</title>
+<style>
+:root{
+  --bg:#fff;--fg:#1a1a1a;--card:#f1eeea;--ac:#e8590c;--mut:#6b6b6b;
+  --ok:#2f9e44;--warn:#f0a400;--info:#1c6dd0;
+  box-sizing:border-box;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141414;--fg:#f2f2f2;--card:#232323;--ac:#ff8a3d;--mut:#9a9a9a}}
+:root[data-theme="dark"]{--bg:#141414;--fg:#f2f2f2;--card:#232323;--ac:#ff8a3d;--mut:#9a9a9a}
+*{box-sizing:border-box}
+body{margin:0 auto;background:var(--bg);color:var(--fg);font:16px/1.4 system-ui,-apple-system,Segoe UI,sans-serif;padding:16px;max-width:720px}
+h1{font-size:1.4rem;margin:0}
+button,input,select{font:inherit;color:var(--fg)}
+button{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:12px 16px;font-weight:600;cursor:pointer;transition:transform .05s}
+button:active{transform:scale(.98)}
+button.s{background:var(--card);color:var(--fg);border:1px solid #8883}
+button.active-preset{border:2px solid var(--ac)}
+button[aria-pressed="true"]{outline:2px solid var(--ac);outline-offset:2px}
+button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+input,select{background:var(--card);border:1px solid #8884;border-radius:8px;padding:8px;width:100%}
+input:focus,select:focus{outline:2px solid var(--ac);outline-offset:1px}
+.card{background:var(--card);border-radius:14px;padding:14px;margin-bottom:12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+label{font-size:.8rem;color:var(--mut);display:block}
+.head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+#disp{transition:background .15s;padding:22px 14px}
+#t{font-size:min(24vw,6.2rem);font-weight:800;text-align:center;font-variant-numeric:tabular-nums;line-height:1.1}
+#ph{text-align:center;font-size:1.5rem;font-weight:800;letter-spacing:.1em}
+#rd{text-align:center;color:var(--mut);margin-top:4px}
+.g{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.presets{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:6px;margin-bottom:12px}
+.presets button{padding:8px 6px;font-size:.78rem;overflow:hidden;text-overflow:ellipsis}
+.hint{font-size:.82rem;color:var(--mut);min-height:1.2em;margin-top:6px;text-align:center}
+.progress{height:6px;background:#0002;border-radius:3px;overflow:hidden;margin-top:10px}
+.progress>div{height:100%;width:0;background:var(--ac);transition:width .1s linear,background .2s}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.controls>button{flex:1 1 auto;min-width:80px}
+.controls>#go{flex:2 1 120px;font-size:1.1rem}
+.camp-tools{display:none;justify-content:space-between;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid #8883;font-size:.8rem}
+.camp-tools.show{display:flex;flex-wrap:wrap}
+.camp-tools button{padding:6px 10px;font-size:.78rem}
+details{margin-top:12px}
+details summary{cursor:pointer;color:var(--mut);font-size:.85rem;padding:4px 0}
+#history{font-size:.8rem;color:var(--mut);padding:8px 0;max-height:220px;overflow-y:auto}
+#history div{padding:3px 0;border-bottom:1px solid #8881}
+#history div:last-child{border-bottom:0}
+@media(max-width:520px){.g{grid-template-columns:repeat(2,1fr)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <h1>🏀 Intervall-Timer</h1>
+  <div class="row">
+    <button type="button" class="s" id="muteBtn" aria-pressed="false" style="padding:8px 12px;font-size:.85rem">🔊 Ton an</button>
+    <button type="button" class="s" id="toneModeBtn" aria-pressed="false" style="padding:8px 12px;font-size:.85rem">📢 Pfiff</button>
+    <button type="button" class="s" id="voiceBtn" aria-pressed="false" style="padding:8px 12px;font-size:.85rem">🤐 Stimme</button>
+  </div>
+</div>
+
+<div class="presets" id="presetBar">
+  <button type="button" class="s" data-mode="std"  data-w="45" data-r="15" data-n="8">🎯 Wurf-Drill<br><small>45s / 15s × 8</small></button>
+  <button type="button" class="s" data-mode="std"  data-w="20" data-r="10" data-n="8">🔥 Tabata<br><small>20s / 10s × 8</small></button>
+  <button type="button" class="s" data-mode="std"  data-w="30" data-r="30" data-n="6">🏃 Suicides<br><small>30s / 30s × 6</small></button>
+  <button type="button" class="s" id="campPresetBtn" data-mode="camp" data-w="16" data-r="2" data-n="4">🏕️ Camp<br><small>16m / 2m × 4</small></button>
+</div>
+
+<div class="card" id="disp">
+  <div id="ph" role="status" aria-live="assertive">BEREIT</div>
+  <div id="t" role="timer" aria-live="off">00:45</div>
+  <div id="rd">Runde 0 / 8</div>
+  <div class="progress" aria-hidden="true"><div id="progBar"></div></div>
+  <div class="hint" id="meta">Gesamtdauer: 08:00</div>
+</div>
+
+<div class="card">
+  <div class="g">
+    <div><label id="lblW" for="w">Arbeit (Sek.)</label><input id="w" type="number" inputmode="decimal" step="any" value="45" min="0.1" max="3600"></div>
+    <div><label id="lblR" for="r">Pause (Sek.)</label><input id="r" type="number" inputmode="decimal" step="any" value="15" min="0" max="3600"></div>
+    <div><label id="lblN" for="n">Runden</label><input id="n" type="number" inputmode="numeric" step="1" value="8" min="1" max="99"></div>
+    <div><label for="pre">Vorlauf</label>
+      <select id="pre">
+        <option value="0">0 Sek.</option>
+        <option value="5" selected>5 Sek.</option>
+        <option value="10">10 Sek.</option>
+        <option value="15">15 Sek.</option>
+      </select>
+    </div>
+  </div>
+  <div class="camp-tools" id="campTools">
+    <span style="color:var(--mut)">🔔 Signale: Halbzeit &amp; 3 Min. vor Ende (Gong) · Ende (Alarm)</span>
+    <div class="row">
+      <button type="button" class="s" id="testGongBtn">🔔 Gong testen</button>
+      <button type="button" class="s" id="testAlarmBtn">🚨 Alarm testen</button>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button id="go" type="button" aria-label="Start">▶ Start</button>
+  <button class="s" id="skip" type="button" aria-label="Phase überspringen">⏭ Skip</button>
+  <button class="s" id="rs" type="button">↺ Reset</button>
+  <button class="s" id="savePreset" type="button">💾 Speichern</button>
+</div>
+
+<div class="hint" id="statusHint">Tipp: Leertaste startet/pausiert · Esc setzt zurück.</div>
+
+<details>
+  <summary>📜 Verlauf (letzte 20 Workouts)</summary>
+  <div id="history">Noch keine Workouts absolviert.</div>
+</details>
+
+<script>
+(function(){
+'use strict';
+
+const $ = id => document.getElementById(id);
+const KEYS = { settings:'ivt_settings', presets:'customPresets', history:'ivt_history' };
+const MAX_PRESETS = 6, MAX_HISTORY = 20;
+const DEFAULTS = { mode:'std', work:45, rest:15, rounds:8, pre:5, muted:false, softTone:false, voice:false };
+
+/* ---------- Helpers ---------- */
+function loadJSON(key, fb){ try{ const v = JSON.parse(localStorage.getItem(key)); return v ?? fb; } catch{ return fb; } }
+function saveJSON(key, val){ try{ localStorage.setItem(key, JSON.stringify(val)); } catch(e){ console.debug('save fail', e); } }
+function clampInt(v, min, max, fb){
+  const n = Number(v);
+  if (!Number.isFinite(n)) return fb;
+  return Math.min(max, Math.max(min, Math.round(n)));
+}
+function fmt(s){
+  const x = Math.max(0, Math.round(s));
+  return String(Math.floor(x/60)).padStart(2,'0') + ':' + String(x%60).padStart(2,'0');
+}
+
+/* ---------- Persisted state ---------- */
+const settings = Object.assign({}, DEFAULTS, loadJSON(KEYS.settings, {}));
+let muted        = !!settings.muted;
+let softTone     = !!settings.softTone;
+let voiceEnabled = !!settings.voice;
+let campMode     = settings.mode === 'camp';
+
+const _rawPresets = loadJSON(KEYS.presets, []);
+let customPresets = Array.isArray(_rawPresets) ? _rawPresets.filter(p => p && typeof p === 'object') : [];
+
+const _rawHistory = loadJSON(KEYS.history, []);
+let historyList = Array.isArray(_rawHistory)
+  ? _rawHistory.filter(h => h && typeof h.date === 'number' && typeof h.duration === 'number')
+  : [];
+
+/* ---------- Runtime ---------- */
+let AC = null;
+let wakeLock = null;
+let iv = null;
+let play = null;
+
+/* ---------- Audio (sample-accurate) ---------- */
+function ensureAC(){
+  try{
+    if (!AC || AC.state === 'closed') AC = new (window.AudioContext || window.webkitAudioContext)();
+    if (AC.state === 'suspended') AC.resume();
+  } catch(e){ console.debug('AC init fail', e); }
+  return AC;
+}
+
+/* Tone with hold-then-fade envelope (used for beeps / whistle / alarm) */
+function scheduleTone(freq, dur, vol, when, type){
+  if (!AC) return [];
+  try{
+    const t = Math.max(when, AC.currentTime + 0.01);
+    const v = Math.max(0.001, vol);
+    const o = AC.createOscillator(), g = AC.createGain();
+    o.type = type || 'triangle';
+    o.frequency.value = freq;
+    o.connect(g); g.connect(AC.destination);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(v, t + 0.01);
+    g.gain.setValueAtTime(v, t + Math.max(0.05, dur - 0.02));
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.start(t); o.stop(t + dur + 0.05);
+    return [o, g];
+  } catch(e){ console.debug('tone fail', e); return []; }
+}
+
+/* Bell envelope (immediate exponential decay, for gong) */
+function scheduleBell(freq, dur, vol, when, type){
+  if (!AC) return [];
+  try{
+    const t = Math.max(when, AC.currentTime + 0.01);
+    const v = Math.max(0.001, vol);
+    const o = AC.createOscillator(), g = AC.createGain();
+    o.type = type || 'triangle';
+    o.frequency.value = freq;
+    o.connect(g); g.connect(AC.destination);
+    g.gain.setValueAtTime(0.001, t);
+    g.gain.linearRampToValueAtTime(v, t + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0008, t + dur);
+    o.start(t); o.stop(t + dur + 0.05);
+    return [o, g];
+  } catch(e){ console.debug('bell fail', e); return []; }
+}
+
+function scheduleBeep(freq, dur, vol, when){
+  return scheduleTone(freq, dur, vol, when, softTone ? 'sine' : 'triangle');
+}
+
+function scheduleWhistle(when){
+  if (softTone){
+    return [
+      ...scheduleTone(587, 0.22, 0.22, when, 'sine'),
+      ...scheduleTone(784, 0.28, 0.22, when + 0.22, 'sine'),
+    ];
+  }
+  return [
+    ...scheduleTone(2600, 0.16, 0.28, when, 'triangle'),
+    ...scheduleTone(2850, 0.28, 0.28, when + 0.19, 'triangle'),
+  ];
+}
+
+function scheduleGong(when, count){
+  count = count || 1;
+  const nodes = [];
+  const strikes = count > 1 ? [when, when + 0.65] : [when];
+  for (const t of strikes){
+    const freqs = [196, 293.66, 392, 587.33];
+    const vols  = [0.42, 0.22,    0.14, 0.08];
+    freqs.forEach((f, i) => {
+      nodes.push(...scheduleBell(f, 2.4, vols[i], t, i === 0 ? 'sine' : 'triangle'));
+    });
+  }
+  return nodes;
+}
+
+function scheduleCampAlarm(when){
+  const nodes = [];
+  const tones = [880, 659.25, 880, 659.25, 1046.5];
+  tones.forEach((f, i) => nodes.push(...scheduleBeep(f, 0.28, 0.42, when + i * 0.26)));
+  return nodes;
+}
+
+function scheduleEndSignal(when, mode){
+  if (mode === 'camp') return scheduleCampAlarm(when);
+  if (softTone){
+    return [
+      ...scheduleTone(523, 0.25, 0.22, when, 'sine'),
+      ...scheduleTone(659, 0.35, 0.22, when + 0.26, 'sine'),
+    ];
+  }
+  return [
+    ...scheduleTone(2600, 0.16, 0.28, when, 'triangle'),
+    ...scheduleTone(2850, 0.28, 0.28, when + 0.19, 'triangle'),
+    ...scheduleTone(2600, 0.16, 0.28, when + 0.55, 'triangle'),
+    ...scheduleTone(2850, 0.28, 0.28, when + 0.74, 'triangle'),
+  ];
+}
+
+function cancelNodes(nodes){
+  if (!nodes) return;
+  for (const n of nodes){ try{ if (n.stop) n.stop(0); } catch(e){} }
+}
+
+/* Pre-plan the entire remaining schedule in AudioContext time */
+function schedulePhaseAudio(seq, baseElapsed){
+  if (!AC || muted) return [];
+  const nodes = [];
+  const now = AC.currentTime;
+  let cum = 0;
+
+  for (const phase of seq){
+    const pStart = cum;
+    const pEnd = cum + phase.dur;
+    cum = pEnd;
+    if (pEnd <= baseElapsed) continue;
+
+    const isWork    = phase.phase === 'ARBEIT' || phase.phase === 'STATION';
+    const isPause   = phase.phase === 'PAUSE'  || phase.phase === 'WECHSEL';
+    const isVorlauf = phase.phase === 'VORLAUF';
+    const isCamp    = phase.mode === 'camp';
+
+    /* Start signal — only if phase hasn't started yet */
+    if (pStart > baseElapsed + 0.05){
+      const t = now + (pStart - baseElapsed);
+      if (isWork){
+        if (isCamp) nodes.push(...scheduleGong(t, 1));
+        else        nodes.push(...scheduleWhistle(t));
+      } else if (isPause){
+        if (isCamp) nodes.push(...scheduleCampAlarm(t));
+        else        nodes.push(...scheduleBeep(softTone ? 392 : 440, 0.4, 0.28, t));
+      }
+    }
+
+    /* Camp mode: half-time gong + 3-min warning */
+    if (isCamp && isWork){
+      if (phase.dur >= 120){
+        const halfT = now + (pStart + phase.dur / 2 - baseElapsed);
+        if (halfT > now + 0.05) nodes.push(...scheduleGong(halfT, 1));
+      }
+      if (phase.dur > 240){
+        const threeMinT = now + (pStart + phase.dur - 180 - baseElapsed);
+        if (threeMinT > now + 0.05) nodes.push(...scheduleGong(threeMinT, 2));
+      }
+    }
+
+    /* Countdown 3-2-1 (skip during VORLAUF) */
+    if (!isVorlauf){
+      for (let c = 3; c >= 1; c--){
+        const beepAt = pEnd - c;
+        if (beepAt > pStart + 0.1 && beepAt > baseElapsed + 0.05){
+          const t = now + (beepAt - baseElapsed);
+          nodes.push(...scheduleBeep(softTone ? 523 : 660, 0.12, 0.2, t));
+        }
+      }
+    }
+  }
+
+  /* End signal */
+  const lastMode = seq.length ? (seq[seq.length - 1].mode || 'std') : 'std';
+  if (cum > baseElapsed + 0.05){
+    nodes.push(...scheduleEndSignal(now + (cum - baseElapsed), lastMode));
+  }
+  return nodes;
+}
+
+/* ---------- Voice ---------- */
+function speak(text){
+  if (!voiceEnabled || typeof speechSynthesis === 'undefined') return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'de-DE'; u.rate = 1.15; u.volume = 0.9;
+    speechSynthesis.speak(u);
+  } catch(e){ console.debug('speak fail', e); }
+}
+
+/* ---------- Wake Lock ---------- */
+async function requestWake(on){
+  try{
+    if (on && 'wakeLock' in navigator && !wakeLock){
+      wakeLock = await navigator.wakeLock.request('screen');
+      wakeLock.addEventListener('release', () => { wakeLock = null; });
+    } else if (!on && wakeLock){
+      await wakeLock.release(); wakeLock = null;
+    }
+  } catch(e){ console.debug('wake lock', e); }
+}
+
+/* ---------- Schedule construction ---------- */
+function getVals(){
+  const mult = campMode ? 60 : 1;
+  const rawW = Math.max(0.1, +$('w').value || (campMode ? 16 : 45));
+  const rawR = Math.max(0,   +$('r').value || 0);
+  const N    = Math.max(1, Math.round(+$('n').value) || 1);
+  const P    = Math.max(0, +$('pre').value || 0);
+  return {
+    W: Math.max(1, Math.round(rawW * mult)),
+    R: Math.max(0, Math.round(rawR * mult)),
+    N, P, rawW, rawR,
+  };
+}
+
+function buildSchedule(mode, W, R, N, P){
+  const isCamp = mode === 'camp';
+  const workLabel  = isCamp ? 'STATION' : 'ARBEIT';
+  const restLabel  = isCamp ? 'WECHSEL' : 'PAUSE';
+  const seq = [];
+  if (P > 0) seq.push({ phase:'VORLAUF', dur:P, round:0, stageRounds:N, mode });
+  for (let i = 1; i <= N; i++){
+    seq.push({ phase:workLabel, dur:W, round:i, stageRounds:N, mode });
+    if (i < N && R > 0) seq.push({ phase:restLabel, dur:R, round:i, stageRounds:N, mode });
+  }
+  return seq;
+}
+
+function currentSeq(){
+  const { W, R, N, P } = getVals();
+  return buildSchedule(campMode ? 'camp' : 'std', W, R, N, P);
+}
+
+function totalDur(seq){ return seq.reduce((s, p) => s + p.dur, 0); }
+
+function seqName(seq){
+  const work  = seq.find(p => p.phase === 'ARBEIT' || p.phase === 'STATION');
+  const pause = seq.find(p => p.phase === 'PAUSE'  || p.phase === 'WECHSEL');
+  const n     = seq.filter(p => p.phase === 'ARBEIT' || p.phase === 'STATION').length;
+  if (!work) return 'Workout';
+  const isCamp = work.mode === 'camp';
+  const u = isCamp ? 'm' : 's';
+  const w = isCamp ? Math.round(work.dur / 60) : work.dur;
+  const r = isCamp ? Math.round((pause ? pause.dur : 0) / 60) : (pause ? pause.dur : 0);
+  return `${w}${u}/${r}${u}×${n}`;
+}
+
+/* ---------- Playhead math ---------- */
+function currentElapsed(){
+  if (!play) return 0;
+  return play.elapsedAtStart + (play.paused ? 0 : (Date.now() - play.wallAtStart) / 1000);
+}
+
+function findPhase(elapsed){
+  if (!play) return null;
+  let cum = 0;
+  for (let i = 0; i < play.seq.length; i++){
+    const p = play.seq[i];
+    if (elapsed < cum + p.dur){
+      return {
+        index:i, phase:p,
+        phaseElapsed: elapsed - cum,
+        phaseRemaining: cum + p.dur - elapsed,
+      };
+    }
+    cum += p.dur;
+  }
+  return null;
+}
+
+/* ---------- Render ---------- */
+function phaseColor(phase){
+  if (phase === 'ARBEIT' || phase === 'STATION') return 'rgba(47,158,68,0.4)';
+  if (phase === 'PAUSE'  || phase === 'WECHSEL') return 'rgba(240,164,0,0.4)';
+  if (phase === 'VORLAUF') return 'rgba(28,109,208,0.33)';
+  return '';
+}
+function phaseBarColor(phase){
+  if (phase === 'ARBEIT' || phase === 'STATION') return '#2f9e44';
+  if (phase === 'PAUSE'  || phase === 'WECHSEL') return '#f0a400';
+  if (phase === 'VORLAUF') return '#1c6dd0';
+  return 'var(--ac)';
+}
+function phaseMeta(phase, mode){
+  const isCamp = mode === 'camp';
+  if (phase === 'VORLAUF') return isCamp ? 'Aufstellung an den Stationen...' : 'Mach dich bereit...';
+  if (phase === 'ARBEIT' || phase === 'STATION') return isCamp ? 'Stationszeit läuft' : 'Voller Fokus!';
+  return isCamp ? 'Wechsel zur nächsten Station!' : 'Kurz durchatmen';
+}
+
+function idleDuration(){
+  return getVals().W;
+}
+function idleRounds(){
+  return getVals().N;
+}
+function idleLabel(){
+  return campMode ? 'Station' : 'Runde';
+}
+
+function updateMetaIdle(){
+  const seq = currentSeq();
+  const total = totalDur(seq);
+  const endTime = new Date(Date.now() + total * 1000);
+  const endStr  = endTime.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+  $('meta').textContent = `Gesamtdauer: ${fmt(total)} · Ende ca. ${endStr}`;
+}
+
+function render(){
+  if (!play){
+    $('ph').textContent = 'BEREIT';
+    $('t').textContent  = fmt(idleDuration());
+    $('rd').textContent = idleLabel() + ' 0 / ' + idleRounds();
+    $('disp').style.background = '';
+    $('progBar').style.width = '0%';
+    $('progBar').style.background = 'var(--ac)';
+    updateMetaIdle();
+    return;
+  }
+  if (play.finished){
+    $('ph').textContent = 'FERTIG ✓';
+    $('t').textContent  = '00:00';
+    $('rd').textContent = 'Workout abgeschlossen';
+    $('disp').style.background = '';
+    $('progBar').style.width = '100%';
+    $('progBar').style.background = 'var(--ok)';
+    $('meta').textContent = 'Gesamtdauer: ' + fmt(totalDur(play.seq));
+    return;
+  }
+
+  const elapsed = currentElapsed();
+  const current = findPhase(elapsed);
+  if (!current) return;
+  const p = current.phase;
+  const isWork = p.phase === 'ARBEIT' || p.phase === 'STATION';
+  const isCamp = p.mode === 'camp';
+
+  /* Reset per-phase state on phase change */
+  if (play.lastPhaseIdx !== current.index){
+    play.lastPhaseIdx = current.index;
+    play.halfFired = false;
+    play.threeMinFired = false;
+    play.customMeta = '';
+    play.customMetaUntil = 0;
+
+    if (!play.paused && voiceEnabled){
+      if (isWork){
+        if (p.dur >= 10) speak((isCamp ? 'Station ' : 'Runde ') + p.round);
+      } else if (p.phase === 'PAUSE' || p.phase === 'WECHSEL'){
+        if (p.dur >= 5) speak(isCamp ? 'Wechsel' : 'Pause');
+      } else if (p.phase === 'VORLAUF'){
+        speak('Bereit');
+      }
+    }
+  }
+
+  /* Camp half-time / 3-min notifications */
+  if (isCamp && isWork && !play.paused){
+    if (!play.halfFired && p.dur >= 120 && current.phaseElapsed >= p.dur / 2){
+      play.halfFired = true;
+      play.customMeta = '🔔 Halbzeit!';
+      play.customMetaUntil = Date.now() + 4000;
+    }
+    if (!play.threeMinFired && p.dur > 240 && current.phaseElapsed >= p.dur - 180){
+      play.threeMinFired = true;
+      play.customMeta = '🔔 Noch 3 Minuten bis zum Wechsel!';
+      play.customMetaUntil = Date.now() + 4000;
+    }
+  }
+
+  const roundText = p.round > 0
+    ? `${idleLabel()} ${p.round} / ${p.stageRounds}`
+    : 'Bereit...';
+
+  $('t').textContent  = fmt(Math.ceil(current.phaseRemaining));
+  $('ph').textContent = p.phase;
+  $('rd').textContent = roundText;
+  $('disp').style.background = phaseColor(p.phase);
+  $('progBar').style.width = ((current.phaseElapsed / p.dur) * 100) + '%';
+  $('progBar').style.background = phaseBarColor(p.phase);
+
+  if (play.paused){
+    $('meta').textContent = 'Pausiert · ' + fmt(Math.ceil(current.phaseRemaining)) + ' in dieser Phase';
+  } else if (play.customMetaUntil > Date.now()){
+    $('meta').textContent = play.customMeta;
+  } else {
+    $('meta').textContent = phaseMeta(p.phase, p.mode);
+  }
+}
+
+/* ---------- Playback ---------- */
+function schedulePlaybackAudio(){
+  ensureAC();
+  if (!AC || !play || play.finished) return;
+  cancelNodes(play.scheduledAudio);
+  play.scheduledAudio = muted ? [] : schedulePhaseAudio(play.seq, currentElapsed());
+}
+
+function startFresh(){
+  ensureAC();
+  const seq = currentSeq();
+  if (!seq.length) return;
+  play = {
+    seq,
+    elapsedAtStart: 0,
+    wallAtStart: Date.now(),
+    paused: false,
+    finished: false,
+    scheduledAudio: [],
+    lastPhaseIdx: -1,
+    halfFired: false,
+    threeMinFired: false,
+    customMeta: '',
+    customMetaUntil: 0,
+    name: seqName(seq),
+  };
+  requestWake(true);
+  schedulePlaybackAudio();
+  iv = setInterval(tick, 100);
+  $('go').textContent = '⏸ Pause';
+  render();
+}
+
+function pausePlayback(){
+  if (!play || play.paused || play.finished) return;
+  play.elapsedAtStart = currentElapsed();
+  play.paused = true;
+  clearInterval(iv); iv = null;
+  cancelNodes(play.scheduledAudio);
+  play.scheduledAudio = [];
+  requestWake(false);
+  $('go').textContent = '▶ Weiter';
+  speak('Pause');
+  render();
+}
+
+function resumePlayback(){
+  if (!play || !play.paused || play.finished) return;
+  play.wallAtStart = Date.now();
+  play.paused = false;
+  requestWake(true);
+  schedulePlaybackAudio();
+  iv = setInterval(tick, 100);
+  $('go').textContent = '⏸ Pause';
+  speak('Weiter');
+  render();
+}
+
+function togglePlay(){
+  if (play && play.finished) play = null;
+  if (!play) startFresh();
+  else if (play.paused) resumePlayback();
+  else pausePlayback();
+}
+
+function skipPhase(){
+  if (!play || play.finished) return;
+  const current = findPhase(currentElapsed());
+  if (!current) return;
+  play.elapsedAtStart = currentElapsed() + current.phaseRemaining;
+  play.wallAtStart = Date.now();
+  if (play.elapsedAtStart >= totalDur(play.seq)){ finishSession(); return; }
+  if (!play.paused) schedulePlaybackAudio();
+  render();
+}
+
+function tick(){
+  if (!play || play.paused || play.finished) return;
+  if (currentElapsed() >= totalDur(play.seq)){ finishSession(); return; }
+  render();
+}
+
+function finishSession(){
+  if (!play || play.finished) return;
+  clearInterval(iv); iv = null;
+  cancelNodes(play.scheduledAudio);
+  play.scheduledAudio = [];
+  const total = totalDur(play.seq);
+  addHistory(play, total);
+  play.finished = true;
+  play.paused = true;
+  play.elapsedAtStart = total;
+  requestWake(false);
+  speak('Workout beendet. Gut gemacht!');
+  render();
+}
+
+function resetAll(){
+  clearInterval(iv); iv = null;
+  if (play) cancelNodes(play.scheduledAudio);
+  play = null;
+  requestWake(false);
+  $('go').textContent = '▶ Start';
+  $('statusHint').textContent = 'Tipp: Leertaste startet/pausiert · Esc setzt zurück.';
+  render();
+  updateActivePreset();
+}
+
+/* ---------- History ---------- */
+function addHistory(p, total){
+  const entry = {
+    date: Date.now(),
+    name: p.name || 'Workout',
+    duration: total,
+    rounds: p.seq.filter(x => x.phase === 'ARBEIT' || x.phase === 'STATION').length,
+    mode: p.seq[0]?.mode || 'std',
+  };
+  historyList = [entry, ...historyList].slice(0, MAX_HISTORY);
+  saveJSON(KEYS.history, historyList);
+  renderHistory();
+}
+
+function renderHistory(){
+  const el = $('history');
+  el.replaceChildren();
+  if (!historyList.length){ el.textContent = 'Noch keine Workouts absolviert.'; return; }
+  for (const h of historyList){
+    const d = new Date(h.date);
+    const div = document.createElement('div');
+    const time = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+    const icon = h.mode === 'camp' ? '🏕️ ' : '';
+    div.textContent = `${time} · ${icon}${h.name} · ${fmt(h.duration)} · ${h.rounds} ${h.mode === 'camp' ? 'Stationen' : 'Runden'}`;
+    el.appendChild(div);
+  }
+}
+
+/* ---------- Presets ---------- */
+function applyPreset(w, r, n, mode, btn){
+  campMode = mode === 'camp';
+  updateModeUI();
+  $('w').value = w;
+  $('r').value = r;
+  $('n').value = n;
+  persistSettings();
+  resetAll();
+  if (btn) markActivePreset(btn);
+}
+
+function markActivePreset(btn){
+  document.querySelectorAll('#presetBar button').forEach(b => b.classList.remove('active-preset'));
+  if (btn) btn.classList.add('active-preset');
+}
+
+function updateActivePreset(){
+  const curMode = campMode ? 'camp' : 'std';
+  const curW = +$('w').value;
+  const curR = +$('r').value;
+  const curN = +$('n').value;
+  document.querySelectorAll('#presetBar button[data-w]').forEach(b => {
+    const bMode = b.dataset.mode || 'std';
+    const match = bMode === curMode
+      && Number(b.dataset.w) === curW
+      && Number(b.dataset.r) === curR
+      && Number(b.dataset.n) === curN;
+    b.classList.toggle('active-preset', match);
+  });
+}
+
+function removePreset(preset){
+  customPresets = customPresets.filter(x => x !== preset);
+  saveJSON(KEYS.presets, customPresets);
+  renderPresets();
+}
+
+function renderPresets(){
+  document.querySelectorAll('.custom-preset').forEach(el => el.remove());
+  const bar = $('presetBar');
+  for (const preset of customPresets){
+    if (!preset || typeof preset !== 'object') continue;
+    const isCamp = preset.mode === 'camp';
+    const w = isCamp ? Number(preset.w) : clampInt(preset.w, 1, 3600, 45);
+    const r = isCamp ? Number(preset.r) : clampInt(preset.r, 0, 3600, 15);
+    const n = clampInt(preset.n, 1, 99, 8);
+    const u = isCamp ? 'm' : 's';
+
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 's custom-preset';
+    b.title = 'Klicken zum Laden, Doppelklick/Long-Press zum Löschen';
+
+    const main = document.createElement('span');
+    main.textContent = (isCamp ? '🏕️ ' : '⭐ ') + (preset.name || 'Preset');
+    const small = document.createElement('small');
+    small.style.display = 'block';
+    small.textContent = `${w}${u} / ${r}${u} × ${n}`;
+    b.appendChild(main);
+    b.appendChild(document.createElement('br'));
+    b.appendChild(small);
+
+    b.addEventListener('click', () => applyPreset(w, r, n, isCamp ? 'camp' : 'std', b));
+    b.addEventListener('dblclick', () => removePreset(preset));
+
+    let touchTimer = null;
+    b.addEventListener('touchstart', () => {
+      touchTimer = setTimeout(() => removePreset(preset), 700);
+    }, { passive:true });
+    const clearT = () => { if (touchTimer){ clearTimeout(touchTimer); touchTimer = null; } };
+    b.addEventListener('touchend', clearT);
+    b.addEventListener('touchmove', clearT);
+    b.addEventListener('touchcancel', clearT);
+
+    bar.appendChild(b);
+  }
+  updateActivePreset();
+}
+
+function saveCurrentPreset(){
+  const { rawW, rawR, N } = getVals();
+  const defaultName = campMode ? `Camp ${rawW}m/${rawR}m×${N}` : `${rawW}s/${rawR}s×${N}`;
+  const raw = prompt('Name für dein Preset:', defaultName);
+  if (raw === null) return;
+  const name = raw.trim();
+  if (!name) return;
+
+  const preset = {
+    name: name.slice(0, 20),
+    w: rawW,
+    r: rawR,
+    n: N,
+    mode: campMode ? 'camp' : 'std',
+  };
+  customPresets = [...customPresets, preset].slice(-MAX_PRESETS);
+  saveJSON(KEYS.presets, customPresets);
+  renderPresets();
+}
+
+/* ---------- Settings ---------- */
+function persistSettings(){
+  const { rawW, rawR, N, P } = getVals();
+  settings.mode     = campMode ? 'camp' : 'std';
+  settings.work     = rawW;
+  settings.rest     = rawR;
+  settings.rounds   = N;
+  settings.pre      = P;
+  settings.muted    = muted;
+  settings.softTone = softTone;
+  settings.voice    = voiceEnabled;
+  saveJSON(KEYS.settings, settings);
+}
+
+function syncToggles(){
+  $('muteBtn').textContent = muted ? '🔇 Aus' : '🔊 Ton an';
+  $('muteBtn').setAttribute('aria-pressed', muted ? 'true' : 'false');
+  $('toneModeBtn').textContent = softTone ? '🎵 Sanft' : '📢 Pfiff';
+  $('toneModeBtn').setAttribute('aria-pressed', softTone ? 'true' : 'false');
+  $('voiceBtn').textContent = voiceEnabled ? '🗣 Stimme an' : '🤐 Stimme aus';
+  $('voiceBtn').setAttribute('aria-pressed', voiceEnabled ? 'true' : 'false');
+}
+
+function updateModeUI(){
+  $('lblW').textContent = campMode ? 'Station (Min.)' : 'Arbeit (Sek.)';
+  $('lblR').textContent = campMode ? 'Wechsel (Min.)' : 'Pause (Sek.)';
+  $('lblN').textContent = campMode ? 'Stationen' : 'Runden';
+  $('campTools').classList.toggle('show', campMode);
+  $('campPresetBtn').classList.toggle('active-preset', campMode);
+  updateActivePreset();
+}
+
+function initInputs(){
+  $('w').value = campMode
+    ? clampInt(settings.work, 0.1, 3600, 16)
+    : clampInt(settings.work, 0.1, 3600, 45);
+  $('r').value = clampInt(settings.rest, 0, 3600, 15);
+  $('n').value = clampInt(settings.rounds, 1, 99, 8);
+  const preVal = String(clampInt(settings.pre, 0, 60, 5));
+  const preOpt = $('pre').querySelector(`option[value="${preVal}"]`);
+  $('pre').value = preOpt ? preVal : '5';
+}
+
+/* ---------- Events ---------- */
+$('go').addEventListener('click', togglePlay);
+$('skip').addEventListener('click', skipPhase);
+$('rs').addEventListener('click', resetAll);
+$('savePreset').addEventListener('click', saveCurrentPreset);
+
+['w','r','n','pre'].forEach(id => {
+  $(id).addEventListener('input', () => {
+    if (!play || play.finished){
+      render();
+      updateActivePreset();
+    } else {
+      $('statusHint').textContent = 'Hinweis: Geänderte Werte werden nach Reset aktiv.';
+    }
+    persistSettings();
+  });
+});
+
+$('muteBtn').addEventListener('click', () => {
+  muted = !muted;
+  if (!muted) ensureAC();
+  syncToggles();
+  persistSettings();
+  if (play && !play.paused && !play.finished) schedulePlaybackAudio();
+});
+
+$('toneModeBtn').addEventListener('click', () => {
+  softTone = !softTone;
+  syncToggles();
+  persistSettings();
+  ensureAC();
+  if (!muted && AC){
+    scheduleTone(softTone ? 523 : 2400, 0.12, 0.2, AC.currentTime + 0.01, softTone ? 'sine' : 'triangle');
+  }
+  if (play && !play.paused && !play.finished) schedulePlaybackAudio();
+});
+
+$('voiceBtn').addEventListener('click', () => {
+  voiceEnabled = !voiceEnabled;
+  syncToggles();
+  persistSettings();
+  if (voiceEnabled) speak('Stimme aktiviert');
+});
+
+$('testGongBtn').addEventListener('click', () => {
+  if (muted) return;
+  ensureAC();
+  if (AC) scheduleGong(AC.currentTime + 0.05, 1);
+});
+
+$('testAlarmBtn').addEventListener('click', () => {
+  if (muted) return;
+  ensureAC();
+  if (AC) scheduleCampAlarm(AC.currentTime + 0.05);
+});
+
+document.querySelectorAll('#presetBar button[data-w]').forEach(b => {
+  b.addEventListener('click', () => {
+    applyPreset(
+      Number(b.dataset.w),
+      Number(b.dataset.r),
+      Number(b.dataset.n),
+      b.dataset.mode || 'std',
+      b
+    );
+  });
+});
+
+document.addEventListener('keydown', e => {
+  const tag = (document.activeElement && document.activeElement.tagName) || '';
+  if (e.code === 'Space' && !['INPUT','SELECT','TEXTAREA','BUTTON'].includes(tag)){
+    e.preventDefault(); togglePlay();
+  } else if (e.code === 'Escape' && play){
+    resetAll();
+  }
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState !== 'visible') return;
+  if (play && !play.paused && !play.finished){
+    requestWake(true);
+    ensureAC();
+    if (AC && AC.state === 'running') schedulePlaybackAudio();
+  }
+});
+
+/* ---------- PWA manifest (inline via Blob) ---------- */
+try{
+  const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><rect width="192" height="192" fill="#e8590c"/><circle cx="96" cy="104" r="58" fill="#fff"/><rect x="82" y="32" width="28" height="14" rx="4" fill="#fff"/><rect x="90" y="100" width="12" height="40" rx="6" fill="#e8590c"/></svg>';
+  const iconUrl = 'data:image/svg+xml,' + encodeURIComponent(svg);
+  const manifest = {
+    name: 'Intervall-Timer',
+    short_name: 'Timer',
+    start_url: location.href,
+    scope: location.href,
+    display: 'standalone',
+    orientation: 'portrait',
+    background_color: '#141414',
+    theme_color: '#e8590c',
+    icons: [{ src: iconUrl, sizes: '192x192', type: 'image/svg+xml', purpose: 'any' }],
+  };
+  const blob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+  const link = document.createElement('link');
+  link.rel = 'manifest';
+  link.href = URL.createObjectURL(blob);
+  document.head.appendChild(link);
+} catch(e){ console.debug('manifest fail', e); }
+
+if (typeof speechSynthesis !== 'undefined'){
+  try{
+    speechSynthesis.getVoices();
+    speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+  } catch(e){}
+}
+
+/* ---------- Boot ---------- */
+initInputs();
+updateModeUI();
+syncToggles();
+renderPresets();
+renderHistory();
+resetAll();
+
+})();
+</script>
+</body>
+</html>
